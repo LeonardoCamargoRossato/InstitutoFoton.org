@@ -1,12 +1,20 @@
 export const basePath = import.meta.env.BASE_URL;
 export const siteOrigin = import.meta.env.VITE_SITE_ORIGIN || '';
-export const expectedProject = 'qwyrnomhazssofombhem';
+const configuredBackendOrigin = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.replace(
+  /\/$/,
+  '',
+);
+export const expectedProject = configuredBackendOrigin
+  ? new URL(configuredBackendOrigin).hostname.split('.')[0]
+  : 'qwyrnomhazssofombhem';
+const expectedBackendOrigin =
+  configuredBackendOrigin || `https://${expectedProject}.supabase.co`;
 
 export function validateBackend(url: string | undefined, key: string | undefined) {
   if (!url || !key)
     return 'O acesso institucional ainda não está disponível. Tente novamente mais tarde.';
   try {
-    if (new URL(url).origin !== `https://${expectedProject}.supabase.co`) {
+    if (new URL(url).origin !== expectedBackendOrigin) {
       return 'A configuração do acesso institucional precisa ser revisada pela equipe responsável.';
     }
     if (key.startsWith('sb_secret_')) return 'Configuração de chave não permitida no navegador.';

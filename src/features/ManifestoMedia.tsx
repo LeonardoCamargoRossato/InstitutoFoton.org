@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Maximize2, Play, X } from 'lucide-react';
 
-const storage =
-  'https://qwyrnomhazssofombhem.supabase.co/storage/v1/object/public/foton-public';
+const configuredSupabase = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.replace(
+  /\/$/,
+  '',
+);
+const storage = `${
+  configuredSupabase || 'https://qwyrnomhazssofombhem.supabase.co'
+}/storage/v1/object/public/foton-public`;
 const manifesto = `${storage}/img-manifesto-quantico`;
 
 const letterMedia = {
