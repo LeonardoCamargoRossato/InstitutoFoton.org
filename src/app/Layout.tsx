@@ -56,6 +56,63 @@ export default function Layout() {
       );
     } else window.scrollTo({ top: 0 });
   }, [location.pathname, location.hash]);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const observed = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -7% 0px' },
+    );
+    const itemSelector = [
+      '.info-card',
+      '.research-card',
+      '.odq-card',
+      '.regional-letter',
+      '.journey-steps > li',
+      '.methodology > li',
+      '.support-card',
+      '.document-list article',
+      '.gallery-track > button',
+      '.value-keyword',
+    ].join(',');
+    const register = () => {
+      const main = document.getElementById('conteudo');
+      if (!main) return;
+      const sections = main.querySelectorAll<HTMLElement>(
+        ':scope > section, :scope > .values-strip, :scope > .anchor-bar, :scope > .support-cta',
+      );
+      sections.forEach((section, index) => {
+        if (observed.has(section)) return;
+        section.classList.add('reveal-section', `reveal-${['rise', 'right', 'left', 'depth'][index % 4]}`);
+        observed.add(section);
+        observer.observe(section);
+      });
+      main.querySelectorAll<HTMLElement>(itemSelector).forEach((item, index) => {
+        if (observed.has(item)) return;
+        item.classList.add('reveal-item');
+        item.style.setProperty('--reveal-delay', `${Math.min(index % 6, 5) * 65}ms`);
+        observed.add(item);
+        observer.observe(item);
+      });
+    };
+    document.documentElement.classList.add('motion-enabled');
+    const frame = requestAnimationFrame(register);
+    const mutations = new MutationObserver(register);
+    const main = document.getElementById('conteudo');
+    if (main) mutations.observe(main, { childList: true, subtree: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      mutations.disconnect();
+      observer.disconnect();
+      document.documentElement.classList.remove('motion-enabled');
+    };
+  }, [location.pathname]);
   return (
     <>
       <a className="skip-link" href="#conteudo">
@@ -108,6 +165,13 @@ export default function Layout() {
       <main id="conteudo" tabIndex={-1}>
         <Outlet />
       </main>
+      <div className="ambient-particles" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
       <footer className="site-footer">
         <div className="container">
           <div className="footer-top">

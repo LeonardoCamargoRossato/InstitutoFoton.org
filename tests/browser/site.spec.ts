@@ -60,6 +60,19 @@ test('home, pesquisa, manifesto e navegação sem erros de aplicação', async (
   expect(errors).toEqual([]);
 });
 
+test('movimento progressivo alterna seções e respeita desempenho', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.locator('.reveal-section').first()).toHaveClass(/is-revealed/);
+  await expect(page.locator('.reveal-right').first()).toBeAttached();
+  await expect(page.locator('.reveal-left').first()).toBeAttached();
+  await expect(page.locator('.reveal-depth').first()).toBeAttached();
+  await expect(page.locator('.ambient-particles > span')).toHaveCount(5);
+
+  const research = page.locator('.research-grid').locator('..');
+  await research.scrollIntoViewIfNeeded();
+  await expect(research.locator('.research-card').first()).toHaveClass(/is-revealed/);
+});
+
 for (const viewport of [
   { width: 320, height: 800 },
   { width: 360, height: 800 },
