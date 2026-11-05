@@ -78,10 +78,15 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   await expect(photon).toHaveClass(/is-revealed/);
   await expect(photon.locator('.photon-wave > span')).toHaveCount(5);
   expect(
-    await photon.locator('.photon-wave > span').first().evaluate((element) =>
+    await photon.locator('.photon-pulse-route > span').evaluate((element) =>
       getComputedStyle(element).animationName,
     ),
-  ).toBe('photon-word-wave');
+  ).toBe('photon-pulse-travel');
+  expect(
+    await photon.locator('.photon-wave > span').first().evaluate((element) =>
+      `${getComputedStyle(element).animationName}:${getComputedStyle(element).animationDelay}`,
+    ),
+  ).toBe('photon-word-wave:1.15s');
 });
 
 for (const viewport of [

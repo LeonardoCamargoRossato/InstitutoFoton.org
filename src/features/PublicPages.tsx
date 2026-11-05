@@ -262,6 +262,23 @@ export function Institute() {
       </section>
       <section className="section section-gray photon-section">
         <div className="quantum-signature" aria-hidden="true">
+          <div className="photon-pulse-route">
+            <svg viewBox="0 0 420 330" focusable="false">
+              <defs>
+                <linearGradient id="photon-light-trail" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#ffffff" />
+                  <stop offset=".35" stopColor="#00c5d8" />
+                  <stop offset=".72" stopColor="#6f36ff" />
+                  <stop offset="1" stopColor="#ef3d7d" />
+                </linearGradient>
+              </defs>
+              <path
+                pathLength="1"
+                d="M330 -20 C340 85 270 100 275 178 C280 245 205 250 130 310"
+              />
+            </svg>
+            <span />
+          </div>
           <span className="quantum-equation equation-wave">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</span>
           <span className="quantum-equation equation-photon">E = hν</span>
           <svg className="spectrum-wave" viewBox="0 0 720 120" preserveAspectRatio="none">
