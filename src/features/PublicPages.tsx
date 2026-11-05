@@ -259,25 +259,33 @@ function InstituteLightPath() {
     let wordCenterY = 0;
     const layoutPath = () => {
       const bounds = wrapper.getBoundingClientRect();
-      const title = wrapper.querySelector<HTMLElement>('.page-intro h1')?.getBoundingClientRect();
-      const history = wrapper.querySelector<HTMLElement>(':scope > section:nth-of-type(2) h2')?.getBoundingClientRect();
-      const word = wrapper.querySelector<HTMLElement>('.large-word')?.getBoundingClientRect();
+      const title = wrapper.querySelector<HTMLElement>('.page-intro h1');
+      const history = wrapper.querySelector<HTMLElement>(':scope > section:nth-of-type(2) h2');
+      const word = wrapper.querySelector<HTMLElement>('.large-word');
       if (!title || !history || !word) return;
-      const relative = (rect: DOMRect) => ({
-        x: rect.left - bounds.left + rect.width / 2,
-        y: rect.top - bounds.top + rect.height / 2,
-      });
+      const relative = (element: HTMLElement) => {
+        let x = element.offsetWidth / 2;
+        let y = element.offsetHeight / 2;
+        let current: HTMLElement | null = element;
+        while (current && current !== wrapper) {
+          x += current.offsetLeft;
+          y += current.offsetTop;
+          current = current.offsetParent as HTMLElement | null;
+        }
+        return { x, y };
+      };
       const titleAt = relative(title);
       const historyAt = relative(history);
       const wordAt = relative(word);
       wordCenterY = wordAt.y;
+      const wordEntranceX = Math.max(22, wordAt.x - word.offsetWidth / 2 - 26);
       drawing.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
       line.setAttribute(
         'd',
-        `M ${Math.max(26, title.left - bounds.left)} 10
-         C ${bounds.width * 0.18} ${titleAt.y * 0.42}, ${bounds.width * 0.68} ${titleAt.y * 0.7}, ${bounds.width * 0.88} ${titleAt.y}
-         C ${bounds.width * 0.94} ${historyAt.y * 0.72}, ${bounds.width * 0.42} ${historyAt.y * 0.88}, ${historyAt.x} ${historyAt.y}
-         C ${bounds.width * 0.14} ${(historyAt.y + wordAt.y) / 2}, ${bounds.width * 0.44} ${wordAt.y * 0.9}, ${wordAt.x} ${wordAt.y}`,
+        `M ${Math.max(26, titleAt.x - title.offsetWidth / 2)} 10
+         C ${bounds.width * 0.04} ${titleAt.y * 0.18}, ${bounds.width * 0.98} ${titleAt.y * 0.34}, ${bounds.width * 0.9} ${titleAt.y}
+         C ${bounds.width * 1.08} ${historyAt.y * 0.5}, ${bounds.width * 0.08} ${historyAt.y * 0.58}, ${historyAt.x} ${historyAt.y}
+         C ${bounds.width * 0.02} ${(historyAt.y + wordAt.y) / 2}, ${Math.max(8, wordEntranceX - bounds.width * 0.18)} ${wordAt.y * 0.93}, ${wordEntranceX} ${wordAt.y}`,
       );
     };
     const update = () => {
@@ -288,12 +296,12 @@ function InstituteLightPath() {
       const end = top + wordCenterY - innerHeight * 0.55;
       const progress = Math.max(0, Math.min(1, (scrollY - start) / Math.max(end - start, 1)));
       line.style.strokeDashoffset = String(1 - progress);
-      line.style.opacity = String(Math.min(0.72, 0.16 + progress * 0.65));
+      line.style.opacity = String(Math.min(0.28, 0.05 + progress * 0.24));
       const point = line.getPointAtLength(line.getTotalLength() * progress);
       light.setAttribute('cx', String(point.x));
       light.setAttribute('cy', String(point.y));
       light.style.opacity = progress > 0.015 && progress < 0.995 ? '1' : '0';
-      if (!arrived && progress >= 0.88) {
+      if (!arrived && progress >= 0.985) {
         arrived = true;
         wrapper.classList.add('pulse-arrived');
       }

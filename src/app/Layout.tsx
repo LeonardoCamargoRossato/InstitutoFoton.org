@@ -96,7 +96,7 @@ export default function Layout() {
       main.querySelectorAll<HTMLElement>(itemSelector).forEach((item, index) => {
         if (observed.has(item)) return;
         item.classList.add('reveal-item');
-        item.style.setProperty('--reveal-delay', `${Math.min(index % 6, 5) * 65}ms`);
+        item.style.setProperty('--reveal-delay', `${120 + Math.min(index % 6, 5) * 90}ms`);
         observed.add(item);
         observer.observe(item);
       });

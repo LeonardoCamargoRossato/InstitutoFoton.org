@@ -74,10 +74,35 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
 
   await page.goto('./instituto');
   const photon = page.locator('.photon-section');
-  await expect(page.locator('.institute-light-path path')).toBeAttached();
+  const lightPath = page.locator('.institute-light-path path');
+  const story = page.locator('.institute-story');
+  await expect(lightPath).toBeAttached();
+  await expect(story).not.toHaveClass(/pulse-arrived/);
+  await expect(photon.locator('.photon-wave > span').first()).toHaveCSS('animation-name', 'none');
+  const arrival = await lightPath.evaluate((element) => {
+    const path = element as SVGPathElement;
+    const wrapper = path.closest('.institute-story')?.getBoundingClientRect();
+    const word = document.querySelector<HTMLElement>('.photon-section .large-word');
+    const end = path.getPointAtLength(path.getTotalLength());
+    const story = path.closest<HTMLElement>('.institute-story');
+    if (!wrapper || !word || !story) throw new Error('Institute light-path geometry is unavailable');
+    let wordLeft = 0;
+    let current: HTMLElement | null = word;
+    while (current && current !== story) {
+      wordLeft += current.offsetLeft;
+      current = current.offsetParent as HTMLElement | null;
+    }
+    return {
+      endX: end.x,
+      wordLeft,
+    };
+  });
+  expect(arrival.endX).toBeLessThan(arrival.wordLeft);
+  expect(arrival.wordLeft - arrival.endX).toBeGreaterThanOrEqual(24);
+  expect(arrival.wordLeft - arrival.endX).toBeLessThanOrEqual(28);
   await photon.scrollIntoViewIfNeeded();
   await expect(photon).toHaveClass(/is-revealed/);
-  await expect(page.locator('.institute-story')).toHaveClass(/pulse-arrived/);
+  await expect(story).toHaveClass(/pulse-arrived/);
   await expect(photon.locator('.photon-wave > span')).toHaveCount(5);
   expect(
     await photon.locator('.photon-wave > span').first().evaluate((element) =>
