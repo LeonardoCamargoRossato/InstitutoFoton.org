@@ -50,6 +50,7 @@ test('home, pesquisa, manifesto e navegação sem erros de aplicação', async (
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Ciência que aproxima. Conhecimento que transforma.',
   );
+  await expect(page.locator('.value-keyword')).toHaveCount(7);
   await page.goto('./manifesto');
   await expect(page.locator('.odq-card')).toHaveCount(11);
   await page.getByText('Carta do Sudeste', { exact: true }).click();
@@ -182,6 +183,7 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
     await page.setViewportSize({ width, height: width === 390 ? 844 : 900 });
     for (const [path, name] of [
       ['./', 'home'],
+      ['./instituto', 'instituto'],
       ['./apoie', 'apoie'],
       ['./manifesto', 'manifesto'],
       ['./apresentacao', 'apresentacao'],
