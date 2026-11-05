@@ -85,7 +85,7 @@ export default function Layout() {
       const main = document.getElementById('conteudo');
       if (!main) return;
       const sections = main.querySelectorAll<HTMLElement>(
-        ':scope > section, :scope > .values-strip, :scope > .anchor-bar, :scope > .support-cta',
+        ':scope > section, :scope > .institute-story > section, :scope > .values-strip, :scope > .anchor-bar, :scope > .support-cta',
       );
       sections.forEach((section, index) => {
         if (observed.has(section)) return;

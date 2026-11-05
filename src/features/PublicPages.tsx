@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   ArrowUpRight,
@@ -235,95 +235,185 @@ export function SupportCTA() {
   );
 }
 
+function InstituteLightPath() {
+  const root = useRef<HTMLDivElement>(null);
+  const svg = useRef<SVGSVGElement>(null);
+  const path = useRef<SVGPathElement>(null);
+  const pulse = useRef<SVGCircleElement>(null);
+
+  useEffect(() => {
+    const wrapper = root.current?.parentElement;
+    const drawing = svg.current;
+    const line = path.current;
+    const light = pulse.current;
+    if (
+      !wrapper ||
+      !drawing ||
+      !line ||
+      !light ||
+      matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+      return;
+    let frame = 0;
+    let arrived = false;
+    let wordCenterY = 0;
+    const layoutPath = () => {
+      const bounds = wrapper.getBoundingClientRect();
+      const title = wrapper.querySelector<HTMLElement>('.page-intro h1')?.getBoundingClientRect();
+      const history = wrapper.querySelector<HTMLElement>(':scope > section:nth-of-type(2) h2')?.getBoundingClientRect();
+      const word = wrapper.querySelector<HTMLElement>('.large-word')?.getBoundingClientRect();
+      if (!title || !history || !word) return;
+      const relative = (rect: DOMRect) => ({
+        x: rect.left - bounds.left + rect.width / 2,
+        y: rect.top - bounds.top + rect.height / 2,
+      });
+      const titleAt = relative(title);
+      const historyAt = relative(history);
+      const wordAt = relative(word);
+      wordCenterY = wordAt.y;
+      drawing.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
+      line.setAttribute(
+        'd',
+        `M ${Math.max(26, title.left - bounds.left)} 10
+         C ${bounds.width * 0.18} ${titleAt.y * 0.42}, ${bounds.width * 0.68} ${titleAt.y * 0.7}, ${bounds.width * 0.88} ${titleAt.y}
+         C ${bounds.width * 0.94} ${historyAt.y * 0.72}, ${bounds.width * 0.42} ${historyAt.y * 0.88}, ${historyAt.x} ${historyAt.y}
+         C ${bounds.width * 0.14} ${(historyAt.y + wordAt.y) / 2}, ${bounds.width * 0.44} ${wordAt.y * 0.9}, ${wordAt.x} ${wordAt.y}`,
+      );
+    };
+    const update = () => {
+      frame = 0;
+      const rect = wrapper.getBoundingClientRect();
+      const top = scrollY + rect.top;
+      const start = top - innerHeight * 0.12;
+      const end = top + wordCenterY - innerHeight * 0.55;
+      const progress = Math.max(0, Math.min(1, (scrollY - start) / Math.max(end - start, 1)));
+      line.style.strokeDashoffset = String(1 - progress);
+      line.style.opacity = String(Math.min(0.72, 0.16 + progress * 0.65));
+      const point = line.getPointAtLength(line.getTotalLength() * progress);
+      light.setAttribute('cx', String(point.x));
+      light.setAttribute('cy', String(point.y));
+      light.style.opacity = progress > 0.015 && progress < 0.995 ? '1' : '0';
+      if (!arrived && progress >= 0.88) {
+        arrived = true;
+        wrapper.classList.add('pulse-arrived');
+      }
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const resize = () => {
+      layoutPath();
+      schedule();
+    };
+    layoutPath();
+    update();
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', resize);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      removeEventListener('scroll', schedule);
+      removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return (
+    <div ref={root} className="institute-light-path" aria-hidden="true">
+      <svg ref={svg} preserveAspectRatio="none" focusable="false">
+        <defs>
+          <linearGradient id="institute-light-spectrum" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#ffffff" />
+            <stop offset=".24" stopColor="#00c5d8" />
+            <stop offset=".52" stopColor="#006cff" />
+            <stop offset=".76" stopColor="#6f36ff" />
+            <stop offset="1" stopColor="#ef3d7d" />
+          </linearGradient>
+        </defs>
+        <path
+          ref={path}
+          pathLength="1"
+          d="M0 0"
+        />
+        <circle ref={pulse} r="7" cx="70" cy="35" />
+      </svg>
+    </div>
+  );
+}
+
 export function Institute() {
   return (
     <>
-      <Intro eyebrow="O Instituto" title="Ciência que aproxima. Conhecimento que transforma.">
-        <p>
-          Somos uma rede que conecta pessoas, instituições e diferentes áreas do conhecimento em
-          torno da ciência quântica.
-        </p>
-      </Intro>
-      <section className="section">
-        <div className="container split">
-          <Heading eyebrow="Nossa história" title="Uma inquietação que se tornou encontro." />
-          <div className="body-copy">
-            <p>
-              O percurso de articulação do Foton começou em 2023. Em 2024, conexões com
-              pesquisadores e iniciativas acadêmicas ampliaram a formação científica e a construção
-              de uma rede nacional.
-            </p>
-            <p>
-              O Instituto foi fundado em <strong>14 de abril de 2025</strong>, com o apoio de 35
-              membros de diferentes estados brasileiros.
-            </p>
+      <div className="institute-story">
+        <InstituteLightPath />
+        <Intro eyebrow="O Instituto" title="Ciência que aproxima. Conhecimento que transforma.">
+          <p>
+            Somos uma rede que conecta pessoas, instituições e diferentes áreas do conhecimento em
+            torno da ciência quântica.
+          </p>
+        </Intro>
+        <section className="section">
+          <div className="container split">
+            <Heading eyebrow="Nossa história" title="Uma inquietação que se tornou encontro." />
+            <div className="body-copy">
+              <p>
+                O percurso de articulação do Foton começou em 2023. Em 2024, conexões com
+                pesquisadores e iniciativas acadêmicas ampliaram a formação científica e a
+                construção de uma rede nacional.
+              </p>
+              <p>
+                O Instituto foi fundado em <strong>14 de abril de 2025</strong>, com o apoio de 35
+                membros de diferentes estados brasileiros.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
-      <section className="section section-gray photon-section">
-        <div className="quantum-signature" aria-hidden="true">
-          <div className="photon-pulse-route">
-            <svg viewBox="0 0 420 330" focusable="false">
+        </section>
+        <section className="section section-gray photon-section">
+          <div className="quantum-signature" aria-hidden="true">
+            <span className="quantum-equation equation-wave">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</span>
+            <span className="quantum-equation equation-photon">E = hν</span>
+            <svg className="spectrum-wave" viewBox="0 0 720 120" preserveAspectRatio="none">
               <defs>
-                <linearGradient id="photon-light-trail" x1="1" y1="0" x2="0" y2="1">
-                  <stop offset="0" stopColor="#ffffff" />
-                  <stop offset=".35" stopColor="#00c5d8" />
-                  <stop offset=".72" stopColor="#6f36ff" />
+                <linearGradient id="foton-spectrum" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="#6f36ff" />
+                  <stop offset=".2" stopColor="#006cff" />
+                  <stop offset=".4" stopColor="#00c5d8" />
+                  <stop offset=".6" stopColor="#6ed35d" />
+                  <stop offset=".8" stopColor="#ffb000" />
                   <stop offset="1" stopColor="#ef3d7d" />
                 </linearGradient>
               </defs>
               <path
-                pathLength="1"
-                d="M330 -20 C340 85 270 100 275 178 C280 245 205 250 130 310"
+                d="M0 60 C60 4 120 4 180 60 S300 116 360 60 480 4 540 60 660 116 720 60"
+                fill="none"
+                stroke="url(#foton-spectrum)"
+                strokeWidth="2"
               />
             </svg>
-            <span />
+            <i className="quantum-particle particle-one" />
+            <i className="quantum-particle particle-two" />
+            <i className="quantum-particle particle-three" />
           </div>
-          <span className="quantum-equation equation-wave">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</span>
-          <span className="quantum-equation equation-photon">E = hν</span>
-          <svg className="spectrum-wave" viewBox="0 0 720 120" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="foton-spectrum" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="#6f36ff" />
-                <stop offset=".2" stopColor="#006cff" />
-                <stop offset=".4" stopColor="#00c5d8" />
-                <stop offset=".6" stopColor="#6ed35d" />
-                <stop offset=".8" stopColor="#ffb000" />
-                <stop offset="1" stopColor="#ef3d7d" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0 60 C60 4 120 4 180 60 S300 116 360 60 480 4 540 60 660 116 720 60"
-              fill="none"
-              stroke="url(#foton-spectrum)"
-              strokeWidth="2"
-            />
-          </svg>
-          <i className="quantum-particle particle-one" />
-          <i className="quantum-particle particle-two" />
-          <i className="quantum-particle particle-three" />
-        </div>
-        <div className="container split">
-          <div className="large-word" aria-label="fóton">
-            <span className="photon-wave" aria-hidden="true">
-              {'fóton'.split('').map((letter, index) => (
-                <span key={`${letter}-${index}`}>{letter}</span>
-              ))}
-            </span>
-            <span className="large-word-caption">luz · conexão · ciência</span>
+          <div className="container split">
+            <div className="large-word" aria-label="fóton">
+              <span className="photon-wave" aria-hidden="true">
+                {'fóton'.split('').map((letter, index) => (
+                  <span key={`${letter}-${index}`}>{letter}</span>
+                ))}
+              </span>
+              <span className="large-word-caption">luz · conexão · ciência</span>
+            </div>
+            <div>
+              <Heading eyebrow="Por que Foton?" title="Um nome que carrega uma ideia de movimento." />
+              <p>
+                O fóton é a partícula elementar da luz. Para o Instituto, o nome simboliza ciência,
+                conexão e transformação.
+              </p>
+              <blockquote>
+                “Foton é luz. É ciência em movimento. É tecnologia com direção.”
+              </blockquote>
+            </div>
           </div>
-          <div>
-            <Heading eyebrow="Por que Foton?" title="Um nome que carrega uma ideia de movimento." />
-            <p>
-              O fóton é a partícula elementar da luz. Para o Instituto, o nome simboliza ciência,
-              conexão e transformação.
-            </p>
-            <blockquote>
-              “Foton é luz. É ciência em movimento. É tecnologia com direção.”
-            </blockquote>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
       <section className="section">
         <div className="container">
           <Heading eyebrow="O que nos conecta" title="Conhecimento, formação e colaboração." />

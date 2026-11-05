@@ -74,19 +74,16 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
 
   await page.goto('./instituto');
   const photon = page.locator('.photon-section');
+  await expect(page.locator('.institute-light-path path')).toBeAttached();
   await photon.scrollIntoViewIfNeeded();
   await expect(photon).toHaveClass(/is-revealed/);
+  await expect(page.locator('.institute-story')).toHaveClass(/pulse-arrived/);
   await expect(photon.locator('.photon-wave > span')).toHaveCount(5);
-  expect(
-    await photon.locator('.photon-pulse-route > span').evaluate((element) =>
-      getComputedStyle(element).animationName,
-    ),
-  ).toBe('photon-pulse-travel');
   expect(
     await photon.locator('.photon-wave > span').first().evaluate((element) =>
       `${getComputedStyle(element).animationName}:${getComputedStyle(element).animationDelay}`,
     ),
-  ).toBe('photon-word-wave:1.15s');
+  ).toBe('photon-word-wave:0s');
 });
 
 for (const viewport of [

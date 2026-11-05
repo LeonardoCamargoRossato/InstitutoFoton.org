@@ -41,11 +41,6 @@
 
 @layer responsive {
   @media (max-width: 1000px) {
-    .photon-pulse-route {
-      left: 2%;
-      transform: scale(0.82);
-      transform-origin: 0 0;
-    }
     .regional-letter {
       grid-template-columns: 1fr;
       gap: 30px;
@@ -72,11 +67,6 @@
     }
   }
   @media (max-width: 700px) {
-    .photon-pulse-route {
-      left: -12px;
-      top: -28px;
-      transform: scale(0.62);
-    }
     .spectral-divider::after {
       width: 76%;
       right: 12%;
@@ -1298,24 +1288,23 @@
     display: inline-block;
     transform-origin: 50% 78%;
   }
-  .motion-enabled .photon-section:not(.is-revealed) .photon-wave > span {
+  .motion-enabled .institute-story:not(.pulse-arrived) .photon-wave > span {
     transform: translate3d(0, 24px, 0) rotate(3deg);
   }
-  .motion-enabled .photon-section.is-revealed .photon-wave > span {
+  .motion-enabled .institute-story.pulse-arrived .photon-wave > span {
     animation: photon-word-wave 920ms cubic-bezier(0.2, 0.72, 0.2, 1) both;
-    animation-delay: 1150ms;
   }
-  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(2) {
-    animation-delay: 1240ms;
+  .motion-enabled .institute-story.pulse-arrived .photon-wave > span:nth-child(2) {
+    animation-delay: 90ms;
   }
-  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(3) {
-    animation-delay: 1330ms;
+  .motion-enabled .institute-story.pulse-arrived .photon-wave > span:nth-child(3) {
+    animation-delay: 180ms;
   }
-  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(4) {
-    animation-delay: 1420ms;
+  .motion-enabled .institute-story.pulse-arrived .photon-wave > span:nth-child(4) {
+    animation-delay: 270ms;
   }
-  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(5) {
-    animation-delay: 1510ms;
+  .motion-enabled .institute-story.pulse-arrived .photon-wave > span:nth-child(5) {
+    animation-delay: 360ms;
   }
   @keyframes photon-word-wave {
     0% {
@@ -1333,6 +1322,42 @@
   }
   .photon-section {
     isolation: isolate;
+  }
+  .institute-story {
+    position: relative;
+    isolation: isolate;
+  }
+  .institute-story > section {
+    position: relative;
+    z-index: 1;
+  }
+  .institute-light-path {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .institute-light-path svg {
+    width: 100%;
+    height: 100%;
+  }
+  .institute-light-path path {
+    fill: none;
+    stroke: url('#institute-light-spectrum');
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0.16;
+    vector-effect: non-scaling-stroke;
+  }
+  .institute-light-path circle {
+    fill: white;
+    opacity: 0;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 5px white) drop-shadow(0 0 11px #00c5d8)
+      drop-shadow(0 0 18px rgba(111, 54, 255, 0.72));
   }
   .photon-section > .container {
     position: relative;
@@ -1368,87 +1393,6 @@
     z-index: 1;
     overflow: hidden;
     pointer-events: none;
-  }
-  .photon-pulse-route {
-    position: absolute;
-    width: 420px;
-    height: 330px;
-    left: clamp(20px, 9vw, 145px);
-    top: -42px;
-  }
-  .photon-pulse-route svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-  .photon-pulse-route path {
-    fill: none;
-    stroke: url('#photon-light-trail');
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  .photon-pulse-route > span {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    opacity: 0;
-    background: white;
-    box-shadow:
-      0 0 8px 3px rgba(255, 255, 255, 0.92),
-      0 0 20px 9px rgba(0, 197, 216, 0.42),
-      0 0 38px 16px rgba(111, 54, 255, 0.2);
-    offset-path: path('M330 -20 C340 85 270 100 275 178 C280 245 205 250 130 310');
-    offset-rotate: 0deg;
-  }
-  .motion-enabled .photon-section.is-revealed .photon-pulse-route path {
-    animation: photon-trail-draw 1450ms cubic-bezier(0.22, 0.7, 0.2, 1) both;
-  }
-  .motion-enabled .photon-section.is-revealed .photon-pulse-route > span {
-    animation: photon-pulse-travel 1300ms cubic-bezier(0.22, 0.7, 0.2, 1) both;
-  }
-  @keyframes photon-trail-draw {
-    0% {
-      stroke-dashoffset: 1;
-      opacity: 0;
-    }
-    18% {
-      opacity: 0.9;
-    }
-    72% {
-      stroke-dashoffset: 0;
-      opacity: 0.65;
-    }
-    100% {
-      stroke-dashoffset: 0;
-      opacity: 0.16;
-    }
-  }
-  @keyframes photon-pulse-travel {
-    0% {
-      offset-distance: 0%;
-      opacity: 0;
-      transform: scale(0.55);
-    }
-    8% {
-      opacity: 1;
-    }
-    74% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    100% {
-      offset-distance: 100%;
-      opacity: 0;
-      transform: scale(1.65);
-    }
   }
   .quantum-equation {
     position: absolute;
