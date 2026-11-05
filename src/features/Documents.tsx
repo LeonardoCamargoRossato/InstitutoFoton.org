@@ -73,13 +73,12 @@ export function Transparency() {
             </div>
           </div>
           <div className="notice">
-            <h2>Indicadores com contexto</h2>
+            <h2>Nossa rede</h2>
             <p>
-              A apresentação institucional de 10 de setembro de 2026 registra presença em{' '}
-              <strong>15 estados</strong> e <strong>mais de 140 membros</strong>. São dados daquele
-              documento, não uma contagem em tempo real.
+              Em setembro de 2026, nossa rede reunia <strong>15 estados</strong> e{' '}
+              <strong>mais de 140 membros</strong>.
             </p>
-            <TextLink to="/apresentacao">Consultar apresentação de referência</TextLink>
+            <TextLink to="/apresentacao">Conheça nossa apresentação</TextLink>
           </div>
         </div>
       </section>
@@ -105,11 +104,6 @@ export function Presentation() {
           <Suspense fallback={<p role="status">Preparando o visualizador…</p>}>
             <PdfViewer key={url} url={url} allowExport={doc?.allow_page_export ?? true} />
           </Suspense>
-          <p className="source-note">
-            Fonte: apresentação fornecida para o portal · 7 páginas · setembro de 2026. Dados e
-            cargos retratam o material da época. A reprodução do documento não representa
-            confirmação de atualização de cada informação.
-          </p>
           <TextLink to="/transparencia">Documentos e transparência</TextLink>
         </div>
       </section>

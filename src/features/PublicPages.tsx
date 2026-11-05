@@ -70,7 +70,6 @@ export function Home() {
             <blockquote>
               “Transformar ciência de fronteira em decisões, soluções e oportunidades.”
             </blockquote>
-            <p className="source-note">Apresentação institucional, setembro de 2026, página 3.</p>
             <p>
               O Instituto Foton articula pessoas e instituições em torno da ciência e das
               tecnologias quânticas. Nosso portal científico e social aproxima pesquisa, educação e
@@ -95,11 +94,9 @@ export function Home() {
           <p>
             Uma rede de muitas trajetórias.
             <br />
-            <span>
-              Dados da apresentação de setembro de 2026, página 4. Não são contagens em tempo real.
-            </span>
+            <span>Setembro de 2026.</span>
             <br />
-            <TextLink to="/apresentacao">Consulte a fonte</TextLink>
+            <TextLink to="/apresentacao">Conheça nossa apresentação</TextLink>
           </p>
         </div>
       </section>
@@ -259,10 +256,6 @@ export function Institute() {
               O Instituto foi fundado em <strong>14 de abril de 2025</strong>, com o apoio de 35
               membros de diferentes estados brasileiros.
             </p>
-            <p className="source-note">
-              Fonte: Manual de Marca Foton 2026, página 2. Dados históricos de fundação, não
-              contagem atual de membros.
-            </p>
           </div>
         </div>
       </section>
@@ -280,7 +273,6 @@ export function Institute() {
             <blockquote>
               “Foton é luz. É ciência em movimento. É tecnologia com direção.”
             </blockquote>
-            <p className="source-note">Manual de Marca Foton 2026, página 3.</p>
           </div>
         </div>
       </section>
@@ -307,9 +299,6 @@ export function Institute() {
               <p>Conectar o conhecimento científico a desafios e oportunidades da sociedade.</p>
             </div>
           </div>
-          <p className="source-note">
-            Pilares do Manual de Marca Foton 2026. Descrições: adaptação editorial para este portal.
-          </p>
         </div>
       </section>
       <OfficialStatements />
@@ -565,9 +554,8 @@ export function Manifesto() {
         <div className="container">
           <Heading eyebrow="Cinco macrorregiões" title="O Brasil em muitas vozes." />
           <p className="section-description">
-            As Cartas reúnem perspectivas regionais na construção do Manifesto. Os relatos abaixo
-            preservam o conteúdo do site de referência. Menções a agendas futuras nesses relatos não
-            representam chamadas atuais.
+            As Cartas reúnem perspectivas regionais na construção do Manifesto. Conheça os relatos
+            de cada região.
           </p>
           <div className="regional-letters">
             {cartas.map((carta) => (
@@ -580,11 +568,6 @@ export function Manifesto() {
               </details>
             ))}
           </div>
-          <p className="source-note">
-            Fonte: página Manifesto.tsx do código comercial fornecido. Cronologia de 2025/2026:
-            registro histórico na imagem enviada; conclusão de cada etapa não confirmada por esse
-            calendário.
-          </p>
         </div>
       </section>
       <section className="section section-gray" id="odqs">
@@ -594,8 +577,7 @@ export function Manifesto() {
             title="11 objetivos. Um horizonte compartilhado."
           />
           <p className="section-description">
-            Nomes, enumeração e descrições transcritos do conteúdo do Manifesto fornecido pelo
-            Instituto.
+            Conheça os objetivos que orientam a construção do Manifesto.
           </p>
           <div className="odq-grid">
             {odqs.map((odq) => (
@@ -610,7 +592,7 @@ export function Manifesto() {
             ))}
           </div>
           <div className="notice">
-            <p>Para consultar a página de origem e acompanhar informações do movimento:</p>
+            <p>Acompanhe mais informações sobre o movimento:</p>
             <External href="https://institutofoton.com.br/manifesto" className="text-link">
               Manifesto no site institucional comercial
             </External>

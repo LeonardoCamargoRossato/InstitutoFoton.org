@@ -21,7 +21,6 @@ export default function OfficialStatements() {
             <article className="info-card" key={block.key}>
               <h2>{block.title}</h2>
               <p style={{ whiteSpace: 'pre-line' }}>{block.content}</p>
-              <p className="source-note">{block.source_reference}</p>
             </article>
           ))}
         </div>
