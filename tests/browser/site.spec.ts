@@ -118,6 +118,29 @@ test('notícias: estado vazio, busca e artigo ausente', async ({ page }) => {
   );
 });
 
+test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ page }) => {
+  await page.goto('./manifesto');
+  await expect(page.locator('.regional-letter')).toHaveCount(5);
+  await expect(page.locator('.gallery-track > button')).toHaveCount(20);
+
+  const alesp = page.getByRole('button', {
+    name: 'Reproduzir Por que o Manifesto Quântico Nacional é importante',
+  });
+  await alesp.click();
+  await expect(page.locator('.manifesto-importance iframe')).toHaveAttribute('src', /start=4615/);
+
+  await page.locator('.regional-letter').nth(2).locator('.manifesto-image').click();
+  await expect(page.getByRole('dialog', { name: 'Carta do Nordeste' })).toBeVisible();
+  await expect(page.getByRole('dialog').getByText(/Jornada conectou polos de inovação/i)).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+
+  await page.locator('.gallery-track > button').first().click();
+  await expect(page.getByRole('dialog', { name: 'Visita técnica 01' })).toBeVisible();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.getByRole('dialog', { name: 'Visita técnica 02' })).toBeVisible();
+});
+
 test('PDF real: sete páginas, navegação, zoom e exportação PNG', async ({ page }) => {
   await page.goto('./apresentacao');
   await expect(page.getByText('Página 1 de 7', { exact: true })).toBeVisible({ timeout: 30000 });

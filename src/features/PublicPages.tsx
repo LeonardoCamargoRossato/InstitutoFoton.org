@@ -15,6 +15,7 @@ import { researchLines, journeySteps } from './content';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 const LatestNews = lazy(() => import('./LatestNews'));
+const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
 
 export function Home() {
   return (
@@ -60,7 +61,7 @@ export function Home() {
           <span>Gerações que se encontram.</span>
         </div>
       </div>
-      <section className="section" id="nossa-rede">
+      <section className="section spectral-divider" id="nossa-rede">
         <div className="container split">
           <Heading
             eyebrow="Nossa razão de existir"
@@ -100,7 +101,7 @@ export function Home() {
           </p>
         </div>
       </section>
-      <section className="section section-gray">
+      <section className="section section-gray spectral-divider">
         <div className="container">
           <div className="heading-row">
             <Heading eyebrow="Pesquisa em rede" title="Grandes perguntas pedem muitos olhares." />
@@ -130,7 +131,7 @@ export function Home() {
           </div>
         </div>
       </section>
-      <section className="journey-feature section">
+      <section className="journey-feature section spectral-divider">
         <div className="container split">
           <div>
             <p className="eyebrow">
@@ -162,7 +163,7 @@ export function Home() {
           </div>
         </div>
       </section>
-      <section className="manifesto-feature">
+      <section className="manifesto-feature spectral-divider">
         <div className="container">
           <div>
             <p className="eyebrow">
@@ -524,16 +525,17 @@ export function Manifesto() {
           <a href="#sobre-manifesto">O movimento</a>
           <a href="#metodologia">Metodologia</a>
           <a href="#cartas">Cartas regionais</a>
+          <a href="#visitas">Visitas técnicas</a>
           <a href="#odqs">11 ODQs</a>
         </div>
       </div>
       <section className="section" id="sobre-manifesto">
-        <div className="container split">
-          <Heading
-            eyebrow="O movimento"
-            title="Ciência, governo, empresas e sociedade em diálogo."
-          />
+        <div className="container split manifesto-overview">
           <div className="body-copy">
+            <Heading
+              eyebrow="O movimento"
+              title="Ciência, governo, empresas e sociedade em diálogo."
+            />
             <p>
               O Manifesto Quântico Nacional é um movimento que une ciência, governo, empresas e
               sociedade para construir uma agenda estratégica de tecnologias quânticas no Brasil.
@@ -542,7 +544,19 @@ export function Manifesto() {
               É uma iniciativa colaborativa, conduzida pelo Foton, para transformar conhecimento em
               direção, impacto e soberania tecnológica.
             </p>
-            <h3>Por que isso é importante?</h3>
+          </div>
+          <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
+            <ManifestoMedia kind="overview" />
+          </Suspense>
+        </div>
+      </section>
+      <section className="section section-gray manifesto-importance spectral-divider">
+        <div className="container split">
+          <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
+            <ManifestoMedia kind="importance" />
+          </Suspense>
+          <div className="body-copy">
+            <Heading eyebrow="O futuro já começou" title="Por que isso é importante?" />
             <p>
               Tecnologias quânticas já moldam segurança, economia e inovação no mundo. O Brasil tem
               base científica forte, mas falta integrar esforços.
@@ -556,12 +570,19 @@ export function Manifesto() {
       </section>
       <section className="section section-gray" id="metodologia">
         <div className="container">
-          <Heading eyebrow="Como faremos isso" title="Escuta regional. Articulação nacional." />
-          <p className="section-description">
-            A construção é coletiva e nacional, com escuta ativa em todas as regiões do país. As
-            contribuições de especialistas conduzem a criação das Cartas Macrorregionais e orientam
-            os 11 Objetivos de Desenvolvimento Quântico, que guiam a ação do Manifesto.
-          </p>
+          <div className="split manifesto-method-intro">
+            <div>
+              <Heading eyebrow="Como faremos isso" title="Escuta regional. Articulação nacional." />
+              <p className="section-description">
+                A construção é coletiva e nacional, com escuta ativa em todas as regiões do país.
+                As contribuições de especialistas conduzem a criação das Cartas Macrorregionais e
+                orientam os 11 Objetivos de Desenvolvimento Quântico, que guiam a ação do Manifesto.
+              </p>
+            </div>
+            <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
+              <ManifestoMedia kind="method" />
+            </Suspense>
+          </div>
           <ol className="methodology">
             {methodology.map((step) => (
               <li key={step.num}>
@@ -583,16 +604,34 @@ export function Manifesto() {
             de cada região.
           </p>
           <div className="regional-letters">
-            {cartas.map((carta) => (
-              <details key={carta.region}>
-                <summary>
+            {cartas.map((carta, index) => (
+              <article className="regional-letter" key={carta.region}>
+                <div>
+                  <span className="number">0{index + 1}</span>
                   <h3>{carta.region}</h3>
-                  <span aria-hidden="true">+</span>
-                </summary>
-                <p>{carta.text}</p>
-              </details>
+                  <p>{carta.text}</p>
+                </div>
+                <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
+                  <ManifestoMedia kind="letter" region={carta.region} caption={carta.text} />
+                </Suspense>
+              </article>
             ))}
           </div>
+        </div>
+      </section>
+      <section className="section visits-section spectral-divider" id="visitas">
+        <div className="container">
+          <Heading
+            eyebrow="Conexões em campo"
+            title="Visitas técnicas que aproximam o ecossistema."
+          />
+          <p className="section-description">
+            Registros de encontros com pesquisadores, instituições, empresas e ambientes de
+            inovação em diferentes regiões do país.
+          </p>
+          <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
+            <ManifestoMedia kind="visits" />
+          </Suspense>
         </div>
       </section>
       <section className="section section-gray" id="odqs">
@@ -615,12 +654,6 @@ export function Manifesto() {
                 <p>{odq.desc}</p>
               </article>
             ))}
-          </div>
-          <div className="notice">
-            <p>Acompanhe mais informações sobre o movimento:</p>
-            <External href="https://institutofoton.com.br/manifesto" className="text-link">
-              Manifesto no site institucional comercial
-            </External>
           </div>
         </div>
       </section>
