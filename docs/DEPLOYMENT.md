@@ -16,3 +16,7 @@ O proxy do ambiente permitiu leitura Git mas bloqueou `api.github.com`, o site c
 Roteamento Pages: o `404.html` leva para `index` preservando caminho, query e hash. O script de index restaura URL limpa antes de React/Supabase; callback OAuth não usa o hash como navegação. A primeira resposta de rota profunda continua 404 por limitação do Pages, embora o navegador finalize no aplicativo. No hosting futuro configure rewrite de SPA.
 
 `VITE_SITE_ORIGIN` determina canonical/sitemap/OG; `VITE_BASE_PATH` determina assets e basename. Sem origem configurada, nenhum domínio futuro é inventado. Não configure `CNAME` antes de autorização de DNS.
+
+## Evidência de publicação observada
+
+O primeiro commit `ce60e592ac2a010125600dd73527befb38877d89` foi confirmado no remoto `main`. O workflow público [Deploy Instituto Foton #1](https://github.com/LeonardoCamargoRossato/InstitutoFoton.org/actions/runs/41960295113) apresentou **Success**, incluindo o job de deploy, e informou a URL `https://leonardocamargorossato.github.io/InstitutoFoton.org/`. Isso comprova a conclusão do deploy no GitHub; a requisição direta ao host público a partir deste ambiente continua bloqueada por CONNECT 403. Validação HTTP/navegação pública não é alegada. Ajustes posteriores precisam de nova execução bem-sucedida.

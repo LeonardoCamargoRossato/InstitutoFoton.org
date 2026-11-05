@@ -2,14 +2,14 @@
 
 Os ZIPs originais `institutofoton.zip` e `Foton_org_Pacote_Referencias_Codex_V0.zip` excederam o limite de transferência de 32 MiB e **não foram examinados**. O usuário forneceu substitutos menores durante a implementação:
 
-| Entrada | Inspeção e uso |
-|---|---|
-| `Prompt_Mestre_Codex_InstitutoFoton_org_V0.md` | Especificação lida integralmente; decisões de produto, rotas, modalidade informativa e arquitetura |
-| `institutofoton_sem_src.zip` | 50 arquivos extraídos em diretório externo; logos oficiais e favicon aproveitados; manifests e estrutura estudados |
-| `src_semAssets.zip` | 117 arquivos extraídos em diretório externo; Manifesto, BlogSection, NewsSection, MissionSection, GovernanceSection, Footer e integrações inspecionados |
-| `Manual de Marca - Foton_compressed.pdf` | Texto extraído; origem, Golden Circle, valores, paleta, tipografia e controle de uso conferidos; não publicado |
-| `Apresentação_Institucional_Foton_2026 09 10.pdf` | 7 páginas renderizadas e conferidas visualmente, pois o PDF não contém texto extraível; cópia para visualizador público solicitado |
-| Imagem do Manifesto na conversa | Conferida visualmente; datas de 2025/2026 tratadas como calendário histórico; arquivo binário não disponível para cópia local |
+| Entrada                                           | Inspeção e uso                                                                                                                                          |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Prompt_Mestre_Codex_InstitutoFoton_org_V0.md`    | Especificação lida integralmente; decisões de produto, rotas, modalidade informativa e arquitetura                                                      |
+| `institutofoton_sem_src.zip`                      | 50 arquivos extraídos em diretório externo; logos oficiais e favicon aproveitados; manifests e estrutura estudados                                      |
+| `src_semAssets.zip`                               | 117 arquivos extraídos em diretório externo; Manifesto, BlogSection, NewsSection, MissionSection, GovernanceSection, Footer e integrações inspecionados |
+| `Manual de Marca - Foton_compressed.pdf`          | Texto extraído; origem, Golden Circle, valores, paleta, tipografia e controle de uso conferidos; não publicado                                          |
+| `Apresentação_Institucional_Foton_2026 09 10.pdf` | 7 páginas renderizadas e conferidas visualmente, pois o PDF não contém texto extraível; cópia para visualizador público solicitado                      |
+| Imagem do Manifesto na conversa                   | Conferida visualmente; datas de 2025/2026 tratadas como calendário histórico; arquivo binário não disponível para cópia local                           |
 
 SHA-256 dos substitutos:
 

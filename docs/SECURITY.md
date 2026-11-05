@@ -13,7 +13,7 @@
 
 `tests/rls.test.ts` executa migration duas vezes e testa anon, usuário sem papel, Marketing e Diretor no PostgreSQL WASM PGlite. Verifica leitura pública/rascunho/agendamento, autoelevação negada, RPC negada, documentos privados, upload negado, revogação, último Diretor e auditoria. Auth/Storage têm schemas de teste; isso **não certifica** Auth, Storage HTTP ou RLS do Supabase remoto.
 
-Playwright testa acesso anônimo direto ao admin, retorno ao site e ausência de dashboard; o fluxo Google remoto e sessões institucionais reais dependem de infraestrutura autorizada. Nunca substituir essa validação por afirmação de login funcional.
+Os testes E2E usam fixtures de leitura pública vazia para tornar a UI determinística; não representam disponibilidade ou registros no backend remoto. Playwright testa acesso anônimo direto ao admin, retorno ao site e ausência de dashboard; o fluxo Google remoto e sessões institucionais reais dependem de infraestrutura autorizada. Nunca substituir essa validação por afirmação de login funcional.
 
 ## Limites e operação
 

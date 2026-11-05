@@ -8,7 +8,83 @@ const PdfViewer = lazy(() => import('./PdfViewer'));
 
 export function Transparency() {
   const resource = useResource(documents);
-  return <><Intro eyebrow="Transparência" title="Confiança se constrói com clareza."><p>Documentos, fontes e responsabilidade pelo que compartilhamos. Um espaço para acompanhar a atuação institucional.</p></Intro><section className="section"><div className="container"><Heading eyebrow="Documentos institucionais" title="Informação pública, com responsabilidade." /><Status {...resource} />{!resource.loading && !resource.error && (resource.data?.length ? <div className="document-list">{resource.data.map(doc => <article key={doc.id}><FileText aria-hidden="true" /><div><h3>{doc.title}</h3><p>{doc.description}</p><span className="source-note">{doc.category} · {doc.version_label} · {dateLabel(doc.document_date)}</span></div><External className="text-link" href={documentUrl(doc)}>Visualizar PDF</External></article>)}</div> : <Empty title="Documentos públicos em preparação.">Estatuto, relatórios e prestação de contas serão disponibilizados após aprovação para divulgação. Nenhum documento fictício ou privado é publicado aqui.</Empty>)}<div className="three-grid transparency-cards"><div className="info-card"><h3>Governança</h3><p>A identificação da Diretoria e os documentos de governança serão publicados conforme validação institucional e autorização.</p></div><div className="info-card"><h3>Prestação de contas</h3><p>Relatórios aprovados poderão apresentar a destinação de recursos e evidências publicáveis, preservando dados pessoais.</p></div><div className="info-card"><h3>Parcerias</h3><p>Vínculos e instrumentos serão descritos com escopo, fonte e informação adequada à divulgação pública.</p></div></div><div className="notice"><h2>Indicadores com contexto</h2><p>A apresentação institucional de 10 de setembro de 2026 registra presença em <strong>15 estados</strong> e <strong>mais de 140 membros</strong>. São dados daquele documento, não uma contagem em tempo real.</p><TextLink to="/apresentacao">Consultar apresentação de referência</TextLink></div></div></section></>;
+  return (
+    <>
+      <Intro eyebrow="Transparência" title="Confiança se constrói com clareza.">
+        <p>
+          Documentos, fontes e responsabilidade pelo que compartilhamos. Um espaço para acompanhar a
+          atuação institucional.
+        </p>
+      </Intro>
+      <section className="section">
+        <div className="container">
+          <Heading
+            eyebrow="Documentos institucionais"
+            title="Informação pública, com responsabilidade."
+          />
+          <Status {...resource} />
+          {!resource.loading &&
+            !resource.error &&
+            (resource.data?.length ? (
+              <div className="document-list">
+                {resource.data.map((doc) => (
+                  <article key={doc.id}>
+                    <FileText aria-hidden="true" />
+                    <div>
+                      <h3>{doc.title}</h3>
+                      <p>{doc.description}</p>
+                      <span className="source-note">
+                        {doc.category} · {doc.version_label} · {dateLabel(doc.document_date)}
+                      </span>
+                    </div>
+                    <External className="text-link" href={documentUrl(doc)}>
+                      Visualizar PDF
+                    </External>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <Empty title="Documentos públicos em preparação.">
+                Estatuto, relatórios e prestação de contas serão disponibilizados após aprovação
+                para divulgação. Nenhum documento fictício ou privado é publicado aqui.
+              </Empty>
+            ))}
+          <div className="three-grid transparency-cards">
+            <div className="info-card">
+              <h3>Governança</h3>
+              <p>
+                A identificação da Diretoria e os documentos de governança serão publicados conforme
+                validação institucional e autorização.
+              </p>
+            </div>
+            <div className="info-card">
+              <h3>Prestação de contas</h3>
+              <p>
+                Relatórios aprovados poderão apresentar a destinação de recursos e evidências
+                publicáveis, preservando dados pessoais.
+              </p>
+            </div>
+            <div className="info-card">
+              <h3>Parcerias</h3>
+              <p>
+                Vínculos e instrumentos serão descritos com escopo, fonte e informação adequada à
+                divulgação pública.
+              </p>
+            </div>
+          </div>
+          <div className="notice">
+            <h2>Indicadores com contexto</h2>
+            <p>
+              A apresentação institucional de 10 de setembro de 2026 registra presença em{' '}
+              <strong>15 estados</strong> e <strong>mais de 140 membros</strong>. São dados daquele
+              documento, não uma contagem em tempo real.
+            </p>
+            <TextLink to="/apresentacao">Consultar apresentação de referência</TextLink>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
 
 export function Presentation() {
@@ -17,6 +93,26 @@ export function Presentation() {
   const doc = resource.data?.[0];
   const remoteUrl = doc ? documentUrl(doc) : undefined;
   // Cópia local aprovada da apresentação fornecida para este portal. Manual da marca permanece privado.
-  const url = remoteUrl || `${import.meta.env.BASE_URL}documents/apresentacao-institucional-2026-09-10.pdf`;
-  return <><Intro eyebrow="Apresentação institucional" title="Conheça o Foton mais de perto."><p>Ciência, propósito e conexões. Apresentação institucional de 10 de setembro de 2026.</p></Intro><section className="section section-gray"><div className="container"><Suspense fallback={<p role="status">Preparando o visualizador…</p>}><PdfViewer key={url} url={url} allowExport={doc?.allow_page_export ?? true} /></Suspense><p className="source-note">Fonte: apresentação fornecida para o portal · 7 páginas · setembro de 2026. Dados e cargos retratam o material da época. A reprodução do documento não representa confirmação de atualização de cada informação.</p><TextLink to="/transparencia">Documentos e transparência</TextLink></div></section></>;
+  const url =
+    remoteUrl || `${import.meta.env.BASE_URL}documents/apresentacao-institucional-2026-09-10.pdf`;
+  return (
+    <>
+      <Intro eyebrow="Apresentação institucional" title="Conheça o Foton mais de perto.">
+        <p>Ciência, propósito e conexões. Apresentação institucional de 10 de setembro de 2026.</p>
+      </Intro>
+      <section className="section section-gray">
+        <div className="container">
+          <Suspense fallback={<p role="status">Preparando o visualizador…</p>}>
+            <PdfViewer key={url} url={url} allowExport={doc?.allow_page_export ?? true} />
+          </Suspense>
+          <p className="source-note">
+            Fonte: apresentação fornecida para o portal · 7 páginas · setembro de 2026. Dados e
+            cargos retratam o material da época. A reprodução do documento não representa
+            confirmação de atualização de cada informação.
+          </p>
+          <TextLink to="/transparencia">Documentos e transparência</TextLink>
+        </div>
+      </section>
+    </>
+  );
 }

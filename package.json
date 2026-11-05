@@ -15,7 +15,9 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
-    "import:publications": "node scripts/import-publications.mjs"
+    "import:publications": "node scripts/import-publications.mjs",
+    "scan:secrets": "node scripts/scan-secrets.mjs",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@fontsource/raleway": "^5.3.0",
@@ -39,6 +41,7 @@
     "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.14.0",
+    "prettier": "^3.9.10",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.5",
