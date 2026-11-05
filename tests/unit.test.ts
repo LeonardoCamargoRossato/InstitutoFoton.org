@@ -33,12 +33,12 @@ describe('destinos e configuração', () => {
     expect(validateBackend(undefined, undefined)).toBeTruthy();
     expect(validateBackend('https://other.supabase.co', 'sb_publishable_example')).toBeTruthy();
     expect(
-      validateBackend('https://qwyrnomazssofombhem.supabase.co', 'sb_secret_example'),
+      validateBackend('https://qwyrnomhazssofombhem.supabase.co', 'sb_secret_example'),
     ).toBeTruthy();
     const jwt = `header.${btoa(JSON.stringify({ role: 'service_role' }))}.signature`;
-    expect(validateBackend('https://qwyrnomazssofombhem.supabase.co', jwt)).toBeTruthy();
+    expect(validateBackend('https://qwyrnomhazssofombhem.supabase.co', jwt)).toBeTruthy();
     expect(
-      validateBackend('https://qwyrnomazssofombhem.supabase.co', 'sb_publishable_example'),
+      validateBackend('https://qwyrnomhazssofombhem.supabase.co', 'sb_publishable_example'),
     ).toBeNull();
   });
   it('trata datas inválidas e não altera a data documental pelo fuso', () => {

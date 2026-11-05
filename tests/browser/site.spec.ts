@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
 // Fixtures de rede só no runner: o E2E de frontend não valida o Supabase remoto
 // nem deve depender de migrations/credenciais de produção para ser determinístico.
 test.beforeEach(async ({ page }) => {
-  await page.route('https://qwyrnomazssofombhem.supabase.co/rest/v1/**', (route) =>
+  await page.route('https://qwyrnomhazssofombhem.supabase.co/rest/v1/**', (route) =>
     route.fulfill({ status: 200, contentType: 'application/json', body: '[]' }),
   );
 });
@@ -122,6 +122,11 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await page.goto('./manifesto');
   await expect(page.locator('.regional-letter')).toHaveCount(5);
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
+  await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-video')).toHaveCount(0);
+  await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-image img')).toHaveAttribute(
+    'src',
+    /qwyrnomhazssofombhem\.supabase\.co.*Thumb_CartaNorte\.jpeg/,
+  );
 
   const alesp = page.getByRole('button', {
     name: 'Reproduzir Por que o Manifesto Quântico Nacional é importante',

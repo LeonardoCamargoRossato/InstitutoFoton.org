@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Maximize2, Play, X } from 'lucide-react';
 
 const storage =
-  'https://qwyrnomazssofombhem.supabase.co/storage/v1/object/public/foton-public';
+  'https://qwyrnomhazssofombhem.supabase.co/storage/v1/object/public/foton-public';
 const manifesto = `${storage}/img-manifesto-quantico`;
 
 const letterMedia = {
@@ -12,8 +12,7 @@ const letterMedia = {
     image: `${manifesto}/Thumb_CartaSudeste.jpg`,
   },
   'Carta do Norte': {
-    type: 'video',
-    src: 'https://www.youtube.com/embed/wXc9cg1ybWs',
+    type: 'image',
     image: `${manifesto}/Thumb_CartaNorte.jpeg`,
   },
   'Carta do Nordeste': { type: 'image', image: `${manifesto}/Carta_Nordeste.jpg` },

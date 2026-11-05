@@ -1,6 +1,6 @@
 # Configuração do Supabase dedicado
 
-Projeto previsto na especificação: **SiteInstitutoFoton.org**, ref `qwyrnomazssofombhem`. Não criar outro projeto. Nesta execução não foram fornecidas credenciais de administração Supabase; aplicar em produção e testar Auth/Storage remotos permanecem tarefas externas.
+Projeto previsto na especificação: **SiteInstitutoFoton.org**, ref `qwyrnomhazssofombhem`. Não criar outro projeto. Nesta execução não foram fornecidas credenciais de administração Supabase; aplicar em produção e testar Auth/Storage remotos permanecem tarefas externas.
 
 ## Aplicação autorizada
 
@@ -24,7 +24,7 @@ Confirme primeiro que esse caminho realmente contém o PDF aprovado. O frontend 
 
 ## Auth e papéis
 
-Google deve estar habilitado no projeto existente; não criar cliente novo. Callback Google → Supabase: `https://qwyrnomazssofombhem.supabase.co/auth/v1/callback`.
+Google deve estar habilitado no projeto existente; não criar cliente novo. Callback Google → Supabase: `https://qwyrnomhazssofombhem.supabase.co/auth/v1/callback`.
 
 Site URL após publicação confirmada: origem real do site. Permita o retorno frontend exato `https://leonardocamargorossato.github.io/InstitutoFoton.org/auth/callback` e a versão com `?returnTo=/admin` conforme as regras de glob do Supabase. Para desenvolvimento adicione somente URLs locais explicitamente usadas. Verifique a URL completa emitida pelo cliente e a correspondência da allowlist. Não confundir os dois callbacks.
 

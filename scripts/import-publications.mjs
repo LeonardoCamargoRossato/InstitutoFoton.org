@@ -52,7 +52,7 @@ if (!process.argv.includes('--apply')) {
   process.exit(0);
 }
 if (
-  process.env.SUPABASE_URL !== 'https://qwyrnomazssofombhem.supabase.co' ||
+  process.env.SUPABASE_URL !== 'https://qwyrnomhazssofombhem.supabase.co' ||
   !process.env.SUPABASE_SERVICE_ROLE_KEY
 )
   throw new Error('Configure o projeto .org e a credencial administrativa fora do frontend.');

@@ -1,6 +1,6 @@
 export const basePath = import.meta.env.BASE_URL;
 export const siteOrigin = import.meta.env.VITE_SITE_ORIGIN || '';
-export const expectedProject = 'qwyrnomazssofombhem';
+export const expectedProject = 'qwyrnomhazssofombhem';
 
 export function validateBackend(url: string | undefined, key: string | undefined) {
   if (!url || !key)
