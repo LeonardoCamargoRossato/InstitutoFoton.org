@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+*.pem
+*.key
+*.dump
+*.sql.gz
+*.zip
+*.tsbuildinfo
+coverage/
+test-results/
+playwright-report/
+.DS_Store
+.supabase/

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="%BASE_URL%favicon.png" />
+    <meta name="theme-color" content="#072C7B" />
+    <meta name="description" content="Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira." />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Instituto Foton — Tecnologia através da ciência.</title>
+    <script>
+      // Restaura URLs limpas recebidas pelo fallback 404 do GitHub Pages.
+      const restored = new URLSearchParams(location.search).get('__foton_route');
+      if (restored && restored.startsWith('/') && !restored.startsWith('//')) {
+        history.replaceState(null, '', '%BASE_URL%'.replace(/\/$/, '') + restored + location.hash);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
