@@ -23,6 +23,30 @@ const Article = lazy(() => import('./features/Publications').then((m) => ({ defa
 import { Transparency, Presentation } from './features/Documents';
 const Access = lazy(() => import('./features/Access'));
 
+const deployedVersion = async () => {
+  try {
+    const response = await fetch(`${import.meta.env.BASE_URL}version.json?t=${Date.now()}`, {
+      cache: 'no-store',
+    });
+    if (!response.ok) return;
+    const latest = (await response.json()) as { version?: string };
+    const current = sessionStorage.getItem('foton-version');
+    if (current && latest.version && current !== latest.version) {
+      sessionStorage.setItem('foton-version', latest.version);
+      location.reload();
+      return;
+    }
+    if (latest.version) sessionStorage.setItem('foton-version', latest.version);
+  } catch {
+    // A navegação continua normalmente quando a consulta de versão estiver indisponível.
+  }
+};
+
+void deployedVersion();
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') void deployedVersion();
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>

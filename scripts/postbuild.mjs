@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 const base = process.env.VITE_BASE_PATH || '/';
 if (!/^\/(?:[A-Za-z0-9._-]+\/)*$/.test(base)) throw new Error('VITE_BASE_PATH inválido');
@@ -18,6 +19,8 @@ const pages = [
   'termos',
 ];
 const html = await readFile('dist/index.html', 'utf8');
+const version = createHash('sha256').update(html).digest('hex').slice(0, 12);
+await writeFile('dist/version.json', JSON.stringify({ version }));
 // GitHub Pages responde 404 em rotas desconhecidas. O pequeno documento redireciona
 // para index e preserva path/query/hash; index restaura a URL antes do React.
 const fallback = `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Instituto Foton</title><script>
