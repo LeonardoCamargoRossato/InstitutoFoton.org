@@ -1,6 +1,6 @@
 # Instituto Foton .org — V0
 
-🌐 **Site oficial:** [institutofoton.com.br](https://institutofoton.com.br/)
+🌐 **Acesse o site:** [InstitutoFoton.org](https://leonardocamargorossato.github.io/InstitutoFoton.org/)
 
 Portal científico e social do Instituto Foton. React, TypeScript e Vite; backend dedicado Supabase `qvyrromhazssofombhem`. Não utiliza o banco comercial, ResearchFlow ou AnimeFinder.
 
