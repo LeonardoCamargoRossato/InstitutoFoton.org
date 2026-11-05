@@ -287,8 +287,13 @@ export function Institute() {
           <i className="quantum-particle particle-three" />
         </div>
         <div className="container split">
-          <div className="large-word" aria-hidden="true">
-            fóton<span>luz · conexão · ciência</span>
+          <div className="large-word" aria-label="fóton">
+            <span className="photon-wave" aria-hidden="true">
+              {'fóton'.split('').map((letter, index) => (
+                <span key={`${letter}-${index}`}>{letter}</span>
+              ))}
+            </span>
+            <span className="large-word-caption">luz · conexão · ciência</span>
           </div>
           <div>
             <Heading eyebrow="Por que Foton?" title="Um nome que carrega uma ideia de movimento." />

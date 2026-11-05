@@ -1273,12 +1273,52 @@
     color: var(--navy);
     line-height: 1;
   }
-  .large-word span {
+  .large-word-caption {
     display: block;
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     margin-top: 30px;
     color: var(--blue);
+  }
+  .photon-wave {
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .photon-wave > span {
+    display: inline-block;
+    transform-origin: 50% 78%;
+  }
+  .motion-enabled .photon-section:not(.is-revealed) .photon-wave > span {
+    transform: translate3d(0, 24px, 0) rotate(3deg);
+  }
+  .motion-enabled .photon-section.is-revealed .photon-wave > span {
+    animation: photon-word-wave 920ms cubic-bezier(0.2, 0.72, 0.2, 1) both;
+  }
+  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(2) {
+    animation-delay: 90ms;
+  }
+  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(3) {
+    animation-delay: 180ms;
+  }
+  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(4) {
+    animation-delay: 270ms;
+  }
+  .motion-enabled .photon-section.is-revealed .photon-wave > span:nth-child(5) {
+    animation-delay: 360ms;
+  }
+  @keyframes photon-word-wave {
+    0% {
+      transform: translate3d(0, 24px, 0) rotate(3deg) scaleY(0.96);
+    }
+    38% {
+      transform: translate3d(0, -18px, 0) rotate(-2deg) scaleY(1.03);
+    }
+    68% {
+      transform: translate3d(0, 7px, 0) rotate(1deg) scaleY(0.99);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0) scaleY(1);
+    }
   }
   .photon-section {
     isolation: isolate;
