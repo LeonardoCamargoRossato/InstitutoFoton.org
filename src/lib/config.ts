@@ -6,7 +6,7 @@ const configuredBackendOrigin = (import.meta.env.VITE_SUPABASE_URL as string | u
 );
 export const expectedProject = configuredBackendOrigin
   ? new URL(configuredBackendOrigin).hostname.split('.')[0]
-  : 'qwyrnomhazssofombhem';
+  : 'qvyrromhazssofombhem';
 const expectedBackendOrigin =
   configuredBackendOrigin || `https://${expectedProject}.supabase.co`;
 

@@ -1,4 +1,4 @@
--- Novo projeto .org somente: qwyrnomhazssofombhem.
+-- Novo projeto .org somente: qvyrromhazssofombhem.
 -- Nenhuma migration do site comercial é reutilizada. Reexecutável e não destrutiva.
 begin;
 

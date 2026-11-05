@@ -6,7 +6,7 @@ const configuredSupabase = (import.meta.env.VITE_SUPABASE_URL as string | undefi
   '',
 );
 const storage = `${
-  configuredSupabase || 'https://qwyrnomhazssofombhem.supabase.co'
+  configuredSupabase || 'https://qvyrromhazssofombhem.supabase.co'
 }/storage/v1/object/public/foton-public`;
 const manifesto = `${storage}/img-manifesto-quantico`;
 

@@ -14,7 +14,7 @@ jobs:
     env:
       VITE_BASE_PATH: /InstitutoFoton.org/
       VITE_SITE_ORIGIN: https://leonardocamargorossato.github.io
-      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_URL: https://qvyrromhazssofombhem.supabase.co
       VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
     steps:
       - uses: actions/checkout@v4

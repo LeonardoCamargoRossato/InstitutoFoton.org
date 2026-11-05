@@ -1,6 +1,6 @@
 # Instituto Foton .org — V0
 
-Portal científico e social do Instituto Foton. React, TypeScript e Vite; backend dedicado Supabase `qwyrnomhazssofombhem`. Não utiliza o banco comercial, ResearchFlow ou AnimeFinder.
+Portal científico e social do Instituto Foton. React, TypeScript e Vite; backend dedicado Supabase `qvyrromhazssofombhem`. Não utiliza o banco comercial, ResearchFlow ou AnimeFinder.
 
 ```sh
 cd /workspace/InstitutoFoton.org
