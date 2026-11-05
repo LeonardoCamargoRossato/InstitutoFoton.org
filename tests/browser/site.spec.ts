@@ -119,7 +119,8 @@ test('notícias: estado vazio, busca e artigo ausente', async ({ page }) => {
 });
 
 test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ page }) => {
-  await page.goto('./manifesto');
+  const response = await page.goto('./manifesto/');
+  expect(response?.status()).toBe(200);
   await expect(page.locator('.regional-letter')).toHaveCount(5);
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
   await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-video')).toHaveCount(0);

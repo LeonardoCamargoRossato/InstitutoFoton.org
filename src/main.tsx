@@ -30,10 +30,13 @@ const deployedVersion = async () => {
     });
     if (!response.ok) return;
     const latest = (await response.json()) as { version?: string };
-    const current = sessionStorage.getItem('foton-version');
-    if (current && latest.version && current !== latest.version) {
+    const embedded = document.querySelector<HTMLMetaElement>('meta[name="foton-version"]')?.content;
+    const current = embedded || sessionStorage.getItem('foton-version');
+    if (latest.version && current !== latest.version) {
       sessionStorage.setItem('foton-version', latest.version);
-      location.reload();
+      const next = new URL(location.href);
+      next.searchParams.set('__foton_version', latest.version);
+      location.replace(next);
       return;
     }
     if (latest.version) sessionStorage.setItem('foton-version', latest.version);

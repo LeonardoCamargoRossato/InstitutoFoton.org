@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 
 const base = process.env.VITE_BASE_PATH || '/';
@@ -21,6 +21,19 @@ const pages = [
 const html = await readFile('dist/index.html', 'utf8');
 const version = createHash('sha256').update(html).digest('hex').slice(0, 12);
 await writeFile('dist/version.json', JSON.stringify({ version }));
+const publicOrigin = origin ? new URL(origin).origin : '';
+const metadata = `${
+  publicOrigin
+    ? `<meta property="og:type" content="website"><meta property="og:title" content="Instituto Foton — Tecnologia através da ciência."><meta property="og:description" content="Ciência, pessoas e possibilidades."><meta property="og:url" content="${publicOrigin}${base}"><meta property="og:image" content="${publicOrigin}${base}favicon.png">`
+    : ''
+}<meta name="foton-version" content="${version}">`;
+const finalHtml = html.replace('</head>', `${metadata}</head>`);
+await writeFile('dist/index.html', finalHtml);
+// Rotas públicas reais evitam o 404.html e seu cache no GitHub Pages.
+for (const page of pages.filter(Boolean)) {
+  await mkdir(`dist/${page}`, { recursive: true });
+  await writeFile(`dist/${page}/index.html`, finalHtml);
+}
 // GitHub Pages responde 404 em rotas desconhecidas. O pequeno documento redireciona
 // para index e preserva path/query/hash; index restaura a URL antes do React.
 const fallback = `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Instituto Foton</title><script>
@@ -32,7 +45,6 @@ location.replace(base+'?__foton_route='+encodeURIComponent(route)+location.hash)
 await writeFile('dist/404.html', fallback);
 await writeFile('dist/.nojekyll', '');
 // Sem domínio inventado. Sitemap só existe se a origem real foi configurada.
-const publicOrigin = origin ? new URL(origin).origin : '';
 await writeFile(
   'dist/robots.txt',
   `User-agent: *\nDisallow: ${base}admin\nDisallow: ${base}entrar\nDisallow: ${base}auth/\n${publicOrigin ? `Sitemap: ${publicOrigin}${base}sitemap.xml\n` : ''}`,
@@ -41,12 +53,5 @@ if (publicOrigin) {
   await writeFile(
     'dist/sitemap.xml',
     `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.map((p) => `<url><loc>${publicOrigin}${base}${p}</loc></url>`).join('')}</urlset>`,
-  );
-  await writeFile(
-    'dist/index.html',
-    html.replace(
-      '</head>',
-      `<meta property="og:type" content="website"><meta property="og:title" content="Instituto Foton — Tecnologia através da ciência."><meta property="og:description" content="Ciência, pessoas e possibilidades."><meta property="og:url" content="${publicOrigin}${base}"><meta property="og:image" content="${publicOrigin}${base}favicon.png"></head>`,
-    ),
   );
 }
