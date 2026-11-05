@@ -259,7 +259,32 @@ export function Institute() {
           </div>
         </div>
       </section>
-      <section className="section section-gray">
+      <section className="section section-gray photon-section">
+        <div className="quantum-signature" aria-hidden="true">
+          <span className="quantum-equation equation-wave">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</span>
+          <span className="quantum-equation equation-photon">E = hν</span>
+          <svg className="spectrum-wave" viewBox="0 0 720 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="foton-spectrum" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stopColor="#6f36ff" />
+                <stop offset=".2" stopColor="#006cff" />
+                <stop offset=".4" stopColor="#00c5d8" />
+                <stop offset=".6" stopColor="#6ed35d" />
+                <stop offset=".8" stopColor="#ffb000" />
+                <stop offset="1" stopColor="#ef3d7d" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0 60 C60 4 120 4 180 60 S300 116 360 60 480 4 540 60 660 116 720 60"
+              fill="none"
+              stroke="url(#foton-spectrum)"
+              strokeWidth="2"
+            />
+          </svg>
+          <i className="quantum-particle particle-one" />
+          <i className="quantum-particle particle-two" />
+          <i className="quantum-particle particle-three" />
+        </div>
         <div className="container split">
           <div className="large-word" aria-hidden="true">
             fóton<span>luz · conexão · ciência</span>
