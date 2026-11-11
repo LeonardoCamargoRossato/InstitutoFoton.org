@@ -1,5 +1,8 @@
 import { readFile, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 const expectedPrivate =
   'Documentação de operação e governança institucional é mantida em ambientes de acesso controlado. Esta pasta contém apenas esta orientação pública e não armazena dados internos.';
@@ -27,7 +30,7 @@ async function listFiles(folder, prefix = '') {
   return files;
 }
 
-const readme = await readFile('README.md', 'utf8');
+const readme = await readFile(join(repoRoot, 'README.md'), 'utf8');
 if (!readme.startsWith('# Instituto Foton\n')) {
   throw new Error('README institucional com título inesperado.');
 }
@@ -40,26 +43,26 @@ if (operationalTerms.test(readme)) {
   throw new Error('README contém referência operacional; revisar antes de publicar.');
 }
 
-const index = await readFile('documentation/README.md', 'utf8');
+const index = await readFile(join(repoRoot, 'documentation/README.md'), 'utf8');
 if (!index.includes('marcador **conceitual**')) {
   throw new Error('Índice deve esclarecer que private/ não é controle de acesso.');
 }
 
-const privateFiles = await listFiles('documentation/private');
+const privateFiles = await listFiles(join(repoRoot, 'documentation/private'));
 if (privateFiles.length !== 1 || privateFiles[0] !== 'README.md') {
   throw new Error('documentation/private deve conter exclusivamente o placeholder público.');
 }
-const placeholder = await readFile('documentation/private/README.md', 'utf8');
+const placeholder = await readFile(join(repoRoot, 'documentation/private/README.md'), 'utf8');
 if (placeholder.trim() !== expectedPrivate) {
   throw new Error('Placeholder private/ alterado; revisão humana obrigatória.');
 }
 
-const publicFiles = await listFiles('documentation/public');
+const publicFiles = await listFiles(join(repoRoot, 'documentation/public'));
 for (const file of publicFiles) {
   if (!approvedPublicFiles.has(file)) {
     throw new Error('Novo documento público ainda não aprovado: ' + file);
   }
-  const content = await readFile(join('documentation/public', file), 'utf8');
+  const content = await readFile(join(repoRoot, 'documentation/public', file), 'utf8');
   if (
     /sb_secret_|github_pat_|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|supabase\.co|dashboard\.supabase\.com|\/workspace\/|service_role/i.test(
       content,

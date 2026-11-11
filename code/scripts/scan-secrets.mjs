@@ -1,10 +1,14 @@
 import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 const paths = execFileSync(
   'git',
   ['ls-files', '--cached', '--others', '--exclude-standard', '-z'],
-  { encoding: 'utf8' },
+  { encoding: 'utf8', cwd: repoRoot },
 )
   .split('\0')
   .filter(Boolean);
@@ -14,7 +18,7 @@ const forbiddenFiles = paths.filter(
 const hits = [];
 for (const path of paths) {
   if (!/\.(?:[cm]?[jt]sx?|json|md|ya?ml|html|css|sql|example)$/.test(path)) continue;
-  const text = await readFile(path, 'utf8');
+  const text = await readFile(join(repoRoot, path), 'utf8');
   let suspicious =
     /\b(?:sb_secret_[A-Za-z0-9_-]{15,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{30,}|sk-[A-Za-z0-9_-]{25,})\b/.test(
       text,

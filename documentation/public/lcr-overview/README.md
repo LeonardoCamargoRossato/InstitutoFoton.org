@@ -5,3 +5,5 @@ O LCR Workflow organiza o desenvolvimento em etapas com responsabilidades distin
 O **Planner** estrutura requisitos e alternativas; o **Builder** implementa; o **Auditor Quality & Security** revisa de forma independente; a decisão de aprovação e publicação cabe às pessoas autorizadas.
 
 Esta é apenas uma síntese pública. Procedimentos completos e registros de operação são disponibilizados exclusivamente pelos meios de acesso controlado apropriados.
+
+Neste repositório, a implementação da aplicação reside em `code/`; os registros publicáveis ficam em `documentation/public/`. Procedimentos internos não são expostos no GitHub público.
