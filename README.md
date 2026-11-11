@@ -1,4 +1,4 @@
-# Instituto Foton .org — V0
+# Instituto Foton .org
 
 🌐 **Acesse o site:** [InstitutoFoton.org](https://leonardocamargorossato.github.io/InstitutoFoton.org/)
 
