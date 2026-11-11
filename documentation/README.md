@@ -1,10 +1,10 @@
 # Documentação — Instituto Foton
 
-Esta área reúne somente informações adequadas a um repositório **público**.
+A documentação está organizada por classificação, dentro deste repositório **público**.
 
-- [`public/`](public/README.md): documentação institucional deliberadamente publicável e revisada.
-- [`private/`](private/README.md): marcador **conceitual**, com apenas uma orientação pública.
+- [`public/`](public/README.md): materiais institucionais publicáveis.
+- [`private/`](private/README.md): documentos técnicos legados, classificados para acesso interno futuro, **atualmente públicos no GitHub**.
 
-**Atenção:** o nome `private` não restringe acesso a nada dentro deste repositório. Documentos internos e confidenciais exigem armazenamento externo com controle de permissões real, como um repositório Git privado ou Google Drive institucional autorizado. A documentação técnica anterior só pode ser migrada depois de preservação e validação desse destino.
+**Atenção:** o nome `private` não restringe acesso ao conteúdo deste repositório. Consulte [os documentos técnicos legados](private/docs/) sabendo que seus arquivos continuam públicos. Confidencialidade real exige um repositório privado ou Google Drive institucional com permissões verificadas.
 
-A aplicação web e seus testes ficam em `code/`. Os documentos técnicos legados em `docs/` permanecem preservados até migração privada autorizada; renomeá-los não criaria confidencialidade.
+A aplicação e seus testes estão em `code/`. O antigo diretório `docs/` foi incorporado a `documentation/private/docs/` preservando o conteúdo e os blobs Git, sem alterar o código de produção. A migração segura definitiva continua pendente.
