@@ -35,9 +35,12 @@ async function walk(dir,prefix=''){
   if(forbiddenExt.test(rel)){violations.push('sensitive extension '+rel);continue;}
   if(routeDirectories.has(top)&&rel!==top+'/index.html')violations.push('route file '+rel);
   else if(top==='documents'&&!expectedDocuments.has(rel))violations.push('document not approved '+rel);
-  else if(top==='assets'&&!expected.has(rel))violations.push('asset not inventoried '+rel);
+  else if(top==='assets' && ['PNG','WebP'].includes(parts[1]) && !expected.has(rel))
+    violations.push('image not inventoried '+rel);
+  else if(top==='assets' && !['PNG','WebP'].includes(parts[1]) &&
+    !/^assets\/[^/]+\.(?:js|mjs|css|woff2?|ttf|svg)$/i.test(rel))
+    violations.push('unexpected bundler asset '+rel);
   else if(top==='licenses'&&rel!=='licenses/raleway-OFL.txt')violations.push('license '+rel);
-  else if(top==='assets'&&!/\.png$|\.webp$/i.test(rel))violations.push('asset type '+rel);
   else if(parts.length===1&&!rootFiles.has(rel))violations.push('unexpected root file '+rel);
   if(textTypes.has(extname(rel))){
    const content=await readFile(join(dir,ent.name),'utf8');
