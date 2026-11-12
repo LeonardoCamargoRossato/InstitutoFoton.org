@@ -1,0 +1,437 @@
+/*
+ * Humanização visual — 2026-11-12.
+ * Mantém o design Foton (branco, navy, Raleway, espectro, vidro), mas substitui
+ * fotos quadradas por composições horizontais e orgânicas.
+ * Imagens ilustrativas de IA; nenhuma pessoa representa integrante real.
+ */
+@layer components {
+  .foton-photo {
+    position: relative;
+    isolation: isolate;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 26px 88px 28px 26px;
+    background: linear-gradient(120deg, #082d6d, #1a477d 65%, #062556);
+    box-shadow: 0 22px 64px rgba(4, 18, 49, .13);
+  }
+  .foton-photo > picture {
+    position: absolute;
+    display: block;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .foton-photo > picture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .foton-photo:has(> picture)::after {
+    height: 3px;
+    width: 58%;
+    top: 0;
+    right: 0;
+  }
+  .foton-photo figcaption {
+    display: flex;
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    align-items: center;
+    gap: 10px;
+    z-index: 3;
+    background: linear-gradient(0deg, rgba(4, 18, 49, .85), rgba(4, 18, 49, .18));
+    color: #fff;
+    font-size: .68rem;
+    padding: 18px 24px 12px;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+  .photo-caption-mark {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #48d7f7;
+  }
+  .home-hero {
+    isolation: isolate;
+    color: #fff;
+    border-radius: 0 0 110px 0;
+    background:
+      radial-gradient(ellipse at 82% 25%, rgba(34, 130, 219, .28), transparent 42%),
+      radial-gradient(ellipse at 17% 93%, rgba(111, 54, 255, .16), transparent 36%),
+      linear-gradient(108deg, #041231, #072c7b 69%, #041231);
+  }
+  .home-hero::before {
+    background: radial-gradient(ellipse at center, rgba(112, 213, 255, .12), transparent 67%);
+    border-color: rgba(255, 255, 255, .12);
+  }
+  .home-hero::after { border-color: rgba(148, 207, 255, .24); }
+  .home-hero .hero-grid {
+    grid-template-columns: minmax(0, .98fr) minmax(0, 1.42fr);
+    align-items: center;
+    gap: clamp(28px, 4vw, 78px);
+    min-height: 450px;
+    padding-block: 64px 74px;
+  }
+  .home-hero .hero-copy { z-index: 4; min-width: 0; }
+  .home-hero .hero-copy h1 {
+    color: #fff;
+    font-size: clamp(2.7rem, 4.7vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -.05em;
+  }
+  .home-hero .hero-copy h1 em {
+    color: #6bdeff;
+    text-shadow: 0 0 26px rgba(15, 184, 253, .13);
+  }
+  .home-hero .hero-copy .eyebrow,
+  .home-hero .hero-description,
+  .home-hero .scroll-hint {
+    color: rgba(242, 250, 255, .89);
+  }
+  .home-hero .hero-description { line-height: 1.7; max-width: 470px; }
+  .home-hero .hero-copy .button {
+    background: #fff;
+    border-color: #fff;
+    color: #072c7b;
+  }
+  .home-hero .hero-copy .text-link {
+    color: #fff;
+    border-color: rgba(255, 255, 255, .55);
+  }
+  .home-hero .hero-photography {
+    min-height: 0;
+    aspect-ratio: 2.65 / 1;
+    border-radius: 105px 32px 110px 28px;
+    background:
+      radial-gradient(ellipse at 55% 40%, #2165a7, transparent 65%),
+      linear-gradient(110deg, #072c7b, #041231);
+    box-shadow: 0 34px 82px rgba(2, 12, 39, .32);
+    transform: translateY(14px);
+  }
+  .home-hero .hero-photography picture img {
+    object-fit: contain;
+    object-position: center;
+  }
+  .home-hero .hero-photography figcaption { padding: 15px 23px; }
+
+  .human-mosaic-section {
+    background: linear-gradient(180deg, #fff 0%, #f7faff 100%);
+    padding-block: 72px 78px;
+    border-radius: 0 0 80px 0;
+  }
+  .human-mosaic-intro {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 30px;
+  }
+  .human-mosaic-intro h2 {
+    margin-top: 15px;
+    color: #072c7b;
+    font-size: clamp(1.9rem, 3vw, 3.25rem);
+    line-height: 1.13;
+    letter-spacing: -.035em;
+  }
+  .human-mosaic-intro > p {
+    max-width: 490px;
+    margin-left: auto;
+    font-size: .9rem;
+    line-height: 1.75;
+  }
+  .human-mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+  }
+  .human-mosaic-tile {
+    position: relative;
+    min-width: 0;
+    display: block;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 20px 54px 20px 22px;
+    aspect-ratio: 16 / 9;
+    background: #082d6d;
+    outline-offset: 5px;
+    box-shadow: 0 15px 40px rgba(4, 18, 49, .12);
+  }
+  .human-mosaic-tile:nth-child(2n) { border-radius: 54px 20px 22px 20px; }
+  .human-mosaic-tile:focus-visible { outline: 3px solid #0158bb; }
+  .human-mosaic-photo {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    aspect-ratio: auto;
+    height: 100%;
+    border: none;
+    box-shadow: none;
+    background: #153f72;
+  }
+  .human-mosaic-photo picture img {
+    object-fit: cover;
+    object-position: center 42%;
+    transition: transform .35s ease;
+  }
+  .human-mosaic-tile:hover .human-mosaic-photo picture img { transform: scale(1.04); }
+  .human-mosaic-overlay {
+    position: absolute;
+    z-index: 2;
+    inset-inline: 0;
+    bottom: 0;
+    display: grid;
+    gap: 5px;
+    padding: 34px 19px 17px;
+    color: #fff;
+    background: linear-gradient(0deg, rgba(4, 18, 49, .94) 5%, rgba(4, 18, 49, .58) 67%, transparent);
+  }
+  .human-mosaic-overlay strong { font-size: .98rem; line-height: 1.2; }
+  .human-mosaic-overlay span { font-size: .73rem; line-height: 1.4; max-width: 330px; }
+  .human-media-note {
+    color: #5f6f88;
+    margin-top: 19px;
+    font-size: .74rem;
+    line-height: 1.55;
+  }
+  .human-mosaic-section.is-compact .human-mosaic-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .human-story-layout { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+  .story-photography, .institute-photography { aspect-ratio: 2 / 1; border-radius: 90px 24px 88px 24px; }
+  .home-legacy-section { background: #f5f8fd; border-radius: 80px 0 70px 0; }
+  .home-legacy-layout {
+    display: grid;
+    grid-template-columns: .82fr 1.18fr;
+    align-items: center;
+    gap: clamp(32px, 5vw, 86px);
+  }
+  .home-legacy-layout h2 {
+    font-size: clamp(2rem, 3vw, 3.4rem);
+    line-height: 1.16;
+    letter-spacing: -.03em;
+    color: #072c7b;
+    margin: 18px 0;
+  }
+  .home-legacy-layout p:not(.eyebrow) { line-height: 1.75; margin-bottom: 22px; }
+  .home-legacy-photo { aspect-ratio: 2.4 / 1; border-radius: 100px 26px 100px 26px; }
+
+  .human-page-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(ellipse at 79% 35%, rgba(56, 146, 245, .23), transparent 39%),
+      radial-gradient(ellipse at 29% 95%, rgba(90, 32, 156, .17), transparent 40%),
+      linear-gradient(105deg, #041231, #072c7b 73%, #041231);
+    border-radius: 0 0 104px 0;
+  }
+  .human-page-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    align-items: center;
+    gap: clamp(30px, 5vw, 80px);
+    padding-block: 80px;
+    min-height: 440px;
+  }
+  .human-page-hero-copy { position: relative; z-index: 4; min-width: 0; }
+  .human-page-hero-copy .eyebrow { color: #b9ddfa; margin-bottom: 18px; }
+  .human-page-hero-copy h1 {
+    color: #fff;
+    font-size: clamp(2.3rem, 4.15vw, 4.4rem);
+    letter-spacing: -.045em;
+    line-height: 1.09;
+    max-width: 620px;
+  }
+  .human-page-description {
+    font-size: .94rem;
+    line-height: 1.8;
+    margin-top: 23px;
+    max-width: 550px;
+    color: #e2efff;
+  }
+  .human-page-actions { margin-top: 28px; flex-wrap: wrap; }
+  .human-page-actions .button {
+    background: #fff;
+    color: #072c7b;
+    border-color: #fff;
+  }
+  .human-page-actions .text-link { color: #fff; }
+  .human-hero-badge { margin-top: 17px; }
+  .human-hero-badge .badge {
+    color: #f4f8ff;
+    background: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .35);
+  }
+  .human-page-hero-photo {
+    min-height: 0;
+    aspect-ratio: 2.6 / 1;
+    border-radius: 90px 24px 105px 26px;
+    background: #0d3f7c;
+    box-shadow: 0 25px 74px rgba(0, 13, 39, .35);
+  }
+  .human-page-hero-photo picture img {
+    object-fit: cover;
+    object-position: center;
+  }
+  .human-hero-spectrum {
+    position: absolute;
+    bottom: 0;
+    inset-inline: 0;
+    height: 5px;
+    pointer-events: none;
+    background: linear-gradient(90deg, #6f36ff, #006cff, #00c5d8, #6ed35d, #ffb000, #ef3d7d);
+    mask-image: linear-gradient(90deg, transparent, #000 20%, #000 82%, transparent);
+  }
+
+  .institute-banner-section { background: #eff5fc; border-radius: 64px 0 64px 0; }
+  .institute-banner-layout {
+    display: grid;
+    grid-template-columns: .82fr 1.18fr;
+    align-items: center;
+    gap: clamp(32px, 5vw, 82px);
+  }
+  .institute-banner-layout h2 {
+    color: #072c7b;
+    font-size: clamp(1.9rem, 2.85vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: -.03em;
+    margin: 18px 0 22px;
+  }
+  .institute-banner-layout p:not(.eyebrow) { line-height: 1.75; }
+  .institute-banner-photo { aspect-ratio: 2.6 / 1; border-radius: 98px 26px 98px 24px; }
+  .support-researcher-section { background: #fff; border-radius: 85px 0 85px 0; }
+  .support-researcher-layout {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    align-items: center;
+    gap: clamp(35px, 6vw, 90px);
+  }
+  .support-researcher-layout h2 {
+    font-size: clamp(2rem, 3vw, 3.3rem);
+    color: #072c7b;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    margin: 18px 0 24px;
+  }
+  .support-researcher-layout p:not(.eyebrow) { line-height: 1.8; margin-bottom: 18px; }
+  .support-researcher-layout .text-link { margin-top: 14px; }
+  .support-researcher-photo { aspect-ratio: 2.4 / 1; border-radius: 100px 24px 100px 24px; }
+  .journey-photo-grid { align-items: stretch; }
+  .journey-photo-card { overflow: hidden; padding: 18px; border-radius: 22px 70px 22px 22px; }
+  .journey-photo-card:nth-child(2) { border-radius: 70px 22px 22px 22px; }
+  .journey-step-photo {
+    aspect-ratio: 16 / 9;
+    border-radius: 15px 43px 15px 15px;
+    margin-bottom: 22px;
+    box-shadow: none;
+    border-color: rgba(7, 44, 123, .07);
+  }
+  .journey-photo-card h3, .journey-photo-card p, .journey-photo-card .text-link { margin-inline: 10px; }
+  .transparency-photo { aspect-ratio: 2 / 1; }
+}
+
+@layer responsive {
+  @media (max-width: 1199px) {
+    .home-hero .hero-grid { gap: 24px; }
+    .human-page-hero-grid { gap: 26px; }
+    .human-page-hero-copy h1 { font-size: clamp(2.15rem, 4.6vw, 3.8rem); }
+  }
+  @media (max-width: 1000px) {
+    .home-hero .hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      min-height: 390px;
+    }
+    .human-page-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .human-mosaic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .home-legacy-layout, .support-researcher-layout, .institute-banner-layout { gap: 30px; }
+    .human-page-hero-photo { aspect-ratio: 1.8 / 1; }
+  }
+  @media (max-width: 700px) {
+    .home-hero { border-radius: 0 0 66px 0; }
+    .home-hero .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 0;
+      padding-top: 49px;
+      padding-bottom: 43px;
+      gap: 36px;
+    }
+    .home-hero .hero-copy h1 { font-size: clamp(2.75rem, 10.6vw, 4rem); }
+    .home-hero .hero-photography {
+      min-height: 0;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      transform: none;
+      border-radius: 68px 20px 70px 20px;
+    }
+    .home-hero .hero-photography picture img { object-fit: cover; }
+    .home-hero .hero-photography figcaption { padding: 16px; }
+    .foton-photo { border-radius: 20px 50px 20px 20px; }
+    .foton-photo figcaption { padding: 14px; font-size: .65rem; }
+    .human-mosaic-section { border-radius: 0 0 56px 0; padding-block: 62px; }
+    .human-mosaic-intro { grid-template-columns: 1fr; gap: 18px; }
+    .human-mosaic-intro > p { margin-left: 0; }
+    .human-mosaic-grid,
+    .human-mosaic-section.is-compact .human-mosaic-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .human-mosaic-tile {
+      aspect-ratio: 16 / 9;
+      border-radius: 16px 39px 16px 16px;
+    }
+    .human-mosaic-tile:nth-child(2n) { border-radius: 39px 16px 16px 16px; }
+    .human-mosaic-overlay { padding: 35px 10px 12px; }
+    .human-mosaic-overlay strong { font-size: .86rem; }
+    .human-mosaic-overlay span { font-size: .63rem; }
+    .human-mosaic-photo picture img { object-fit: cover; }
+    .human-story-layout, .home-legacy-layout,
+    .institute-banner-layout, .support-researcher-layout {
+      grid-template-columns: 1fr;
+      gap: 27px;
+    }
+    .human-story-layout > .foton-photo { order: -1; }
+    .story-photography, .institute-photography,
+    .home-legacy-photo, .institute-banner-photo, .support-researcher-photo {
+      aspect-ratio: 3 / 2;
+      border-radius: 55px 18px 55px 18px;
+    }
+    .human-page-hero { border-radius: 0 0 72px 0; }
+    .human-page-hero-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding-block: 56px 52px;
+      min-height: 0;
+    }
+    .human-page-hero-copy h1 { font-size: clamp(2.5rem, 10vw, 3.65rem); }
+    .human-page-hero-photo {
+      aspect-ratio: 4 / 3;
+      border-radius: 70px 22px 70px 22px;
+    }
+    .human-page-hero-photo picture img { object-fit: cover; }
+    .human-page-actions { gap: 18px; }
+    .human-page-actions .text-link { color: #fff; }
+    .support-researcher-layout .badge { display: inline-block; }
+    .journey-photo-grid { grid-template-columns: 1fr; }
+    .journey-photo-card { padding: 15px; border-radius: 24px 65px 24px 24px; }
+  }
+  @media (max-width: 360px) {
+    .human-mosaic-grid { grid-template-columns: 1fr; }
+    .human-mosaic-tile { aspect-ratio: 16 / 9; }
+    .human-page-actions { align-items: start; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .human-mosaic-photo picture img,
+    .home-hero .hero-photography,
+    .human-page-hero-photo { animation: none !important; transition: none !important; transform: none !important; }
+  }
+}

@@ -6,6 +6,7 @@ import '@fontsource/raleway/latin-500.css';
 import '@fontsource/raleway/latin-600.css';
 import '@fontsource/raleway/latin-700.css';
 import './styles/site.css';
+import './styles/human-editorial.css';
 import Layout from './app/Layout';
 import {
   Home,
