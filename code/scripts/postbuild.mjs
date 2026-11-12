@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, readdir, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 
 const base = process.env.VITE_BASE_PATH || '/';
@@ -24,7 +24,7 @@ await writeFile('dist/version.json', JSON.stringify({ version }));
 const publicOrigin = origin ? new URL(origin).origin : '';
 const metadata = `${
   publicOrigin
-    ? `<meta property="og:type" content="website"><meta property="og:title" content="Instituto Foton — Tecnologia através da ciência."><meta property="og:description" content="Ciência, pessoas e possibilidades."><meta property="og:url" content="${publicOrigin}${base}"><meta property="og:image" content="${publicOrigin}${base}favicon.png">`
+    ? `<meta property="og:type" content="website"><meta property="og:title" content="Instituto Foton — Tecnologia através da ciência."><meta property="og:description" content="Ciência, pessoas e possibilidades."><meta property="og:url" content="${publicOrigin}${base}"><meta property="og:image" content="${publicOrigin}${base}assets/PNG/branding/favicon.png">`
     : ''
 }<meta name="foton-version" content="${version}">`;
 const finalHtml = html.replace('</head>', `${metadata}</head>`);
@@ -55,3 +55,13 @@ if (publicOrigin) {
     `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.map((p) => `<url><loc>${publicOrigin}${base}${p}</loc></url>`).join('')}</urlset>`,
   );
 }
+
+// Manter diretorias vazias no Git sem publicar placeholders .gitkeep no Pages.
+async function removePlaceholders(dir) {
+  for (const entry of await readdir(dir,{withFileTypes:true})) {
+    const full=dir+'/'+entry.name;
+    if(entry.isDirectory())await removePlaceholders(full);
+    else if(entry.name==='.gitkeep')await rm(full);
+  }
+}
+await removePlaceholders('dist/assets');

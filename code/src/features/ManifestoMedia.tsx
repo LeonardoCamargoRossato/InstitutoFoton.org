@@ -2,32 +2,27 @@ import { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Maximize2, Play } from 'lucide-react';
 import { ImageZoomDialog } from '../components/ImageZoomDialog';
 
-const configuredSupabase = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.replace(
-  /\/$/,
-  '',
-);
-const storage = `${
-  configuredSupabase || 'https://qvyrromhazssofombhem.supabase.co'
-}/storage/v1/object/public/foton-public`;
-const manifesto = `${storage}/img-manifesto-quantico`;
+import { imageAsset, assetUrl } from '../lib/siteAssets';
+
+const manifestoImage = (id: string) => assetUrl(imageAsset(id).pngPath);
 
 const letterMedia = {
   'Carta do Sudeste': {
     type: 'video',
     src: 'https://www.youtube.com/embed/1gSHhhZiDtQ',
-    image: `${manifesto}/Thumb_CartaSudeste.jpg`,
+    image: `${manifestoImage('Thumb_CartaSudeste')}`,
   },
   'Carta do Norte': {
     type: 'image',
-    image: `${manifesto}/Thumb_CartaNorte.jpeg`,
+    image: `${manifestoImage('Thumb_CartaNorte')}`,
   },
-  'Carta do Nordeste': { type: 'image', image: `${manifesto}/Carta_Nordeste.jpg` },
-  'Carta do Centro-oeste': { type: 'image', image: `${manifesto}/Carta_CentroOeste.jpeg` },
-  'Carta do Sul': { type: 'image', image: `${manifesto}/Carta_Sul.jpg` },
+  'Carta do Nordeste': { type: 'image', image: `${manifestoImage('Carta_Nordeste')}` },
+  'Carta do Centro-oeste': { type: 'image', image: `${manifestoImage('Carta_CentroOeste')}` },
+  'Carta do Sul': { type: 'image', image: `${manifestoImage('Carta_Sul')}` },
 } as const;
 
 const visitImages = Array.from({ length: 20 }, (_, index) => ({
-  src: `${storage}/img-visitas-tecnicas/visita-${String(index + 1).padStart(2, '0')}.png`,
+  src: assetUrl(imageAsset('visita-'+String(index + 1).padStart(2,'0')).pngPath),
   title: `Visita técnica ${String(index + 1).padStart(2, '0')}`,
   caption:
     'Registro da articulação do Instituto Foton com pesquisadores, instituições e ambientes do ecossistema de ciência e inovação.',
@@ -35,13 +30,7 @@ const visitImages = Array.from({ length: 20 }, (_, index) => ({
 
 // O carregamento inicial usa arquivo WebP servido no GitHub Pages.
 // A imagem original em Supabase é buscada apenas ao abrir o zoom.
-const optimized = (src: string) => {
-  const visit = src.match(/\/img-visitas-tecnicas\/(visita-\d{2})\.png$/);
-  if (visit) return import.meta.env.BASE_URL + 'images/webp/visits/' + visit[1] + '.webp';
-  const manifestoImage = src.match(/\/img-manifesto-quantico\/([^/]+)\.(?:png|jpe?g)$/);
-  if (manifestoImage) return import.meta.env.BASE_URL + 'images/webp/manifesto/' + manifestoImage[1] + '.webp';
-  return src;
-};
+const optimized = (src: string) => src.replace('/assets/PNG/','/assets/WebP/').replace(/\.png$/,'.webp');
 
 function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
   const [fallback, setFallback] = useState(false);
@@ -118,7 +107,7 @@ export default function ManifestoMedia({
     return (
       <Video
         src="https://www.youtube.com/embed/xiQklvt6d70?start=4615"
-        image={`${manifesto}/thumb_PorqueIssoEImportante.jpg`}
+        image={`${manifestoImage('thumb_PorqueIssoEImportante')}`}
         title="Por que o Manifesto Quântico Nacional é importante"
       />
     );
@@ -191,8 +180,8 @@ export default function ManifestoMedia({
 
   const image =
     kind === 'overview'
-      ? `${manifesto}/OqueeoManifestoQuanticoNacional.png`
-      : `${manifesto}/ComoFaremosIsso.jpg`;
+      ? `${manifestoImage('OqueeoManifestoQuanticoNacional')}`
+      : `${manifestoImage('ComoFaremosIsso')}`;
   const title = kind === 'overview' ? 'O que é o Manifesto Quântico Nacional' : 'Como faremos isso';
   const single = [{ src: image, title, caption: 'Manifesto Quântico Nacional — Instituto Foton.' }];
   return (

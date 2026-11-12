@@ -3,6 +3,7 @@ import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { siteOrigin, basePath } from '../lib/config';
 import SiteImageViewer from '../components/SiteImageViewer';
+import { assetUrl, imageAsset } from '../lib/siteAssets';
 
 const navigation = [
   ['/', 'Início'],
@@ -124,8 +125,8 @@ export default function Layout() {
           <Link to="/" className="brand" aria-label="Instituto Foton — início">
             <img
               className="brand-logo"
-              src={basePath + 'images/webp/branding/foton-logo-light.webp'}
-              onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = basePath + 'foton-logo-light.png'; }}
+              src={assetUrl(imageAsset('foton-logo-light').webpPath)}
+              onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = assetUrl(imageAsset('foton-logo-light').pngPath); }}
               alt="Foton"
               width="329"
               height="146"
@@ -182,8 +183,8 @@ export default function Layout() {
               <Link to="/" className="brand footer-brand">
                 <img
                   className="brand-logo"
-                  src={basePath + 'images/webp/branding/foton-logo.webp'}
-                  onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = basePath + 'foton-logo.png'; }}
+                  src={assetUrl(imageAsset('foton-logo').webpPath)}
+                  onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = assetUrl(imageAsset('foton-logo').pngPath); }}
                   alt="Foton"
                   width="1920"
                   height="595"
@@ -230,7 +231,6 @@ export default function Layout() {
             <div>
               <Link to="/privacidade">Privacidade</Link>
               <Link to="/termos">Termos de uso</Link>
-              <Link to="/entrar">Entrar</Link>
               <button
                 aria-label="Voltar ao topo"
                 className="icon-button"

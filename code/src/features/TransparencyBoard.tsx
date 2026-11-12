@@ -3,7 +3,7 @@ import { Download, Eye, FileText, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { FotonPhoto } from './FotonPhoto';
 import { TRANSPARENCY_CATEGORIES, transparencyCategory, type TransparencyCategory } from './TransparencyCategories';
-import { backendError, documentUrl, documents, type PublicDocument } from '../lib/backend';
+import { documentUrl, documents, type PublicDocument } from '../lib/backend';
 import { dateLabel } from '../lib/config';
 import { useResource } from '../lib/useResource';
 import { Intro, Status } from '../components/UI';
@@ -46,7 +46,7 @@ function entryFromBackend(doc: PublicDocument): Entry {
     id: doc.id,
     title: doc.title,
     category: group,
-    categoryLabel: TRANSPARENCY_CATEGORIES.find((c) => c.id === group)?.title || doc.category,
+    categoryLabel: TRANSPARENCY_CATEGORIES.find((c) => c.id === group)?.title || (doc.category === 'presentation' ? 'Apresentação institucional' : doc.category),
     description: doc.description,
     version: doc.version_label,
     date: doc.document_date,
@@ -134,7 +134,7 @@ export default function TransparencyBoard() {
   const filtered = entries.filter((d) => (!hasFilters || (year === 'todos' || d.date?.startsWith(year))) &&
     (!hasFilters || !search.trim() || textMatches(d, search.trim())));
   const hasQuery = hasFilters && (Boolean(search.trim()) || year !== 'todos');
-  const unavailable = Boolean(backendError) || Boolean(resource.error);
+  const unavailable = Boolean(resource.error);
   const categories = [
     ...TRANSPARENCY_CATEGORIES,
     ...(entries.some((d) => d.category === 'other')
@@ -169,14 +169,7 @@ export default function TransparencyBoard() {
               <h2>Documentos para consulta</h2>
             </div>
             <p>Organizados por finalidade, com referência temporal quando informada na fonte.</p>
-          </div>
-          {backendError && (
-            <p className="transparency-alert" role="status">
-              A consulta ao acervo dinâmico está indisponível nesta sessão. Apenas os arquivos públicos
-              incorporados ao próprio portal podem ser confirmados.
-            </p>
-          )}
-          {!backendError && <Status {...resource} />}
+          </div>\n          <Status {...resource} />
           {hasFilters && (
             <div className="transparency-filters">
               <label>

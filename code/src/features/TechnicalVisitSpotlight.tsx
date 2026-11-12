@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { imageAsset, assetUrl } from '../lib/siteAssets';
 
-const base = import.meta.env.BASE_URL;
-const full = 'https://qvyrromhazssofombhem.supabase.co/storage/v1/object/public/foton-public/img-visitas-tecnicas/visita-03.png';
+const image = imageAsset('visita-03');
+const full = assetUrl(image.pngPath);
+const preview = assetUrl(image.webpPath);
 
 export default function TechnicalVisitSpotlight() {
   const [fallback, setFallback] = useState(false);
@@ -12,7 +14,7 @@ export default function TechnicalVisitSpotlight() {
         <figure className="technical-visit-photo" role="button" tabIndex={0}
           aria-label="Ampliar fotografia da Visita Técnica 03">
           <img
-            src={fallback ? full : base + 'images/webp/visits/visita-03.webp'}
+            src={fallback ? full : preview}
             data-full-image={full}
             alt="Visita Técnica 03: registro fotográfico do acervo de visitas do Instituto Foton."
             loading="lazy" decoding="async" fetchPriority="low"
