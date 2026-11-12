@@ -27,6 +27,11 @@ const routeDirectories = new Set([
   'termos',
 ]);
 const approvedDocuments = new Set(['documents/apresentacao-institucional-2026-09-10.pdf']);
+const approvedIllustrations = new Set([
+  'images/illustrative/foton-pessoas-laboratorio.webp',
+  'images/illustrative/foton-pessoas-colaboracao.webp',
+  'images/illustrative/foton-pessoas-formacao.webp',
+]);
 const forbiddenDirectories = new Set([
   '.github',
   'documentation',
@@ -63,7 +68,7 @@ async function inspect(folder, prefix = '') {
       continue;
     }
     if (item.isDirectory()) {
-      if (prefix === '' && !routeDirectories.has(top) && !['assets', 'documents', 'licenses'].includes(top)) {
+      if (prefix === '' && !routeDirectories.has(top) && !['assets', 'documents', 'licenses', 'images'].includes(top)) {
         violations.push(rel + ' (diretório não aprovado)');
         continue;
       }
@@ -83,6 +88,8 @@ async function inspect(folder, prefix = '') {
       violations.push(rel + ' (arquivo inesperado em rota)');
     } else if (top === 'documents' && !approvedDocuments.has(rel)) {
       violations.push(rel + ' (documento sem aprovação explícita)');
+    } else if (top === 'images' && !approvedIllustrations.has(rel)) {
+      violations.push(rel + ' (ilustração não inventariada)');
     } else if (top === 'licenses' && rel !== 'licenses/raleway-OFL.txt') {
       violations.push(rel + ' (licença não inventariada)');
     } else if (top === 'assets' && !/\.(?:js|mjs|css|svg|png|jpe?g|webp|gif|woff2?|ttf|otf)$/i.test(rel)) {
@@ -101,6 +108,9 @@ await inspect(dist);
 if (!checked.includes('index.html')) violations.push('index.html ausente');
 for (const doc of approvedDocuments) {
   if (!checked.includes(doc)) violations.push('PDF institucional aprovado ausente: ' + doc);
+}
+for (const image of approvedIllustrations) {
+  if (!checked.includes(image)) violations.push('Imagem ilustrativa ausente: ' + image);
 }
 if (violations.length) {
   console.error('Artefato Pages reprovado. Arquivos para revisão:', violations);

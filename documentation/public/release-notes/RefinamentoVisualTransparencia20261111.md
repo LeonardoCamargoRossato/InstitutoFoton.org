@@ -25,3 +25,14 @@ O projeto não dispõe de versões redimensionadas confirmadas das fotografias n
 Executar verificações de TypeScript, lint, testes unitários, build, scanner e checagem de artefato; testar navegador e rotas em desktop/mobile. Confirmar a disponibilidade dos assets reais por HTTP e a autorização editorial antes de fechar o gate humano.
 
 ADR reavaliado: não necessário para a mudança editorial e organização visual na infraestrutura existente.
+
+## Atualização visual provisória — imagens fictícias de pessoas
+
+A pedido do usuário, as fotografias de destaque são **imagens fictícias geradas por inteligência artificial**. Não representam pessoas, eventos, parcerias, visitas ou resultados reais do Instituto Foton. O site identifica essas cenas como ilustrativas nas legendas e nos textos alternativos.
+
+Arquivos em `code/public/images/illustrative/`:
+- `foton-pessoas-laboratorio.webp`: hero da home;
+- `foton-pessoas-formacao.webp`: seção editorial da home;
+- `foton-pessoas-colaboracao.webp`: Instituto e Transparência.
+
+Os arquivos são provisórios e compactados, adequados a uma demonstração inicial, não à entrega fotográfica final. O componente `code/src/features/FotonPhoto.tsx` centraliza os caminhos para a substituição por fotos reais aprovadas. O Manifesto e sua galeria histórica permanecem inalterados.

@@ -23,9 +23,20 @@ test('home e Instituto apresentam mídia editorial sem disparar toda a galeria',
   });
   await page.goto('./');
   await expect(page.locator('.home-hero .foton-photo')).toBeVisible();
+  await expect(page.locator('.home-hero .foton-photo')).toHaveAttribute('data-media-kind', 'ai-illustration');
+  const hero = page.locator('.home-hero .foton-photo img');
+  await expect(hero).toHaveAttribute('src', /images\/illustrative\/foton-pessoas-laboratorio\.webp$/);
+  await expect.poll(() => hero.evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   await expect(page.getByRole('link', { name: 'Consultar transparência' })).toBeVisible();
   await page.goto('./instituto');
   await expect(page.locator('.institute-people .foton-photo')).toBeVisible();
+  const people = page.locator('.institute-people .foton-photo img');
+  await people.scrollIntoViewIfNeeded();
+  await expect.poll(() => people.evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  await page.goto('./transparencia');
+  const transparencyImage = page.locator('.transparency-photo img');
+  await transparencyImage.scrollIntoViewIfNeeded();
+  await expect.poll(() => transparencyImage.evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   expect(visitRequests).toBeLessThan(12);
 });
 
