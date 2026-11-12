@@ -13,7 +13,6 @@ export function ImageZoomDialog({ src, fallback, title, caption, onClose, onPrev
   const drag = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
 
-  useEffect(() => { setCurrentSrc(src); setZoom(1); setPan({ x: 0, y: 0 }); }, [src]);
   useEffect(() => {
     const overflow = document.body.style.overflow;
     previousFocus.current = document.activeElement as HTMLElement;

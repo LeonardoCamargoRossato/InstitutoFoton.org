@@ -183,8 +183,10 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await expect(page.locator('.regional-letter')).toHaveCount(5);
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
   await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-video')).toHaveCount(0);
-  await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-image img')).toHaveAttribute(
-    'src',
+  const cartaNorte = page.locator('.regional-letter').nth(1).locator('.manifesto-image img');
+  await expect(cartaNorte).toHaveAttribute('src', /images\/webp\/manifesto\/Thumb_CartaNorte\.webp$/);
+  await expect(cartaNorte).toHaveAttribute(
+    'data-full-image',
     /qvyrromhazssofombhem\.supabase\.co.*Thumb_CartaNorte\.jpeg/,
   );
 
