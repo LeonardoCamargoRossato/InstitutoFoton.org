@@ -3,6 +3,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { basename, extname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
 
 const run = promisify(execFile);
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -36,16 +37,10 @@ async function walk(dir) {
 
 async function toWebP(input, output, maxWidth) {
   await mkdir(join(output, '..'), { recursive: true });
-  const result = await run('ffprobe', [
-    '-v', 'error', '-select_streams', 'v:0', '-show_entries',
-    'stream=width,height', '-of', 'csv=p=0', input,
-  ]);
-  const width = Number(result.stdout.split(',')[0]);
-  if (!width) throw new Error('Cannot read dimensions: ' + input);
-  const args = ['-y', '-hide_banner', '-loglevel', 'error', '-i', input];
-  if (width > maxWidth) args.push('-vf', 'scale=' + maxWidth + ':-2:flags=lanczos');
-  args.push('-frames:v', '1', '-c:v', 'libwebp', '-quality', '82', '-compression_level', '5', output);
-  await run('ffmpeg', args, { maxBuffer: 10 * 1024 * 1024 });
+  await sharp(input, { failOn: 'none' }).rotate()
+    .resize({ width: maxWidth, withoutEnlargement: true })
+    .webp({ quality: 82, effort: 5 })
+    .toFile(output);
 }
 
 await mkdir(originals, { recursive: true });
