@@ -24,7 +24,12 @@ for(const item of inventory.items){
   if(!rendered.width||!rendered.height)throw Error('WebP inválido');
   if(rendered.width>src.width||rendered.height>src.height)
     errors.push('Ampliação não autorizada: '+item.id);
-  if(src.hasAlpha&&!rendered.hasAlpha)errors.push('Canal alfa perdido: '+item.id);
+  if(src.hasAlpha&&!rendered.hasAlpha){
+    // PNG pode ter canal alfa declarado, mas todos os pixels completamente opacos.
+    // Somente transparência real precisa sobreviver à codificação WebP.
+    const alpha=await sharp(content).extractChannel('alpha').raw().toBuffer();
+    if(alpha.some(value=>value<255))errors.push('Transparência real perdida: '+item.id);
+  }
   report.push({id:item.id,sourceWidth:src.width,sourceHeight:src.height,
     webpWidth:rendered.width,webpHeight:rendered.height,
     pngBytes:content.length,webpBytes:(await stat(webp)).size});
