@@ -144,7 +144,7 @@ export function Home() {
               Pesquisadores experientes e jovens talentos podem aprender uns com os outros.
               Essa diversidade de trajetórias faz parte do futuro que queremos construir.
             </p>
-            <TextLink to="/instituto">Conheça o Instituto</TextLink>
+            <TextLink to="/instituto">Conheça nossa trajetória</TextLink>
           </div>
           <FotonPhoto id="home-generational-legacy" className="home-legacy-photo" />
         </div>

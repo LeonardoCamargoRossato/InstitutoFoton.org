@@ -37,7 +37,7 @@ export const PHOTO_LIBRARY = {
     crop: 'wide / mobile 4:3', alt: 'Composição fictícia de jovem pesquisadora, engenheiro e pesquisadora sênior.',
   },
   'apoie-researcher-support': {
-    file: 'apoie-researcher-support.avif', width: 1030, height: 364,
+    file: 'apoie-researcher-support.avif', width: 1030, height: 435,
     page: 'Apoie', section: 'incentivo ao pesquisador', position: 'center',
     crop: 'horizontal', alt: 'Cena ilustrativa de uma pesquisadora fictícia usando um microscópio.',
   },
