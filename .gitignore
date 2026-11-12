@@ -15,3 +15,5 @@ test-results/
 playwright-report/
 .DS_Store
 .supabase/
+
+code/.asset-staging/

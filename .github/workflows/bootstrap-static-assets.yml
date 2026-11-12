@@ -1,0 +1,43 @@
+name: Bootstrap static Foton assets
+on:
+  push:
+    branches: [refactor/foton-static-no-supabase-20261112]
+    paths: ['.github/workflows/bootstrap-static-assets.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - name: Retrieve previously exported public originals
+        uses: actions/download-artifact@v4
+        with:
+          name: foton-assets-originais
+          run-id: 43277924402
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: code/.asset-staging/artifact
+      - name: Extract archived images
+        run: |
+          test -f code/.asset-staging/artifact/pacotes/Assets-do-site-originais.zip
+          mkdir -p code/.asset-staging/extracted
+          unzip -q code/.asset-staging/artifact/pacotes/Assets-do-site-originais.zip -d code/.asset-staging/extracted
+          test -f code/.asset-staging/extracted/storage/img-visitas-tecnicas/visita-03.png
+      - name: Install pinned local conversion dependency
+        run: npm --prefix code install --save-dev --save-exact sharp@0.34.5
+      - name: Prepare PNG and WebP asset pairs
+        run: node code/scripts/bootstrap-static-assets.mjs
+      - name: Commit local assets and lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add code/public/assets code/assets/asset-inventory.json code/package.json code/package-lock.json
+          git commit -m "chore(media): create 49 verified PNG WebP pairs"
+          git push origin HEAD:refactor/foton-static-no-supabase-20261112
