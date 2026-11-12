@@ -126,7 +126,7 @@ export default function TransparencyBoard() {
     const backend = (resource.data || []).map(entryFromBackend);
     // O PDF institucional está no próprio repositório, independentemente do backend.
     const hasPresentation = backend.some((entry) =>
-      entry.category === 'other' && entry.title.toLowerCase().includes('apresentação institucional'));
+      entry.category === 'other' && Boolean(entry.url) && entry.title.toLowerCase().includes('apresentação institucional'));
     return hasPresentation ? backend : [...backend, presentation];
   }, [resource.data]);
   const years = useMemo(() => [...new Set(entries.map((d) => d.date?.slice(0, 4)).filter((y): y is string => Boolean(y)))].sort().reverse(), [entries]);

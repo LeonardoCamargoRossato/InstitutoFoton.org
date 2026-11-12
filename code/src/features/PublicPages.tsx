@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import Constellation from '../components/Constellation';
+import { FotonPhoto } from './FotonPhoto';
 import { researchLines, journeySteps } from './content';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
@@ -51,7 +52,14 @@ export function Home() {
               Descubra o que nos conecta
             </a>
           </div>
-          <Constellation />
+          <FotonPhoto
+            index={1}
+            priority
+            className="hero-photography"
+            alt="Registro fotográfico do acervo de visitas técnicas do Instituto Foton"
+            caption="Pessoas e encontros · acervo de visitas técnicas do Instituto Foton"
+            fallback={<Constellation />}
+          />
         </div>
       </section>
       <div className="values-strip">
@@ -99,6 +107,32 @@ export function Home() {
             <br />
             <TextLink to="/apresentacao">Conheça nossa apresentação</TextLink>
           </p>
+        </div>
+      </section>
+      <section className="section human-story-section spectral-divider">
+        <div className="container human-story-layout">
+          <FotonPhoto
+            index={2}
+            className="story-photography"
+            alt="Imagem do acervo fotográfico de visitas técnicas do Instituto Foton"
+            caption="Registro do acervo de visitas técnicas · Instituto Foton"
+          />
+          <div className="human-story-copy">
+            <p className="eyebrow"><span /> Encontros que fazem ciência</p>
+            <h2>Por trás de cada descoberta, existem pessoas.</h2>
+            <p>
+              O conhecimento avança quando pesquisadores, estudantes e pessoas de diferentes
+              trajetórias podem conversar, compartilhar dúvidas e abrir caminhos em conjunto.
+            </p>
+            <p>
+              Nosso acervo registra momentos de aproximação com o ecossistema científico.
+              Esses registros não são apresentados como prova de resultados ou programas específicos.
+            </p>
+            <div className="actions">
+              <Action to="/instituto">Conheça nossa história</Action>
+              <TextLink to="/transparencia">Consultar transparência</TextLink>
+            </div>
+          </div>
         </div>
       </section>
       <section className="section section-gray spectral-divider">
@@ -445,6 +479,25 @@ export function Institute() {
               <p>Conectar o conhecimento científico a desafios e oportunidades da sociedade.</p>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="section institute-people spectral-divider">
+        <div className="container institute-people-grid">
+          <div>
+            <p className="eyebrow"><span /> O encontro entre gerações</p>
+            <h2>O futuro da ciência se constrói em conjunto.</h2>
+            <p>
+              A trajetória do Instituto também se revela nos momentos de troca,
+              colaboração e aproximação com diferentes ambientes de ciência e inovação.
+            </p>
+            <TextLink to="/manifesto">Conheça as iniciativas</TextLink>
+          </div>
+          <FotonPhoto
+            index={3}
+            className="institute-photography"
+            alt="Registro fotográfico do acervo de visitas técnicas do Instituto Foton"
+            caption="Acervo de visitas técnicas · Instituto Foton"
+          />
         </div>
       </section>
       <OfficialStatements />

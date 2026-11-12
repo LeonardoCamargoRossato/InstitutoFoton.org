@@ -29,6 +29,7 @@ const approvedPublicFiles = new Set([
   'content-policy/README.md',
   'release-notes/README.md',
   'lcr-overview/README.md',
+  'release-notes/RefinamentoVisualTransparencia20261111.md',
 ]);
 
 async function listFiles(folder, prefix = '') {
