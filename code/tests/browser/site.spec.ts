@@ -101,6 +101,14 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   expect(arrival.wordLeft - arrival.endX).toBeGreaterThanOrEqual(24);
   expect(arrival.wordLeft - arrival.endX).toBeLessThanOrEqual(28);
   await photon.scrollIntoViewIfNeeded();
+  // A animação termina quando o trajeto luminoso alcança a palavra, e não
+  // quando apenas o topo da seção entra na viewport.
+  await page.evaluate(() => {
+    const story = document.querySelector('.institute-story');
+    if (!story) throw new Error('Percurso do Instituto indisponível');
+    const bottom = scrollY + story.getBoundingClientRect().bottom;
+    scrollTo({ top: bottom - innerHeight * 0.35, behavior: 'instant' });
+  });
   await expect(photon).toHaveClass(/is-revealed/);
   await expect(story).toHaveClass(/pulse-arrived/);
   await expect(photon.locator('.photon-wave > span')).toHaveCount(5);

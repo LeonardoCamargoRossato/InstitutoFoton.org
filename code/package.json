@@ -17,7 +17,9 @@
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
     "import:publications": "node scripts/import-publications.mjs",
     "scan:secrets": "node scripts/scan-secrets.mjs",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "docs:check": "node scripts/check-documentation.mjs",
+    "artifact:check": "node scripts/check-pages-artifact.mjs"
   },
   "dependencies": {
     "@fontsource/raleway": "^5.3.0",
