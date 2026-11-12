@@ -28,9 +28,24 @@ const routeDirectories = new Set([
 ]);
 const approvedDocuments = new Set(['documents/apresentacao-institucional-2026-09-10.pdf']);
 const approvedIllustrations = new Set([
-  'images/illustrative/foton-pessoas-laboratorio.webp',
-  'images/illustrative/foton-pessoas-colaboracao.webp',
-  'images/illustrative/foton-pessoas-formacao.webp',
+  'images/illustrative/apoie-hero-scientists.avif',
+  'images/illustrative/apoie-researcher-support.avif',
+  'images/illustrative/home-generational-legacy.avif',
+  'images/illustrative/home-hero-community.avif',
+  'images/illustrative/home-science-network.avif',
+  'images/illustrative/instituto-community.avif',
+  'images/illustrative/jornada-hero-pathways.avif',
+  'images/illustrative/mosaic-collaborators.avif',
+  'images/illustrative/mosaic-community.avif',
+  'images/illustrative/mosaic-partners.avif',
+  'images/illustrative/mosaic-society.avif',
+  'images/illustrative/mosaic-students.avif',
+  'images/illustrative/mosaic-training.avif',
+  'images/illustrative/pesquisa-collaboration.avif',
+  'images/illustrative/apoie-hero-scientists-mobile.avif',
+  'images/illustrative/home-hero-community-mobile.avif',
+  'images/illustrative/instituto-community-mobile.avif',
+  'images/illustrative/jornada-hero-pathways-mobile.avif',
 ]);
 const forbiddenDirectories = new Set([
   '.github',

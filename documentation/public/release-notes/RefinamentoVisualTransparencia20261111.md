@@ -36,3 +36,13 @@ Arquivos em `code/public/images/illustrative/`:
 - `foton-pessoas-colaboracao.webp`: Instituto e Transparência.
 
 Os arquivos são provisórios e compactados, adequados a uma demonstração inicial, não à entrega fotográfica final. O componente `code/src/features/FotonPhoto.tsx` centraliza os caminhos para a substituição por fotos reais aprovadas. O Manifesto e sua galeria histórica permanecem inalterados.
+
+## Atualização executada — 12/11/2026 — Humanização visual V2
+
+A versão substitui as miniaturas anteriores de 400 px por **14 composições ilustrativas AVIF** e **4 variantes mobile**. As imagens derivam de recortes fotográficos dos conceitos visuais gerados por IA previamente aprovados pelo usuário. São provisórias e **não são fotos documentais de pessoas ou atividades reais do Instituto Foton**.
+
+As composições cobrem a Home (hero intergeracional, ciência compartilhada, legado), Apoie (hero de três pesquisadores e incentivo ao pesquisador), Jornada, Pesquisa e Instituto. Seis imagens menores formam uma faixa editorial na Home (colaboradores, sociedade, estudantes, comunidade, parceiros e formação).
+
+Mapeamento centralizado em `code/src/features/FotonPhoto.tsx`, com nomes semânticos, origem, seção, dimensões e texto alternativo. Componentes novos: `HumanMosaic.tsx`, `HumanPageHero.tsx` e `human-editorial.css`. O Manifesto permanece sem alteração. Os layouts usam imagens responsivas, carregamento diferido abaixo da dobra e legendas de caráter ilustrativo.
+
+Os arquivos são gerados do material visual conceitual já produzido, não constituindo documentação de eventos do Instituto. Não foram ativados pagamentos, novas rotas, banco de dados, políticas ou autenticação.
