@@ -153,7 +153,6 @@ const branding = brands.map(([id,width,height]) => [id,{
 
 export const SITE_ASSETS: Record<string,SiteAsset> = Object.fromEntries([
   ...illustrativeEntries,
-  ...Array.from({length:0},()=>[]),
   ...['apoie-hero-scientists-mobile','home-hero-community-mobile',
      'instituto-community-mobile','jornada-hero-pathways-mobile'].map(id=> {
        const category=categoryOf(id);
