@@ -43,6 +43,14 @@ test('Manifesto utiliza miniaturas WebP e mantém galeria navegável com zoom', 
   const first = page.locator('.gallery-track img').first();
   await first.scrollIntoViewIfNeeded();
   await expect(first).toHaveAttribute('src', /assets\/WebP\/visitas-tecnicas\/visita-01\.webp$/);
+  await expect.poll(() => first.evaluate(img => (img as HTMLImageElement).naturalWidth), {
+    timeout: 15000,
+  }).toBeGreaterThan(0);
+  const overview=page.locator('.manifesto-image img').first();
+  await overview.scrollIntoViewIfNeeded();
+  await expect.poll(() => overview.evaluate(img => (img as HTMLImageElement).naturalWidth), {
+    timeout: 15000,
+  }).toBeGreaterThan(0);
   await page.locator('.gallery-track > button').first().click();
   const modal = page.getByRole('dialog', { name: 'Visita técnica 01' });
   await expect(modal).toBeVisible();

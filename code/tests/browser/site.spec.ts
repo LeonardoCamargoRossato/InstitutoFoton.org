@@ -295,6 +295,15 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
         await expect(page.getByRole('button', { name: 'Salvar página em PNG' })).toBeEnabled({
           timeout: 30000,
         });
+      if (name === 'manifesto') {
+        // Em capturas fullPage a imagem lazy pode não ter terminado de carregar.
+        // Verificar bytes renderizados antes da captura, sem desativar lazy-loading em produção.
+        const overview=page.locator('.manifesto-image img').first();
+        await overview.scrollIntoViewIfNeeded();
+        await expect.poll(() => overview.evaluate(img => (img as HTMLImageElement).naturalWidth), {
+          timeout: 15000,
+        }).toBeGreaterThan(0);
+      }
       await page.screenshot({ path: testInfo.outputPath(`${name}-${width}.png`), fullPage: true });
     }
   }
