@@ -3344,3 +3344,8 @@
     .foton-photo, .transparency-group, .document-action { scroll-behavior: auto; }
   }
 }
+
+@layer components {
+  .foton-photo > img { object-fit: cover; object-position: center; }
+  .foton-photo figcaption { font-size: .69rem; }
+}

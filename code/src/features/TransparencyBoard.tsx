@@ -161,8 +161,8 @@ export default function TransparencyBoard() {
           <FotonPhoto
             index={4}
             className="transparency-photo"
-            alt="Registro do acervo institucional de visitas técnicas do Foton"
-            caption="Acervo de visitas técnicas · Instituto Foton"
+            alt="Cena ilustrativa gerada por IA com pesquisadores fictícios em trabalho colaborativo"
+            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
           />
         </div>
       </section>

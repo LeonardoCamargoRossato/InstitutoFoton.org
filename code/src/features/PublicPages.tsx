@@ -56,8 +56,8 @@ export function Home() {
             index={1}
             priority
             className="hero-photography"
-            alt="Registro fotográfico do acervo de visitas técnicas do Instituto Foton"
-            caption="Pessoas e encontros · acervo de visitas técnicas do Instituto Foton"
+            alt="Cena ilustrativa gerada por IA com participantes fictícios em laboratório científico"
+            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
             fallback={<Constellation />}
           />
         </div>
@@ -114,8 +114,8 @@ export function Home() {
           <FotonPhoto
             index={2}
             className="story-photography"
-            alt="Imagem do acervo fotográfico de visitas técnicas do Instituto Foton"
-            caption="Registro do acervo de visitas técnicas · Instituto Foton"
+            alt="Cena ilustrativa gerada por IA com grupo fictício em atividade científica"
+            caption="Imagem ilustrativa gerada por IA · não registra atividade real"
           />
           <div className="human-story-copy">
             <p className="eyebrow"><span /> Encontros que fazem ciência</p>
@@ -125,8 +125,9 @@ export function Home() {
               trajetórias podem conversar, compartilhar dúvidas e abrir caminhos em conjunto.
             </p>
             <p>
-              Nosso acervo registra momentos de aproximação com o ecossistema científico.
-              Esses registros não são apresentados como prova de resultados ou programas específicos.
+              Nesta demonstração, as fotografias de pessoas foram geradas por inteligência
+              artificial. Elas ilustram encontros e descobertas, mas não retratam eventos,
+              integrantes ou resultados reais do Instituto.
             </p>
             <div className="actions">
               <Action to="/instituto">Conheça nossa história</Action>
@@ -495,8 +496,8 @@ export function Institute() {
           <FotonPhoto
             index={3}
             className="institute-photography"
-            alt="Registro fotográfico do acervo de visitas técnicas do Instituto Foton"
-            caption="Acervo de visitas técnicas · Instituto Foton"
+            alt="Cena ilustrativa gerada por IA com participantes fictícios em laboratório científico"
+            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
           />
         </div>
       </section>
