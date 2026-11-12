@@ -94,7 +94,7 @@ function Lightbox({ images, active, onClose, onChange }: {
 }) {
   const item = images[active];
   const hasMultiple = images.length > 1;
-  return <ImageZoomDialog
+  return <ImageZoomDialog key={item.src}
     src={item.src} fallback={optimized(item.src)}
     title={item.title} caption={item.caption} onClose={onClose}
     onPrevious={hasMultiple ? () => onChange((active - 1 + images.length) % images.length) : undefined}
