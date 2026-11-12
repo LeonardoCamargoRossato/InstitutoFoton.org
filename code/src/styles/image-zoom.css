@@ -1,0 +1,46 @@
+@layer components {
+  #conteudo .foton-photo[role="button"], #conteudo .foton-photo img,
+  #conteudo .technical-visit-photo img { cursor: zoom-in; }
+  #conteudo .foton-photo[role="button"]:focus-visible,
+  #conteudo .technical-visit-photo:focus-visible { outline: 3px solid #59d8ff; outline-offset: 5px; }
+  .foton-zoom-dialog {
+    position: fixed; inset: 0; z-index: 20000; isolation: isolate;
+    display: flex; flex-direction: column; background: rgba(1,9,28,.98); color: #fff;
+  }
+  .foton-zoom-topbar {
+    position: relative; z-index: 2; display: flex; gap: 18px; align-items: center;
+    justify-content: space-between; padding: 12px clamp(12px,3vw,35px); background: rgba(10,35,78,.96);
+  }
+  .foton-zoom-title { display: grid; gap: 4px; min-width: 0; }
+  .foton-zoom-title strong { font-size: .88rem; line-height: 1.3; }
+  .foton-zoom-title span { font-size: .68rem; color: #b9d2f5; }
+  .foton-zoom-tools { display: flex; align-items: center; flex: none; gap: 4px; }
+  .foton-zoom-dialog button {
+    color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.23);
+    border-radius: 10px; width: 41px; height: 41px; display: grid; place-items: center; cursor: pointer;
+  }
+  .foton-zoom-dialog button:disabled { opacity: .35; cursor: default; }
+  .foton-zoom-dialog button:hover:not(:disabled), .foton-zoom-dialog button:focus-visible {
+    background: rgba(24,105,215,.8); outline: 2px solid #79d6f9; outline-offset: 1px;
+  }
+  .foton-zoom-level { min-width: 48px; text-align: center; font-variant-numeric: tabular-nums; font-size: .77rem; }
+  .foton-zoom-stage { position: relative; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .foton-zoom-stage > img {
+    display: block; max-width: min(96vw,1800px); max-height: 80vh; width: auto; height: auto; object-fit: contain;
+    user-select: none; touch-action: none; transition: transform 100ms linear; cursor: zoom-in; will-change: transform;
+  }
+  .foton-zoom-stage > img.is-pannable { cursor: grab; }
+  .foton-zoom-stage > img.is-pannable:active { cursor: grabbing; }
+  .foton-zoom-arrow { position: absolute; z-index: 3; top: 45%; }
+  .foton-zoom-arrow.previous { left: 14px; }
+  .foton-zoom-arrow.next { right: 14px; }
+  .foton-zoom-help { padding: 7px 16px 12px; text-align: center; font-size: .71rem; color: #bdd5f7; }
+  @media (max-width: 700px) {
+    .foton-zoom-topbar { align-items: start; flex-direction: column; gap: 8px; }
+    .foton-zoom-tools { flex-wrap: wrap; }
+    .foton-zoom-dialog button { width: 36px; height: 36px; }
+    .foton-zoom-stage > img { max-width: 100vw; max-height: 66vh; }
+    .foton-zoom-help { font-size: .62rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .foton-zoom-stage > img { transition: none; } }
+}
