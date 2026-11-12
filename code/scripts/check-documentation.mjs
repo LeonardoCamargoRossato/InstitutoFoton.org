@@ -30,6 +30,8 @@ const approvedPublicFiles = new Set([
   'release-notes/README.md',
   'lcr-overview/README.md',
   'release-notes/RefinamentoVisualTransparencia20261111.md',
+  'release-notes/InventarioMigracaoEstatica20261112.md',
+  'architecture/ADR-20261112-Portal-Estatico.md',
 ]);
 
 async function listFiles(folder, prefix = '') {

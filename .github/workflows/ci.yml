@@ -22,6 +22,7 @@ jobs:
       - run: npm run scan:secrets
       - run: npm run docs:check
       - run: npm run check
+      - run: npm run assets:verify
       - run: npm run artifact:check
       - name: Preparar Chromium para testes
         run: |

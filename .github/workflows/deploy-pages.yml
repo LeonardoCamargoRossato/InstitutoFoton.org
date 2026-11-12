@@ -17,8 +17,6 @@ jobs:
     env:
       VITE_BASE_PATH: /InstitutoFoton.org/
       VITE_SITE_ORIGIN: https://leonardocamargorossato.github.io
-      VITE_SUPABASE_URL: https://qvyrromhazssofombhem.supabase.co
-      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,6 +28,7 @@ jobs:
       - run: npm run scan:secrets
       - run: npm run docs:check
       - run: npm run check
+      - run: npm run assets:verify
       - run: npm run artifact:check
       - name: Preparar Chromium para testes
         run: |

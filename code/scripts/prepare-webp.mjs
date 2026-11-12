@@ -1,91 +1,38 @@
-import { mkdir, readdir, copyFile, writeFile } from 'node:fs/promises';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
-import { basename, extname, join, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { resolve, join } from 'node:path';
+import { createHash } from 'node:crypto';
 import sharp from 'sharp';
 
-const run = promisify(execFile);
-const root = fileURLToPath(new URL('..', import.meta.url));
-const publicDir = join(root, 'public');
-const outDir = join(publicDir, 'images/webp');
-const workDir = join(root, '.asset-staging');
-const originals = join(workDir, 'originais');
-const source = 'https://qvyrromhazssofombhem.supabase.co/storage/v1/object/public/foton-public';
-const remote = [
-  ...Array.from({ length: 20 }, (_, i) => ({
-    path: 'img-visitas-tecnicas/visita-' + String(i + 1).padStart(2, '0') + '.png',
-    dest: 'visits',
-  })),
-  ...[
-    'Thumb_CartaSudeste.jpg', 'Thumb_CartaNorte.jpeg', 'Carta_Nordeste.jpg',
-    'Carta_CentroOeste.jpeg', 'Carta_Sul.jpg', 'thumb_PorqueIssoEImportante.jpg',
-    'OqueeoManifestoQuanticoNacional.png', 'ComoFaremosIsso.jpg',
-  ].map(name => ({ path: 'img-manifesto-quantico/' + name, dest: 'manifesto' })),
-];
-const manifest = [];
-const missing = [];
-
-async function walk(dir) {
-  const files = [];
-  for (const e of await readdir(dir, { withFileTypes: true })) {
-    if (e.isDirectory()) files.push(...await walk(join(dir, e.name)));
-    else if (e.isFile()) files.push(join(dir, e.name));
-  }
-  return files;
+const root=resolve('public/assets');
+const inventory=JSON.parse(await readFile('assets/asset-inventory.json','utf8'));
+const write=process.argv.includes('--write');
+const errors=[], duplicateIndex=new Map(), duplicatePairs=[];
+const report=[];
+for(const item of inventory.items){
+ const png=join(root,'PNG',item.category,item.id+'.png');
+ const webp=join(root,'WebP',item.category,item.id+'.webp');
+ try {
+  const content=await readFile(png);
+  const hash=createHash('sha256').update(content).digest('hex');
+  if(duplicateIndex.has(hash))duplicatePairs.push([duplicateIndex.get(hash),item.id]);
+  duplicateIndex.set(hash,item.id);
+  const src=await sharp(content).metadata();
+  if(!src.width||!src.height)throw Error('PNG inválido');
+  if(write)await sharp(content).resize({width:1440,withoutEnlargement:true})
+    .webp({quality:84,effort:5}).toFile(webp);
+  const rendered=await sharp(webp).metadata();
+  if(!rendered.width||!rendered.height)throw Error('WebP inválido');
+  if(rendered.width>src.width||rendered.height>src.height)
+    errors.push('Ampliação não autorizada: '+item.id);
+  if(src.hasAlpha&&!rendered.hasAlpha)errors.push('Canal alfa perdido: '+item.id);
+  report.push({id:item.id,sourceWidth:src.width,sourceHeight:src.height,
+    webpWidth:rendered.width,webpHeight:rendered.height,
+    pngBytes:content.length,webpBytes:(await stat(webp)).size});
+ } catch(e){errors.push(item.id+': '+String(e));}
 }
-
-async function toWebP(input, output, maxWidth) {
-  await mkdir(join(output, '..'), { recursive: true });
-  await sharp(input, { failOn: 'none' }).rotate()
-    .resize({ width: maxWidth, withoutEnlargement: true })
-    .webp({ quality: 82, effort: 5 })
-    .toFile(output);
-}
-
-await mkdir(originals, { recursive: true });
-await mkdir(outDir, { recursive: true });
-const local = (await walk(publicDir)).filter(path =>
-  /\.(avif|png|jpe?g)$/i.test(path) && !path.includes('/images/webp/'));
-for (const path of local) {
-  const rel = relative(publicDir, path);
-  const target = join(originals, 'site', rel);
-  await mkdir(join(target, '..'), { recursive: true });
-  await copyFile(path, target);
-  const group = rel.startsWith('images/illustrative/') ? 'illustrative' : 'branding';
-  const out = join(outDir, group, basename(path, extname(path)) + '.webp');
-  await toWebP(path, out, group === 'illustrative' ? 1440 : 1280);
-  manifest.push({ source: rel, preview: relative(publicDir, out), origin: 'GitHub' });
-}
-
-for (const entry of remote) {
-  const url = source + '/' + entry.path;
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 25000);
-  try {
-    const response = await fetch(url, { signal: controller.signal });
-    if (!response.ok) throw new Error('HTTP ' + response.status);
-    const raw = Buffer.from(await response.arrayBuffer());
-    if (raw.length < 100) throw new Error('Image is empty');
-    const localPath = join(originals, 'storage', entry.path);
-    await mkdir(join(localPath, '..'), { recursive: true });
-    await writeFile(localPath, raw);
-    const output = join(outDir, entry.dest, basename(entry.path, extname(entry.path)) + '.webp');
-    await toWebP(localPath, output, entry.dest === 'visits' ? 1200 : 1400);
-    manifest.push({ source: entry.path, preview: relative(publicDir, output), origin: 'Storage público Foton' });
-    console.log('Converted ' + entry.path + ' (' + raw.length + ' bytes)');
-  } catch (error) {
-    missing.push({ path: entry.path, reason: String(error) });
-    console.warn('Unconfirmed source ' + entry.path + ': ' + String(error));
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-await writeFile(join(workDir, 'inventory.json'), JSON.stringify({ manifest, missing }, null, 2));
-await mkdir(join(workDir, 'pacotes'), { recursive: true });
-await run('zip', ['-q', '-r', join(workDir, 'pacotes/Assets-do-site-originais.zip'), '.'], { cwd: originals });
-await run('zip', ['-q', '-r', join(workDir, 'pacotes/Assets-WebPG-otimizados.zip'), '.'], { cwd: outDir });
-console.log(JSON.stringify({ total: manifest.length, unavailable: missing.length }));
-if (!manifest.some(e => e.source === 'img-visitas-tecnicas/visita-03.png')) {
-  throw new Error('A Visita Técnica 03 não pôde ser recuperada: não publicar como foto local.');
-}
+const summary={count:report.length,duplicates:duplicatePairs,errors,images:report};
+if(write)await writeFile('assets/conversion-report.json',JSON.stringify(summary,null,2)+'\n');
+console.log('Assets:',report.length,'duplicados:',duplicatePairs.length,'erros:',errors.length);
+if(duplicatePairs.length)console.warn('Conteúdo idêntico reaproveitável:',duplicatePairs);
+if(errors.length){console.error(errors);process.exitCode=1;}
+if((await readdir(join(root,'PNG','visitas-tecnicas'))).filter(p=>p.endsWith('.png')).length!==20)process.exitCode=1;

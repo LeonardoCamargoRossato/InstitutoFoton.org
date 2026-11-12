@@ -29,7 +29,7 @@ const visitImages = Array.from({ length: 20 }, (_, index) => ({
 }));
 
 // O carregamento inicial usa arquivo WebP servido no GitHub Pages.
-// A imagem original em Supabase é buscada apenas ao abrir o zoom.
+// Ao ampliar, a imagem original PNG é carregada exclusivamente do próprio Pages.
 const optimized = (src: string) => src.replace('/assets/PNG/','/assets/WebP/').replace(/\.png$/,'.webp');
 
 function ProgressiveImage({ src, alt }: { src: string; alt: string }) {

@@ -1,149 +1,56 @@
-import { readFile, readdir } from 'node:fs/promises';
-import { extname, join, resolve } from 'node:path';
+import { readFile, readdir, stat } from 'node:fs/promises';
+import { join, resolve, extname } from 'node:path';
 
-const dist = resolve('dist');
-const rootFiles = new Set([
-  '.nojekyll',
-  '404.html',
-  'index.html',
-  'robots.txt',
-  'sitemap.xml',
-  'version.json',
-  'favicon.png',
-  'foton-logo.png',
-  'foton-logo-light.png',
-]);
-const routeDirectories = new Set([
-  'instituto',
-  'pesquisa',
-  'jornada',
-  'manifesto',
-  'noticias',
-  'apresentacao',
-  'transparencia',
-  'apoie',
-  'contato',
-  'privacidade',
-  'termos',
-]);
-const approvedDocuments = new Set(['documents/apresentacao-institucional-2026-09-10.pdf']);
-const approvedIllustrations = new Set([
-  'images/illustrative/apoie-hero-scientists.avif',
-  'images/illustrative/apoie-researcher-support.avif',
-  'images/illustrative/home-generational-legacy.avif',
-  'images/illustrative/home-hero-community.avif',
-  'images/illustrative/home-science-network.avif',
-  'images/illustrative/instituto-community.avif',
-  'images/illustrative/jornada-hero-pathways.avif',
-  'images/illustrative/mosaic-collaborators.avif',
-  'images/illustrative/mosaic-community.avif',
-  'images/illustrative/mosaic-partners.avif',
-  'images/illustrative/mosaic-society.avif',
-  'images/illustrative/mosaic-students.avif',
-  'images/illustrative/mosaic-training.avif',
-  'images/illustrative/pesquisa-collaboration.avif',
-  'images/illustrative/apoie-hero-scientists-mobile.avif',
-  'images/illustrative/home-hero-community-mobile.avif',
-  'images/illustrative/instituto-community-mobile.avif',
-  'images/illustrative/jornada-hero-pathways-mobile.avif',
-]);
-const approvedWebP = new Set([
-  ...Array.from(approvedIllustrations, path =>
-    path.replace('images/illustrative/', 'images/webp/illustrative/').replace(/\.avif$/, '.webp')),
-  'images/webp/branding/favicon.webp',
-  'images/webp/branding/foton-logo.webp',
-  'images/webp/branding/foton-logo-light.webp',
-  ...Array.from({ length: 20 }, (_, i) => 'images/webp/visits/visita-' + String(i + 1).padStart(2, '0') + '.webp'),
-  ...['Thumb_CartaSudeste', 'Thumb_CartaNorte', 'Carta_Nordeste', 'Carta_CentroOeste', 'Carta_Sul',
-    'thumb_PorqueIssoEImportante', 'OqueeoManifestoQuanticoNacional', 'ComoFaremosIsso']
-    .map(name => 'images/webp/manifesto/' + name + '.webp'),
-]);
-const forbiddenDirectories = new Set([
-  '.github',
-  'documentation',
-  'docs',
-  'tests',
-  'test-results',
-  'playwright-report',
-  'scripts',
-  'supabase',
-  'agents-archive',
-  'decision-archive',
-  'reports',
-  'prompts',
-  'prompt-templates',
-]);
-const forbiddenName = /^(?:AGENTS|README)\.md$|(?:^|\/)\.env(?:\.|$)|\.(?:md|sql|zip|tar|gz|bak|dump|db|sqlite|pem|key|p12|pfx|log|map|ts|tsx|ya?ml)$/i;
-const textExtensions = new Set(['.html', '.js', '.mjs', '.css', '.json', '.xml', '.txt', '.svg']);
-const sensitiveText =
-  /\bsb_secret_[A-Za-z0-9_-]{12,}|\bgh[pousr]_[A-Za-z0-9]{20,}|\bgithub_pat_[A-Za-z0-9_]{30,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/;
-const checked = [];
-const violations = [];
+const dist=resolve('dist');
+const inventory=JSON.parse(await readFile('assets/asset-inventory.json','utf8'));
+if(inventory.count!==49||inventory.items.length!==49)throw Error('Inventário dos 49 pares ausente');
+const expected=new Set(inventory.items.flatMap(i=>[i.pngPath,i.webpPath]));
+if(expected.size!==98)throw Error('Arquivos canônicos duplicados');
+const routeDirectories=new Set(['instituto','pesquisa','jornada','manifesto','noticias','apresentacao',
+'transparencia','apoie','contato','privacidade','termos']);
+const rootFiles=new Set(['.nojekyll','404.html','index.html','robots.txt','sitemap.xml','version.json']);
+const expectedDocuments=new Set(['documents/apresentacao-institucional-2026-09-10.pdf']);
+const prohibited=/\b(?:supabase\.co|storage\/v1|auth\/v1|VITE_SUPABASE_URL|VITE_SUPABASE_ANON_KEY|sb_secret_|service_role)\b/i;
+const otherSensitive=/github_pat_[A-Za-z0-9_]{25,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/;
+const forbiddenSegments=new Set(['.github','documentation','docs','tests','test-results','scripts','supabase',
+'agents-archive','decision-archive','reports','prompts','prompt-templates']);
+const forbiddenExt=/\.(?:md|sql|zip|tar|gz|bak|dump|db|sqlite|pem|key|p12|pfx|log|map|ts|tsx|ya?ml)$/i;
+const textTypes=new Set(['.html','.js','.mjs','.css','.json','.xml','.txt','.svg']);
+const seen=new Set(), violations=[];
 
-async function inspect(folder, prefix = '') {
-  for (const item of await readdir(folder, { withFileTypes: true })) {
-    const rel = prefix ? prefix + '/' + item.name : item.name;
-    const parts = rel.split('/');
-    const top = parts[0];
-    if (item.isSymbolicLink()) {
-      violations.push(rel + ' (link simbólico)');
-      continue;
-    }
-    if (parts.some((part) => forbiddenDirectories.has(part))) {
-      violations.push(rel + ' (diretório restrito)');
-      continue;
-    }
-    if (item.isDirectory()) {
-      if (prefix === '' && !routeDirectories.has(top) && !['assets', 'documents', 'licenses', 'images'].includes(top)) {
-        violations.push(rel + ' (diretório não aprovado)');
-        continue;
-      }
-      await inspect(join(folder, item.name), rel);
-      continue;
-    }
-    if (!item.isFile()) {
-      violations.push(rel + ' (entrada não regular)');
-      continue;
-    }
-    checked.push(rel);
-    if (forbiddenName.test(rel)) {
-      violations.push(rel + ' (extensão ou nome restrito)');
-      continue;
-    }
-    if (routeDirectories.has(top) && rel !== top + '/index.html') {
-      violations.push(rel + ' (arquivo inesperado em rota)');
-    } else if (top === 'documents' && !approvedDocuments.has(rel)) {
-      violations.push(rel + ' (documento sem aprovação explícita)');
-    } else if (top === 'images' && !approvedIllustrations.has(rel) && !approvedWebP.has(rel)) {
-      violations.push(rel + ' (ilustração não inventariada)');
-    } else if (top === 'licenses' && rel !== 'licenses/raleway-OFL.txt') {
-      violations.push(rel + ' (licença não inventariada)');
-    } else if (top === 'assets' && !/\.(?:js|mjs|css|svg|png|jpe?g|webp|gif|woff2?|ttf|otf)$/i.test(rel)) {
-      violations.push(rel + ' (asset inesperado)');
-    } else if (parts.length === 1 && !rootFiles.has(rel)) {
-      violations.push(rel + ' (arquivo raiz inesperado)');
-    }
-    if (textExtensions.has(extname(rel))) {
-      const text = await readFile(join(folder, item.name), 'utf8');
-      if (sensitiveText.test(text)) violations.push(rel + ' (padrão suspeito de credencial)');
-    }
+async function walk(dir,prefix=''){
+ for(const ent of await readdir(dir,{withFileTypes:true})){
+  const rel=prefix?prefix+'/'+ent.name:ent.name;
+  const parts=rel.split('/'),top=parts[0];
+  if(ent.isSymbolicLink()){violations.push('symlink '+rel);continue;}
+  if(parts.some(p=>forbiddenSegments.has(p))){violations.push('private '+rel);continue;}
+  if(ent.isDirectory()){
+   if(!prefix && !routeDirectories.has(top) && !['assets','documents','licenses'].includes(top)){
+    violations.push('unexpected folder '+rel);continue;
+   }
+   await walk(join(dir,ent.name),rel);continue;
   }
+  if(!ent.isFile()){violations.push('not file '+rel);continue;}
+  seen.add(rel);
+  if(forbiddenExt.test(rel)){violations.push('sensitive extension '+rel);continue;}
+  if(routeDirectories.has(top)&&rel!==top+'/index.html')violations.push('route file '+rel);
+  else if(top==='documents'&&!expectedDocuments.has(rel))violations.push('document not approved '+rel);
+  else if(top==='assets'&&!expected.has(rel))violations.push('asset not inventoried '+rel);
+  else if(top==='licenses'&&rel!=='licenses/raleway-OFL.txt')violations.push('license '+rel);
+  else if(top==='assets'&&!/\.png$|\.webp$/i.test(rel))violations.push('asset type '+rel);
+  else if(parts.length===1&&!rootFiles.has(rel))violations.push('unexpected root file '+rel);
+  if(textTypes.has(extname(rel))){
+   const content=await readFile(join(dir,ent.name),'utf8');
+   if(prohibited.test(content)||otherSensitive.test(content))violations.push('forbidden runtime content '+rel);
+  }
+ }
 }
-
-await inspect(dist);
-if (!checked.includes('index.html')) violations.push('index.html ausente');
-for (const doc of approvedDocuments) {
-  if (!checked.includes(doc)) violations.push('PDF institucional aprovado ausente: ' + doc);
+await walk(dist);
+for(const a of expected){if(!seen.has(a))violations.push('missing asset '+a);}
+for(const d of expectedDocuments){if(!seen.has(d))violations.push('missing public pdf '+d);}
+if(!seen.has('index.html'))violations.push('missing index');
+for(const a of expected){
+ if(seen.has(a) && (await stat(join(dist,a))).size<100)violations.push('empty asset '+a);
 }
-for (const image of approvedWebP) {
-  if (!checked.includes(image)) violations.push('Arquivo WebP obrigatório ausente: ' + image);
-}
-for (const image of approvedIllustrations) {
-  if (!checked.includes(image)) violations.push('Imagem ilustrativa ausente: ' + image);
-}
-if (violations.length) {
-  console.error('Artefato Pages reprovado. Arquivos para revisão:', violations);
-  process.exitCode = 1;
-} else {
-  console.log('Artefato Pages aprovado: ' + checked.length + ' arquivos analisados, somente saídas previstas.');
-}
+if(violations.length){console.error('Site estático reprovado:',violations);process.exitCode=1;}
+else console.log('Pages validado: 98 imagens canônicas, PDF público, nenhuma referência runtime Supabase.');
