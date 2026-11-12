@@ -12,6 +12,7 @@ import {
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import Constellation from '../components/Constellation';
 import { FotonPhoto } from './FotonPhoto';
+import TechnicalVisitSpotlight from './TechnicalVisitSpotlight';
 import { HumanMosaic } from './HumanMosaic';
 import { HumanPageHero } from './HumanPageHero';
 import { researchLines, journeySteps } from './content';
@@ -179,6 +180,7 @@ export function Home() {
           </div>
         </div>
       </section>
+      <TechnicalVisitSpotlight />
       <section className="journey-feature section spectral-divider">
         <div className="container split">
           <div>

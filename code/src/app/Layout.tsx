@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { siteOrigin, basePath } from '../lib/config';
+import SiteImageViewer from '../components/SiteImageViewer';
 
 const navigation = [
   ['/', 'Início'],
@@ -123,7 +124,8 @@ export default function Layout() {
           <Link to="/" className="brand" aria-label="Instituto Foton — início">
             <img
               className="brand-logo"
-              src={`${basePath}foton-logo-light.png`}
+              src={basePath + 'images/webp/branding/foton-logo-light.webp'}
+              onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = basePath + 'foton-logo-light.png'; }}
               alt="Foton"
               width="329"
               height="146"
@@ -165,6 +167,7 @@ export default function Layout() {
       <main id="conteudo" tabIndex={-1}>
         <Outlet />
       </main>
+      <SiteImageViewer />
       <div className="ambient-particles" aria-hidden="true">
         <span />
         <span />
@@ -179,7 +182,8 @@ export default function Layout() {
               <Link to="/" className="brand footer-brand">
                 <img
                   className="brand-logo"
-                  src={`${basePath}foton-logo.png`}
+                  src={basePath + 'images/webp/branding/foton-logo.webp'}
+                  onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = basePath + 'foton-logo.png'; }}
                   alt="Foton"
                   width="1920"
                   height="595"

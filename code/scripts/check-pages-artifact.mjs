@@ -47,6 +47,17 @@ const approvedIllustrations = new Set([
   'images/illustrative/instituto-community-mobile.avif',
   'images/illustrative/jornada-hero-pathways-mobile.avif',
 ]);
+const approvedWebP = new Set([
+  ...Array.from(approvedIllustrations, path =>
+    path.replace('images/illustrative/', 'images/webp/illustrative/').replace(/\.avif$/, '.webp')),
+  'images/webp/branding/favicon.webp',
+  'images/webp/branding/foton-logo.webp',
+  'images/webp/branding/foton-logo-light.webp',
+  ...Array.from({ length: 20 }, (_, i) => 'images/webp/visits/visita-' + String(i + 1).padStart(2, '0') + '.webp'),
+  ...['Thumb_CartaSudeste', 'Thumb_CartaNorte', 'Carta_Nordeste', 'Carta_CentroOeste', 'Carta_Sul',
+    'thumb_PorqueIssoEImportante', 'OqueeoManifestoQuanticoNacional', 'ComoFaremosIsso']
+    .map(name => 'images/webp/manifesto/' + name + '.webp'),
+]);
 const forbiddenDirectories = new Set([
   '.github',
   'documentation',
@@ -103,7 +114,7 @@ async function inspect(folder, prefix = '') {
       violations.push(rel + ' (arquivo inesperado em rota)');
     } else if (top === 'documents' && !approvedDocuments.has(rel)) {
       violations.push(rel + ' (documento sem aprovação explícita)');
-    } else if (top === 'images' && !approvedIllustrations.has(rel)) {
+    } else if (top === 'images' && !approvedIllustrations.has(rel) && !approvedWebP.has(rel)) {
       violations.push(rel + ' (ilustração não inventariada)');
     } else if (top === 'licenses' && rel !== 'licenses/raleway-OFL.txt') {
       violations.push(rel + ' (licença não inventariada)');
@@ -123,6 +134,9 @@ await inspect(dist);
 if (!checked.includes('index.html')) violations.push('index.html ausente');
 for (const doc of approvedDocuments) {
   if (!checked.includes(doc)) violations.push('PDF institucional aprovado ausente: ' + doc);
+}
+for (const image of approvedWebP) {
+  if (!checked.includes(image)) violations.push('Arquivo WebP obrigatório ausente: ' + image);
 }
 for (const image of approvedIllustrations) {
   if (!checked.includes(image)) violations.push('Imagem ilustrativa ausente: ' + image);

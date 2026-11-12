@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Maximize2, Play, X } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, Maximize2, Play } from 'lucide-react';
+import { ImageZoomDialog } from '../components/ImageZoomDialog';
 
 const configuredSupabase = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.replace(
   /\/$/,
@@ -32,16 +33,24 @@ const visitImages = Array.from({ length: 20 }, (_, index) => ({
     'Registro da articulação do Instituto Foton com pesquisadores, instituições e ambientes do ecossistema de ciência e inovação.',
 }));
 
+// O carregamento inicial usa arquivo WebP servido no GitHub Pages.
+// A imagem original em Supabase é buscada apenas ao abrir o zoom.
+const optimized = (src: string) => {
+  const visit = src.match(/\/img-visitas-tecnicas\/(visita-\d{2})\.png$/);
+  if (visit) return import.meta.env.BASE_URL + 'images/webp/visits/' + visit[1] + '.webp';
+  const manifestoImage = src.match(/\/img-manifesto-quantico\/([^/]+)\.(?:png|jpe?g)$/);
+  if (manifestoImage) return import.meta.env.BASE_URL + 'images/webp/manifesto/' + manifestoImage[1] + '.webp';
+  return src;
+};
+
 function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
+  const [fallback, setFallback] = useState(false);
   return (
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      decoding="async"
-      fetchPriority="low"
+    <img src={fallback ? src : optimized(src)} alt={alt}
+      data-full-image={src}
+      loading="lazy" decoding="async" fetchPriority="low"
       draggable={false}
-    />
+      onError={() => setFallback(true)} />
   );
 }
 
@@ -79,66 +88,18 @@ function Video({ src, image, title }: { src: string; image: string; title: strin
   );
 }
 
-function Lightbox({
-  images,
-  active,
-  onClose,
-  onChange,
-}: {
-  images: typeof visitImages;
-  active: number;
-  onClose: () => void;
-  onChange: (index: number) => void;
+function Lightbox({ images, active, onClose, onChange }: {
+  images: typeof visitImages; active: number;
+  onClose: () => void; onChange: (index: number) => void;
 }) {
-  const close = useRef<HTMLButtonElement>(null);
   const item = images[active];
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    close.current?.focus();
-    const keyboard = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
-      if (event.key === 'ArrowLeft') onChange((active - 1 + images.length) % images.length);
-      if (event.key === 'ArrowRight') onChange((active + 1) % images.length);
-    };
-    document.addEventListener('keydown', keyboard);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', keyboard);
-    };
-  }, [active, images.length, onChange, onClose]);
-
-  return (
-    <div className="media-lightbox" role="dialog" aria-modal="true" aria-label={item.title}>
-      <button ref={close} className="lightbox-close" onClick={onClose} aria-label="Fechar galeria">
-        <X />
-      </button>
-      <button
-        className="lightbox-arrow lightbox-prev"
-        onClick={() => onChange((active - 1 + images.length) % images.length)}
-        aria-label="Imagem anterior"
-      >
-        <ChevronLeft />
-      </button>
-      <figure>
-        <ProgressiveImage src={item.src} alt={item.title} />
-        <figcaption>
-          <strong>{item.title}</strong>
-          <span>{item.caption}</span>
-          <small>
-            {active + 1} de {images.length}
-          </small>
-        </figcaption>
-      </figure>
-      <button
-        className="lightbox-arrow lightbox-next"
-        onClick={() => onChange((active + 1) % images.length)}
-        aria-label="Próxima imagem"
-      >
-        <ChevronRight />
-      </button>
-    </div>
-  );
+  const hasMultiple = images.length > 1;
+  return <ImageZoomDialog
+    src={item.src} fallback={optimized(item.src)}
+    title={item.title} caption={item.caption} onClose={onClose}
+    onPrevious={hasMultiple ? () => onChange((active - 1 + images.length) % images.length) : undefined}
+    onNext={hasMultiple ? () => onChange((active + 1) % images.length) : undefined}
+  />;
 }
 
 export default function ManifestoMedia({
