@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import { ArrowUpRight, HeartHandshake } from 'lucide-react';
-import { Intro, Heading, Modal, Action, TextLink } from '../components/UI';
+import { Heading, Modal, Action, TextLink } from '../components/UI';
+import { FotonPhoto } from './FotonPhoto';
+import { HumanPageHero } from './HumanPageHero';
 import { supportModalities } from './content';
 
 export default function Support() {
   const [selected, setSelected] = useState<(typeof supportModalities)[number] | null>(null);
   return (
     <>
-      <Intro eyebrow="Apoie a Ciência" title="Ajude um Cientista Inovador.">
-        <p>
-          Por trás de cada avanço existe uma pessoa que fez uma pergunta. Conheça possibilidades de
-          apoio para que essas trajetórias continuem.
-        </p>
-        <span className="badge">Modalidades em estruturação · sem pagamentos nesta versão</span>
-      </Intro>
+      <HumanPageHero
+        eyebrow="Apoie a Ciência"
+        title="Ajude um Cientista Inovador."
+        description="Por trás de cada avanço existe uma pessoa que fez uma pergunta. Conheça as possibilidades de apoio às trajetórias de quem pesquisa, aprende e compartilha."
+        photoId="apoie-hero-scientists"
+        badge={<span className="badge">Modalidades em estruturação · sem pagamentos nesta versão</span>}
+      >
+        <Action to="/contato">Converse com o Instituto</Action>
+        <TextLink to="/transparencia">Conheça a transparência</TextLink>
+      </HumanPageHero>
       <section className="section">
         <div className="container">
           <div className="heading-row">
@@ -48,6 +53,21 @@ export default function Support() {
               </button>
             ))}
           </div>
+        </div>
+      </section>
+      <section className="section support-researcher-section spectral-divider">
+        <div className="container support-researcher-layout">
+          <div>
+            <p className="eyebrow"><span /> Incentivo ao pesquisador</p>
+            <h2>Por trás de uma pesquisa, existe uma trajetória.</h2>
+            <p>
+              A formação e a continuidade da pesquisa dependem de tempo, encontros,
+              colaboração e oportunidades. Conheça as modalidades propostas pelo Instituto.
+            </p>
+            <p className="badge">Proposta em estruturação · contribuições financeiras indisponíveis</p>
+            <TextLink to="/contato">Fale com o Instituto</TextLink>
+          </div>
+          <FotonPhoto id="apoie-researcher-support" className="support-researcher-photo" />
         </div>
       </section>
       <section className="section section-gray">

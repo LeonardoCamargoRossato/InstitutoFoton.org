@@ -12,6 +12,8 @@ import {
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import Constellation from '../components/Constellation';
 import { FotonPhoto } from './FotonPhoto';
+import { HumanMosaic } from './HumanMosaic';
+import { HumanPageHero } from './HumanPageHero';
 import { researchLines, journeySteps } from './content';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
@@ -53,11 +55,9 @@ export function Home() {
             </a>
           </div>
           <FotonPhoto
-            index={1}
+            id="home-hero-community"
             priority
             className="hero-photography"
-            alt="Cena ilustrativa gerada por IA com participantes fictícios em laboratório científico"
-            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
             fallback={<Constellation />}
           />
         </div>
@@ -69,6 +69,7 @@ export function Home() {
           <span>Gerações que se encontram.</span>
         </div>
       </div>
+      <HumanMosaic />
       <section className="section spectral-divider" id="nossa-rede">
         <div className="container split">
           <Heading
@@ -112,10 +113,8 @@ export function Home() {
       <section className="section human-story-section spectral-divider">
         <div className="container human-story-layout">
           <FotonPhoto
-            index={2}
+            id="home-science-network"
             className="story-photography"
-            alt="Cena ilustrativa gerada por IA com grupo fictício em atividade científica"
-            caption="Imagem ilustrativa gerada por IA · não registra atividade real"
           />
           <div className="human-story-copy">
             <p className="eyebrow"><span /> Encontros que fazem ciência</p>
@@ -134,6 +133,20 @@ export function Home() {
               <TextLink to="/transparencia">Consultar transparência</TextLink>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="section home-legacy-section spectral-divider">
+        <div className="container home-legacy-layout">
+          <div>
+            <p className="eyebrow"><span /> Experiência e novos olhares</p>
+            <h2>O conhecimento não tem idade.</h2>
+            <p>
+              Pesquisadores experientes e jovens talentos podem aprender uns com os outros.
+              Essa diversidade de trajetórias faz parte do futuro que queremos construir.
+            </p>
+            <TextLink to="/instituto">Conheça o Instituto</TextLink>
+          </div>
+          <FotonPhoto id="home-generational-legacy" className="home-legacy-photo" />
         </div>
       </section>
       <section className="section section-gray spectral-divider">
@@ -393,6 +406,19 @@ export function Institute() {
             torno da ciência quântica.
           </p>
         </Intro>
+        <section className="section institute-banner-section">
+          <div className="container institute-banner-layout">
+            <div>
+              <p className="eyebrow"><span /> Uma ciência construída em rede</p>
+              <h2>Pessoas, gerações e conhecimento em diálogo.</h2>
+              <p>
+                A tecnologia ganha significado quando conecta diferentes experiências e ideias.
+                As cenas ilustrativas mostram essa intenção, sem representar encontros reais do Foton.
+              </p>
+            </div>
+            <FotonPhoto id="instituto-community" priority className="institute-banner-photo" />
+          </div>
+        </section>
         <section className="section">
           <div className="container split">
             <Heading eyebrow="Nossa história" title="Uma inquietação que se tornou encontro." />
@@ -494,10 +520,8 @@ export function Institute() {
             <TextLink to="/manifesto">Conheça as iniciativas</TextLink>
           </div>
           <FotonPhoto
-            index={3}
+            id="home-generational-legacy"
             className="institute-photography"
-            alt="Cena ilustrativa gerada por IA com participantes fictícios em laboratório científico"
-            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
           />
         </div>
       </section>
@@ -565,12 +589,14 @@ export function Research() {
     );
   return (
     <>
-      <Intro eyebrow="Pesquisa e ecossistema" title="Diferentes saberes. Perguntas em comum.">
-        <p>
-          Tecnologias quânticas são um campo de investigação que pede colaboração. Conheça as áreas
-          que conectam nossa rede.
-        </p>
-      </Intro>
+      <HumanPageHero
+        eyebrow="Pesquisa e ecossistema"
+        title="Diferentes saberes. Perguntas em comum."
+        description="Tecnologias quânticas são um campo de investigação que pede colaboração. Conheça as áreas que conectam nossa rede."
+        photoId="pesquisa-collaboration"
+      >
+        <Action to="/jornada">Conheça a Jornada</Action>
+      </HumanPageHero>
       <section className="section">
         <div className="container">
           <div className="research-grid full-research">
@@ -618,34 +644,32 @@ export function Research() {
 export function Journey() {
   return (
     <>
-      <Intro eyebrow="Jornada do Cientista Inovador" title="A próxima pergunta pode ser sua.">
-        <p>
-          A curiosidade pode surgir na escola, amadurecer na universidade ou ganhar novo sentido
-          depois de uma carreira inteira.
-        </p>
-      </Intro>
+      <HumanPageHero
+        eyebrow="Jornada do Cientista Inovador"
+        title="A próxima pergunta pode ser sua."
+        description="A curiosidade pode surgir na escola, amadurecer na universidade ou ganhar novo sentido depois de uma carreira inteira."
+        photoId="jornada-hero-pathways"
+      >
+        <Action to="/pesquisa">Explore a pesquisa</Action>
+        <TextLink to="/instituto">Conheça o Instituto</TextLink>
+      </HumanPageHero>
       <section className="section">
         <div className="container">
           <Heading
             eyebrow="Cada trajetória tem seu tempo"
             title="Você não precisa ter todas as respostas para começar."
           />
-          <div className="three-grid">
-            {[
-              [
-                'Estou começando',
-                'Observe, pergunte e construa repertório. A ciência também começa nas questões que surgem no cotidiano.',
-              ],
-              [
-                'Quero me aproximar da pesquisa',
-                'Conheça áreas de investigação, aprofunde fundamentos e descubra a importância da colaboração científica.',
-              ],
-              [
-                'Tenho experiência e quero contribuir',
-                'Seu percurso profissional pode trazer perspectivas valiosas. Novos caminhos também se abrem a partir da experiência.',
-              ],
-            ].map(([title, text]) => (
-              <div className="info-card" key={title}>
+          <div className="three-grid journey-photo-grid">
+            {([
+              { id: 'mosaic-students', title: 'Estou começando',
+                text: 'Observe, pergunte e construa repertório. A ciência também começa nas questões que surgem no cotidiano.' },
+              { id: 'mosaic-training', title: 'Quero me aproximar da pesquisa',
+                text: 'Conheça áreas de investigação, aprofunde fundamentos e descubra a importância da colaboração científica.' },
+              { id: 'mosaic-collaborators', title: 'Tenho experiência e quero contribuir',
+                text: 'Seu percurso profissional pode trazer perspectivas valiosas. Novos caminhos também se abrem a partir da experiência.' },
+            ] as const).map(({ id, title, text }) => (
+              <div className="info-card journey-photo-card" key={title}>
+                <FotonPhoto id={id} className="journey-step-photo" showCaption={false} />
                 <h3>{title}</h3>
                 <p>{text}</p>
                 <TextLink to="/pesquisa">Explore a pesquisa</TextLink>

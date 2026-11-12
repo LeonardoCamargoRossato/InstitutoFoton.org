@@ -158,12 +158,7 @@ export default function TransparencyBoard() {
             </p>
             <a href="#documentos-publicos" className="text-link">Consultar documentos <span aria-hidden="true">↓</span></a>
           </div>
-          <FotonPhoto
-            index={4}
-            className="transparency-photo"
-            alt="Cena ilustrativa gerada por IA com pesquisadores fictícios em trabalho colaborativo"
-            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
-          />
+          <FotonPhoto id="instituto-community" className="transparency-photo" />
         </div>
       </section>
       <section className="section section-gray transparency-section" id="documentos-publicos">
