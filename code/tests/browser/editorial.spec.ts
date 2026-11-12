@@ -16,6 +16,42 @@ test('transparência apresenta cinco categorias sem inventar documentos', async 
   await expect(presentation.getByRole('button', { name: /Baixar/ })).toBeVisible();
 });
 
+
+test('Visita Técnica 03 está em WebP e todas as fotografias abrem com zoom', async ({ page }) => {
+  await page.goto('./');
+  const hero = page.locator('[data-asset-id="home-hero-community"] img');
+  await expect(hero).toHaveAttribute('src', /images\/webp\/illustrative\/home-hero-community\.webp$/);
+  const spotlight = page.locator('.technical-visit-photo img');
+  await spotlight.scrollIntoViewIfNeeded();
+  await expect(spotlight).toHaveAttribute('src', /images\/webp\/visits\/visita-03\.webp$/);
+  await expect.poll(() => spotlight.evaluate(el => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  await spotlight.click();
+  const dialog = page.getByRole('dialog', { name: /Visita Técnica 03/ });
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
+  await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
+  await dialog.getByRole('button', { name: 'Ajustar imagem à tela' }).click();
+  await expect(dialog.locator('.foton-zoom-level')).toHaveText('100%');
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
+  await hero.click();
+  await expect(page.getByRole('dialog', { name: /Composição fictícia/ })).toBeVisible();
+});
+
+test('Manifesto utiliza miniaturas WebP e mantém galeria navegável com zoom', async ({ page }) => {
+  await page.goto('./manifesto#visitas');
+  const first = page.locator('.gallery-track img').first();
+  await first.scrollIntoViewIfNeeded();
+  await expect(first).toHaveAttribute('src', /images\/webp\/visits\/visita-01\.webp$/);
+  await page.locator('.gallery-track > button').first().click();
+  const modal = page.getByRole('dialog', { name: 'Visita técnica 01' });
+  await expect(modal).toBeVisible();
+  await modal.getByRole('button', { name: 'Próxima imagem' }).click();
+  await expect(page.getByRole('dialog', { name: 'Visita técnica 02' })).toBeVisible();
+  await page.getByRole('button', { name: 'Ampliar imagem' }).click();
+  await expect(page.locator('.foton-zoom-level')).toHaveText('150%');
+});
+
 test('home e Instituto apresentam mídia editorial sem disparar toda a galeria', async ({ page }) => {
   let visitRequests = 0;
   page.on('request', (request) => {

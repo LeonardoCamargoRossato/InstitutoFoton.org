@@ -435,3 +435,41 @@
     .human-page-hero-photo { animation: none !important; transition: none !important; transform: none !important; }
   }
 }
+
+@layer components {
+  .technical-visit-section {
+    position: relative; isolation: isolate;
+    background: linear-gradient(135deg, #edf5ff, #ffffff 68%);
+    border-radius: 86px 0 78px 0;
+  }
+  .technical-visit-grid {
+    display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+    align-items: center; gap: clamp(30px, 5vw, 90px);
+  }
+  .technical-visit-photo {
+    position: relative; display: block; margin: 0; min-width: 0;
+    aspect-ratio: 16 / 9; border-radius: 32px 90px 32px 90px;
+    overflow: hidden; background: #dceaf8; box-shadow: 0 22px 58px rgba(4,18,49,.16);
+    cursor: zoom-in;
+  }
+  .technical-visit-photo img {
+    display: block; width: 100%; height: 100%; object-fit: cover;
+    object-position: center; cursor: zoom-in;
+  }
+  .technical-visit-photo figcaption {
+    position: absolute; inset-inline: 0; bottom: 0;
+    padding: 18px 24px; color: #fff; font-size: .74rem;
+    background: linear-gradient(0deg, rgba(4,18,49,.92), rgba(4,18,49,0));
+    pointer-events: none;
+  }
+  .technical-visit-copy h2 {
+    font-size: clamp(2rem, 3vw, 3.4rem); line-height: 1.15;
+    color: #072c7b; letter-spacing: -.035em; margin: 18px 0 25px;
+  }
+  .technical-visit-copy p:not(.eyebrow) { line-height: 1.8; margin-bottom: 24px; }
+  @media (max-width: 700px) {
+    .technical-visit-section { border-radius: 54px 0 54px 0; }
+    .technical-visit-grid { grid-template-columns: 1fr; gap: 28px; }
+    .technical-visit-photo { aspect-ratio: 3 / 2; border-radius: 25px 55px 25px 55px; }
+  }
+}
