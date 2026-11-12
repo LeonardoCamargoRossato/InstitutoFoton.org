@@ -1,5 +1,7 @@
 # Refinamento editorial e transparência — 11/11/2026
 
+**Registro inicial de execução:** 11/11/2026, 23h26 (America/Sao_Paulo).
+
 ## Objetivo
 Reforçar a conexão entre ciência e pessoas no portal do Instituto Foton, preservando a identidade visual. Apresentar cinco categorias fixas de transparência, com documentos reais oriundos do acervo público.
 

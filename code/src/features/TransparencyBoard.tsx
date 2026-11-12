@@ -28,7 +28,7 @@ const presentation: Entry = {
   description: 'Apresentação institucional de 10 de setembro de 2026, disponibilizada no portal.',
   version: 'Setembro de 2026',
   date: '2026-09-10',
-  size: '7,0 MB',
+  size: '7,3 MB',
   url: import.meta.env.BASE_URL + 'documents/apresentacao-institucional-2026-09-10.pdf',
 };
 
