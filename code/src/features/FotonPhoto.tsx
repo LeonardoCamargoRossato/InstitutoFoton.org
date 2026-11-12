@@ -92,6 +92,8 @@ export type PhotoId = keyof typeof PHOTO_LIBRARY;
 
 const imagePath = (file: string) =>
   import.meta.env.BASE_URL + 'images/illustrative/' + file;
+const previewPath = (file: string) =>
+  import.meta.env.BASE_URL + 'images/webp/illustrative/' + file.replace(/\.avif$/, '.webp');
 
 export function FotonPhoto({
   id, priority = false, className = '', caption, showCaption = true, fallback,
@@ -104,12 +106,16 @@ export function FotonPhoto({
   fallback?: ReactNode;
 }) {
   const [failed, setFailed] = useState(false);
+  const [useOriginal, setUseOriginal] = useState(false);
   const image = PHOTO_LIBRARY[id];
   const notice = caption || 'Imagem ilustrativa gerada por IA · pessoas fictícias';
 
   return (
     <figure
       className={'foton-photo ' + className}
+      role={className.includes('human-mosaic') ? undefined : 'button'}
+      tabIndex={className.includes('human-mosaic') ? undefined : 0}
+      aria-label={className.includes('human-mosaic') ? undefined : 'Ampliar imagem: ' + image.alt}
       data-asset-id={id}
       data-media-kind="ai-illustration"
       data-photo-status={failed ? 'unavailable' : 'illustrative'}
@@ -122,17 +128,19 @@ export function FotonPhoto({
       )) : (
         <picture>
           {'mobile' in image && image.mobile && (
-            <source media="(max-width: 700px)" srcSet={imagePath(image.mobile)} type="image/avif" />
+            <source media="(max-width: 700px)" srcSet={useOriginal ? imagePath(image.mobile) : previewPath(image.mobile)}
+              type={useOriginal ? 'image/avif' : 'image/webp'} />
           )}
           <img
-            src={imagePath(image.file)}
+            src={useOriginal ? imagePath(image.file) : previewPath(image.file)}
+            data-full-image={imagePath(image.file)}
             alt={'Imagem fictícia gerada por IA. ' + image.alt}
             width={image.width}
             height={image.height}
             loading={priority ? 'eager' : 'lazy'}
             decoding="async"
-            fetchPriority={priority ? 'high' : 'auto'}
-            onError={() => setFailed(true)}
+            fetchPriority={priority ? 'high' : 'low'}
+            onError={() => { if (!useOriginal) setUseOriginal(true); else setFailed(true); }}
           />
         </picture>
       )}

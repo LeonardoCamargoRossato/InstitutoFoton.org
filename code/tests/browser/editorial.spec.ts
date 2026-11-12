@@ -25,7 +25,7 @@ test('home e Instituto apresentam mídia editorial sem disparar toda a galeria',
   await expect(page.locator('.home-hero .foton-photo')).toBeVisible();
   await expect(page.locator('.home-hero .foton-photo')).toHaveAttribute('data-media-kind', 'ai-illustration');
   const hero = page.locator('[data-asset-id="home-hero-community"] img');
-  await expect(hero).toHaveAttribute('src', /images\/illustrative\/home-hero-community\.avif$/);
+  await expect(hero).toHaveAttribute('src', /images\/webp\/illustrative\/home-hero-community\.webp$/);
   await expect.poll(() => hero.evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(1000);
   await expect(page.getByRole('link', { name: 'Consultar transparência' })).toBeVisible();
   await expect(page.locator('.human-mosaic-tile')).toHaveCount(6);
@@ -88,7 +88,7 @@ test('mobile utiliza enquadramentos específicos sem perder o título nem os bot
     await photo.scrollIntoViewIfNeeded();
     await expect.poll(() => photo.evaluate((img) => (img as HTMLImageElement).naturalWidth))
       .toBeGreaterThan(0);
-    expect(await photo.evaluate((img) => (img as HTMLImageElement).currentSrc)).toMatch(/-mobile\.avif$/);
+    expect(await photo.evaluate((img) => (img as HTMLImageElement).currentSrc)).toMatch(/-mobile\.webp$/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   }
