@@ -34,9 +34,9 @@ jobs:
           fi
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
-          name: browser-results
+          name: auditoria-visual-estatica
           path: code/test-results/
-          retention-days: 1
+          retention-days: 7
           if-no-files-found: ignore

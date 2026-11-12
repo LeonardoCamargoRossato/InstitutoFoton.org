@@ -279,7 +279,11 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
     for (const [path, name] of [
       ['./', 'home'],
       ['./instituto', 'instituto'],
+      ['./pesquisa', 'pesquisa'],
+      ['./jornada', 'jornada'],
       ['./apoie', 'apoie'],
+      ['./noticias', 'noticias'],
+      ['./contato', 'contato'],
       ['./manifesto', 'manifesto'],
       ['./apresentacao', 'apresentacao'],
       ['./transparencia', 'transparencia'],
