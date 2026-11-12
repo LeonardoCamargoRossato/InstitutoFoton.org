@@ -275,6 +275,7 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
       ['./apoie', 'apoie'],
       ['./manifesto', 'manifesto'],
       ['./apresentacao', 'apresentacao'],
+      ['./transparencia', 'transparencia'],
       ['./entrar', 'entrar'],
     ]) {
       await page.goto(path);

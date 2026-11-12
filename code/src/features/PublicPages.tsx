@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import Constellation from '../components/Constellation';
+import { FotonPhoto } from './FotonPhoto';
 import { researchLines, journeySteps } from './content';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
@@ -51,7 +52,14 @@ export function Home() {
               Descubra o que nos conecta
             </a>
           </div>
-          <Constellation />
+          <FotonPhoto
+            index={1}
+            priority
+            className="hero-photography"
+            alt="Cena ilustrativa gerada por IA com participantes fictícios em laboratório científico"
+            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
+            fallback={<Constellation />}
+          />
         </div>
       </section>
       <div className="values-strip">
@@ -99,6 +107,33 @@ export function Home() {
             <br />
             <TextLink to="/apresentacao">Conheça nossa apresentação</TextLink>
           </p>
+        </div>
+      </section>
+      <section className="section human-story-section spectral-divider">
+        <div className="container human-story-layout">
+          <FotonPhoto
+            index={2}
+            className="story-photography"
+            alt="Cena ilustrativa gerada por IA com grupo fictício em atividade científica"
+            caption="Imagem ilustrativa gerada por IA · não registra atividade real"
+          />
+          <div className="human-story-copy">
+            <p className="eyebrow"><span /> Encontros que fazem ciência</p>
+            <h2>Por trás de cada descoberta, existem pessoas.</h2>
+            <p>
+              O conhecimento avança quando pesquisadores, estudantes e pessoas de diferentes
+              trajetórias podem conversar, compartilhar dúvidas e abrir caminhos em conjunto.
+            </p>
+            <p>
+              Nesta demonstração, as fotografias de pessoas foram geradas por inteligência
+              artificial. Elas ilustram encontros e descobertas, mas não retratam eventos,
+              integrantes ou resultados reais do Instituto.
+            </p>
+            <div className="actions">
+              <Action to="/instituto">Conheça nossa história</Action>
+              <TextLink to="/transparencia">Consultar transparência</TextLink>
+            </div>
+          </div>
         </div>
       </section>
       <section className="section section-gray spectral-divider">
@@ -445,6 +480,25 @@ export function Institute() {
               <p>Conectar o conhecimento científico a desafios e oportunidades da sociedade.</p>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="section institute-people spectral-divider">
+        <div className="container institute-people-grid">
+          <div>
+            <p className="eyebrow"><span /> O encontro entre gerações</p>
+            <h2>O futuro da ciência se constrói em conjunto.</h2>
+            <p>
+              A trajetória do Instituto também se revela nos momentos de troca,
+              colaboração e aproximação com diferentes ambientes de ciência e inovação.
+            </p>
+            <TextLink to="/manifesto">Conheça as iniciativas</TextLink>
+          </div>
+          <FotonPhoto
+            index={3}
+            className="institute-photography"
+            alt="Cena ilustrativa gerada por IA com participantes fictícios em laboratório científico"
+            caption="Imagem ilustrativa gerada por IA · pessoas fictícias"
+          />
         </div>
       </section>
       <OfficialStatements />
