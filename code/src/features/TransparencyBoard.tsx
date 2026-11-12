@@ -6,7 +6,7 @@ import { TRANSPARENCY_CATEGORIES, transparencyCategory, type TransparencyCategor
 import { backendError, documentUrl, documents, type PublicDocument } from '../lib/backend';
 import { dateLabel } from '../lib/config';
 import { useResource } from '../lib/useResource';
-import { Status } from '../components/UI';
+import { Intro, Status } from '../components/UI';
 
 type Entry = {
   id: string;
@@ -144,6 +144,9 @@ export default function TransparencyBoard() {
 
   return (
     <>
+      <Intro eyebrow="Transparência" title="Confiança se constrói com clareza.">
+        <p>Documentos e informações institucionais para consulta pública, com responsabilidade.</p>
+      </Intro>
       <section className="transparency-lead section">
         <div className="container transparency-lead-grid">
           <div className="transparency-lead-copy">
