@@ -1,5 +1,24 @@
 import { test, expect } from '@playwright/test';
-import { publishedPartners, partnerGroups } from '../../src/content/partners';
+import { readFileSync } from 'node:fs';
+const publicPartners = JSON.parse(
+  readFileSync('src/content/partners.json', 'utf8')
+) as Array<{
+  id: string; title: string; partner_tier: string | null;
+  display_order: number; logo_slug: string | null;
+  status: string; locale: string;
+}>;
+const verifiedPartners = () => publicPartners
+  .filter(p => p.status === 'publicado' && p.locale === 'pt-br')
+  .sort((a, b) => a.display_order - b.display_order || a.title.localeCompare(b.title, 'pt-BR'));
+const verifiedGroups = (records: ReturnType<typeof verifiedPartners>) => {
+  const groups = new Map<string, typeof records>();
+  for (const record of records) {
+    const tier = record.partner_tier?.trim() || 'Parceiros';
+    if (!groups.has(tier)) groups.set(tier, []);
+    groups.get(tier)!.push(record);
+  }
+  return [...groups].map(([tier, items]) => ({ tier, items }));
+};
 
 test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', async ({ page }) => {
   await page.goto('./');
@@ -226,14 +245,14 @@ test('Ecossistema de Parceiros possui rota, menu e fonte estática única', asyn
   const section = page.locator('#parceiros');
   await expect(section.getByRole('heading', { name: 'Ecossistema de Parceiros' })).toBeVisible();
   await expect(section.getByRole('link', { name: 'Ver todos os parceiros' })).toHaveAttribute('href', /\/parceiros$/);
-  const verified = publishedPartners();
+  const verified = verifiedPartners();
   await expect(section.locator('.partner-card')).toHaveCount(verified.length);
   await page.getByRole('navigation', { name: 'Navegação principal' })
     .getByRole('link', { name: 'Ecossistema de Parceiros' }).click();
   await expect(page).toHaveURL(/\/parceiros$/);
   await expect(page.getByRole('heading', { level: 1, name: 'Ecossistema de Parceiros' })).toBeVisible();
   await expect(page.locator('.partner-card')).toHaveCount(verified.length);
-  const groups = partnerGroups(verified);
+  const groups = verifiedGroups(verified);
   await expect(page.locator('.partner-group h3')).toHaveCount(groups.length);
   for (const [index, group] of groups.entries()) {
     await expect(page.locator('.partner-group h3').nth(index)).toHaveText(group.tier);
