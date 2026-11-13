@@ -5,27 +5,27 @@ import { partnerLogoAssets } from '../content/partnerAssets';
 import { partnerGroups, publishedPartners, safePartnerUrl, type PartnerRecord } from '../content/partners';
 
 function PartnerLogo({ partner }: { partner: PartnerRecord }) {
-  const [source, setSource] = useState<'webp'|'png'|'text'>('webp');
+  const [broken, setBroken] = useState(false);
   const logo = partnerLogoAssets(partner.logo_slug);
-  if (!logo || source === 'text') {
+  if (!logo || broken) {
     return <span className="partner-text-logo">{partner.title}</span>;
   }
   return (
     <img
       alt={partner.title}
-      width={104}
-      height={104}
+      width={176}
+      height={96}
       loading="lazy"
       decoding="async"
-      src={source === 'webp' ? logo.webp : logo.png}
-      onError={() => setSource((prior) => prior === 'webp' ? 'png' : 'text')}
+      src={logo.svg}
+      onError={() => setBroken(true)}
     />
   );
 }
 
 // Algumas logomarcas oficiais são claras ou monocromáticas e precisam de
 // contraste no cartão. O arquivo original não é alterado.
-const lightLogos = new Set(['instituto-rc', 'rede4-0', 'unisotech']);
+const lightLogos = new Set(['instituto-rc', 'unisotech']);
 function PartnerCard({ partner }: { partner: PartnerRecord }) {
   const url = safePartnerUrl(partner.partner_url);
   const cardClass = 'partner-card' + (partner.logo_slug && lightLogos.has(partner.logo_slug)

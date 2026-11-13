@@ -7,6 +7,13 @@ if(inventory.count!==49||inventory.items.length!==49)throw Error('Inventário do
 const expected=new Set(inventory.items.flatMap(i=>[i.pngPath,i.webpPath]));
 const partnerSnapshot=JSON.parse(await readFile('src/content/partners.json','utf8'));
 const logoFilenames=JSON.parse(await readFile('assets/partner-logo-names.json','utf8'));
+const svgNames=new Set();
+const groupCounts=new Map();
+if(partnerSnapshot.length!==31)throw Error('Exatamente 31 parceiros SVG são obrigatórios');
+for(const legacy of Object.values(logoFilenames)){
+  expected.add('assets/PNG/parceiros/'+legacy+'.png');
+  expected.add('assets/WebP/parceiros/'+legacy+'.webp');
+}
 for(const partner of partnerSnapshot){
   if(partner.status!=='publicado'||partner.locale!=='pt-br')
     throw Error('Parceiro não publicado na seleção pública: '+partner.id);
@@ -16,12 +23,19 @@ for(const partner of partnerSnapshot){
     const filename=logoFilenames[partner.logo_slug];
     if(!filename || !/^Logo[A-Za-z0-9]+$/.test(filename))
       throw Error('Logo sem nome PascalCase canônico: '+partner.id);
-    expected.add('assets/PNG/parceiros/'+filename+'.png');
-    expected.add('assets/WebP/parceiros/'+filename+'.webp');
+    if(filename==='LogoRede40')throw Error('Rede 4.0 não autorizada na nova seleção');
+    if(partner.logo_filename!==filename+'.svg')throw Error('Logo SVG diverge do cadastro: '+partner.id);
+    svgNames.add(filename+'.svg');
+    groupCounts.set(partner.partner_tier,(groupCounts.get(partner.partner_tier)||0)+1);
+    expected.add('assets/img-logos-parceiros-foton/assets-svg/'+filename+'.svg');
   }
 }
 
-if(expected.size!==98+new Set(partnerSnapshot.filter(p=>p.logo_slug).map(p=>p.logo_slug)).size*2)throw Error('Arquivos de imagem ausentes ou duplicados');
+const expectedGroups=[['Ciência e Pesquisa',8],['Ecossistema e Instituições',9],['Foton: Tecnologias Quânticas',5],['Empresas Parceiras',9]];
+if(expected.size!==98+64+31 || svgNames.size!==31 || expectedGroups.some(([group,n])=>groupCounts.get(group)!==n)||groupCounts.size!==4)
+  throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
+const slideAsset='assets/img-logos-parceiros-foton/EcossistemasEParceirosSlideApresentacaoInstitucionalFoton.svg';
+expected.add(slideAsset);
 const routeDirectories=new Set(['instituto','pesquisa','parceiros','jornada','manifesto','noticias','apresentacao',
 'transparencia','apoie','contato','privacidade','termos']);
 const rootFiles=new Set(['.nojekyll','404.html','index.html','robots.txt','sitemap.xml','version.json']);
@@ -53,7 +67,9 @@ async function walk(dir,prefix=''){
   else if(top==='documents'&&!expectedDocuments.has(rel))violations.push('document not approved '+rel);
   else if(top==='assets' && ['PNG','WebP'].includes(parts[1]) && !expected.has(rel))
     violations.push('image not inventoried '+rel);
-  else if(top==='assets' && !['PNG','WebP'].includes(parts[1]) &&
+  else if(top==='assets' && parts[1]==='img-logos-parceiros-foton' && !expected.has(rel))
+    violations.push('SVG não autorizado '+rel);
+  else if(top==='assets' && !['PNG','WebP','img-logos-parceiros-foton'].includes(parts[1]) &&
     !/^assets\/[^/]+\.(?:js|mjs|css|woff2?|ttf|svg)$/i.test(rel))
     violations.push('unexpected bundler asset '+rel);
   else if(top==='licenses'&&rel!=='licenses/raleway-OFL.txt')violations.push('license '+rel);
@@ -72,4 +88,4 @@ for(const a of expected){
  if(seen.has(a) && (await stat(join(dist,a))).size<100)violations.push('empty asset '+a);
 }
 if(violations.length){console.error('Site estático reprovado:',violations);process.exitCode=1;}
-else console.log('Pages validado: 98 imagens canônicas, logotipos aprovados, PDF público e nenhuma referência runtime Supabase.');
+else console.log('Pages validado: 31 logos SVG, slide separado, 4 grupos 8/9/5/9, mídias históricas preservadas e nenhuma referência runtime Supabase.');

@@ -11,6 +11,10 @@ export type PartnerRecord = {
   status: 'publicado';
   locale: 'pt-br';
   summary?: string | null;
+  logo_filename?: string;
+  tag?: string;
+  description?: string | null;
+  keywords?: string[];
   published_at?: string | null;
 };
 
