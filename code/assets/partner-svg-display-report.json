@@ -2,24 +2,30 @@
   "generatedFrom": "SVGs originais aprovados, sem modificação dos arquivos fonte",
   "count": 31,
   "sourceBytes": 25042891,
-  "displayBytes": 2146635,
+  "displayBytes": 2147084,
   "savingsPercent": 91.43,
   "records": [
     {
       "file": "LogoIHR.svg",
       "sourceBytes": 34182,
-      "displayBytes": 34205,
+      "displayBytes": 34201,
       "embeddedImagesOptimized": 0,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.01112,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoINDT.svg",
       "sourceBytes": 1324085,
-      "displayBytes": 42652,
+      "displayBytes": 42647,
       "embeddedImagesOptimized": 2,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.32767,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoTecnopuc.svg",
@@ -27,7 +33,10 @@
       "displayBytes": 5860,
       "embeddedImagesOptimized": 0,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.17289,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoSoftsul.svg",
@@ -35,143 +44,197 @@
       "displayBytes": 42263,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Fundo preenchido conservado"
+      "note": "Fundo preenchido conservado",
+      "browserPixelCoverage": 0.99804,
+      "browserCropped": false,
+      "browserNote": "Fundo colorido ou opaco: preservado"
     },
     {
       "file": "LogoPIT.svg",
       "sourceBytes": 889092,
-      "displayBytes": 36373,
+      "displayBytes": 36396,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.23463,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoUnisoTech.svg",
       "sourceBytes": 3109254,
-      "displayBytes": 141813,
+      "displayBytes": 141835,
       "embeddedImagesOptimized": 3,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.13711,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoCNECGravatai.svg",
       "sourceBytes": 1033377,
-      "displayBytes": 248388,
+      "displayBytes": 248410,
       "embeddedImagesOptimized": 3,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.1045,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoAnhembiMorumbiCampusAthonSorocaba.svg",
       "sourceBytes": 714401,
-      "displayBytes": 87011,
+      "displayBytes": 87034,
       "embeddedImagesOptimized": 2,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.07775,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoLACQFeynman.svg",
       "sourceBytes": 1599037,
-      "displayBytes": 153801,
+      "displayBytes": 153824,
       "embeddedImagesOptimized": 4,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.12363,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoPrefeituraGravatai.svg",
       "sourceBytes": 1017559,
-      "displayBytes": 51012,
+      "displayBytes": 51034,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.27919,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoInovaBR.svg",
       "sourceBytes": 237292,
-      "displayBytes": 24214,
+      "displayBytes": 24235,
       "embeddedImagesOptimized": 2,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.07066,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoSERGS.svg",
       "sourceBytes": 929798,
-      "displayBytes": 49291,
+      "displayBytes": 49314,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.24116,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoAssesproRS.svg",
       "sourceBytes": 837326,
-      "displayBytes": 40003,
+      "displayBytes": 40026,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.25319,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoRC.svg",
       "sourceBytes": 693265,
-      "displayBytes": 22434,
+      "displayBytes": 22457,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.2548,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoAGTI.svg",
       "sourceBytes": 1084355,
-      "displayBytes": 32644,
+      "displayBytes": 32664,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.35513,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoNAU.svg",
       "sourceBytes": 1055376,
-      "displayBytes": 41457,
+      "displayBytes": 41480,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.28543,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoInstitutoPlaneta.svg",
       "sourceBytes": 1412955,
-      "displayBytes": 106868,
+      "displayBytes": 106889,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.62432,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoDobslit.svg",
       "sourceBytes": 252259,
-      "displayBytes": 59116,
+      "displayBytes": 59135,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.03613,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoQuantuLoop.svg",
       "sourceBytes": 722197,
-      "displayBytes": 22158,
+      "displayBytes": 22169,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.27494,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoHYPAQ.svg",
       "sourceBytes": 144007,
-      "displayBytes": 86213,
+      "displayBytes": 86214,
       "embeddedImagesOptimized": 1,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.0972,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoQBra.svg",
       "sourceBytes": 1071967,
-      "displayBytes": 39868,
+      "displayBytes": 39881,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.30357,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoKuatia.svg",
@@ -179,79 +242,109 @@
       "displayBytes": 88342,
       "embeddedImagesOptimized": 1,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.26583,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoProNext.svg",
       "sourceBytes": 710686,
-      "displayBytes": 101657,
+      "displayBytes": 101677,
       "embeddedImagesOptimized": 3,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.05973,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoAssimetry.svg",
       "sourceBytes": 281717,
-      "displayBytes": 206516,
+      "displayBytes": 206517,
       "embeddedImagesOptimized": 1,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.20206,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoAISR.svg",
       "sourceBytes": 31547,
-      "displayBytes": 31569,
+      "displayBytes": 31566,
       "embeddedImagesOptimized": 0,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.14183,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoAlibiDigital.svg",
       "sourceBytes": 652532,
-      "displayBytes": 101768,
+      "displayBytes": 101770,
       "embeddedImagesOptimized": 1,
       "cropped": true,
-      "note": "Margens transparentes removidas do viewBox"
+      "note": "Margens transparentes removidas do viewBox",
+      "browserPixelCoverage": 0.27822,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoVentiur.svg",
       "sourceBytes": 781299,
-      "displayBytes": 25496,
+      "displayBytes": 25515,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.24506,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoY4.svg",
       "sourceBytes": 544551,
-      "displayBytes": 28160,
+      "displayBytes": 28181,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.17811,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoPropulse.svg",
       "sourceBytes": 429388,
-      "displayBytes": 42198,
+      "displayBytes": 42221,
       "embeddedImagesOptimized": 2,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.0505,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoArea56.svg",
       "sourceBytes": 1343062,
-      "displayBytes": 103071,
+      "displayBytes": 103090,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.46463,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     },
     {
       "file": "LogoMultiCortex.svg",
       "sourceBytes": 905517,
-      "displayBytes": 50214,
+      "displayBytes": 50237,
       "embeddedImagesOptimized": 1,
       "cropped": false,
-      "note": "Sem pixels detectados"
+      "note": "Sem pixels detectados",
+      "browserPixelCoverage": 0.2548,
+      "browserCropped": true,
+      "browserNote": "viewBox ajustado a conteúdo visível via Chromium"
     }
   ]
 }
