@@ -8,6 +8,7 @@ import '@fontsource/raleway/latin-700.css';
 import './styles/site.css';
 import './styles/human-editorial.css';
 import './styles/image-zoom.css';
+import './styles/partners.css';
 import Layout from './app/Layout';
 import {
   Home,
@@ -24,6 +25,7 @@ const News = lazy(() => import('./features/Publications').then((m) => ({ default
 const Article = lazy(() => import('./features/Publications').then((m) => ({ default: m.Article })));
 import { Transparency, Presentation } from './features/Documents';
 const Access = lazy(() => import('./features/Access'));
+const PartnersPage = lazy(() => import('./features/PartnersPage'));
 
 const deployedVersion = async () => {
   try {
@@ -67,6 +69,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route index element={<Home />} />
             <Route path="instituto" element={<Institute />} />
             <Route path="pesquisa" element={<Research />} />
+            <Route path="parceiros" element={<PartnersPage />} />
             <Route path="pesquisa/:slug" element={<Research />} />
             <Route path="jornada" element={<Journey />} />
             <Route path="manifesto" element={<Manifesto />} />

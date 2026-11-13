@@ -8,6 +8,7 @@ const pages = [
   '',
   'instituto',
   'pesquisa',
+  'parceiros',
   'jornada',
   'manifesto',
   'noticias',
