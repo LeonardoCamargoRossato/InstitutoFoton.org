@@ -1,12 +1,13 @@
 import { chromium } from '@playwright/test';
 import sharp from 'sharp';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 
 // Coleta somente o que está visível no site comercial, em modo público.
 // Não usa credenciais, consultas a banco ou endpoints administrativos.
 const source = 'https://institutofoton.com.br/';
+const logoFilenames = JSON.parse(await readFile('assets/partner-logo-names.json', 'utf8'));
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
 let groups;
 let page;
@@ -85,15 +86,18 @@ try {
         let canonical = repeated.get(sourceHash);
         if (!canonical) {
           canonical = slug;
+          const filename = logoFilenames[canonical];
+          if (!filename || !/^Logo[A-Za-z0-9]+$/.test(filename))
+            throw Error('Nome de logo LCR ausente: ' + canonical);
           const extension = meta.format === 'jpeg' ? 'jpg' :
             ['png','webp','svg','gif','avif'].includes(meta.format) ? meta.format : 'bin';
-          await writeFile(join('assets/partner-source-originals', canonical + '.' + extension), bytes);
+          await writeFile(join('assets/partner-source-originals', filename + '.' + extension), bytes);
           const pipeline = () => sharp(bytes, { limitInputPixels: 40_000_000 })
             .rotate().resize({ width: 1000, height: 1000, fit: 'inside', withoutEnlargement: true });
           await pipeline().png({ compressionLevel: 9 })
-            .toFile(join('public/assets/PNG/parceiros', canonical + '.png'));
+            .toFile(join('public/assets/PNG/parceiros', filename + '.png'));
           await pipeline().webp({ quality: 88, effort: 6 })
-            .toFile(join('public/assets/WebP/parceiros', canonical + '.webp'));
+            .toFile(join('public/assets/WebP/parceiros', filename + '.webp'));
           repeated.set(sourceHash, canonical);
         }
         record.logo_slug = canonical;

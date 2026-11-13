@@ -34,10 +34,11 @@ describe('catálogo de parceiros publicados', () => {
     expect(safePartnerUrl('https://usuario:senha@example.org')).toBeNull();
     expect(safePartnerUrl('https://example.org/sobre')).toBe('https://example.org/sobre');
     expect(safePartnerUrl('http://example.org')).toBe('http://example.org/');
-    expect(partnerLogoAssets('marca-exemplo')).toEqual({
-      png: expect.stringMatching(/assets\/PNG\/parceiros\/marca-exemplo\.png$/),
-      webp: expect.stringMatching(/assets\/WebP\/parceiros\/marca-exemplo\.webp$/),
+    expect(partnerLogoAssets('ihr')).toEqual({
+      png: expect.stringMatching(/assets\/PNG\/parceiros\/LogoIHR\.png$/),
+      webp: expect.stringMatching(/assets\/WebP\/parceiros\/LogoIHR\.webp$/),
     });
+    expect(partnerLogoAssets('marca-exemplo')).toBeNull();
     expect(partnerLogoAssets('../segredo')).toBeNull();
   });
 });

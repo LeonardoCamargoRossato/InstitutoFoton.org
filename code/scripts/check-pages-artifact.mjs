@@ -6,14 +6,18 @@ const inventory=JSON.parse(await readFile('assets/asset-inventory.json','utf8'))
 if(inventory.count!==49||inventory.items.length!==49)throw Error('Inventário dos 49 pares ausente');
 const expected=new Set(inventory.items.flatMap(i=>[i.pngPath,i.webpPath]));
 const partnerSnapshot=JSON.parse(await readFile('src/content/partners.json','utf8'));
+const logoFilenames=JSON.parse(await readFile('assets/partner-logo-names.json','utf8'));
 for(const partner of partnerSnapshot){
   if(partner.status!=='publicado'||partner.locale!=='pt-br')
     throw Error('Parceiro não publicado na seleção pública: '+partner.id);
   if(partner.logo_slug){
     if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(partner.logo_slug))
       throw Error('Slug de logo inválido: '+partner.id);
-    expected.add('assets/PNG/parceiros/'+partner.logo_slug+'.png');
-    expected.add('assets/WebP/parceiros/'+partner.logo_slug+'.webp');
+    const filename=logoFilenames[partner.logo_slug];
+    if(!filename || !/^Logo[A-Za-z0-9]+$/.test(filename))
+      throw Error('Logo sem nome PascalCase canônico: '+partner.id);
+    expected.add('assets/PNG/parceiros/'+filename+'.png');
+    expected.add('assets/WebP/parceiros/'+filename+'.webp');
   }
 }
 
