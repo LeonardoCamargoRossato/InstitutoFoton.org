@@ -12,7 +12,9 @@ export default function SiteImageViewer() {
       if (!(el instanceof HTMLImageElement) || !el.closest('#conteudo')) return null;
       if (el.closest('.foton-zoom-dialog, .manifesto-image, .gallery-track, .manifesto-video')) return null;
       if (el.closest('a') && !el.closest('.human-mosaic-tile')) return null;
-      const src = el.dataset.fullImage || el.currentSrc || el.src;
+      const src = (window.matchMedia('(max-width: 700px)').matches
+        ? el.dataset.mobileFullImage || el.dataset.fullImage
+        : el.dataset.fullImage) || el.currentSrc || el.src;
       return src ? { src, fallback: el.currentSrc || el.src, title: el.alt || 'Fotografia do Instituto Foton' } : null;
     }
     function click(event: MouseEvent) {

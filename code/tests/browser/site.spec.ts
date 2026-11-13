@@ -2,12 +2,17 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
-// Fixtures de rede só no runner: o E2E de frontend não valida o Supabase remoto
-// nem deve depender de migrations/credenciais de produção para ser determinístico.
-test.beforeEach(async ({ page }) => {
-  await page.route('https://qvyrromhazssofombhem.supabase.co/rest/v1/**', (route) =>
-    route.fulfill({ status: 200, contentType: 'application/json', body: '[]' }),
-  );
+// Auditoria negativa: registrar qualquer tentativa de acesso ao serviço desativado.
+const remoteRequests = new WeakMap<object,string[]>();
+test.beforeEach(({ page }) => {
+  const hits: string[] = [];
+  remoteRequests.set(page,hits);
+  page.on('request', req => {
+    if (/supabase\.co|storage\/v1|auth\/v1/i.test(req.url())) hits.push(req.url());
+  });
+});
+test.afterEach(({ page }) => {
+  expect(remoteRequests.get(page) || []).toEqual([]);
 });
 
 test('fallback Pages preserva URL limpa, query e hash, inclusive callback', async ({ page }) => {
@@ -30,7 +35,7 @@ test('fallback Pages preserva URL limpa, query e hash, inclusive callback', asyn
     await page.goto(`./${path}`);
     await expect(page).toHaveURL(new RegExp(`${pathname}\\?`));
     await expect(page.getByRole('heading', { level: 1 })).toContainText(
-      pathname === 'manifesto' ? 'Manifesto Quântico Nacional' : 'Acesso institucional',
+      pathname === 'manifesto' ? 'Manifesto Quântico Nacional' : 'Acesso temporariamente suspenso',
     );
     expect(await page.evaluate(() => location.search.includes('__foton_route'))).toBe(false);
     if (pathname === 'manifesto') expect(await page.evaluate(() => location.hash)).toBe('#odqs');
@@ -184,10 +189,10 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
   await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-video')).toHaveCount(0);
   const cartaNorte = page.locator('.regional-letter').nth(1).locator('.manifesto-image img');
-  await expect(cartaNorte).toHaveAttribute('src', /images\/webp\/manifesto\/Thumb_CartaNorte\.webp$/);
+  await expect(cartaNorte).toHaveAttribute('src', /assets\/WebP\/manifesto-quantico\/Thumb_CartaNorte\.webp$/);
   await expect(cartaNorte).toHaveAttribute(
     'data-full-image',
-    /qvyrromhazssofombhem\.supabase\.co.*Thumb_CartaNorte\.jpeg/,
+    /assets\/PNG\/manifesto-quantico\/Thumb_CartaNorte\.png$/,
   );
 
   const alesp = page.getByRole('button', {
@@ -230,7 +235,7 @@ test('admin anônimo nunca mostra o dashboard; rotas desconhecidas têm 404', as
   await expect(page.getByText('Bem-vindo ao espaço institucional.')).toHaveCount(0);
   await expect(
     page.getByRole('heading', {
-      name: /Acesso temporariamente indisponível|Entre com sua conta institucional/,
+      name: /Acesso temporariamente suspenso/,
     }),
   ).toBeVisible();
   await page.goto('./pagina-inexistente');
@@ -274,7 +279,11 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
     for (const [path, name] of [
       ['./', 'home'],
       ['./instituto', 'instituto'],
+      ['./pesquisa', 'pesquisa'],
+      ['./jornada', 'jornada'],
       ['./apoie', 'apoie'],
+      ['./noticias', 'noticias'],
+      ['./contato', 'contato'],
       ['./manifesto', 'manifesto'],
       ['./apresentacao', 'apresentacao'],
       ['./transparencia', 'transparencia'],
@@ -286,6 +295,15 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
         await expect(page.getByRole('button', { name: 'Salvar página em PNG' })).toBeEnabled({
           timeout: 30000,
         });
+      if (name === 'manifesto') {
+        // Em capturas fullPage a imagem lazy pode não ter terminado de carregar.
+        // Verificar bytes renderizados antes da captura, sem desativar lazy-loading em produção.
+        const overview=page.locator('.manifesto-image img').first();
+        await overview.scrollIntoViewIfNeeded();
+        await expect.poll(() => overview.evaluate(img => (img as HTMLImageElement).naturalWidth), {
+          timeout: 15000,
+        }).toBeGreaterThan(0);
+      }
       await page.screenshot({ path: testInfo.outputPath(`${name}-${width}.png`), fullPage: true });
     }
   }

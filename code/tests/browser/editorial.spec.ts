@@ -20,10 +20,10 @@ test('transparência apresenta cinco categorias sem inventar documentos', async 
 test('Visita Técnica 03 está em WebP e todas as fotografias abrem com zoom', async ({ page }) => {
   await page.goto('./');
   const hero = page.locator('[data-asset-id="home-hero-community"] img');
-  await expect(hero).toHaveAttribute('src', /images\/webp\/illustrative\/home-hero-community\.webp$/);
+  await expect(hero).toHaveAttribute('src', /assets\/WebP\/home\/home-hero-community\.webp$/);
   const spotlight = page.locator('.technical-visit-photo img');
   await spotlight.scrollIntoViewIfNeeded();
-  await expect(spotlight).toHaveAttribute('src', /images\/webp\/visits\/visita-03\.webp$/);
+  await expect(spotlight).toHaveAttribute('src', /assets\/WebP\/visitas-tecnicas\/visita-03\.webp$/);
   await expect.poll(() => spotlight.evaluate(el => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   await spotlight.click();
   const dialog = page.getByRole('dialog', { name: /Visita Técnica 03/ });
@@ -42,7 +42,15 @@ test('Manifesto utiliza miniaturas WebP e mantém galeria navegável com zoom', 
   await page.goto('./manifesto#visitas');
   const first = page.locator('.gallery-track img').first();
   await first.scrollIntoViewIfNeeded();
-  await expect(first).toHaveAttribute('src', /images\/webp\/visits\/visita-01\.webp$/);
+  await expect(first).toHaveAttribute('src', /assets\/WebP\/visitas-tecnicas\/visita-01\.webp$/);
+  await expect.poll(() => first.evaluate(img => (img as HTMLImageElement).naturalWidth), {
+    timeout: 15000,
+  }).toBeGreaterThan(0);
+  const overview=page.locator('.manifesto-image img').first();
+  await overview.scrollIntoViewIfNeeded();
+  await expect.poll(() => overview.evaluate(img => (img as HTMLImageElement).naturalWidth), {
+    timeout: 15000,
+  }).toBeGreaterThan(0);
   await page.locator('.gallery-track > button').first().click();
   const modal = page.getByRole('dialog', { name: 'Visita técnica 01' });
   await expect(modal).toBeVisible();
@@ -61,7 +69,7 @@ test('home e Instituto apresentam mídia editorial sem disparar toda a galeria',
   await expect(page.locator('.home-hero .foton-photo')).toBeVisible();
   await expect(page.locator('.home-hero .foton-photo')).toHaveAttribute('data-media-kind', 'ai-illustration');
   const hero = page.locator('[data-asset-id="home-hero-community"] img');
-  await expect(hero).toHaveAttribute('src', /images\/webp\/illustrative\/home-hero-community\.webp$/);
+  await expect(hero).toHaveAttribute('src', /assets\/WebP\/home\/home-hero-community\.webp$/);
   await expect.poll(() => hero.evaluate((img) => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(1000);
   await expect(page.getByRole('link', { name: 'Consultar transparência' })).toBeVisible();
   await expect(page.locator('.human-mosaic-tile')).toHaveCount(6);
@@ -128,4 +136,34 @@ test('mobile utiliza enquadramentos específicos sem perder o título nem os bot
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   }
+});
+
+
+test('o portal público não requisita Supabase em nenhuma rota principal', async ({ page }) => {
+  const requests:string[]=[];
+  page.on('request',request=>{
+    if (/supabase\.co|storage\/v1|auth\/v1/i.test(request.url()))requests.push(request.url());
+  });
+  for(const path of ['./','./instituto','./pesquisa','./jornada','./manifesto','./noticias',
+    './apoie','./transparencia','./apresentacao','./contato','./entrar','./admin/diretoria']) {
+    await page.goto(path);
+    await expect(page.getByRole('heading',{level:1})).toBeVisible();
+    const remote=await page.locator('img[src*="supabase"],img[data-full-image*="supabase"]').count();
+    expect(remote).toBe(0);
+  }
+  expect(requests).toEqual([]);
+});
+test('o navegador usa WebP local e PNG local ao ampliar, sem redes externas', async ({ page }) => {
+  await page.goto('./');
+  const hero=page.locator('[data-asset-id="home-hero-community"] img');
+  await expect(hero).toHaveAttribute('src',/assets\/WebP\/home\/home-hero-community\.webp$/);
+  await expect(hero).toHaveAttribute('data-full-image',/assets\/PNG\/home\/home-hero-community\.png$/);
+  await hero.click();
+  const dialog=page.getByRole('dialog',{name:/Composição fictícia/});
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator('img')).toHaveAttribute('src',/assets\/PNG\/home\/home-hero-community\.png$/);
+  await page.keyboard.press('Escape');
+  const visit=page.locator('.technical-visit-photo img');
+  await visit.scrollIntoViewIfNeeded();
+  await expect(visit).toHaveAttribute('data-full-image',/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/);
 });

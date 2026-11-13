@@ -1,21 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { safeReturnTo, safeExternalUrl, validateBackend, dateLabel } from '../src/lib/config';
+import { safeExternalUrl, dateLabel } from '../src/lib/config';
 import { odqs, cartas, methodology } from '../src/features/manifesto-content';
+import { imageAsset, SITE_ASSETS } from '../src/lib/siteAssets';
+import { documents, officialStatements, publications } from '../src/lib/backend';
 
 describe('destinos e configuração', () => {
-  it('rejeita redirecionamentos externos, codificados e rotas públicas', () => {
-    for (const value of [
-      'https://evil.test',
-      '//evil.test',
-      '/\\evil.test',
-      '/%2f%2fevil.test',
-      '/admin?next=https://evil.test',
-      '/noticias',
-    ])
-      expect(safeReturnTo(value)).toBe('/admin');
-    expect(safeReturnTo('/admin/marketing')).toBe('/admin/marketing');
-    expect(safeReturnTo('/admin/diretoria')).toBe('/admin/diretoria');
-  });
   it('aceita somente links externos HTTPS sem credenciais', () => {
     expect(safeExternalUrl('https://institutofoton.com.br/manifesto')).toBe(
       'https://institutofoton.com.br/manifesto',
@@ -28,18 +17,6 @@ describe('destinos e configuração', () => {
       '/admin',
     ])
       expect(safeExternalUrl(value)).toBeUndefined();
-  });
-  it('recusa chaves administrativas e outro projeto Supabase', () => {
-    expect(validateBackend(undefined, undefined)).toBeTruthy();
-    expect(validateBackend('https://other.supabase.co', 'sb_publishable_example')).toBeTruthy();
-    expect(
-      validateBackend('https://qvyrromhazssofombhem.supabase.co', 'sb_secret_example'),
-    ).toBeTruthy();
-    const jwt = `header.${btoa(JSON.stringify({ role: 'service_role' }))}.signature`;
-    expect(validateBackend('https://qvyrromhazssofombhem.supabase.co', jwt)).toBeTruthy();
-    expect(
-      validateBackend('https://qvyrromhazssofombhem.supabase.co', 'sb_publishable_example'),
-    ).toBeNull();
   });
   it('trata datas inválidas e não altera a data documental pelo fuso', () => {
     expect(dateLabel('invalid')).toBe('');
@@ -54,5 +31,32 @@ describe('integridade documental', () => {
     expect(cartas).toHaveLength(5);
     // A repetição do título de metodologia existe na origem; não corrigir silenciosamente.
     expect(methodology[4].title).toBe('Mobilização regional');
+  });
+});
+
+describe('fontes públicas estáticas sem autenticação', () => {
+  it('possui 49 imagens canônicas e caminhos GitHub Pages relativos', () => {
+    expect(Object.keys(SITE_ASSETS)).toHaveLength(49);
+    expect(imageAsset('visita-03').pngPath).toBe('assets/PNG/visitas-tecnicas/visita-03.png');
+    expect(imageAsset('visita-03').webpPath).toBe('assets/WebP/visitas-tecnicas/visita-03.webp');
+    expect(imageAsset('home-hero-community').sourceType).toBe('ai-illustration');
+    for (const asset of Object.values(SITE_ASSETS)) {
+      expect(asset.pngPath).toMatch(/^assets\/PNG\/[^/]+\/[^/]+\.png$/);
+      expect(asset.webpPath).toMatch(/^assets\/WebP\/[^/]+\/[^/]+\.webp$/);
+    }
+  });
+  it('mantém PDF local aprovado e valores oficiais sem inventar mission/visão', async () => {
+    const docs=await documents();
+    expect(docs).toHaveLength(1);
+    expect(docs[0].file_path).toBe('documents/apresentacao-institucional-2026-09-10.pdf');
+    const statements=await officialStatements();
+    expect(statements.map(s=>s.key)).toEqual(['institute.values']);
+    expect(statements[0].content.split('\n')).toHaveLength(7);
+  });
+  it('notícias locais começam vazias e preservam filtros e paginação', async () => {
+    const result=await publications(0,'algoritmo','Pesquisa','recent');
+    expect(result.items).toHaveLength(0);
+    expect(result.more).toBe(false);
+    expect(result.configured).toBe(true);
   });
 });
