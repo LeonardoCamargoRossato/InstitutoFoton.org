@@ -63,6 +63,14 @@
     color: var(--navy);
     transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
   }
+  .partner-card-dark {
+    background: linear-gradient(145deg, #071c40, #103e79);
+    border-color: #1b4b88;
+  }
+  a.partner-card-dark:hover {
+    background: linear-gradient(145deg, #0c2e61, #1554a0);
+    border-color: #4ab9ee;
+  }
   .partner-card img {
     width: 100%;
     height: 100%;

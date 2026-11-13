@@ -23,8 +23,13 @@ function PartnerLogo({ partner }: { partner: PartnerRecord }) {
   );
 }
 
+// Algumas logomarcas oficiais são claras ou monocromáticas e precisam de
+// contraste no cartão. O arquivo original não é alterado.
+const lightLogos = new Set(['instituto-rc', 'rede4-0', 'unisotech']);
 function PartnerCard({ partner }: { partner: PartnerRecord }) {
   const url = safePartnerUrl(partner.partner_url);
+  const cardClass = 'partner-card' + (partner.logo_slug && lightLogos.has(partner.logo_slug)
+    ? ' partner-card-dark' : '');
   const contents = (
     <>
       <PartnerLogo partner={partner} />
@@ -40,13 +45,13 @@ function PartnerCard({ partner }: { partner: PartnerRecord }) {
         rel="noopener noreferrer"
         title={partner.title}
         aria-label={partner.title + ' — site oficial (abre em nova aba)'}
-        className="partner-card"
+        className={cardClass}
       >
         {contents}
       </a>
     );
   }
-  return <div className="partner-card" title={partner.title}>{contents}</div>;
+  return <div className={cardClass} title={partner.title}>{contents}</div>;
 }
 
 export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
