@@ -342,7 +342,7 @@ test('Ecossistema de Parceiros possui rota, menu e fonte estática única', asyn
         const img = page.locator('.partner-card').nth(index).locator('img');
         await expect(img).toHaveAttribute(
           'src',
-          /assets\/img-logos-parceiros-foton\/assets-svg\/Logo[A-Za-z0-9]+\.svg$/,
+          /assets\/img-logos-parceiros-foton\/display-svg\/Logo[A-Za-z0-9]+\.svg$/,
         );
         await expect
           .poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth))
