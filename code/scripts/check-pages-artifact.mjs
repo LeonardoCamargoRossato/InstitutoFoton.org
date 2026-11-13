@@ -5,8 +5,20 @@ const dist=resolve('dist');
 const inventory=JSON.parse(await readFile('assets/asset-inventory.json','utf8'));
 if(inventory.count!==49||inventory.items.length!==49)throw Error('Inventário dos 49 pares ausente');
 const expected=new Set(inventory.items.flatMap(i=>[i.pngPath,i.webpPath]));
-if(expected.size!==98)throw Error('Arquivos canônicos duplicados');
-const routeDirectories=new Set(['instituto','pesquisa','jornada','manifesto','noticias','apresentacao',
+const partnerSnapshot=JSON.parse(await readFile('src/content/partners.json','utf8'));
+for(const partner of partnerSnapshot){
+  if(partner.status!=='publicado'||partner.locale!=='pt-br')
+    throw Error('Parceiro não publicado na seleção pública: '+partner.id);
+  if(partner.logo_slug){
+    if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(partner.logo_slug))
+      throw Error('Slug de logo inválido: '+partner.id);
+    expected.add('assets/PNG/parceiros/'+partner.logo_slug+'.png');
+    expected.add('assets/WebP/parceiros/'+partner.logo_slug+'.webp');
+  }
+}
+
+if(expected.size!==98+new Set(partnerSnapshot.filter(p=>p.logo_slug).map(p=>p.logo_slug)).size*2)throw Error('Arquivos de imagem ausentes ou duplicados');
+const routeDirectories=new Set(['instituto','pesquisa','parceiros','jornada','manifesto','noticias','apresentacao',
 'transparencia','apoie','contato','privacidade','termos']);
 const rootFiles=new Set(['.nojekyll','404.html','index.html','robots.txt','sitemap.xml','version.json']);
 const expectedDocuments=new Set(['documents/apresentacao-institucional-2026-09-10.pdf']);
@@ -56,4 +68,4 @@ for(const a of expected){
  if(seen.has(a) && (await stat(join(dist,a))).size<100)violations.push('empty asset '+a);
 }
 if(violations.length){console.error('Site estático reprovado:',violations);process.exitCode=1;}
-else console.log('Pages validado: 98 imagens canônicas, PDF público, nenhuma referência runtime Supabase.');
+else console.log('Pages validado: 98 imagens canônicas, logotipos aprovados, PDF público e nenhuma referência runtime Supabase.');

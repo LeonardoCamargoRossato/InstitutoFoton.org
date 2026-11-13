@@ -32,6 +32,7 @@ const approvedPublicFiles = new Set([
   'release-notes/RefinamentoVisualTransparencia20261111.md',
   'release-notes/InventarioMigracaoEstatica20261112.md',
   'release-notes/HotfixInstitucionalMinimal20261113.md',
+  'release-notes/EcossistemaParceiros20261113.md',
   'architecture/ADR-20261112-Portal-Estatico.md',
 ]);
 

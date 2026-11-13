@@ -8,6 +8,7 @@ import { assetUrl, imageAsset } from '../lib/siteAssets';
 const navigation = [
   ['/', 'Início'],
   ['/instituto', 'O Instituto'],
+  ['/parceiros', 'Ecossistema de Parceiros'],
   ['/pesquisa', 'Pesquisa'],
   ['/jornada', 'Jornada do Cientista'],
   ['/manifesto', 'Manifesto'],
@@ -17,6 +18,7 @@ const navigation = [
 const titles: Record<string, string> = {
   '/': 'Ciências e Tecnologias Quânticas',
   '/instituto': 'O Instituto',
+  '/parceiros': 'Ecossistema de Parceiros',
   '/pesquisa': 'Pesquisa em rede',
   '/jornada': 'Jornada do Cientista',
   '/manifesto': 'Manifesto Quântico Nacional',
@@ -201,6 +203,7 @@ export default function Layout() {
               <h2>Explore</h2>
               <Link to="/instituto">O Instituto</Link>
               <Link to="/pesquisa">Pesquisa</Link>
+              <Link to="/parceiros">Ecossistema de Parceiros</Link>
               <Link to="/jornada">Jornada do Cientista</Link>
               <Link to="/manifesto">Manifesto</Link>
             </div>

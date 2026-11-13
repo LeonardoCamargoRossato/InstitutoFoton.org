@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import { researchLines } from './content';
+import PartnerEcosystem from './PartnerEcosystem';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
@@ -127,6 +128,8 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      <PartnerEcosystem home />
 
       <section className="section institutional-contact">
         <div className="container split">

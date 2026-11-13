@@ -1,4 +1,24 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+const publicPartners = JSON.parse(
+  readFileSync('src/content/partners.json', 'utf8')
+) as Array<{
+  id: string; title: string; partner_tier: string | null;
+  display_order: number; logo_slug: string | null;
+  status: string; locale: string;
+}>;
+const verifiedPartners = () => publicPartners
+  .filter(p => p.status === 'publicado' && p.locale === 'pt-br')
+  .sort((a, b) => a.display_order - b.display_order || a.title.localeCompare(b.title, 'pt-BR'));
+const verifiedGroups = (records: ReturnType<typeof verifiedPartners>) => {
+  const groups = new Map<string, typeof records>();
+  for (const record of records) {
+    const tier = record.partner_tier?.trim() || 'Parceiros';
+    if (!groups.has(tier)) groups.set(tier, []);
+    groups.get(tier)!.push(record);
+  }
+  return [...groups].map(([tier, items]) => ({ tier, items }));
+};
 
 test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', async ({ page }) => {
   await page.goto('./');
@@ -213,4 +233,69 @@ test('logomarca carrega WebP e mantém navegação à Home', async ({ page }) =>
   await page.locator('.site-header .brand').click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', {level:1})).toBeVisible();
+});
+
+
+test('Ecossistema de Parceiros possui rota, menu e fonte estática única', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', request => {
+    if (/supabase\.co|storage\/v1|auth\/v1/i.test(request.url())) requests.push(request.url());
+  });
+  await page.goto('./');
+  const section = page.locator('#parceiros');
+  await expect(section.getByRole('heading', { name: 'Ecossistema de Parceiros' })).toBeVisible();
+  await expect(section.getByRole('link', { name: 'Ver todos os parceiros' })).toHaveAttribute('href', /\/parceiros$/);
+  const verified = verifiedPartners();
+  await expect(section.locator('.partner-card')).toHaveCount(verified.length);
+  await page.getByRole('navigation', { name: 'Navegação principal' })
+    .getByRole('link', { name: 'Ecossistema de Parceiros' }).click();
+  await expect(page).toHaveURL(/\/parceiros$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Ecossistema de Parceiros' })).toBeVisible();
+  await expect(page.locator('.partner-card')).toHaveCount(verified.length);
+  const groups = verifiedGroups(verified);
+  await expect(page.locator('.partner-group h3')).toHaveCount(groups.length);
+  for (const [index, group] of groups.entries()) {
+    await expect(page.locator('.partner-group h3').nth(index)).toHaveText(group.tier);
+  }
+  if (verified.length) {
+    for (const [index, partner] of verified.entries()) {
+      await expect(page.locator('.partner-card').nth(index)).toHaveAttribute('title', partner.title);
+      if (partner.logo_slug) {
+        const img = page.locator('.partner-card').nth(index).locator('img');
+        await expect(img).toHaveAttribute('src', /assets\/WebP\/parceiros\/.+\.webp$/);
+        await expect.poll(() => img.evaluate(el => (el as HTMLImageElement).naturalWidth))
+          .toBeGreaterThan(0);
+      }
+    }
+  } else await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
+  expect(requests).toEqual([]);
+});
+
+test('Ecossistema de Parceiros é acessível pelo menu mobile e não causa overflow', async ({ page }) => {
+  for (const width of [360, 390, 768, 1366]) {
+    await page.setViewportSize({ width, height: 820 });
+    await page.goto('./');
+    if (width <= 1000) {
+      await page.getByRole('button', { name: 'Abrir menu' }).click();
+      await expect(page.getByRole('navigation', { name: 'Navegação principal' })
+        .getByRole('link', { name: 'Ecossistema de Parceiros' })).toBeVisible();
+    }
+    await page.getByRole('navigation', { name: 'Navegação principal' })
+      .getByRole('link', { name: 'Ecossistema de Parceiros' }).click();
+    await expect(page).toHaveURL(/\/parceiros$/);
+    for (const image of await page.locator('.partner-card img').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect.poll(() => image.evaluate(el => (el as HTMLImageElement).naturalWidth), {
+        timeout: 15000,
+      }).toBeGreaterThan(0);
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({
+      path: 'test-results/parceiros-' + width + '.png',
+      fullPage: true,
+      animations: 'disabled',
+    });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow, 'viewport ' + width).toBeLessThanOrEqual(1);
+  }
 });
