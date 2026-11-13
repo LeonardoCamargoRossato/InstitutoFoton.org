@@ -35,7 +35,7 @@ test('fallback Pages preserva URL limpa, query e hash, inclusive callback', asyn
     await page.goto(`./${path}`);
     await expect(page).toHaveURL(new RegExp(`${pathname}\\?`));
     await expect(page.getByRole('heading', { level: 1 })).toContainText(
-      pathname === 'manifesto' ? 'Manifesto Quântico Nacional' : 'Acesso temporariamente suspenso',
+      pathname === 'manifesto' ? 'Manifesto Quântico Nacional' : 'Acesso restrito',
     );
     expect(await page.evaluate(() => location.search.includes('__foton_route'))).toBe(false);
     if (pathname === 'manifesto') expect(await page.evaluate(() => location.hash)).toBe('#odqs');
@@ -166,8 +166,7 @@ test('apoie a ciência oferece contato, não modalidades ou pagamentos fictício
   );
   await expect(page.locator('.support-card, .support-researcher-photo, .human-page-hero-photo'))
     .toHaveCount(0);
-  await expect(page.getByText('Esta página não realiza doações, Pix, pagamentos, inscrições,'))
-    .toBeVisible();
+  await expect(page.getByText(/O apoio à ciência começa com diálogo/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
 });
 
@@ -234,7 +233,7 @@ test('admin anônimo nunca mostra o dashboard; rotas desconhecidas têm 404', as
   await expect(page.getByText('Bem-vindo ao espaço institucional.')).toHaveCount(0);
   await expect(
     page.getByRole('heading', {
-      name: /Acesso temporariamente suspenso/,
+      name: /Acesso restrito/,
     }),
   ).toBeVisible();
   await page.goto('./pagina-inexistente');

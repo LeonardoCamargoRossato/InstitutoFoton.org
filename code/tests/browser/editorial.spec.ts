@@ -21,8 +21,7 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
       .toHaveCount(0);
   }
   await page.goto('./pesquisa');
-  await expect(page.getByText(/seis linhas temáticas/)).toBeVisible();
-  await expect(page.getByText(/cinco áreas editoriais/)).toBeVisible();
+  await expect(page.getByText(/Explore cinco agrupamentos de temas científicos/)).toBeVisible();
 });
 
 test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({ page }) => {
@@ -62,7 +61,7 @@ test('Apoie e Jornada mantêm informação objetiva sem inscrições, bolsas ou 
   await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
   await page.goto('./jornada');
   await expect(page.locator('.journey-steps, .journey-photo-grid, .human-page-hero-photo')).toHaveCount(0);
-  await expect(page.getByText(/não oferece inscrições, mentorias, bolsas/)).toBeVisible();
+  await expect(page.getByText(/Para conhecer atividades e oportunidades de participação/)).toBeVisible();
 });
 
 test('Home e páginas essenciais sem rolagem lateral em mobile', async ({ page }) => {
@@ -91,4 +90,33 @@ test('PDF público possui visualizador e download disponíveis', async ({ page }
   await page.goto('./apresentacao');
   await expect(page.getByText('Página 1 de 7', { exact: true })).toBeVisible({timeout:30000});
   await expect(page.getByRole('button', { name: 'Salvar página em PNG' })).toBeEnabled();
+});
+
+
+test('todo o conteúdo público mantém linguagem institucional definitiva', async ({ page }) => {
+  const blocked = /\b(?:versão|versões|V0|V1|protótipo|provisório|fictíci[oa]s?|simulação|simulado|em estruturação|em revisão|não implica contrato|fase pública estática|nesta etapa)\b/i;
+  const routes = [
+    './', './instituto', './pesquisa', './pesquisa/computacao-quantica',
+    './jornada', './manifesto', './apoie', './transparencia', './apresentacao',
+    './noticias', './contato', './privacidade', './termos', './entrar',
+    './admin/diretoria', './pagina-inexistente',
+  ];
+  for (const route of routes) {
+    await page.goto(route);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    const text = await page.locator('#conteudo').innerText();
+    expect(text, 'Expressão inadequada exibida em ' + route).not.toMatch(blocked);
+  }
+});
+
+test('indicadores datados possuem apresentação discreta e sem ressalvas defensivas', async ({ page }) => {
+  await page.goto('./');
+  const metrics=page.locator('.institutional-metrics');
+  await expect(metrics.getByText('15', {exact:true})).toBeVisible();
+  await expect(metrics.getByText('140+', {exact:true})).toBeVisible();
+  await expect(metrics.locator('.metrics-source')).toHaveText('Dados institucionais · setembro de 2026.');
+  await expect(metrics).not.toContainText(/parceria vigente|não implica|não atualizados/i);
+  const source=metrics.locator('.metrics-source');
+  const fontSize=await source.evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+  expect(fontSize).toBeLessThanOrEqual(17);
 });

@@ -44,3 +44,17 @@ npm run dev -- --host 127.0.0.1 --port 5173
 \`\`\`
 
 O navegador do responsável abre **http://localhost:5173/** quando o servidor Vite local estiver iniciado. Esse URL não é hospedado ou acessível remotamente pelo Builder.
+
+## Revisão editorial integral — 13/11/2026
+
+Decisão do responsável: o site deve comunicar apenas conteúdo institucional, sem mensagens defensivas de transição, estado de protótipo ou dúvidas internas. A revisão percorreu a Home, O Instituto, Pesquisa e detalhes, Jornada, Manifesto, Apoie, Notícias, Transparência, Contato, Privacidade, Termos, administração indisponível e páginas 404.
+
+- Substituídas ressalvas sobre parcerias contratuais por referência documental datada, sem criar afirmações sobre contratos específicos.
+- Retiradas expressões como "nesta versão", "em revisão", "em estruturação", "não implica", "fictício" e descrições de programas apenas hipotéticos da interface pública.
+- Preservada a distinção entre fatos apresentados em setembro de 2026 e atividades atuais: datas ficam na fonte; não se presumem resultados ou serviços.
+- Adequadas as páginas legais: retirada a antiga descrição de autenticação pelo Supabase, desativada no frontend.
+- Estilizada a referência dos indicadores para evitar o destaque tipográfico excessivo observado no localhost.
+- Adicionados testes automatizados para verificar expressões inadequadas em todas as rotas públicas; preservar mensagens funcionais verdadeiras como "Nenhum documento publicado nesta categoria" e erros reais de carregamento.
+- O registro técnico e os testes continuam versionados; textos do site não expõem fases do processo de desenvolvimento.
+
+A revisão editorial não significa validação de todos os fatos por fontes primárias; aprovação institucional e auditoria independente continuam necessárias antes da publicação na Hostinger.
