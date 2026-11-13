@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import {
   ArrowUpRight,
   ArrowDown,
-  MoveUpRight,
   Network,
   Compass,
   BookOpen,
@@ -12,7 +11,6 @@ import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import { researchLines } from './content';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
-const LatestNews = lazy(() => import('./LatestNews'));
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
 
 export function Home() {
@@ -77,7 +75,7 @@ export function Home() {
         <div className="container">
           <div className="heading-row">
             <Heading eyebrow="Ecossistema Foton" title="Uma rede multidisciplinar em construção." />
-            <TextLink to="/instituto">Conheça o Instituto</TextLink>
+            <TextLink to="/instituto">Sobre a rede</TextLink>
           </div>
           <p className="section-description">
             A apresentação institucional de setembro de 2026 registra participantes de diferentes

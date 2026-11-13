@@ -31,6 +31,7 @@ const approvedPublicFiles = new Set([
   'lcr-overview/README.md',
   'release-notes/RefinamentoVisualTransparencia20261111.md',
   'release-notes/InventarioMigracaoEstatica20261112.md',
+  'release-notes/HotfixInstitucionalMinimal20261113.md',
   'architecture/ADR-20261112-Portal-Estatico.md',
 ]);
 

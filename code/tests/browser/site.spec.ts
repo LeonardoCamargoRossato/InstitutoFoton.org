@@ -50,7 +50,7 @@ test('home, pesquisa, manifesto e navegação sem erros de aplicação', async (
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('./');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('A ciência');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Transformar ciência');
   await page.getByRole('link', { name: 'Conheça o Instituto', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Ciência que aproxima. Conhecimento que transforma.',
@@ -159,17 +159,16 @@ for (const viewport of [
   });
 }
 
-test('modal de apoio: detalhes, foco, escape e retorno ao botão', async ({ page }) => {
+test('apoie a ciência oferece contato, não modalidades ou pagamentos fictícios', async ({ page }) => {
   await page.goto('./apoie');
-  const trigger = page.getByRole('button', { name: /01 Materiais e educação/ });
-  await trigger.click();
-  const dialog = page.getByRole('dialog');
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByText('Modalidade em estruturação', { exact: true })).toBeVisible();
-  await expect(dialog.getByRole('button', { name: 'Fechar detalhes' })).toBeFocused();
-  await page.keyboard.press('Escape');
-  await expect(dialog).toHaveCount(0);
-  await expect(trigger).toBeFocused();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Apoiar a ciência começa com uma conversa.',
+  );
+  await expect(page.locator('.support-card, .support-researcher-photo, .human-page-hero-photo'))
+    .toHaveCount(0);
+  await expect(page.getByText('Esta página não realiza doações, Pix, pagamentos, inscrições,'))
+    .toBeVisible();
+  await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
 });
 
 test('notícias: estado vazio, busca e artigo ausente', async ({ page }) => {
@@ -265,12 +264,6 @@ test('WCAG automatizada nas principais páginas e modal', async ({ page }) => {
       ),
     ).toEqual([]);
   }
-  await page.goto('./apoie');
-  await page.locator('.support-card').first().click();
-  const result = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
-    .analyze();
-  expect(result.violations).toEqual([]);
 });
 
 test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) => {
