@@ -13,7 +13,7 @@ export default function SiteImageViewer() {
       if (el.closest('.foton-zoom-dialog, .manifesto-image, .gallery-track, .manifesto-video')) return null;
       // Identidade visual continua sendo link para a Home. Imagens nos cards
       // abrem o PNG correspondente, sem interceptar cliques no texto do card.
-      if (el.closest('.site-header, .site-footer, .brand')) return null;
+      if (el.closest('.site-header, .site-footer, .brand, .partner-card')) return null;
       const preview = el.currentSrc || el.src;
       const local = new URL(preview, window.location.href);
       const canonicalWebP = local.origin === window.location.origin &&
