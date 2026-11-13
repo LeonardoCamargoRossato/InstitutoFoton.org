@@ -59,10 +59,10 @@ if (publicOrigin) {
 
 // Manter diretorias vazias no Git sem publicar placeholders .gitkeep no Pages.
 async function removePlaceholders(dir) {
-  for (const entry of await readdir(dir,{withFileTypes:true})) {
-    const full=dir+'/'+entry.name;
-    if(entry.isDirectory())await removePlaceholders(full);
-    else if(entry.name==='.gitkeep')await rm(full);
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = dir + '/' + entry.name;
+    if (entry.isDirectory()) await removePlaceholders(full);
+    else if (entry.name === '.gitkeep') await rm(full);
   }
 }
 await removePlaceholders('dist/assets');

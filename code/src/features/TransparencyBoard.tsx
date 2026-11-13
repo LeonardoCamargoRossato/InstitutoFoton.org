@@ -1,7 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Download, Eye, FileText, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { TRANSPARENCY_CATEGORIES, transparencyCategory, type TransparencyCategory } from './TransparencyCategories';
+import {
+  TRANSPARENCY_CATEGORIES,
+  transparencyCategory,
+  type TransparencyCategory,
+} from './TransparencyCategories';
 import { documentUrl, documents, type PublicDocument } from '../lib/backend';
 import { dateLabel } from '../lib/config';
 import { useResource } from '../lib/useResource';
@@ -37,7 +41,12 @@ const textMatches = (entry: Entry, search: string) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLocaleLowerCase('pt-BR')
-    .includes(search.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR'));
+    .includes(
+      search
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLocaleLowerCase('pt-BR'),
+    );
 
 function entryFromBackend(doc: PublicDocument): Entry {
   const group = transparencyCategory(doc.category);
@@ -45,7 +54,9 @@ function entryFromBackend(doc: PublicDocument): Entry {
     id: doc.id,
     title: doc.title,
     category: group,
-    categoryLabel: TRANSPARENCY_CATEGORIES.find((c) => c.id === group)?.title || (doc.category === 'presentation' ? 'Apresentação institucional' : doc.category),
+    categoryLabel:
+      TRANSPARENCY_CATEGORIES.find((c) => c.id === group)?.title ||
+      (doc.category === 'presentation' ? 'Apresentação institucional' : doc.category),
     description: doc.description,
     version: doc.version_label,
     date: doc.document_date,
@@ -56,8 +67,14 @@ function entryFromBackend(doc: PublicDocument): Entry {
 function DocumentCard({ entry }: { entry: Entry }) {
   const [downloading, setDownloading] = useState(false);
   const [downloadError, setDownloadError] = useState('');
-  const filename = entry.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) + '.pdf';
+  const filename =
+    entry.title
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+      .slice(0, 70) + '.pdf';
 
   async function downloadPdf() {
     if (!entry.url) return;
@@ -77,7 +94,9 @@ function DocumentCard({ entry }: { entry: Entry }) {
       link.remove();
       window.setTimeout(() => URL.revokeObjectURL(temporaryUrl), 60_000);
     } catch {
-      setDownloadError('O download não foi concluído. Experimente abrir o documento para salvá-lo pelo navegador.');
+      setDownloadError(
+        'O download não foi concluído. Experimente abrir o documento para salvá-lo pelo navegador.',
+      );
     } finally {
       setDownloading(false);
     }
@@ -85,7 +104,9 @@ function DocumentCard({ entry }: { entry: Entry }) {
 
   return (
     <article className="transparency-document">
-      <span className="document-symbol" aria-hidden="true"><FileText size={22} /></span>
+      <span className="document-symbol" aria-hidden="true">
+        <FileText size={22} />
+      </span>
       <div className="document-content">
         <h3>{entry.title}</h3>
         <p>{entry.description}</p>
@@ -95,7 +116,11 @@ function DocumentCard({ entry }: { entry: Entry }) {
           {entry.version && <span>{entry.version}</span>}
           <span>{entry.size ? 'PDF · ' + entry.size : 'PDF'}</span>
         </div>
-        {downloadError && <p className="document-error" role="alert">{downloadError}</p>}
+        {downloadError && (
+          <p className="document-error" role="alert">
+            {downloadError}
+          </p>
+        )}
       </div>
       {entry.url ? (
         <div className="document-actions">
@@ -103,14 +128,21 @@ function DocumentCard({ entry }: { entry: Entry }) {
             <Eye size={17} aria-hidden="true" /> Visualizar
             <span className="sr-only"> {entry.title} (abre em nova aba)</span>
           </a>
-          <button type="button" className="document-action" onClick={downloadPdf} disabled={downloading}>
+          <button
+            type="button"
+            className="document-action"
+            onClick={downloadPdf}
+            disabled={downloading}
+          >
             <Download size={17} aria-hidden="true" />
             {downloading ? 'Baixando…' : 'Baixar'}
             <span className="sr-only"> {entry.title}</span>
           </button>
         </div>
       ) : (
-        <p className="document-unavailable" role="status">Arquivo indisponível para acesso público.</p>
+        <p className="document-unavailable" role="status">
+          Arquivo indisponível para acesso público.
+        </p>
       )}
     </article>
   );
@@ -124,20 +156,39 @@ export default function TransparencyBoard() {
   const entries = useMemo(() => {
     const backend = (resource.data || []).map(entryFromBackend);
     // O PDF institucional está no próprio repositório, independentemente do backend.
-    const hasPresentation = backend.some((entry) =>
-      entry.category === 'other' && Boolean(entry.url) && entry.title.toLowerCase().includes('apresentação institucional'));
+    const hasPresentation = backend.some(
+      (entry) =>
+        entry.category === 'other' &&
+        Boolean(entry.url) &&
+        entry.title.toLowerCase().includes('apresentação institucional'),
+    );
     return hasPresentation ? backend : [...backend, presentation];
   }, [resource.data]);
-  const years = useMemo(() => [...new Set(entries.map((d) => d.date?.slice(0, 4)).filter((y): y is string => Boolean(y)))].sort().reverse(), [entries]);
+  const years = useMemo(
+    () =>
+      [...new Set(entries.map((d) => d.date?.slice(0, 4)).filter((y): y is string => Boolean(y)))]
+        .sort()
+        .reverse(),
+    [entries],
+  );
   const hasFilters = entries.length >= 8;
-  const filtered = entries.filter((d) => (!hasFilters || (year === 'todos' || d.date?.startsWith(year))) &&
-    (!hasFilters || !search.trim() || textMatches(d, search.trim())));
+  const filtered = entries.filter(
+    (d) =>
+      (!hasFilters || year === 'todos' || d.date?.startsWith(year)) &&
+      (!hasFilters || !search.trim() || textMatches(d, search.trim())),
+  );
   const hasQuery = hasFilters && (Boolean(search.trim()) || year !== 'todos');
   const unavailable = Boolean(resource.error);
   const categories = [
     ...TRANSPARENCY_CATEGORIES,
     ...(entries.some((d) => d.category === 'other')
-      ? [{ id: 'other' as const, title: 'Outros documentos públicos', description: 'Materiais institucionais complementares disponibilizados para consulta.' }]
+      ? [
+          {
+            id: 'other' as const,
+            title: 'Outros documentos públicos',
+            description: 'Materiais institucionais complementares disponibilizados para consulta.',
+          },
+        ]
       : []),
   ];
 
@@ -149,13 +200,17 @@ export default function TransparencyBoard() {
       <section className="transparency-lead section">
         <div className="container transparency-lead-grid">
           <div className="transparency-lead-copy">
-            <p className="eyebrow"><span /> Prestação de contas</p>
+            <p className="eyebrow">
+              <span /> Prestação de contas
+            </p>
             <h2>Informação acessível, organizada e verificável.</h2>
             <p>
-              Conheça a apresentação institucional e consulte os documentos públicos
-              organizados por categoria.
+              Conheça a apresentação institucional e consulte os documentos públicos organizados por
+              categoria.
             </p>
-            <a href="#documentos-publicos" className="text-link">Consultar documentos <span aria-hidden="true">↓</span></a>
+            <a href="#documentos-publicos" className="text-link">
+              Consultar documentos <span aria-hidden="true">↓</span>
+            </a>
           </div>
         </div>
       </section>
@@ -163,7 +218,9 @@ export default function TransparencyBoard() {
         <div className="container">
           <div className="transparency-section-heading">
             <div>
-              <p className="eyebrow"><span /> Arquivo institucional</p>
+              <p className="eyebrow">
+                <span /> Arquivo institucional
+              </p>
               <h2>Documentos para consulta</h2>
             </div>
             <p>Organizados por finalidade, com referência temporal quando informada na fonte.</p>
@@ -173,16 +230,25 @@ export default function TransparencyBoard() {
             <div className="transparency-filters">
               <label>
                 Buscar documentos
-                <span className="search-field"><Search size={18} aria-hidden="true" />
-                  <input type="search" value={search} onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Título, descrição ou categoria" />
+                <span className="search-field">
+                  <Search size={18} aria-hidden="true" />
+                  <input
+                    type="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Título, descrição ou categoria"
+                  />
                 </span>
               </label>
               <label>
                 Ano
                 <select value={year} onChange={(e) => setYear(e.target.value)}>
                   <option value="todos">Todos os anos</option>
-                  {years.map((value) => <option value={value} key={value}>{value}</option>)}
+                  {years.map((value) => (
+                    <option value={value} key={value}>
+                      {value}
+                    </option>
+                  ))}
                 </select>
               </label>
             </div>
@@ -192,25 +258,36 @@ export default function TransparencyBoard() {
               const allDocs = entries.filter((d) => d.category === category.id);
               const visible = filtered.filter((d) => d.category === category.id);
               return (
-                <section className={'transparency-group ' + (index === 0 ? 'featured' : '')} key={category.id}
-                  aria-labelledby={'category-' + category.id}>
+                <section
+                  className={'transparency-group ' + (index === 0 ? 'featured' : '')}
+                  key={category.id}
+                  aria-labelledby={'category-' + category.id}
+                >
                   <div className="transparency-group-header">
-                    <span className="transparency-group-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="transparency-group-number" aria-hidden="true">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                     <div>
                       <h2 id={'category-' + category.id}>{category.title}</h2>
                       <p>{category.description}</p>
                     </div>
-                    {(!unavailable && !resource.loading) && (
-                      <span className="document-count">{allDocs.length} {allDocs.length === 1 ? 'documento' : 'documentos'}</span>
+                    {!unavailable && !resource.loading && (
+                      <span className="document-count">
+                        {allDocs.length} {allDocs.length === 1 ? 'documento' : 'documentos'}
+                      </span>
                     )}
                   </div>
                   {visible.length ? (
-                    <div className="transparency-document-list">{visible.map((entry) =>
-                      <DocumentCard key={entry.id} entry={entry} />)}</div>
+                    <div className="transparency-document-list">
+                      {visible.map((entry) => (
+                        <DocumentCard key={entry.id} entry={entry} />
+                      ))}
+                    </div>
                   ) : (
                     <p className="transparency-empty">
-                      {hasQuery && allDocs.length ? 'Nenhum documento corresponde à busca ou ao ano selecionado.' :
-                        (unavailable && category.id !== 'other') || resource.loading
+                      {hasQuery && allDocs.length
+                        ? 'Nenhum documento corresponde à busca ou ao ano selecionado.'
+                        : (unavailable && category.id !== 'other') || resource.loading
                           ? 'Não foi possível carregar os documentos desta categoria.'
                           : 'Nenhum documento publicado nesta categoria.'}
                     </p>
@@ -224,7 +301,9 @@ export default function TransparencyBoard() {
               <h2>Apresentação institucional</h2>
               <p>Conheça o Instituto em um documento público já disponível no portal.</p>
             </div>
-            <Link className="button" to="/apresentacao">Abrir apresentação <Eye size={18} aria-hidden="true" /></Link>
+            <Link className="button" to="/apresentacao">
+              Abrir apresentação <Eye size={18} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>

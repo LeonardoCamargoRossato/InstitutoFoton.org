@@ -22,7 +22,7 @@ const letterMedia = {
 } as const;
 
 const visitImages = Array.from({ length: 20 }, (_, index) => ({
-  src: assetUrl(imageAsset('visita-'+String(index + 1).padStart(2,'0')).pngPath),
+  src: assetUrl(imageAsset('visita-' + String(index + 1).padStart(2, '0')).pngPath),
   title: `Visita técnica ${String(index + 1).padStart(2, '0')}`,
   caption:
     'Registro da articulação do Instituto Foton com pesquisadores, instituições e ambientes do ecossistema de ciência e inovação.',
@@ -30,17 +30,23 @@ const visitImages = Array.from({ length: 20 }, (_, index) => ({
 
 // O carregamento inicial usa arquivo WebP servido no GitHub Pages.
 // Ao ampliar, a imagem original PNG é carregada exclusivamente do próprio Pages.
-const optimized = (src: string) => src.replace('/assets/PNG/','/assets/WebP/').replace(/\.png$/,'.webp');
+const optimized = (src: string) =>
+  src.replace('/assets/PNG/', '/assets/WebP/').replace(/\.png$/, '.webp');
 
 function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
   const [fallback, setFallback] = useState(false);
   return (
-    <img src={fallback ? src : optimized(src)} alt={alt}
+    <img
+      src={fallback ? src : optimized(src)}
+      alt={alt}
       data-preview-format={fallback ? 'png-fallback' : 'webp'}
       data-full-image={src}
-      loading="lazy" decoding="async" fetchPriority="low"
+      loading="lazy"
+      decoding="async"
+      fetchPriority="low"
       draggable={false}
-      onError={() => setFallback(true)} />
+      onError={() => setFallback(true)}
+    />
   );
 }
 
@@ -64,7 +70,12 @@ function Video({ src, image, title }: { src: string; image: string; title: strin
             allowFullScreen
           />
         ) : (
-          <button className="manifesto-video-play" type="button" onClick={() => setPlaying(true)} aria-label={`Reproduzir ${title}`}>
+          <button
+            className="manifesto-video-play"
+            type="button"
+            onClick={() => setPlaying(true)}
+            aria-label={`Reproduzir ${title}`}
+          >
             <ProgressiveImage src={image} alt="" />
             <span className="media-play" aria-hidden="true">
               <Play fill="currentColor" />
@@ -98,18 +109,33 @@ function Video({ src, image, title }: { src: string; image: string; title: strin
   );
 }
 
-function Lightbox({ images, active, onClose, onChange }: {
-  images: typeof visitImages; active: number;
-  onClose: () => void; onChange: (index: number) => void;
+function Lightbox({
+  images,
+  active,
+  onClose,
+  onChange,
+}: {
+  images: typeof visitImages;
+  active: number;
+  onClose: () => void;
+  onChange: (index: number) => void;
 }) {
   const item = images[active];
   const hasMultiple = images.length > 1;
-  return <ImageZoomDialog key={item.src}
-    src={item.src} fallback={optimized(item.src)}
-    title={item.title} caption={item.caption} onClose={onClose}
-    onPrevious={hasMultiple ? () => onChange((active - 1 + images.length) % images.length) : undefined}
-    onNext={hasMultiple ? () => onChange((active + 1) % images.length) : undefined}
-  />;
+  return (
+    <ImageZoomDialog
+      key={item.src}
+      src={item.src}
+      fallback={optimized(item.src)}
+      title={item.title}
+      caption={item.caption}
+      onClose={onClose}
+      onPrevious={
+        hasMultiple ? () => onChange((active - 1 + images.length) % images.length) : undefined
+      }
+      onNext={hasMultiple ? () => onChange((active + 1) % images.length) : undefined}
+    />
+  );
 }
 
 export default function ManifestoMedia({
@@ -135,8 +161,7 @@ export default function ManifestoMedia({
 
   if (kind === 'letter' && region && region in letterMedia) {
     const media = letterMedia[region as keyof typeof letterMedia];
-    if (media.type === 'video')
-      return <Video src={media.src} image={media.image} title={region} />;
+    if (media.type === 'video') return <Video src={media.src} image={media.image} title={region} />;
     const single = [
       {
         src: media.image,
@@ -148,10 +173,17 @@ export default function ManifestoMedia({
       <>
         <button className="manifesto-image" onClick={() => setActive(0)} type="button">
           <ProgressiveImage src={media.image} alt={region} />
-          <span aria-hidden="true"><Maximize2 /></span>
+          <span aria-hidden="true">
+            <Maximize2 />
+          </span>
         </button>
         {active !== null && (
-          <Lightbox images={single} active={active} onClose={() => setActive(null)} onChange={setActive} />
+          <Lightbox
+            images={single}
+            active={active}
+            onClose={() => setActive(null)}
+            onChange={setActive}
+          />
         )}
       </>
     );
@@ -173,7 +205,12 @@ export default function ManifestoMedia({
           <div className="gallery-controls">
             <button
               type="button"
-              onClick={() => track.current?.scrollBy({ left: -track.current.clientWidth * 0.8, behavior: 'smooth' })}
+              onClick={() =>
+                track.current?.scrollBy({
+                  left: -track.current.clientWidth * 0.8,
+                  behavior: 'smooth',
+                })
+              }
               aria-label="Visitas anteriores"
             >
               <ChevronLeft />
@@ -181,7 +218,12 @@ export default function ManifestoMedia({
             <span>20 registros de conexão com o ecossistema</span>
             <button
               type="button"
-              onClick={() => track.current?.scrollBy({ left: track.current.clientWidth * 0.8, behavior: 'smooth' })}
+              onClick={() =>
+                track.current?.scrollBy({
+                  left: track.current.clientWidth * 0.8,
+                  behavior: 'smooth',
+                })
+              }
               aria-label="Próximas visitas"
             >
               <ChevronRight />
@@ -209,10 +251,17 @@ export default function ManifestoMedia({
     <>
       <button className="manifesto-image" onClick={() => setActive(0)} type="button">
         <ProgressiveImage src={image} alt={title} />
-        <span aria-hidden="true"><Maximize2 /></span>
+        <span aria-hidden="true">
+          <Maximize2 />
+        </span>
       </button>
       {active !== null && (
-        <Lightbox images={single} active={active} onClose={() => setActive(null)} onChange={setActive} />
+        <Lightbox
+          images={single}
+          active={active}
+          onClose={() => setActive(null)}
+          onChange={setActive}
+        />
       )}
     </>
   );

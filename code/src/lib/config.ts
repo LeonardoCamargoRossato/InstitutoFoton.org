@@ -6,11 +6,14 @@ export function safeExternalUrl(value: string | undefined | null): string | unde
   try {
     const url = new URL(value);
     return url.protocol === 'https:' && !url.username && !url.password ? url.href : undefined;
-  } catch { return undefined; }
+  } catch {
+    return undefined;
+  }
 }
 export function dateLabel(value: string | null): string {
   if (!value) return '';
   const date = new Date(value);
-  return Number.isNaN(date.valueOf()) ? ''
-    : new Intl.DateTimeFormat('pt-BR', { dateStyle:'long', timeZone:'UTC' }).format(date);
+  return Number.isNaN(date.valueOf())
+    ? ''
+    : new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
 }

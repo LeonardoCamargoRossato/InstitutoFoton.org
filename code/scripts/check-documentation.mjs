@@ -5,23 +5,23 @@ import { fileURLToPath } from 'node:url';
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 const expectedPrivate =
-  "# Documentação técnica classificada como interna\n\n**Aviso de segurança:** este repositório GitHub é público. A pasta `documentation/private/` e todos os documentos nela disponíveis **também são públicos**, inclusive via Git, API e histórico. A palavra *private* indica somente classificação documental, **não** permissão de acesso.\n\nO conteúdo de `docs/` foi reorganizado abaixo em `docs/` para manter a estrutura visual LCR e preservar os arquivos originais. Esta movimentação não torna nenhum documento confidencial, não elimina exposição anterior e não substitui uma cópia num ambiente verdadeiramente privado.\n\nDocumentação que exija confidencialidade real deverá ser migrada mediante autorização para um repositório privado ou Google Drive institucional com permissões verificadas. Não adicione novos segredos, registros sensíveis ou documentos restritos a esta pasta.";
+  '# Documentação técnica classificada como interna\n\n**Aviso de segurança:** este repositório GitHub é público. A pasta `documentation/private/` e todos os documentos nela disponíveis **também são públicos**, inclusive via Git, API e histórico. A palavra *private* indica somente classificação documental, **não** permissão de acesso.\n\nO conteúdo de `docs/` foi reorganizado abaixo em `docs/` para manter a estrutura visual LCR e preservar os arquivos originais. Esta movimentação não torna nenhum documento confidencial, não elimina exposição anterior e não substitui uma cópia num ambiente verdadeiramente privado.\n\nDocumentação que exija confidencialidade real deverá ser migrada mediante autorização para um repositório privado ou Google Drive institucional com permissões verificadas. Não adicione novos segredos, registros sensíveis ou documentos restritos a esta pasta.';
 const approvedPrivateFiles = new Set([
   'README.md',
-  "docs/ARCHITECTURE.md",
-  "docs/CONTENT_VALIDATION.md",
-  "docs/DEPLOYMENT.md",
-  "docs/HOSTING_MIGRATION.md",
-  "docs/MEDIA_MANIFEST.md",
-  "docs/REFERENCE_INVENTORY.md",
-  "docs/ROADMAP.md",
-  "docs/SECURITY.md",
-  "docs/SUPABASE_SETUP.md",
-  "docs/V0_ACCEPTANCE.md",
-  "docs/screenshots/apoie-1440.png",
-  "docs/screenshots/apresentacao-1440.png",
-  "docs/screenshots/home-1440.png",
-  "docs/screenshots/home-390.png",
+  'docs/ARCHITECTURE.md',
+  'docs/CONTENT_VALIDATION.md',
+  'docs/DEPLOYMENT.md',
+  'docs/HOSTING_MIGRATION.md',
+  'docs/MEDIA_MANIFEST.md',
+  'docs/REFERENCE_INVENTORY.md',
+  'docs/ROADMAP.md',
+  'docs/SECURITY.md',
+  'docs/SUPABASE_SETUP.md',
+  'docs/V0_ACCEPTANCE.md',
+  'docs/screenshots/apoie-1440.png',
+  'docs/screenshots/apresentacao-1440.png',
+  'docs/screenshots/home-1440.png',
+  'docs/screenshots/home-390.png',
 ]);
 const approvedPublicFiles = new Set([
   'README.md',
@@ -67,12 +67,16 @@ if (operationalTerms.test(readme)) {
 
 const index = await readFile(join(repoRoot, 'documentation/README.md'), 'utf8');
 if (!index.includes('**atualmente públicos no GitHub**')) {
-  throw new Error('Índice deve esclarecer que private/ no GitHub público não é controle de acesso.');
+  throw new Error(
+    'Índice deve esclarecer que private/ no GitHub público não é controle de acesso.',
+  );
 }
 
 const privateFiles = await listFiles(join(repoRoot, 'documentation/private'));
-if (privateFiles.length !== approvedPrivateFiles.size ||
-    privateFiles.some((file) => !approvedPrivateFiles.has(file))) {
+if (
+  privateFiles.length !== approvedPrivateFiles.size ||
+  privateFiles.some((file) => !approvedPrivateFiles.has(file))
+) {
   throw new Error('Conteúdo inesperado em documentation/private; revisão humana obrigatória.');
 }
 const rootFiles = await readdir(repoRoot);
@@ -81,7 +85,9 @@ if (rootFiles.includes('docs')) {
 }
 const placeholder = await readFile(join(repoRoot, 'documentation/private/README.md'), 'utf8');
 if (placeholder.trim() !== expectedPrivate) {
-  throw new Error('Aviso de exposição pública em private/ foi alterado; revisão humana obrigatória.');
+  throw new Error(
+    'Aviso de exposição pública em private/ foi alterado; revisão humana obrigatória.',
+  );
 }
 
 const publicFiles = await listFiles(join(repoRoot, 'documentation/public'));

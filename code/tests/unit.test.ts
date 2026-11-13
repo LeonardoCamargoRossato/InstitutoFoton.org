@@ -46,15 +46,15 @@ describe('fontes públicas estáticas sem autenticação', () => {
     }
   });
   it('mantém PDF local aprovado e valores oficiais sem inventar mission/visão', async () => {
-    const docs=await documents();
+    const docs = await documents();
     expect(docs).toHaveLength(1);
     expect(docs[0].file_path).toBe('documents/apresentacao-institucional-2026-09-10.pdf');
-    const statements=await officialStatements();
-    expect(statements.map(s=>s.key)).toEqual(['institute.values']);
+    const statements = await officialStatements();
+    expect(statements.map((s) => s.key)).toEqual(['institute.values']);
     expect(statements[0].content.split('\n')).toHaveLength(7);
   });
   it('notícias locais começam vazias e preservam filtros e paginação', async () => {
-    const result=await publications(0,'algoritmo','Pesquisa','recent');
+    const result = await publications(0, 'algoritmo', 'Pesquisa', 'recent');
     expect(result.items).toHaveLength(0);
     expect(result.more).toBe(false);
     expect(result.configured).toBe(true);

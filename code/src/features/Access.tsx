@@ -5,8 +5,9 @@ export default function Access() {
   return (
     <>
       <Intro eyebrow="Área institucional" title="Acesso restrito">
-        <p>O acesso administrativo é destinado às equipes responsáveis
-          pela gestão institucional.</p>
+        <p>
+          O acesso administrativo é destinado às equipes responsáveis pela gestão institucional.
+        </p>
       </Intro>
       <section className="section">
         <div className="container access-shell">

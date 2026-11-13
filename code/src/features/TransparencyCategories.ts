@@ -1,4 +1,5 @@
-export type TransparencyCategory = 'statute' | 'assembly' | 'annual' | 'periodic' | 'financial' | 'other';
+export type TransparencyCategory =
+  'statute' | 'assembly' | 'annual' | 'periodic' | 'financial' | 'other';
 
 export const TRANSPARENCY_CATEGORIES: ReadonlyArray<{
   id: Exclude<TransparencyCategory, 'other'>;
@@ -33,12 +34,27 @@ export const TRANSPARENCY_CATEGORIES: ReadonlyArray<{
 ];
 
 export function transparencyCategory(value: string): TransparencyCategory {
-  const text = value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase().replace(/[_-]/g, ' ').trim();
+  const text = value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[_-]/g, ' ')
+    .trim();
   if (/(?:^|\b)(?:statute|estatuto|bylaws)(?:\b|$)/.test(text)) return 'statute';
   if (/\b(?:ata|atas|assembleia|assembly|minutes)\b/.test(text)) return 'assembly';
-  if (/\b(?:annual|anual|anuais)\b/.test(text) && /\b(?:report|relatorio|relatorios)\b/.test(text)) return 'annual';
-  if (/\b(?:periodic|periodico|periodicos|trimestral|semestral|quarterly|activity|atividades|atividade)\b/.test(text)) return 'periodic';
-  if (/\b(?:financial|financeiro|financeira|contabil|contabeis|balanco|dre|accounting|balance)\b/.test(text)) return 'financial';
+  if (/\b(?:annual|anual|anuais)\b/.test(text) && /\b(?:report|relatorio|relatorios)\b/.test(text))
+    return 'annual';
+  if (
+    /\b(?:periodic|periodico|periodicos|trimestral|semestral|quarterly|activity|atividades|atividade)\b/.test(
+      text,
+    )
+  )
+    return 'periodic';
+  if (
+    /\b(?:financial|financeiro|financeira|contabil|contabeis|balanco|dre|accounting|balance)\b/.test(
+      text,
+    )
+  )
+    return 'financial';
   return 'other';
 }

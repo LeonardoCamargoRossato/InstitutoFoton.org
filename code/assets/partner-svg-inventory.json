@@ -1,0 +1,347 @@
+{
+  "source": "Google Drive - Logos Site Foton.org",
+  "sheet_gid": 741962493,
+  "total": 31,
+  "groups": [
+    {
+      "title": "Ciência e Pesquisa",
+      "count": 8,
+      "files": [
+        "LogoIHR.svg",
+        "LogoINDT.svg",
+        "LogoTecnopuc.svg",
+        "LogoSoftsul.svg",
+        "LogoPIT.svg",
+        "LogoUnisoTech.svg",
+        "LogoCNECGravatai.svg",
+        "LogoAnhembiMorumbiCampusAthonSorocaba.svg"
+      ]
+    },
+    {
+      "title": "Ecossistema e Instituições",
+      "count": 9,
+      "files": [
+        "LogoLACQFeynman.svg",
+        "LogoPrefeituraGravatai.svg",
+        "LogoInovaBR.svg",
+        "LogoSERGS.svg",
+        "LogoAssesproRS.svg",
+        "LogoRC.svg",
+        "LogoAGTI.svg",
+        "LogoNAU.svg",
+        "LogoInstitutoPlaneta.svg"
+      ]
+    },
+    {
+      "title": "Foton: Tecnologias Quânticas",
+      "count": 5,
+      "files": [
+        "LogoDobslit.svg",
+        "LogoQuantuLoop.svg",
+        "LogoHYPAQ.svg",
+        "LogoQBra.svg",
+        "LogoKuatia.svg"
+      ]
+    },
+    {
+      "title": "Empresas Parceiras",
+      "count": 9,
+      "files": [
+        "LogoProNext.svg",
+        "LogoAssimetry.svg",
+        "LogoAISR.svg",
+        "LogoAlibiDigital.svg",
+        "LogoVentiur.svg",
+        "LogoY4.svg",
+        "LogoPropulse.svg",
+        "LogoArea56.svg",
+        "LogoMultiCortex.svg"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "title": "IHR",
+      "logo_filename": "LogoIHR.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://www.ihr.tec.br/",
+      "tag": "FOTON-ENT-IHR",
+      "description": "Instituto de pesquisa e inovação em mobilidade, materiais inteligentes e sistemas embarcados.",
+      "keywords": ["Mobilidade", "Materiais inteligentes", "Sistemas embarcados"]
+    },
+    {
+      "title": "INDT",
+      "logo_filename": "LogoINDT.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://indt.org.br/",
+      "tag": "FOTON-ENT-INDT",
+      "description": "Instituto de P&D com soluções em cibersegurança, materiais, conectividade e manufatura avançada.",
+      "keywords": ["Pesquisa e desenvolvimento", "Indústria 4.0", "Tecnologia"]
+    },
+    {
+      "title": "Tecnopuc",
+      "logo_filename": "LogoTecnopuc.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://tecnopuc.pucrs.br/",
+      "tag": "FOTON-ENT-TECNOPUC",
+      "description": "Parque científico e tecnológico da PUCRS que conecta negócios, pesquisa, startups e talentos.",
+      "keywords": ["Parque tecnológico", "Startups", "Pesquisa e desenvolvimento"]
+    },
+    {
+      "title": "Softsul",
+      "logo_filename": "LogoSoftsul.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://www.softsul.org.br/",
+      "tag": "FOTON-ENT-SOFTSUL",
+      "description": "Associação que promove empresas de software, inovação e desenvolvimento de negócios de TI no RS.",
+      "keywords": ["Software", "Associativismo", "Inovação"]
+    },
+    {
+      "title": "PIT",
+      "logo_filename": "LogoPIT.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://pitsjc.org.br/",
+      "tag": "FOTON-ENT-PIT",
+      "description": "Parque de Inovação Tecnológica de São José dos Campos que conecta empresas, startups e pesquisa.",
+      "keywords": ["Parque tecnológico", "Startups", "Inovação"]
+    },
+    {
+      "title": "UnisoTech",
+      "logo_filename": "LogoUnisoTech.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://uniso.br/uniso-tech/",
+      "tag": "FOTON-ENT-UNISOTECH",
+      "description": "ICT da Universidade de Sorocaba que apoia startups e projetos empresariais de P&D.",
+      "keywords": ["Pesquisa e desenvolvimento", "Startups", "Inovação"]
+    },
+    {
+      "title": "CNEC Gravataí",
+      "logo_filename": "LogoCNECGravatai.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://educacaosuperior.cnec.br/gravatai",
+      "tag": "FOTON-ENT-CNEC-GRAVATAI",
+      "description": "Instituição educacional com cursos de graduação, pós-graduação e atividades acadêmicas.",
+      "keywords": ["Ensino superior", "Graduação", "Pós-graduação"]
+    },
+    {
+      "title": "Anhembi Morumbi — Campus Athon Sorocaba",
+      "logo_filename": "LogoAnhembiMorumbiCampusAthonSorocaba.svg",
+      "partner_tier": "Ciência e Pesquisa",
+      "partner_url": "https://anhembisorocaba.com.br/",
+      "tag": "FOTON-ENT-ANHEMBI-MORUMBI-CAMPUS-ATHON-SOROCABA",
+      "description": "Instituição de ensino superior em Sorocaba com graduação, especializações e formação executiva.",
+      "keywords": ["Ensino superior", "Graduação", "MBA"]
+    },
+    {
+      "title": "LACQ Feynman",
+      "logo_filename": "LogoLACQFeynman.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": "https://lacqfeynman.com.br/",
+      "tag": "FOTON-ENT-LACQ-FEYNMAN",
+      "description": "Liga acadêmica que democratiza a computação quântica por meio de cursos, projetos e eventos.",
+      "keywords": ["Educação quântica", "Pesquisa", "Comunidade"]
+    },
+    {
+      "title": "Prefeitura Gravataí",
+      "logo_filename": "LogoPrefeituraGravatai.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": "https://gravatai.rs.gov.br/",
+      "tag": "FOTON-ENT-PREFEITURA-GRAVATAI",
+      "description": "Portal da Prefeitura de Gravataí com serviços públicos e informações de gestão municipal.",
+      "keywords": ["Gestão municipal", "Gravataí", "Serviços públicos"]
+    },
+    {
+      "title": "Inova BR",
+      "logo_filename": "LogoInovaBR.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": "https://www.inovabr.org.br/",
+      "tag": "FOTON-ENT-INOVA-BR",
+      "description": "Instituto sem fins lucrativos que promove empreendedorismo, educação e ecossistemas de inovação.",
+      "keywords": ["Empreendedorismo", "Inovação", "Educação"]
+    },
+    {
+      "title": "SERGS",
+      "logo_filename": "LogoSERGS.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": "https://sociedadedeengenhariars.com/",
+      "tag": "FOTON-ENT-SERGS",
+      "description": "Entidade representativa de profissionais da engenharia no Rio Grande do Sul, com eventos e debates.",
+      "keywords": ["Engenharia", "Associativismo", "Eventos"]
+    },
+    {
+      "title": "Assespro RS",
+      "logo_filename": "LogoAssesproRS.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": "https://www.assespro-rs.org.br/",
+      "tag": "FOTON-ENT-ASSESPRO-RS",
+      "description": "Associação que representa empresas de tecnologia da informação no Rio Grande do Sul.",
+      "keywords": ["Tecnologia da informação", "Associativismo", "Negócios"]
+    },
+    {
+      "title": "RC",
+      "logo_filename": "LogoRC.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": null,
+      "tag": "FOTON-ENT-RC",
+      "description": null,
+      "keywords": []
+    },
+    {
+      "title": "AGTI",
+      "logo_filename": "LogoAGTI.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": "https://agti.net.br/",
+      "tag": "FOTON-ENT-AGTI",
+      "description": "Associação do Vale do Gravataí que fomenta tecnologia, pesquisa, capacitação e negócios inovadores.",
+      "keywords": ["Tecnologia", "Inovação", "Empreendedorismo"]
+    },
+    {
+      "title": "NAU",
+      "logo_filename": "LogoNAU.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": "https://www.nauinspaces.com/",
+      "tag": "FOTON-ENT-NAU",
+      "description": "Espaço de coworking e eventos que oferece salas, reuniões e atividades para a comunidade empresarial.",
+      "keywords": ["Coworking", "Eventos", "Networking"]
+    },
+    {
+      "title": "Instituto Planeta",
+      "logo_filename": "LogoInstitutoPlaneta.svg",
+      "partner_tier": "Ecossistema e Instituições",
+      "partner_url": null,
+      "tag": "FOTON-ENT-INSTITUTO-PROJETA-PLANETA",
+      "description": "Instituto Projeta Planeta, de Manaus, apresenta iniciativas em ciência, tecnologia e formação; o link cadastrado não abriu na consulta.",
+      "keywords": ["Ciência", "Tecnologia", "Educação"]
+    },
+    {
+      "title": "Dobslit",
+      "logo_filename": "LogoDobslit.svg",
+      "partner_tier": "Foton: Tecnologias Quânticas",
+      "partner_url": "https://dobslit.com/",
+      "tag": "FOTON-ENT-DOBSLIT",
+      "description": "Empresa que desenvolve soluções, produtos e capacitações em computação e tecnologias quânticas.",
+      "keywords": ["Computação quântica", "Algoritmos quânticos", "Capacitação"]
+    },
+    {
+      "title": "QuantuLoop",
+      "logo_filename": "LogoQuantuLoop.svg",
+      "partner_tier": "Foton: Tecnologias Quânticas",
+      "partner_url": "https://quantuloop.com.br/",
+      "tag": "FOTON-ENT-QUANTULOOP",
+      "description": "Oferece software, consultoria e capacitação para adoção empresarial de computação quântica.",
+      "keywords": ["Software quântico", "Consultoria", "Capacitação"]
+    },
+    {
+      "title": "HYPAQ",
+      "logo_filename": "LogoHYPAQ.svg",
+      "partner_tier": "Foton: Tecnologias Quânticas",
+      "partner_url": "https://www.hypaq.com.br/",
+      "tag": "FOTON-ENT-HYPAQ",
+      "description": "Aplica inteligência artificial, otimização e computação quântica a problemas industriais e logísticos.",
+      "keywords": ["Otimização", "Computação quântica", "Inteligência artificial"]
+    },
+    {
+      "title": "Q-Bra",
+      "logo_filename": "LogoQBra.svg",
+      "partner_tier": "Foton: Tecnologias Quânticas",
+      "partner_url": "https://qbra.tec.br/",
+      "tag": "FOTON-ENT-Q-BRA",
+      "description": "Startup que desenvolve projetos e iniciativas educativas em tecnologias quânticas.",
+      "keywords": ["Tecnologias quânticas", "Educação", "Startups"]
+    },
+    {
+      "title": "Kuatiá",
+      "logo_filename": "LogoKuatia.svg",
+      "partner_tier": "Foton: Tecnologias Quânticas",
+      "partner_url": "https://kuatia.com.br/",
+      "tag": "FOTON-ENT-KUATIA",
+      "description": "Empresa que atua em inovação disruptiva e na disseminação de tecnologias quânticas.",
+      "keywords": ["Tecnologias quânticas", "Inovação disruptiva", "Sustentabilidade"]
+    },
+    {
+      "title": "ProNext",
+      "logo_filename": "LogoProNext.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://pronext.solutions/pt-br",
+      "tag": "FOTON-ENT-PRONEXT",
+      "description": "Empresa de TI com desenvolvimento de software, inteligência artificial, infraestrutura e automação.",
+      "keywords": ["Desenvolvimento de software", "Inteligência artificial", "Automação"]
+    },
+    {
+      "title": "Assimetry",
+      "logo_filename": "LogoAssimetry.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://www.linkedin.com/company/assimetry-s-t-i-consulting/",
+      "tag": "FOTON-ENT-ASSIMETRY",
+      "description": "Consultoria empresarial em ciência, tecnologia e inovação aplicada a empresas e ICTs.",
+      "keywords": ["Consultoria", "Tecnologia", "Inovação"]
+    },
+    {
+      "title": "AISR",
+      "logo_filename": "LogoAISR.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://www.aisr.com.br/",
+      "tag": "FOTON-ENT-AISR",
+      "description": "Desenvolve análises de dados, inteligência artificial aplicada e plataformas de apoio a decisões.",
+      "keywords": ["Inteligência artificial", "Análise de dados", "Tomada de decisão"]
+    },
+    {
+      "title": "Álibi Digital",
+      "logo_filename": "LogoAlibiDigital.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://www.digitalalibi.com.br/",
+      "tag": "FOTON-ENT-ALIBI-DIGITAL",
+      "description": "Oferece verificação de autenticidade e integridade de evidências digitais para uso jurídico.",
+      "keywords": ["Provas digitais", "Perícia digital", "Segurança da informação"]
+    },
+    {
+      "title": "Ventiur",
+      "logo_filename": "LogoVentiur.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://ventiur.net/",
+      "tag": "FOTON-ENT-VENTIUR",
+      "description": "Investidora e aceleradora de startups que conecta empreendedores a capital, mentoria e negócios.",
+      "keywords": ["Venture capital", "Aceleração", "Startups"]
+    },
+    {
+      "title": "Y4 Solution",
+      "logo_filename": "LogoY4.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://www.y4solution.com.br/",
+      "tag": "FOTON-ENT-Y4-SOLUTION",
+      "description": "Empresa de infraestrutura de data center, nuvem soberana, segurança e continuidade operacional.",
+      "keywords": ["Data center", "Cloud soberana", "Cibersegurança"]
+    },
+    {
+      "title": "Propulse",
+      "logo_filename": "LogoPropulse.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://www.propulsefundraising.com/",
+      "tag": "FOTON-ENT-PROPULSE",
+      "description": "Assessoria especializada em captação de recursos públicos e privados para inovação e startups.",
+      "keywords": ["Captação de recursos", "Editais", "Startups"]
+    },
+    {
+      "title": "Área 56 Inovação",
+      "logo_filename": "LogoArea56.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://www.area56.com.br/",
+      "tag": "FOTON-ENT-AREA-56-INOVACAO",
+      "description": "Centro de treinamento voltado à liderança, cultura de inovação e empreendedorismo.",
+      "keywords": ["Capacitação", "Inovação", "Liderança"]
+    },
+    {
+      "title": "MultiCortex",
+      "logo_filename": "LogoMultiCortex.svg",
+      "partner_tier": "Empresas Parceiras",
+      "partner_url": "https://www.multicortex.ai/",
+      "tag": "FOTON-ENT-MULTICORTEX",
+      "description": "Desenvolve software de otimização da execução de inteligência artificial em diferentes hardwares.",
+      "keywords": [
+        "Inteligência artificial",
+        "Otimização de hardware",
+        "Infraestrutura computacional"
+      ]
+    }
+  ]
+}
