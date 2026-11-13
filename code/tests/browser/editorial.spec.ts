@@ -214,3 +214,41 @@ test('logomarca carrega WebP e mantém navegação à Home', async ({ page }) =>
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', {level:1})).toBeVisible();
 });
+
+
+test('Ecossistema de Parceiros possui rota, menu e fonte estática única', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', request => {
+    if (/supabase\.co|storage\/v1|auth\/v1/i.test(request.url())) requests.push(request.url());
+  });
+  await page.goto('./');
+  const section = page.locator('#parceiros');
+  await expect(section.getByRole('heading', { name: 'Ecossistema de Parceiros' })).toBeVisible();
+  await expect(section.getByRole('link', { name: 'Ver todos os parceiros' })).toHaveAttribute('href', /\/parceiros$/);
+  // Exportação aprovada ainda não foi fornecida: nunca inventar logos ou parceiros.
+  await expect(section.locator('.partner-card')).toHaveCount(0);
+  await page.getByRole('navigation', { name: 'Navegação principal' })
+    .getByRole('link', { name: 'Ecossistema de Parceiros' }).click();
+  await expect(page).toHaveURL(/\/parceiros$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Ecossistema de Parceiros' })).toBeVisible();
+  await expect(page.locator('.partner-card')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
+  expect(requests).toEqual([]);
+});
+
+test('Ecossistema de Parceiros é acessível pelo menu mobile e não causa overflow', async ({ page }) => {
+  for (const width of [360, 390, 768, 1366]) {
+    await page.setViewportSize({ width, height: 820 });
+    await page.goto('./');
+    if (width <= 1000) {
+      await page.getByRole('button', { name: 'Abrir menu' }).click();
+      await expect(page.getByRole('navigation', { name: 'Navegação principal' })
+        .getByRole('link', { name: 'Ecossistema de Parceiros' })).toBeVisible();
+    }
+    await page.getByRole('navigation', { name: 'Navegação principal' })
+      .getByRole('link', { name: 'Ecossistema de Parceiros' }).click();
+    await expect(page).toHaveURL(/\/parceiros$/);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow, 'viewport ' + width).toBeLessThanOrEqual(1);
+  }
+});

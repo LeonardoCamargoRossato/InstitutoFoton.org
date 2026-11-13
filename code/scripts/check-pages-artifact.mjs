@@ -17,7 +17,7 @@ for(const partner of partnerSnapshot){
   }
 }
 
-if(expected.size!==98+partnerSnapshot.filter(p=>p.logo_slug).length*2)throw Error('Arquivos de imagem ausentes ou duplicados');
+if(expected.size!==98+new Set(partnerSnapshot.filter(p=>p.logo_slug).map(p=>p.logo_slug)).size*2)throw Error('Arquivos de imagem ausentes ou duplicados');
 const routeDirectories=new Set(['instituto','pesquisa','parceiros','jornada','manifesto','noticias','apresentacao',
 'transparencia','apoie','contato','privacidade','termos']);
 const rootFiles=new Set(['.nojekyll','404.html','index.html','robots.txt','sitemap.xml','version.json']);
