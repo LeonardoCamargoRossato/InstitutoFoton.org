@@ -248,6 +248,11 @@ test('Ecossistema de Parceiros é acessível pelo menu mobile e não causa overf
     await page.getByRole('navigation', { name: 'Navegação principal' })
       .getByRole('link', { name: 'Ecossistema de Parceiros' }).click();
     await expect(page).toHaveURL(/\/parceiros$/);
+    await page.screenshot({
+      path: 'test-results/parceiros-' + width + '.png',
+      fullPage: true,
+      animations: 'disabled',
+    });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow, 'viewport ' + width).toBeLessThanOrEqual(1);
   }
