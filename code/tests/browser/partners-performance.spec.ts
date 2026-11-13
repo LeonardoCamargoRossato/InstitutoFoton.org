@@ -56,9 +56,9 @@ test('Parceiros: 31 SVGs leves, sem animação de entrada, preenchimento e estab
     () => document.documentElement.scrollWidth - window.innerWidth,
   );
   expect(mobileOverflow).toBeLessThanOrEqual(1);
-  const mobilePadding = await cards.first().evaluate((el) =>
-    Number.parseFloat(getComputedStyle(el).paddingLeft),
-  );
+  const mobilePadding = await cards
+    .first()
+    .evaluate((el) => Number.parseFloat(getComputedStyle(el).paddingLeft));
   expect(mobilePadding).toBeLessThanOrEqual(6);
   await page.screenshot({
     path: 'test-results/partner-hotfix-mobile.png',

@@ -57,7 +57,10 @@ try {
         const whiteBackground = corners.every(
           (p) => p[3] > 245 && p.slice(0, 3).every((v) => v > 245),
         );
-        let minX = 512, minY = 512, maxX = -1, maxY = -1;
+        let minX = 512,
+          minY = 512,
+          maxX = -1,
+          maxY = -1;
         let colorPixels = 0;
         for (let y = 0; y < 512; y++) {
           for (let x = 0; x < 512; x++) {
@@ -76,7 +79,10 @@ try {
           }
         }
         return {
-          minX, minY, maxX, maxY,
+          minX,
+          minY,
+          maxX,
+          maxY,
           colorPixels,
           cropSafe: alphaBackground || whiteBackground,
           pixelCoverage: Number((colorPixels / (512 * 512)).toFixed(5)),
@@ -95,21 +101,25 @@ try {
       console.log(record.file + ': preservado fundo não transparente');
       continue;
     }
-    const pad = Math.max(6, Math.ceil(Math.max(metrics.maxX - metrics.minX, metrics.maxY - metrics.minY) * 0.055));
+    const pad = Math.max(
+      6,
+      Math.ceil(Math.max(metrics.maxX - metrics.minX, metrics.maxY - metrics.minY) * 0.055),
+    );
     const x = Math.max(0, metrics.minX - pad);
     const y = Math.max(0, metrics.minY - pad);
     const endX = Math.min(511, metrics.maxX + pad);
     const endY = Math.min(511, metrics.maxY + pad);
-    const bw = endX - x + 1, bh = endY - y + 1;
+    const bw = endX - x + 1,
+      bh = endY - y + 1;
     if (bw * bh >= 512 * 512 * 0.94) {
       record.browserNote = 'Canvas já utilizado';
       continue;
     }
     const updatedBox = [
-      oldBox[0] + x / 512 * oldBox[2],
-      oldBox[1] + y / 512 * oldBox[3],
-      bw / 512 * oldBox[2],
-      bh / 512 * oldBox[3],
+      oldBox[0] + (x / 512) * oldBox[2],
+      oldBox[1] + (y / 512) * oldBox[3],
+      (bw / 512) * oldBox[2],
+      (bh / 512) * oldBox[3],
     ];
     const round = (value) => String(Number(value.toFixed(4)));
     let rootTag = applyAttribute(opening[0], 'viewBox', updatedBox.map(round).join(' '));
@@ -120,7 +130,9 @@ try {
     record.browserCropped = true;
     record.browserNote = 'viewBox ajustado a conteúdo visível via Chromium';
     record.displayBytes = Buffer.byteLength(changed);
-    console.log(record.file + ': bbox ' + [bw, bh].join('x') + ', ' + record.displayBytes + ' bytes');
+    console.log(
+      record.file + ': bbox ' + [bw, bh].join('x') + ', ' + record.displayBytes + ' bytes',
+    );
   }
 } finally {
   await browser.close();
@@ -128,4 +140,11 @@ try {
 report.displayBytes = report.records.reduce((sum, record) => sum + record.displayBytes, 0);
 report.savingsPercent = Number(((1 - report.displayBytes / report.sourceBytes) * 100).toFixed(2));
 await writeFile(reportFile, JSON.stringify(report, null, 2) + '\n');
-console.log('RESULTADO FINAL: ' + report.records.length + ' logos; ' + report.savingsPercent + '% de economia; recortes via Chromium: ' + report.records.filter((x) => x.browserCropped).length);
+console.log(
+  'RESULTADO FINAL: ' +
+    report.records.length +
+    ' logos; ' +
+    report.savingsPercent +
+    '% de economia; recortes via Chromium: ' +
+    report.records.filter((x) => x.browserCropped).length,
+);

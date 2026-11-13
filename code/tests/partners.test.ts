@@ -87,7 +87,9 @@ describe('catálogo de parceiros publicados', () => {
     expect(safePartnerUrl('http://example.org')).toBe('http://example.org/');
     expect(partnerLogoAssets('ihr')).toEqual({
       svg: expect.stringMatching(/assets\/img-logos-parceiros-foton\/assets-svg\/LogoIHR\.svg$/),
-      displaySvg: expect.stringMatching(/assets\/img-logos-parceiros-foton\/display-svg\/LogoIHR\.svg$/),
+      displaySvg: expect.stringMatching(
+        /assets\/img-logos-parceiros-foton\/display-svg\/LogoIHR\.svg$/,
+      ),
     });
     expect(partnerLogoAssets('marca-exemplo')).toBeNull();
     expect(partnerLogoAssets('rede4-0')).toBeNull();
