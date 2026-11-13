@@ -50,8 +50,8 @@ test('Parceiros: 31 SVGs leves, sem animação de entrada, preenchimento e estab
     for (let y = 0; y < 288; y++) {
       for (let x = 0; x < 512; x++) {
         const index = (y * 512 + x) * 4;
-        const visible = data[index + 3] > 35 &&
-          Math.min(data[index], data[index + 1], data[index + 2]) < 235;
+        const visible =
+          data[index + 3] > 35 && Math.min(data[index], data[index + 1], data[index + 2]) < 235;
         if (visible) {
           minX = Math.min(minX, x);
           maxX = Math.max(maxX, x);

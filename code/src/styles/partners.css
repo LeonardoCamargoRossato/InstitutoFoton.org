@@ -80,8 +80,8 @@
   }
   /* Todos os cards são brancos; as logos claras recebem contraste somente na tela. */
   .partner-card-contrast img {
-    filter: brightness(0) saturate(100%) invert(15%) sepia(46%) saturate(1117%)
-      hue-rotate(183deg) brightness(91%) contrast(95%);
+    filter: brightness(0) saturate(100%) invert(15%) sepia(46%) saturate(1117%) hue-rotate(183deg)
+      brightness(91%) contrast(95%);
   }
   .partner-card img {
     display: block;
