@@ -1,0 +1,46 @@
+name: LCR one-shot Chromium SVG crop
+on:
+  push:
+    branches:
+      - feat/ecossistema-svg-builder2-20261113
+    paths:
+      - .github/workflows/lcr-partner-crop-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  crop:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: code
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+      - name: Detect browser for artwork bounding boxes
+        run: |
+          browser="$(command -v google-chrome || command -v chromium || true)"
+          if [ -n "$browser" ]; then
+            echo "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=$browser" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium --only-shell
+          fi
+      - name: Crop derived SVG viewBox from actual visible pixels
+        run: npm run partners:crop
+      - name: Commit adjusted SVG previews and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- public/assets/img-logos-parceiros-foton/display-svg assets/partner-svg-display-report.json
+          if ! git diff --cached --quiet; then
+            git commit -m "style(partners): trim whitespace for visible logo artwork via Chromium"
+            git push origin HEAD:refs/heads/feat/ecossistema-svg-builder2-20261113
+          fi
