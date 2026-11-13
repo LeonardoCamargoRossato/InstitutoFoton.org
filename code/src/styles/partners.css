@@ -78,10 +78,11 @@
       box-shadow 0.2s ease,
       transform 0.2s ease;
   }
-  /* Todos os cards são brancos; as logos claras recebem contraste somente na tela. */
+  /* UnisoTech e RC: tinta branca sobre fundo escuro no SVG original.
+     Inverter somente a imagem torna o fundo branco e as letras escuras,
+     sem alterar as 31 logos originais nem os cards brancos. */
   .partner-card-contrast img {
-    filter: brightness(0) saturate(100%) invert(15%) sepia(46%) saturate(1117%) hue-rotate(183deg)
-      brightness(91%) contrast(95%);
+    filter: invert(1);
   }
   .partner-card img {
     display: block;
