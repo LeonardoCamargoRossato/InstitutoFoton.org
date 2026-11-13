@@ -120,3 +120,55 @@ test('indicadores datados possuem apresentação discreta e sem ressalvas defens
   const fontSize=await source.evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
   expect(fontSize).toBeLessThanOrEqual(17);
 });
+
+
+test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ page }) => {
+  const assetRequests: string[] = [];
+  page.on('request', request => {
+    if (/\/assets\/(?:PNG|WebP)\/(?:visitas-tecnicas|manifesto-quantico)\//.test(request.url())) {
+      assetRequests.push(request.url());
+    }
+  });
+  await page.goto('./manifesto');
+  const thumbnails = page.locator(
+    '.manifesto-image img, .manifesto-video img, .gallery-track img',
+  );
+  await expect(thumbnails).toHaveCount(28); // 4 cartas, 2 imagens explicativas, 2 capas de vídeo e 20 visitas
+  for (let index = 0; index < await thumbnails.count(); index++) {
+    const img = thumbnails.nth(index);
+    await img.scrollIntoViewIfNeeded();
+    await expect(img).toHaveAttribute('data-full-image', /\/assets\/PNG\/.+\.png$/);
+    await expect(img).toHaveAttribute('src', /\/assets\/WebP\/.+\.webp$/);
+    await expect.poll(() => img.evaluate(element => (element as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0);
+  }
+  expect(assetRequests.filter(url => /\/assets\/PNG\//.test(url))).toEqual([]);
+
+  const letter = page.locator('.manifesto-image').first();
+  await letter.click();
+  const modal = page.getByRole('dialog');
+  await expect(modal.locator('img')).toHaveAttribute('src', /\/assets\/PNG\/.+\.png$/);
+  await expect.poll(() => modal.locator('img').evaluate(img => (img as HTMLImageElement).naturalWidth))
+    .toBeGreaterThan(0);
+  await modal.getByRole('button', { name: 'Ampliar imagem' }).click();
+  await expect(modal.locator('.foton-zoom-level')).toHaveText('150%');
+  await page.keyboard.press('Escape');
+  await expect(modal).toHaveCount(0);
+
+  const videoPoster = page.locator('.manifesto-video-block').first();
+  await videoPoster.getByRole('button', { name: /Ampliar imagem de capa/ }).click();
+  const posterModal = page.getByRole('dialog', { name: /Imagem de capa/ });
+  await expect(posterModal.locator('img')).toHaveAttribute('src', /\/assets\/PNG\/.+\.png$/);
+  await expect(videoPoster.locator('iframe')).toHaveCount(0);
+  await posterModal.getByRole('button', { name: 'Fechar galeria' }).click();
+
+  const gallery = page.locator('.gallery-track');
+  await expect(gallery.locator('img')).toHaveCount(20);
+  await gallery.locator('button').last().click();
+  const visitModal = page.getByRole('dialog', { name: 'Visita técnica 20' });
+  await expect(visitModal.locator('img')).toHaveAttribute(
+    'src', /\/assets\/PNG\/visitas-tecnicas\/visita-20\.png$/,
+  );
+  await visitModal.getByRole('button', { name: 'Imagem anterior' }).click();
+  await expect(page.getByRole('dialog', { name: 'Visita técnica 19' })).toBeVisible();
+});
