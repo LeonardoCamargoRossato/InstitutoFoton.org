@@ -18,9 +18,9 @@ function PartnerLogo({
   eager: boolean;
   critical: boolean;
 }) {
-  const [fallback, setFallback] = useState<'display' | 'original' | 'text'>('display');
+  const [broken, setBroken] = useState(false);
   const logo = partnerLogoAssets(partner.logo_slug);
-  if (!logo || fallback === 'text') {
+  if (!logo || broken) {
     return <span className="partner-text-logo">{partner.title}</span>;
   }
   return (
@@ -31,8 +31,8 @@ function PartnerLogo({
       loading={eager ? 'eager' : 'lazy'}
       fetchPriority={critical ? 'high' : 'auto'}
       decoding={critical ? 'sync' : 'async'}
-      src={fallback === 'original' ? logo.svg : logo.displaySvg}
-      onError={() => setFallback((current) => (current === 'display' ? 'original' : 'text'))}
+      src={logo.svg}
+      onError={() => setBroken(true)}
     />
   );
 }
