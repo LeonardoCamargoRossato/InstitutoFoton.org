@@ -31,6 +31,19 @@ test('Parceiros: 31 SVGs originais, sem animação de entrada, preenchimento e e
   expect(failedAssets).toEqual([]);
   await expect(page.locator('.partner-card-dark')).toHaveCount(0);
   await expect(page.locator('.partner-card-contrast')).toHaveCount(2);
+  for (const title of ['UnisoTech', 'RC']) {
+    const card = page.locator(`.partner-card[title="${title}"]`);
+    await expect(card).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    await expect(card.locator('img')).toHaveCSS('filter', 'invert(1)');
+  }
+  await page.locator('.partner-card[title="UnisoTech"]').screenshot({
+    path: 'test-results/partner-unisotech-legivel.png',
+    animations: 'disabled',
+  });
+  await page.locator('.partner-card[title="RC"]').screenshot({
+    path: 'test-results/partner-rc-legivel.png',
+    animations: 'disabled',
+  });
   for (const card of await cards.all()) {
     await expect(card).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   }
