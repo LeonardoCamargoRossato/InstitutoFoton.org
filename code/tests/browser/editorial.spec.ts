@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { publishedPartners, partnerGroups } from '../../src/content/partners';
 
 test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', async ({ page }) => {
   await page.goto('./');
@@ -225,14 +226,29 @@ test('Ecossistema de Parceiros possui rota, menu e fonte estática única', asyn
   const section = page.locator('#parceiros');
   await expect(section.getByRole('heading', { name: 'Ecossistema de Parceiros' })).toBeVisible();
   await expect(section.getByRole('link', { name: 'Ver todos os parceiros' })).toHaveAttribute('href', /\/parceiros$/);
-  // Exportação aprovada ainda não foi fornecida: nunca inventar logos ou parceiros.
-  await expect(section.locator('.partner-card')).toHaveCount(0);
+  const verified = publishedPartners();
+  await expect(section.locator('.partner-card')).toHaveCount(verified.length);
   await page.getByRole('navigation', { name: 'Navegação principal' })
     .getByRole('link', { name: 'Ecossistema de Parceiros' }).click();
   await expect(page).toHaveURL(/\/parceiros$/);
   await expect(page.getByRole('heading', { level: 1, name: 'Ecossistema de Parceiros' })).toBeVisible();
-  await expect(page.locator('.partner-card')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
+  await expect(page.locator('.partner-card')).toHaveCount(verified.length);
+  const groups = partnerGroups(verified);
+  await expect(page.locator('.partner-group h3')).toHaveCount(groups.length);
+  for (const [index, group] of groups.entries()) {
+    await expect(page.locator('.partner-group h3').nth(index)).toHaveText(group.tier);
+  }
+  if (verified.length) {
+    for (const [index, partner] of verified.entries()) {
+      await expect(page.locator('.partner-card').nth(index)).toHaveAttribute('title', partner.title);
+      if (partner.logo_slug) {
+        const img = page.locator('.partner-card').nth(index).locator('img');
+        await expect(img).toHaveAttribute('src', /assets\/WebP\/parceiros\/.+\.webp$/);
+        await expect.poll(() => img.evaluate(el => (el as HTMLImageElement).naturalWidth))
+          .toBeGreaterThan(0);
+      }
+    }
+  } else await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
   expect(requests).toEqual([]);
 });
 

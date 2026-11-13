@@ -3,9 +3,13 @@ import { publishedPartners, partnerGroups, safePartnerUrl, type PartnerRecord } 
 import { partnerLogoAssets } from '../src/content/partnerAssets';
 
 describe('catálogo de parceiros publicados', () => {
-  it('não inventa registros quando a exportação aprovada ainda não foi fornecida', () => {
-    expect(publishedPartners()).toEqual([]);
-    expect(partnerGroups()).toEqual([]);
+  it('expõe somente registros publicados em pt-br, com ordem estável e IDs únicos', () => {
+    const partners=publishedPartners();
+    expect(partners.every(p=>p.status==='publicado' && p.locale==='pt-br')).toBe(true);
+    expect(new Set(partners.map(p=>p.id)).size).toBe(partners.length);
+    expect(partners.map(p=>p.display_order)).toEqual(
+      [...partners.map(p=>p.display_order)].sort((a,b)=>a-b),
+    );
   });
   it('preserva a ordem informada e agrupa por partner_tier', () => {
     const record = (title: string, partner_tier: string | null, display_order: number): PartnerRecord => ({
