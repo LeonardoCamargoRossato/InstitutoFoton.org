@@ -20,3 +20,18 @@ Exportação CSV/JSON aprovada dos registros publicados e mídia original públi
 
 ## Segurança e publicação
 O `.org` não consulta Supabase em execução. Nenhum dado do `.com.br` foi alterado. Branch separada, sem alteração na `main` ou Hostinger. **Não aprovar merge até que o inventário nominal e as logomarcas estejam conferidos e o Auditor LCR valide o conteúdo.**
+
+
+## Inventário público recuperado — 13/11/2026
+
+Extração em modo público do componente efetivamente renderizado no site comercial, sem autenticação e sem alterar seu banco. Foram recuperados **32 registros publicados, 32 arquivos PNG, 32 WebP e 32 originais de mídia**, sem logos pendentes.
+
+**Ecossistema de Instituições (19):** AGTI; AnhembiMorumbi_CampusAthon_Sorocaba; Assespro-RS; CNEC Gravataí; IHR; INDT; InovaBR; Instituto Projeta Planeta; Instituto RC; LACQ Feynman; NAU; PIT; Prefeitura Gravataí; Rede4.0; SERGS; Softsul; Tecnopuc; UnisoTech; Ventiur.
+
+**Ecossistema de Empresas de Quantum e Tecnologias Emergentes (13):** AISR; AlibiDigital; Área 56 Inovação; Assimetry; Dobslit; HYPAQ Technologies; Kuatiá; MultiCortex; ProNext; Propulse; Q-Bra; QuantuLoop; Y4.
+
+**Proveniência técnica detalhada:** `code/assets/partners-source-inventory.json`, com nome, categoria, posição da Home original, URL oficial, logo original, SHA-256, arquivos locais e estado de recuperação. Os `display_order` locais refletem fielmente **a sequência visual renderizada**; não são valores extraídos diretamente da tabela SQL.
+
+O site `.org` usa exclusivamente as mídias locais, não a origem comercial em tempo de execução. Não houve alteração do Supabase, das páginas do `.com.br`, da `main` ou da Hostinger.
+
+**Revisão institucional:** confirmar a vigência formal dos vínculos quando necessário. Esta importação demonstra a correspondência com registros publicamente exibidos na origem e não constitui validação independente de contratos.
