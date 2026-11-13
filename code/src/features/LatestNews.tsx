@@ -35,8 +35,8 @@ export default function LatestNews() {
             ))}
           </div>
         ) : (
-          <Empty title="Nenhuma publicação disponível nesta versão.">
-            Esta área exibirá somente notícias e publicações oficialmente aprovadas.
+          <Empty title="Publicações do Instituto">
+            Conheça as iniciativas do Instituto e suas áreas de pesquisa enquanto navega por nossas publicações.
           </Empty>
         ))}
       <div className="inline-links">

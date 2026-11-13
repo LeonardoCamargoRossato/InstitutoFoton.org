@@ -1,5 +1,4 @@
-// Fonte: decisões de produto do Prompt Mestre V0. Textos abaixo são adaptações
-// editoriais, não transcrições de missão, visão, valores, ODQs ou documentos oficiais.
+// Temas científicos organizados editorialmente a partir dos materiais institucionais.
 export const researchLines = [
   {
     slug: 'computacao-quantica',

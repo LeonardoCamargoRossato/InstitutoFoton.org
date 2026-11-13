@@ -134,12 +134,12 @@ export function News() {
                 title={
                   search || category !== 'Todas'
                     ? 'Nenhuma publicação encontrada.'
-                    : 'Acompanhe nossas próximas publicações.'
+                    : 'Publicações do Instituto'
                 }
               >
                 {search || category !== 'Todas'
                   ? 'Tente outra palavra ou categoria.'
-                  : 'Enquanto novas histórias são preparadas, explore o Manifesto e as áreas de pesquisa.'}
+                  : 'Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.'}
               </Empty>
             ))}
           <div className="inline-links">

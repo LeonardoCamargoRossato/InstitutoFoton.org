@@ -152,8 +152,8 @@ export default function TransparencyBoard() {
             <p className="eyebrow"><span /> Prestação de contas</p>
             <h2>Informação acessível, organizada e verificável.</h2>
             <p>
-              Consulte os materiais institucionais efetivamente publicados. Quando uma categoria ainda
-              não tem arquivos, deixamos isso claro — sem documentos ou dados fictícios.
+              Conheça a apresentação institucional e consulte os documentos públicos
+              organizados por categoria.
             </p>
             <a href="#documentos-publicos" className="text-link">Consultar documentos <span aria-hidden="true">↓</span></a>
           </div>
@@ -167,7 +167,8 @@ export default function TransparencyBoard() {
               <h2>Documentos para consulta</h2>
             </div>
             <p>Organizados por finalidade, com referência temporal quando informada na fonte.</p>
-          </div>\n          <Status {...resource} />
+          </div>
+          <Status {...resource} />
           {hasFilters && (
             <div className="transparency-filters">
               <label>
@@ -210,7 +211,7 @@ export default function TransparencyBoard() {
                     <p className="transparency-empty">
                       {hasQuery && allDocs.length ? 'Nenhum documento corresponde à busca ou ao ano selecionado.' :
                         (unavailable && category.id !== 'other') || resource.loading
-                          ? 'Ainda não foi possível confirmar os documentos desta categoria.'
+                          ? 'Não foi possível carregar os documentos desta categoria.'
                           : 'Nenhum documento publicado nesta categoria.'}
                     </p>
                   )}

@@ -27,9 +27,8 @@ export default function TechnicalVisitSpotlight() {
           <p className="eyebrow"><span /> Visitas técnicas</p>
           <h2 id="technical-visit-title">O conhecimento se aproxima quando pessoas se encontram.</h2>
           <p>
-            A fotografia faz parte da galeria pública de visitas técnicas do Manifesto Quântico
-            Nacional. É um registro documental, diferente das cenas ilustrativas de IA que
-            compõem outras áreas do portal.
+            A fotografia integra a galeria de visitas técnicas do Manifesto Quântico Nacional,
+            com registros dos encontros e atividades de articulação científica.
           </p>
           <Link className="text-link" to="/manifesto#visitas">Conheça a galeria de visitas técnicas</Link>
         </div>
