@@ -8,7 +8,7 @@ import { join } from 'node:path';
 // Não usa credenciais, consultas a banco ou endpoints administrativos.
 const source = 'https://institutofoton.com.br/';
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
-let groups = [];
+let groups;
 let page;
 try {
   page = await browser.newPage({ locale: 'pt-BR', viewport: { width: 1440, height: 900 } });
