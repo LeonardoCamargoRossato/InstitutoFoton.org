@@ -28,10 +28,10 @@ try {
   for (const record of report.records) {
     const file = path.join(dir, record.file);
     const svg = await readFile(file, 'utf8');
-    const opening = svg.match(/<svg\\b[^>]*>/i);
-    const box = opening?.[0].match(/\\bviewBox=["']([^"']+)["']/i);
+    const opening = svg.match(/<svg\b[^>]*>/i);
+    const box = opening?.[0].match(/\bviewBox=["']([^"']+)["']/i);
     if (!opening || !box) throw new Error('SVG sem viewBox: ' + record.file);
-    const oldBox = box[1].split(/[\\s,]+/).map(Number);
+    const oldBox = box[1].split(/[\s,]+/).map(Number);
     if (oldBox.length !== 4 || oldBox.some((value) => !Number.isFinite(value))) {
       throw new Error('viewBox inválido: ' + record.file);
     }
