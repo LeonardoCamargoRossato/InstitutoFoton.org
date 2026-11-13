@@ -29,7 +29,7 @@ function PartnerLogo({
       width={192}
       height={108}
       loading={eager ? 'eager' : 'lazy'}
-      fetchPriority={critical ? 'high' : 'low'}
+      fetchPriority={critical ? 'high' : 'auto'}
       decoding={critical ? 'sync' : 'async'}
       src={fallback === 'original' ? logo.svg : logo.displaySvg}
       onError={() => setFallback((current) => (current === 'display' ? 'original' : 'text'))}
