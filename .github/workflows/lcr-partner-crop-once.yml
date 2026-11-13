@@ -1,4 +1,5 @@
 name: LCR one-shot Chromium SVG crop
+# Reexecutar recorte depois da correção da leitura do viewBox.
 on:
   push:
     branches:
