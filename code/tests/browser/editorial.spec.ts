@@ -172,3 +172,45 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   await visitModal.getByRole('button', { name: 'Imagem anterior' }).click();
   await expect(page.getByRole('dialog', { name: 'Visita técnica 19' })).toBeVisible();
 });
+
+
+test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ page }) => {
+  await page.goto('./');
+  await page.evaluate(() => {
+    const main = document.querySelector('#conteudo');
+    if (!main) throw new Error('Conteúdo do portal não encontrado');
+    const card = document.createElement('a');
+    card.id = 'test-image-card';
+    card.href = './contato';
+    const preview = document.createElement('img');
+    preview.alt = 'Imagem de teste do acervo do Instituto Foton';
+    preview.src = new URL('assets/WebP/visitas-tecnicas/visita-03.webp', document.baseURI).href;
+    preview.width = 320;
+    preview.height = 180;
+    card.append(preview);
+    const text = document.createElement('span');
+    text.textContent = 'Ir para Contato';
+    card.append(text);
+    main.append(card);
+  });
+  const card=page.locator('#test-image-card');
+  await card.locator('img').click();
+  const dialog=page.getByRole('dialog', {name:'Imagem de teste do acervo do Instituto Foton'});
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator('img')).toHaveAttribute('src', /\/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/);
+  await expect.poll(() => dialog.locator('img').evaluate(el=>(el as HTMLImageElement).naturalWidth))
+    .toBeGreaterThan(0);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
+  await card.getByText('Ir para Contato').click();
+  await expect(page).toHaveURL(/\/contato$/);
+});
+
+test('logomarca carrega WebP e mantém navegação à Home', async ({ page }) => {
+  await page.goto('./instituto');
+  const logo=page.locator('.site-header .brand img');
+  await expect(logo).toHaveAttribute('src',/\/assets\/WebP\/branding\/foton-logo-light\.webp$/);
+  await page.locator('.site-header .brand').click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', {level:1})).toBeVisible();
+});
