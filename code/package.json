@@ -20,7 +20,9 @@
     "docs:check": "node scripts/check-documentation.mjs",
     "artifact:check": "node scripts/check-pages-artifact.mjs",
     "assets:verify": "node scripts/prepare-webp.mjs",
-    "assets:optimize": "node scripts/prepare-webp.mjs --write"
+    "assets:optimize": "node scripts/prepare-webp.mjs --write",
+    "partners:optimize": "node scripts/optimize-partner-svgs.mjs",
+    "partners:crop": "node scripts/crop-partner-svgs-browser.mjs"
   },
   "dependencies": {
     "@fontsource/raleway": "^5.3.0",

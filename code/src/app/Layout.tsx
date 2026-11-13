@@ -61,6 +61,8 @@ export default function Layout() {
     } else window.scrollTo({ top: 0 });
   }, [location.pathname, location.hash]);
   useEffect(() => {
+    // A página de parceiros deve renderizar a grade imediatamente, sem transição 3D.
+    if (location.pathname === '/parceiros') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const observed = new Set<Element>();
     const observer = new IntersectionObserver(
@@ -92,7 +94,7 @@ export default function Layout() {
         ':scope > section, :scope > .institute-story > section, :scope > .values-strip, :scope > .anchor-bar, :scope > .support-cta',
       );
       sections.forEach((section, index) => {
-        if (observed.has(section)) return;
+        if (section.classList.contains('partner-ecosystem') || observed.has(section)) return;
         section.classList.add(
           'reveal-section',
           `reveal-${['rise', 'right', 'left', 'depth'][index % 4]}`,

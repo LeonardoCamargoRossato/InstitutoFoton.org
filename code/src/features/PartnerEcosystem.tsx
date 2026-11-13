@@ -9,36 +9,54 @@ import {
   type PartnerRecord,
 } from '../content/partners';
 
-function PartnerLogo({ partner }: { partner: PartnerRecord }) {
-  const [broken, setBroken] = useState(false);
+function PartnerLogo({
+  partner,
+  eager,
+  critical,
+}: {
+  partner: PartnerRecord;
+  eager: boolean;
+  critical: boolean;
+}) {
+  const [fallback, setFallback] = useState<'display' | 'original' | 'text'>('display');
   const logo = partnerLogoAssets(partner.logo_slug);
-  if (!logo || broken) {
+  if (!logo || fallback === 'text') {
     return <span className="partner-text-logo">{partner.title}</span>;
   }
   return (
     <img
       alt={partner.title}
-      width={176}
-      height={96}
-      loading="lazy"
-      decoding="async"
-      src={logo.svg}
-      onError={() => setBroken(true)}
+      width={192}
+      height={108}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchPriority={critical ? 'high' : 'auto'}
+      decoding={critical ? 'sync' : 'async'}
+      src={fallback === 'original' ? logo.svg : logo.displaySvg}
+      onError={() => setFallback((current) => (current === 'display' ? 'original' : 'text'))}
     />
   );
 }
 
-// Algumas logomarcas oficiais são claras ou monocromáticas e precisam de
-// contraste no cartão. O arquivo original não é alterado.
+// Em cards sempre brancos, logos originalmente claras recebem contraste apenas via CSS.
+// Os SVGs originais e as versões de exibição permanecem intactos.
 const lightLogos = new Set(['instituto-rc', 'unisotech']);
-function PartnerCard({ partner }: { partner: PartnerRecord }) {
+const approvedGroups = partnerGroups(publishedPartners());
+function PartnerCard({
+  partner,
+  eager,
+  critical,
+}: {
+  partner: PartnerRecord;
+  eager: boolean;
+  critical: boolean;
+}) {
   const url = safePartnerUrl(partner.partner_url);
   const cardClass =
     'partner-card' +
-    (partner.logo_slug && lightLogos.has(partner.logo_slug) ? ' partner-card-dark' : '');
+    (partner.logo_slug && lightLogos.has(partner.logo_slug) ? ' partner-card-contrast' : '');
   const contents = (
     <>
-      <PartnerLogo partner={partner} />
+      <PartnerLogo partner={partner} eager={eager} critical={critical} />
       <span className="sr-only">{partner.title}</span>
       {url && <ExternalLink size={14} aria-hidden="true" className="partner-external-icon" />}
     </>
@@ -65,8 +83,7 @@ function PartnerCard({ partner }: { partner: PartnerRecord }) {
 }
 
 export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
-  const records = publishedPartners();
-  const groups = partnerGroups(records);
+  const groups = approvedGroups;
   return (
     <section
       className={
@@ -99,12 +116,17 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
         )}
         {groups.length > 0 ? (
           <div className="partner-groups">
-            {groups.map((group) => (
+            {groups.map((group, groupIndex) => (
               <div className="partner-group" key={group.tier}>
                 <h3>{group.tier}</h3>
                 <div className="partner-logos">
                   {group.items.map((partner) => (
-                    <PartnerCard key={partner.id} partner={partner} />
+                    <PartnerCard
+                      key={partner.id}
+                      partner={partner}
+                      eager={!home}
+                      critical={!home && groupIndex === 0}
+                    />
                   ))}
                 </div>
               </div>

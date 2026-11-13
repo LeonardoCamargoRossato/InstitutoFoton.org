@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { existsSync, readFileSync } from 'node:fs';
 import {
   publishedPartners,
   partnerGroups,
@@ -8,6 +9,22 @@ import {
 import { partnerLogoAssets } from '../src/content/partnerAssets';
 
 describe('catálogo de parceiros publicados', () => {
+  it('preserva os 31 SVGs originais e publica 31 derivados otimizados', () => {
+    const report = JSON.parse(readFileSync('assets/partner-svg-display-report.json', 'utf8')) as {
+      count: number;
+      sourceBytes: number;
+      displayBytes: number;
+      records: Array<{ file: string; cropped: boolean }>;
+    };
+    expect(report.count).toBe(31);
+    expect(report.sourceBytes).toBeGreaterThan(20_000_000);
+    expect(report.displayBytes).toBeLessThan(report.sourceBytes);
+    expect(new Set(report.records.map((record) => record.file)).size).toBe(31);
+    for (const { file } of report.records) {
+      expect(existsSync('public/assets/img-logos-parceiros-foton/assets-svg/' + file)).toBe(true);
+      expect(existsSync('public/assets/img-logos-parceiros-foton/display-svg/' + file)).toBe(true);
+    }
+  });
   it('contém 31 SVGs únicos e os 4 grupos autorizados', () => {
     const entries = publishedPartners();
     expect(entries).toHaveLength(31);
@@ -70,6 +87,9 @@ describe('catálogo de parceiros publicados', () => {
     expect(safePartnerUrl('http://example.org')).toBe('http://example.org/');
     expect(partnerLogoAssets('ihr')).toEqual({
       svg: expect.stringMatching(/assets\/img-logos-parceiros-foton\/assets-svg\/LogoIHR\.svg$/),
+      displaySvg: expect.stringMatching(
+        /assets\/img-logos-parceiros-foton\/display-svg\/LogoIHR\.svg$/,
+      ),
     });
     expect(partnerLogoAssets('marca-exemplo')).toBeNull();
     expect(partnerLogoAssets('rede4-0')).toBeNull();
