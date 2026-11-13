@@ -11,7 +11,7 @@ describe('catálogo de parceiros publicados', () => {
       ['Ciência e Pesquisa',8],['Ecossistema e Instituições',9],
       ['Foton: Tecnologias Quânticas',5],['Empresas Parceiras',9]
     ]);
-    expect(entries.some(p=>/Logo(?:SUCESURS|Tecnosinos|Rede40)\\.svg$/.test(p.logo_filename??''))).toBe(false);
+    expect(entries.some(p=>/Logo(?:SUCESURS|Tecnosinos|Rede40)\.svg$/.test(p.logo_filename??''))).toBe(false);
     expect(entries.filter(p=>p.partner_url===null).map(p=>p.title)).toEqual(['RC','Instituto Planeta']);
   });
   it('expõe somente registros publicados em pt-br, com ordem estável e IDs únicos', () => {
@@ -46,8 +46,7 @@ describe('catálogo de parceiros publicados', () => {
     expect(safePartnerUrl('https://example.org/sobre')).toBe('https://example.org/sobre');
     expect(safePartnerUrl('http://example.org')).toBe('http://example.org/');
     expect(partnerLogoAssets('ihr')).toEqual({
-      png: expect.stringMatching(/assets\/PNG\/parceiros\/LogoIHR\.png$/),
-      webp: expect.stringMatching(/assets\/WebP\/parceiros\/LogoIHR\.webp$/),
+      svg: expect.stringMatching(/assets\/img-logos-parceiros-foton\/assets-svg\/LogoIHR\.svg$/),
     });
     expect(partnerLogoAssets('marca-exemplo')).toBeNull();
     expect(partnerLogoAssets('rede4-0')).toBeNull();
