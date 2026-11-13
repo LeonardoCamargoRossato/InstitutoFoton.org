@@ -35,9 +35,8 @@ export default function LatestNews() {
             ))}
           </div>
         ) : (
-          <Empty title="Novas histórias começam por aqui.">
-            Acompanhe nossas próximas publicações. Enquanto isso, conheça a Jornada do Cientista e o
-            Manifesto Quântico Nacional.
+          <Empty title="Nenhuma publicação disponível nesta versão.">
+            Esta área exibirá somente notícias e publicações oficialmente aprovadas.
           </Empty>
         ))}
       <div className="inline-links">

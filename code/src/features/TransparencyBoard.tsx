@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Download, Eye, FileText, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { FotonPhoto } from './FotonPhoto';
 import { TRANSPARENCY_CATEGORIES, transparencyCategory, type TransparencyCategory } from './TransparencyCategories';
 import { documentUrl, documents, type PublicDocument } from '../lib/backend';
 import { dateLabel } from '../lib/config';
@@ -158,7 +157,6 @@ export default function TransparencyBoard() {
             </p>
             <a href="#documentos-publicos" className="text-link">Consultar documentos <span aria-hidden="true">↓</span></a>
           </div>
-          <FotonPhoto id="instituto-community" className="transparency-photo" />
         </div>
       </section>
       <section className="section section-gray transparency-section" id="documentos-publicos">
