@@ -3,285 +3,142 @@ import { Link, useParams } from 'react-router-dom';
 import {
   ArrowUpRight,
   ArrowDown,
-  MoveUpRight,
   Network,
   Compass,
   BookOpen,
-  HeartHandshake,
 } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
-import Constellation from '../components/Constellation';
-import { FotonPhoto } from './FotonPhoto';
-import TechnicalVisitSpotlight from './TechnicalVisitSpotlight';
-import { HumanMosaic } from './HumanMosaic';
-import { HumanPageHero } from './HumanPageHero';
-import { researchLines, journeySteps } from './content';
+import { researchLines } from './content';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
-const LatestNews = lazy(() => import('./LatestNews'));
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
 
 export function Home() {
+  const programs = [
+    { title: 'Pesquisa, Desenvolvimento e Inovação', description: 'Investigação científica e pesquisa aplicada em tecnologias quânticas.', to: '/pesquisa' },
+    { title: 'Quantum for Business', description: 'Diálogo entre conhecimento científico, estratégia e organizações.', to: '/contato' },
+    { title: 'Manifesto Quântico Nacional', description: 'Articulação de uma agenda nacional e acesso às cartas e registros públicos.', to: '/manifesto' },
+    { title: 'Jornada do Cientista Inovador', description: 'Formação, conexões e aproximação de pessoas com a ciência.', to: '/jornada' },
+  ];
   return (
     <>
-      <section className="home-hero">
+      <section className="home-hero home-hero-minimal">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">
-              <span />
-              Ciência. Pessoas. Possibilidades.
-            </p>
-            <h1>
-              A ciência
-              <br />
-              não tem idade.
-              <br />
-              <em>
-                O futuro
-                <br />
-                também é seu.
-              </em>
-            </h1>
+            <p className="eyebrow"><span /> Instituto Foton · Ciências e Tecnologias Quânticas</p>
+            <h1>Transformar ciência de fronteira em <em>decisões, soluções e oportunidades.</em></h1>
             <p className="hero-description">
-              Conectamos conhecimento, pessoas e oportunidades para aproximar a ciência da vida. Há
-              um lugar nessa conversa para você.
+              Tecnologia através da ciência. Articulamos conhecimento, formação e pesquisa
+              para aproximar as tecnologias quânticas de desafios reais da sociedade.
             </p>
             <div className="actions">
               <Action to="/instituto">Conheça o Instituto</Action>
-              <TextLink to="/apoie">Apoie a Ciência</TextLink>
+              <TextLink to="/apresentacao">Apresentação institucional</TextLink>
             </div>
-            <a className="scroll-hint" href="#nossa-rede">
-              <ArrowDown size={15} aria-hidden="true" />
-              Descubra o que nos conecta
+            <a className="scroll-hint" href="#porque-existe">
+              <ArrowDown size={15} aria-hidden="true" /> Entenda nosso propósito
             </a>
           </div>
-          <FotonPhoto
-            id="home-hero-community"
-            priority
-            className="hero-photography"
-            fallback={<Constellation />}
-          />
+          <div className="hero-identity" aria-hidden="true">
+            <span className="hero-identity-orbit hero-identity-orbit-one" />
+            <span className="hero-identity-orbit hero-identity-orbit-two" />
+            <span className="hero-identity-orbit hero-identity-orbit-three" />
+            <span className="hero-identity-nucleus" />
+            <span className="hero-identity-spark spark-one" />
+            <span className="hero-identity-spark spark-two" />
+            <span className="hero-identity-spark spark-three" />
+            <span className="hero-identity-spark spark-four" />
+            <span className="hero-identity-equation">E = hν</span>
+          </div>
         </div>
       </section>
-      <div className="values-strip">
-        <div className="container">
-          <span>Da curiosidade ao impacto.</span>
-          <span>Conhecimento sem fronteiras.</span>
-          <span>Gerações que se encontram.</span>
-        </div>
-      </div>
-      <HumanMosaic />
-      <section className="section spectral-divider" id="nossa-rede">
+
+      <section className="section spectral-divider" id="porque-existe">
         <div className="container split">
-          <Heading
-            eyebrow="Nossa razão de existir"
-            title="O conhecimento ganha força quando é compartilhado."
-          />
+          <Heading eyebrow="Por que o Foton existe?" title="A Era Quântica Já Começou." />
           <div className="body-copy">
-            <blockquote>
-              “Transformar ciência de fronteira em decisões, soluções e oportunidades.”
-            </blockquote>
+            <blockquote>“Transformar ciência de fronteira em decisões, soluções e oportunidades.”</blockquote>
             <p>
-              O Instituto Foton articula pessoas e instituições em torno da ciência e das
-              tecnologias quânticas. Nosso portal científico e social aproxima pesquisa, educação e
-              sociedade.
+              O Instituto busca articular inteligência estratégica, educação, pesquisa aplicada
+              e diálogo entre ciência, organizações e sociedade.
             </p>
             <p>
-              Trabalhamos em rede. Diferentes áreas, experiências e gerações se encontram para
-              transformar perguntas em caminhos de investigação.
+              As tecnologias quânticas abrem novas perspectivas para comunicação, segurança,
+              saúde, energia e indústria. O Foton articula conhecimento, pesquisa e diálogo
+              em torno dessas transformações.
             </p>
-            <TextLink to="/instituto">Uma ciência que conecta</TextLink>
-          </div>
-        </div>
-        <div className="container documentary-metrics">
-          <div>
-            <strong>15</strong>
-            <span>estados</span>
-          </div>
-          <div>
-            <strong>140+</strong>
-            <span>membros</span>
-          </div>
-          <p>
-            Uma rede de muitas trajetórias.
-            <br />
-            <span>Setembro de 2026.</span>
-            <br />
-            <TextLink to="/apresentacao">Conheça nossa apresentação</TextLink>
-          </p>
-        </div>
-      </section>
-      <section className="section human-story-section spectral-divider">
-        <div className="container human-story-layout">
-          <FotonPhoto
-            id="home-science-network"
-            className="story-photography"
-          />
-          <div className="human-story-copy">
-            <p className="eyebrow"><span /> Encontros que fazem ciência</p>
-            <h2>Por trás de cada descoberta, existem pessoas.</h2>
-            <p>
-              O conhecimento avança quando pesquisadores, estudantes e pessoas de diferentes
-              trajetórias podem conversar, compartilhar dúvidas e abrir caminhos em conjunto.
-            </p>
-            <p>
-              Nesta demonstração, as fotografias de pessoas foram geradas por inteligência
-              artificial. Elas ilustram encontros e descobertas, mas não retratam eventos,
-              integrantes ou resultados reais do Instituto.
-            </p>
-            <div className="actions">
-              <Action to="/instituto">Conheça nossa história</Action>
-              <TextLink to="/transparencia">Consultar transparência</TextLink>
-            </div>
           </div>
         </div>
       </section>
-      <section className="section home-legacy-section spectral-divider">
-        <div className="container home-legacy-layout">
-          <div>
-            <p className="eyebrow"><span /> Experiência e novos olhares</p>
-            <h2>O conhecimento não tem idade.</h2>
-            <p>
-              Pesquisadores experientes e jovens talentos podem aprender uns com os outros.
-              Essa diversidade de trajetórias faz parte do futuro que queremos construir.
-            </p>
-            <TextLink to="/instituto">Conheça nossa trajetória</TextLink>
-          </div>
-          <FotonPhoto id="home-generational-legacy" className="home-legacy-photo" />
-        </div>
-      </section>
-      <section className="section section-gray spectral-divider">
+
+      <section className="section section-gray spectral-divider" id="ecossistema">
         <div className="container">
           <div className="heading-row">
-            <Heading eyebrow="Pesquisa em rede" title="Grandes perguntas pedem muitos olhares." />
-            <TextLink to="/pesquisa">Explore nossas áreas</TextLink>
+            <Heading eyebrow="Ecossistema Foton" title="Ciência conectada em diferentes regiões." />
+            <TextLink to="/instituto">Sobre a rede</TextLink>
           </div>
-          <div className="research-grid">
-            {researchLines.slice(0, 3).map((line, i) => (
-              <Link to={`/pesquisa/${line.slug}`} className="research-card" key={line.slug}>
+          <p className="section-description">
+            A rede reúne trajetórias de diferentes áreas do conhecimento. A apresentação
+            institucional de setembro de 2026 registra a participação em 15 estados e
+            mais de 140 membros.
+          </p>
+          <div className="documentary-metrics institutional-metrics">
+            <div><strong>15</strong><span>estados representados</span></div>
+            <div><strong>140+</strong><span>membros registrados</span></div>
+            <p className="metrics-source">Dados institucionais · setembro de 2026.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section spectral-divider" id="frentes">
+        <div className="container">
+          <div className="heading-row">
+            <Heading eyebrow="Frentes e programas" title="Do conhecimento à articulação." />
+          </div>
+          <p className="section-description">
+            Conheça as frentes de pesquisa, formação, inovação e articulação apresentadas
+            pelo Instituto Foton em setembro de 2026.
+          </p>
+          <div className="research-grid institutional-programs">
+            {programs.map((program, index) => (
+              <Link className="research-card" to={program.to} key={program.title}>
                 <div className="card-top">
-                  <span className="number">{line.label}</span>
-                  {i === 0 ? (
-                    <Network aria-hidden="true" />
-                  ) : i === 1 ? (
-                    <Compass aria-hidden="true" />
-                  ) : (
-                    <MoveUpRight aria-hidden="true" />
-                  )}
+                  <span className="number">{String(index + 1).padStart(2, '0')}</span>
+                  <ArrowUpRight size={21} aria-hidden="true" />
                 </div>
-                <h3>{line.title}</h3>
-                <p>{line.summary}</p>
-                <span className="card-link">
-                  Conheça essa área
-                  <ArrowUpRight size={18} aria-hidden="true" />
-                </span>
+                <h3>{program.title}</h3>
+                <p>{program.description}</p>
+                <span className="card-link">Saiba mais <ArrowUpRight size={18} aria-hidden="true" /></span>
               </Link>
             ))}
           </div>
         </div>
       </section>
-      <TechnicalVisitSpotlight />
-      <section className="journey-feature section spectral-divider">
-        <div className="container split">
-          <div>
-            <p className="eyebrow">
-              <span />
-              Jornada do Cientista Inovador
-            </p>
-            <h2>
-              Não existe uma
-              <br />
-              única maneira
-              <br />
-              de <em>começar.</em>
-            </h2>
-            <p>
-              Na escola, na universidade ou depois de uma longa carreira: a curiosidade pode abrir
-              um novo capítulo em qualquer momento da vida.
-            </p>
-            <Action to="/jornada">Encontre seu ponto de partida</Action>
-          </div>
-          <div className="journey-visual" aria-label="Etapas ilustrativas da jornada científica">
-            {journeySteps.map(([title], i) => (
-              <div key={title}>
-                <span>{String(i + 1).padStart(2, '0')}</span>
-                <strong>{title}</strong>
-                <ArrowUpRight aria-hidden="true" size={21} />
-              </div>
-            ))}
-            <p>Uma jornada de possibilidades. Cada trajetória é única.</p>
-          </div>
-        </div>
-      </section>
-      <section className="manifesto-feature spectral-divider">
-        <div className="container">
-          <div>
-            <p className="eyebrow">
-              <span />
-              Manifesto Quântico Nacional
-            </p>
-            <h2>
-              O futuro da ciência
-              <br />é uma construção
-              <br />
-              <em>coletiva.</em>
-            </h2>
-            <p>
-              Por um Brasil mais competitivo, conectado e soberano. Conheça o movimento, as Cartas
-              Macrorregionais e os 11 Objetivos de Desenvolvimento Quântico.
-            </p>
-            <Action to="/manifesto">Conheça o Manifesto</Action>
-          </div>
-          <div className="manifesto-graphic" aria-hidden="true">
-            <span>BR</span>
-            <div className="region-names">
-              Norte · Nordeste
-              <br />
-              Centro-Oeste
-              <br />
-              Sudeste · Sul
-            </div>
-            <span className="manifesto-note">
-              Diferentes territórios.
-              <br />
-              Um horizonte em comum.
-            </span>
-          </div>
-        </div>
-      </section>
-      <section className="section">
-        <div className="container">
-          <div className="heading-row">
-            <Heading eyebrow="Notícias e histórias" title="Conhecimento em movimento." />
-            <TextLink to="/noticias">Acompanhe as publicações</TextLink>
-          </div>
-          <Suspense fallback={<p role="status">Carregando publicações…</p>}>
-            <LatestNews />
-          </Suspense>
-        </div>
-      </section>
-      <SupportCTA />
-    </>
-  );
-}
 
-export function SupportCTA() {
-  return (
-    <section className="support-cta">
-      <div className="container">
-        <HeartHandshake size={44} strokeWidth={1.3} aria-hidden="true" />
-        <div>
-          <p className="eyebrow">Apoie a Ciência</p>
-          <h2>
-            Uma oportunidade pode
-            <br />
-            mudar uma trajetória.
-          </h2>
-          <p>Conheça as formas de apoiar o desenvolvimento científico.</p>
+      <section className="section section-gray institutional-presentation" id="apresentacao">
+        <div className="container split">
+          <Heading eyebrow="Documento institucional" title="Conheça a apresentação do Foton." />
+          <div className="body-copy">
+            <p>
+              Consulte a apresentação institucional de 10 de setembro de 2026,
+              com a identidade, o propósito, o ecossistema e as iniciativas do Instituto.
+            </p>
+            <Action to="/apresentacao">Visualizar apresentação</Action>
+          </div>
         </div>
-        <Action to="/apoie">Ajude um Cientista Inovador</Action>
-      </div>
-    </section>
+      </section>
+
+      <section className="section institutional-contact">
+        <div className="container split">
+          <Heading eyebrow="Contato" title="Converse com o Instituto Foton." />
+          <div className="body-copy">
+            <p>Para conhecer as atividades ou conversar sobre pesquisa e colaboração,
+              utilize os canais institucionais disponíveis na página de contato.</p>
+            <Action to="/contato">Canais de contato</Action>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -310,7 +167,7 @@ function InstituteLightPath() {
     const layoutPath = () => {
       const bounds = wrapper.getBoundingClientRect();
       const title = wrapper.querySelector<HTMLElement>('.page-intro h1');
-      const history = wrapper.querySelector<HTMLElement>(':scope > section:nth-of-type(2) h2');
+      const history = wrapper.querySelector<HTMLElement>('.institute-history h2');
       const word = wrapper.querySelector<HTMLElement>('.large-word');
       if (!title || !history || !word) return;
       const relative = (element: HTMLElement) => {
@@ -408,31 +265,18 @@ export function Institute() {
             torno da ciência quântica.
           </p>
         </Intro>
-        <section className="section institute-banner-section">
-          <div className="container institute-banner-layout">
-            <div>
-              <p className="eyebrow"><span /> Uma ciência construída em rede</p>
-              <h2>Pessoas, gerações e conhecimento em diálogo.</h2>
-              <p>
-                A tecnologia ganha significado quando conecta diferentes experiências e ideias.
-                As cenas ilustrativas mostram essa intenção, sem representar encontros reais do Foton.
-              </p>
-            </div>
-            <FotonPhoto id="instituto-community" priority className="institute-banner-photo" />
-          </div>
-        </section>
-        <section className="section">
+        <section className="section institute-history">
           <div className="container split">
             <Heading eyebrow="Nossa história" title="Uma inquietação que se tornou encontro." />
             <div className="body-copy">
               <p>
-                O percurso de articulação do Foton começou em 2023. Em 2024, conexões com
-                pesquisadores e iniciativas acadêmicas ampliaram a formação científica e a
-                construção de uma rede nacional.
+                O Instituto de Ciências e Tecnologias Quânticas articula pesquisadores,
+                profissionais e organizações para aproximar ciência de fronteira
+                de decisões, soluções e oportunidades.
               </p>
               <p>
-                O Instituto foi fundado em <strong>14 de abril de 2025</strong>, com o apoio de 35
-                membros de diferentes estados brasileiros.
+                Sua atuação multidisciplinar conecta ciência, educação e articulação
+                institucional, conforme a apresentação de setembro de 2026.
               </p>
             </div>
           </div>
@@ -487,69 +331,28 @@ export function Institute() {
       </div>
       <section className="section">
         <div className="container">
-          <Heading eyebrow="O que nos conecta" title="Conhecimento, formação e colaboração." />
+          <Heading eyebrow="Frentes de articulação" title="Ciência, formação e estratégia." />
           <div className="three-grid">
             <div className="info-card">
               <BookOpen aria-hidden="true" />
-              <h3>Ensino</h3>
-              <p>Aproximar pessoas do conhecimento e valorizar trajetórias de aprendizado.</p>
+              <h3>Educação e formação</h3>
+              <p>Promover a aproximação entre conhecimento científico, formação e sociedade.</p>
             </div>
             <div className="info-card">
               <Compass aria-hidden="true" />
-              <h3>Pesquisa</h3>
-              <p>
-                Investigar questões científicas por meio de articulação entre especialidades e
-                instituições.
-              </p>
+              <h3>Pesquisa aplicada</h3>
+              <p>Articular temas de investigação e colaboração entre diferentes áreas.</p>
             </div>
             <div className="info-card">
               <Network aria-hidden="true" />
-              <h3>Negócios e Inovação</h3>
-              <p>Conectar o conhecimento científico a desafios e oportunidades da sociedade.</p>
+              <h3>Inteligência estratégica</h3>
+              <p>Conectar conhecimento e análise a decisões de organizações e sociedade.</p>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="section institute-people spectral-divider">
-        <div className="container institute-people-grid">
-          <div>
-            <p className="eyebrow"><span /> O encontro entre gerações</p>
-            <h2>O futuro da ciência se constrói em conjunto.</h2>
-            <p>
-              A trajetória do Instituto também se revela nos momentos de troca,
-              colaboração e aproximação com diferentes ambientes de ciência e inovação.
-            </p>
-            <TextLink to="/manifesto">Conheça as iniciativas</TextLink>
-          </div>
-          <FotonPhoto
-            id="home-generational-legacy"
-            className="institute-photography"
-          />
         </div>
       </section>
       <OfficialStatements />
-      <section className="section section-gray">
-        <div className="container split">
-          <Heading
-            eyebrow="Um legado entre gerações"
-            title="Experiência e novos olhares têm muito a compartilhar."
-          />
-          <div>
-            <p>
-              A ciência se fortalece quando diferentes trajetórias se encontram. Acolher quem está
-              começando e quem traz décadas de experiência é parte da proposta deste portal.
-            </p>
-            <p>
-              Conheça a estrutura de transparência e os documentos institucionais disponíveis para
-              divulgação pública.
-            </p>
-            <div className="actions">
-              <Action to="/transparencia">Transparência</Action>
-              <TextLink to="/apresentacao">Apresentação institucional</TextLink>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </>
   );
 }
@@ -576,8 +379,8 @@ export function Research() {
             <div className="notice">
               <h3>Pesquisa se faz em rede</h3>
               <p>
-                As áreas apresentadas são campos de investigação. Elas não representam laboratórios
-                próprios, produtos disponíveis ou garantia de resultados.
+                O Instituto articula temas de investigação que conectam diferentes
+                especialidades e instituições em torno das tecnologias quânticas.
               </p>
             </div>
             <div className="actions">
@@ -586,21 +389,20 @@ export function Research() {
             </div>
           </div>
         </section>
-        <SupportCTA />
-      </>
+        </>
     );
   return (
     <>
-      <HumanPageHero
-        eyebrow="Pesquisa e ecossistema"
-        title="Diferentes saberes. Perguntas em comum."
-        description="Tecnologias quânticas são um campo de investigação que pede colaboração. Conheça as áreas que conectam nossa rede."
-        photoId="pesquisa-collaboration"
-      >
-        <Action to="/jornada">Conheça a Jornada</Action>
-      </HumanPageHero>
+      <Intro eyebrow="Pesquisa e ecossistema" title="Diferentes saberes. Perguntas em comum.">
+        <p>Conheça campos de investigação em tecnologias quânticas e as
+          conexões multidisciplinares do Instituto Foton.</p>
+      </Intro>
       <section className="section">
         <div className="container">
+          <p className="section-description">
+            Explore cinco agrupamentos de temas científicos. A apresentação institucional
+            de setembro de 2026 reúne informações sobre a estrutura temática do Instituto.
+          </p>
           <div className="research-grid full-research">
             {researchLines.map((line) => (
               <Link className="research-card" to={`/pesquisa/${line.slug}`} key={line.slug}>
@@ -646,70 +448,30 @@ export function Research() {
 export function Journey() {
   return (
     <>
-      <HumanPageHero
-        eyebrow="Jornada do Cientista Inovador"
-        title="A próxima pergunta pode ser sua."
-        description="A curiosidade pode surgir na escola, amadurecer na universidade ou ganhar novo sentido depois de uma carreira inteira."
-        photoId="jornada-hero-pathways"
-      >
-        <Action to="/pesquisa">Explore a pesquisa</Action>
-        <TextLink to="/instituto">Conheça o Instituto</TextLink>
-      </HumanPageHero>
+      <Intro eyebrow="Programa institucional" title="Jornada do Cientista Inovador">
+        <p>Iniciativa apresentada pelo Instituto Foton em setembro de 2026,
+          com foco na aproximação entre formação, pesquisa e inovação.</p>
+      </Intro>
       <section className="section">
-        <div className="container">
-          <Heading
-            eyebrow="Cada trajetória tem seu tempo"
-            title="Você não precisa ter todas as respostas para começar."
-          />
-          <div className="three-grid journey-photo-grid">
-            {([
-              { id: 'mosaic-students', title: 'Estou começando',
-                text: 'Observe, pergunte e construa repertório. A ciência também começa nas questões que surgem no cotidiano.' },
-              { id: 'mosaic-training', title: 'Quero me aproximar da pesquisa',
-                text: 'Conheça áreas de investigação, aprofunde fundamentos e descubra a importância da colaboração científica.' },
-              { id: 'mosaic-collaborators', title: 'Tenho experiência e quero contribuir',
-                text: 'Seu percurso profissional pode trazer perspectivas valiosas. Novos caminhos também se abrem a partir da experiência.' },
-            ] as const).map(({ id, title, text }) => (
-              <div className="info-card journey-photo-card" key={title}>
-                <FotonPhoto id={id} className="journey-step-photo" showCaption={false} />
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <TextLink to="/pesquisa">Explore a pesquisa</TextLink>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="section section-gray">
-        <div className="container">
-          <Heading
-            eyebrow="Uma trajetória possível"
-            title="Da curiosidade ao conhecimento compartilhado."
-          />
-          <p className="section-description">
-            Este percurso é ilustrativo. Cada pessoa e cada pesquisa têm seu próprio caminho.
-          </p>
-          <ol className="journey-steps">
-            {journeySteps.map(([title, text], i) => (
-              <li key={title}>
-                <span className="number">{String(i + 1).padStart(2, '0')}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="notice">
-            <h3>Acompanhe os próximos passos</h3>
+        <div className="container split">
+          <Heading eyebrow="Propósito" title="Formação científica e conexões entre pessoas." />
+          <div className="body-copy">
             <p>
-              Esta página apresenta a proposta da Jornada. Cadastros individuais, mentorias e bolsas
-              não estão disponíveis aqui. Oportunidades serão comunicadas pelos canais
-              institucionais quando houver chamadas oficiais.
+              A Jornada do Cientista Inovador integra a apresentação institucional
+              como uma frente de aproximação com a ciência e suas possibilidades
+              de formação e articulação.
             </p>
-            <TextLink to="/noticias">Notícias e atualizações</TextLink>
+            <p>
+              Para conhecer atividades e oportunidades de participação na Jornada,
+              converse com o Instituto pelos canais institucionais.
+            </p>
+            <div className="actions">
+              <Action to="/contato">Canais de contato</Action>
+              <TextLink to="/apresentacao">Apresentação institucional</TextLink>
+            </div>
           </div>
         </div>
       </section>
-      <SupportCTA />
     </>
   );
 }
@@ -857,7 +619,6 @@ export function Manifesto() {
           </div>
         </div>
       </section>
-      <SupportCTA />
     </>
   );
 }
@@ -875,8 +636,8 @@ export function Contact() {
         <div className="container reading">
           <Heading title="Fale com o Instituto Foton" />
           <p>
-            Consulte os canais publicados no site institucional comercial para conversar com a
-            equipe sobre sua área de interesse.
+            Encontre os canais oficiais para conversar com a equipe sobre pesquisa,
+            educação, colaboração e iniciativas institucionais.
           </p>
           <External href="https://institutofoton.com.br/" className="button">
             Acessar canais institucionais
@@ -890,10 +651,7 @@ export function Contact() {
               <li>Patrocínio empresarial</li>
               <li>Imprensa</li>
             </ul>
-            <p>
-              Este portal não recebe mensagens por formulário nesta versão. Não solicitamos dados
-              pessoais ou financeiros por aqui.
-            </p>
+            <p>Escolha o assunto e converse com o Instituto pelos canais oficiais.</p>
           </div>
         </div>
       </section>
@@ -906,55 +664,46 @@ export function Legal({ terms = false }: { terms?: boolean }) {
     <>
       <Intro
         eyebrow={terms ? 'Uso do portal' : 'Privacidade'}
-        title={terms ? 'Informação com responsabilidade.' : 'Respeito pelas pessoas e seus dados.'}
+        title={terms ? 'Informação com responsabilidade.' : 'Respeito às pessoas e seus dados.'}
       />
       <section className="section">
         <div className="container reading">
           {terms ? (
             <>
-              <h2>Sobre este portal</h2>
+              <h2>Sobre o conteúdo</h2>
               <p>
-                O portal apresenta informações científicas e institucionais. Conteúdo educativo não
-                representa promessa de resultado científico, orientação profissional individualizada
-                ou oferta de investimento.
+                O portal reúne informações institucionais e científicas do Instituto Foton.
+                As informações educativas têm finalidade de divulgação e comunicação científica.
               </p>
-              <h2>Apoio à ciência</h2>
+              <h2>Iniciativas e colaboração</h2>
               <p>
-                As modalidades apresentadas são informativas e estão em estruturação. Este site não
-                processa doações, Pix, pagamentos ou inscrições em bolsas.
+                Para informações sobre atividades, cooperação e apoio à ciência,
+                utilize os canais oficiais do Instituto.
               </p>
-              <h2>Fontes e links</h2>
+              <h2>Fontes e referências</h2>
               <p>
-                Conteúdo de terceiros permanece sob responsabilidade de sua fonte. Consulte a origem
-                indicada para verificar atualizações e condições de uso.
+                Os documentos institucionais estão disponíveis nas páginas
+                de apresentação e transparência. Conteúdos de terceiros
+                são identificados por suas fontes quando aplicável.
               </p>
             </>
           ) : (
             <>
-              <h2>Navegação pública</h2>
+              <h2>Navegação e informações técnicas</h2>
               <p>
-                Esta versão não inclui ferramentas de publicidade, rastreamento de visitantes,
-                formulário de contato ou processamento de pagamentos. A hospedagem e os serviços de
-                infraestrutura podem tratar registros técnicos necessários à entrega e à proteção do
-                site.
+                O site disponibiliza páginas e documentos institucionais públicos.
+                O serviço de hospedagem pode processar registros técnicos necessários
+                ao funcionamento e à segurança da navegação.
               </p>
-              <h2>Acesso institucional</h2>
+              <h2>Contato institucional</h2>
               <p>
-                O login é destinado a Marketing e Diretoria e utiliza Google e Supabase.
-                Identificadores de conta e sessão são usados para autenticar a pessoa e verificar
-                sua autorização institucional. A biblioteca oficial mantém a sessão no navegador;
-                ela pode ser encerrada pelo botão de sair.
+                Questões sobre privacidade e tratamento de informações podem ser
+                encaminhadas pelos canais oficiais do Instituto Foton.
               </p>
-              <h2>Serviços externos</h2>
+              <h2>Sites e serviços externos</h2>
               <p>
-                Links externos e o login levam a serviços com políticas próprias. Este portal não
-                recebe sua senha Google.
-              </p>
-              <h2>Contato e direitos</h2>
-              <p>
-                Para questões sobre dados e identificação dos responsáveis institucionais, consulte
-                os canais oficiais do Instituto. Uma política institucional completa será
-                disponibilizada após aprovação; este aviso descreve os recursos desta versão.
+                Links para serviços externos seguem as políticas de privacidade
+                e os termos próprios de seus responsáveis.
               </p>
               <TextLink to="/contato">Canais institucionais</TextLink>
             </>
@@ -969,7 +718,7 @@ export function NotFound() {
   return (
     <>
       <Intro eyebrow="Página não encontrada · 404" title="Vamos encontrar outro caminho.">
-        <p>Esta página não existe ou o conteúdo ainda não está disponível para publicação.</p>
+        <p>Confira o endereço ou utilize o menu para conhecer as páginas do Instituto.</p>
       </Intro>
       <section className="section">
         <div className="container">

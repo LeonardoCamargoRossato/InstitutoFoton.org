@@ -36,6 +36,7 @@ function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
   const [fallback, setFallback] = useState(false);
   return (
     <img src={fallback ? src : optimized(src)} alt={alt}
+      data-preview-format={fallback ? 'png-fallback' : 'webp'}
       data-full-image={src}
       loading="lazy" decoding="async" fetchPriority="low"
       draggable={false}
@@ -45,6 +46,7 @@ function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
 
 function Video({ src, image, title }: { src: string; image: string; title: string }) {
   const [playing, setPlaying] = useState(false);
+  const [posterOpen, setPosterOpen] = useState(false);
   const videoId = src.match(/embed\/([^?]+)/)?.[1];
   const start = new URL(src).searchParams.get('start');
   const external = videoId
@@ -62,14 +64,33 @@ function Video({ src, image, title }: { src: string; image: string; title: strin
             allowFullScreen
           />
         ) : (
-          <button type="button" onClick={() => setPlaying(true)} aria-label={`Reproduzir ${title}`}>
+          <button className="manifesto-video-play" type="button" onClick={() => setPlaying(true)} aria-label={`Reproduzir ${title}`}>
             <ProgressiveImage src={image} alt="" />
             <span className="media-play" aria-hidden="true">
               <Play fill="currentColor" />
             </span>
           </button>
         )}
+        {!playing && (
+          <button
+            type="button"
+            className="manifesto-video-zoom"
+            aria-label={`Ampliar imagem de capa: ${title}`}
+            title="Ampliar imagem"
+            onClick={() => setPosterOpen(true)}
+          >
+            <Maximize2 size={20} aria-hidden="true" />
+          </button>
+        )}
       </div>
+      {posterOpen && (
+        <ImageZoomDialog
+          src={image}
+          fallback={optimized(image)}
+          title={`Imagem de capa: ${title}`}
+          onClose={() => setPosterOpen(false)}
+        />
+      )}
       <a href={external} target="_blank" rel="noopener noreferrer">
         Abrir vídeo no YouTube
       </a>

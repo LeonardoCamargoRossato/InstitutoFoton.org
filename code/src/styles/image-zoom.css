@@ -44,3 +44,31 @@
   }
   @media (prefers-reduced-motion: reduce) { .foton-zoom-stage > img { transition: none; } }
 }
+
+@layer components {
+  /* Na capa de um vídeo, reproduzir e ampliar a imagem são ações independentes. */
+  .manifesto-video > button.manifesto-video-zoom {
+    position: absolute;
+    z-index: 5;
+    right: 12px;
+    bottom: 12px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, .6);
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: rgba(4, 18, 49, .82);
+    cursor: zoom-in;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(8px);
+  }
+  .manifesto-video > button.manifesto-video-zoom::after { content: none; }
+  .manifesto-video > button.manifesto-video-zoom:hover,
+  .manifesto-video > button.manifesto-video-zoom:focus-visible {
+    background: #0158bb;
+    outline: 2px solid #a0e8ff;
+    outline-offset: 2px;
+  }
+}

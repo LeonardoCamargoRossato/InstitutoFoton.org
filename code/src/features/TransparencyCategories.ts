@@ -18,7 +18,7 @@ export const TRANSPARENCY_CATEGORIES: ReadonlyArray<{
   {
     id: 'annual',
     title: 'Relatórios anuais',
-    description: 'Balanços narrativos das atividades de cada ano, quando publicados.',
+    description: 'Relatórios e registros das atividades institucionais por ano.',
   },
   {
     id: 'periodic',

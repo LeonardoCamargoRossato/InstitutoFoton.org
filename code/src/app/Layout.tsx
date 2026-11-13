@@ -15,7 +15,7 @@ const navigation = [
   ['/transparencia', 'Transparência'],
 ];
 const titles: Record<string, string> = {
-  '/': 'Ciência feita de pessoas',
+  '/': 'Ciências e Tecnologias Quânticas',
   '/instituto': 'O Instituto',
   '/pesquisa': 'Pesquisa em rede',
   '/jornada': 'Jornada do Cientista',
