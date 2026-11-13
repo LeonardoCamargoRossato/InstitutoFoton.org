@@ -6,9 +6,8 @@ export default function Support() {
     <>
       <Intro eyebrow="Apoie a Ciência" title="Apoiar a ciência começa com uma conversa.">
         <p>
-          O Instituto Foton considera diferentes formas de colaboração para
-          aproximar ciência, educação e sociedade. As condições de eventual
-          apoio institucional devem ser confirmadas diretamente com a equipe.
+          O Instituto Foton aproxima ciência, educação e sociedade.
+          Conheça caminhos para dialogar com a equipe sobre colaboração institucional.
         </p>
       </Intro>
       <section className="section">
@@ -23,8 +22,8 @@ export default function Support() {
               ou avaliar possibilidades de apoio? Consulte os canais oficiais.
             </p>
             <p>
-              Esta página não realiza doações, Pix, pagamentos, inscrições,
-              campanhas de arrecadação nem oferece bolsas.
+              O apoio à ciência começa com diálogo, objetivos compartilhados
+              e acompanhamento institucional.
             </p>
             <div className="actions">
               <Action to="/contato">Canais de contato</Action>

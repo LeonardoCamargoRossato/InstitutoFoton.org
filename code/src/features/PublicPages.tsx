@@ -63,9 +63,9 @@ export function Home() {
               e diálogo entre ciência, organizações e sociedade.
             </p>
             <p>
-              Tecnologias quânticas têm potencial de transformar comunicação, segurança, saúde,
-              energia e indústria. Essas possibilidades não são apresentadas como soluções
-              já entregues pelo Instituto.
+              As tecnologias quânticas abrem novas perspectivas para comunicação, segurança,
+              saúde, energia e indústria. O Foton articula conhecimento, pesquisa e diálogo
+              em torno dessas transformações.
             </p>
           </div>
         </div>
@@ -74,20 +74,18 @@ export function Home() {
       <section className="section section-gray spectral-divider" id="ecossistema">
         <div className="container">
           <div className="heading-row">
-            <Heading eyebrow="Ecossistema Foton" title="Uma rede multidisciplinar em construção." />
+            <Heading eyebrow="Ecossistema Foton" title="Ciência conectada em diferentes regiões." />
             <TextLink to="/instituto">Sobre a rede</TextLink>
           </div>
           <p className="section-description">
-            A apresentação institucional de setembro de 2026 registra participantes de diferentes
-            áreas e regiões. Esses indicadores são históricos, não dados atualizados em tempo real.
+            A rede reúne trajetórias de diferentes áreas do conhecimento. A apresentação
+            institucional de setembro de 2026 registra a participação em 15 estados e
+            mais de 140 membros.
           </p>
           <div className="documentary-metrics institutional-metrics">
             <div><strong>15</strong><span>estados representados</span></div>
             <div><strong>140+</strong><span>membros registrados</span></div>
-            <p>
-              <strong>Referência: setembro de 2026.</strong>
-              <span> A presença de instituições no material não implica contrato ou parceria vigente.</span>
-            </p>
+            <p className="metrics-source">Dados institucionais · setembro de 2026.</p>
           </div>
         </div>
       </section>
@@ -98,9 +96,8 @@ export function Home() {
             <Heading eyebrow="Frentes e programas" title="Do conhecimento à articulação." />
           </div>
           <p className="section-description">
-            Iniciativas documentadas na apresentação institucional de setembro de 2026.
-            O status atual de cada programa deve ser confirmado antes de divulgar serviços,
-            inscrições ou oportunidades disponíveis.
+            Conheça as frentes de pesquisa, formação, inovação e articulação apresentadas
+            pelo Instituto Foton em setembro de 2026.
           </p>
           <div className="research-grid institutional-programs">
             {programs.map((program, index) => (
@@ -278,10 +275,8 @@ export function Institute() {
                 de decisões, soluções e oportunidades.
               </p>
               <p>
-                A apresentação institucional de setembro de 2026 registra sua atuação
-                multidisciplinar, programas e proposta de impacto científico e social.
-                Informações formais de fundação, governança e lideranças serão incluídas
-                apenas após conferência documental.
+                Sua atuação multidisciplinar conecta ciência, educação e articulação
+                institucional, conforme a apresentação de setembro de 2026.
               </p>
             </div>
           </div>
@@ -346,7 +341,7 @@ export function Institute() {
             <div className="info-card">
               <Compass aria-hidden="true" />
               <h3>Pesquisa aplicada</h3>
-              <p>Articular temas de investigação e colaboração sem atribuir resultados não comprovados.</p>
+              <p>Articular temas de investigação e colaboração entre diferentes áreas.</p>
             </div>
             <div className="info-card">
               <Network aria-hidden="true" />
@@ -384,8 +379,8 @@ export function Research() {
             <div className="notice">
               <h3>Pesquisa se faz em rede</h3>
               <p>
-                As áreas apresentadas são campos de investigação. Elas não representam laboratórios
-                próprios, produtos disponíveis ou garantia de resultados.
+                O Instituto articula temas de investigação que conectam diferentes
+                especialidades e instituições em torno das tecnologias quânticas.
               </p>
             </div>
             <div className="actions">
@@ -399,16 +394,14 @@ export function Research() {
   return (
     <>
       <Intro eyebrow="Pesquisa e ecossistema" title="Diferentes saberes. Perguntas em comum.">
-        <p>Conheça campos de investigação em tecnologias quânticas e as possibilidades de
-          articulação multidisciplinar. Estas categorias editoriais não equivalem
-          automaticamente a laboratórios próprios ou projetos em execução.</p>
+        <p>Conheça campos de investigação em tecnologias quânticas e as
+          conexões multidisciplinares do Instituto Foton.</p>
       </Intro>
       <section className="section">
         <div className="container">
           <p className="section-description">
-            A apresentação institucional de setembro de 2026 registra seis linhas temáticas,
-            enquanto este portal organiza cinco áreas editoriais. A correspondência entre
-            elas está em revisão; não se presumem equivalências.
+            Explore cinco agrupamentos de temas científicos. A apresentação institucional
+            de setembro de 2026 reúne informações sobre a estrutura temática do Instituto.
           </p>
           <div className="research-grid full-research">
             {researchLines.map((line) => (
@@ -469,9 +462,8 @@ export function Journey() {
               de formação e articulação.
             </p>
             <p>
-              Esta página não oferece inscrições, mentorias, bolsas ou chamadas públicas.
-              A disponibilidade e as condições de qualquer atividade devem ser
-              confirmadas nos canais oficiais do Instituto.
+              Para conhecer atividades e oportunidades de participação na Jornada,
+              converse com o Instituto pelos canais institucionais.
             </p>
             <div className="actions">
               <Action to="/contato">Canais de contato</Action>
@@ -644,8 +636,8 @@ export function Contact() {
         <div className="container reading">
           <Heading title="Fale com o Instituto Foton" />
           <p>
-            Consulte os canais publicados no site institucional comercial para conversar com a
-            equipe sobre sua área de interesse.
+            Encontre os canais oficiais para conversar com a equipe sobre pesquisa,
+            educação, colaboração e iniciativas institucionais.
           </p>
           <External href="https://institutofoton.com.br/" className="button">
             Acessar canais institucionais
@@ -659,10 +651,7 @@ export function Contact() {
               <li>Patrocínio empresarial</li>
               <li>Imprensa</li>
             </ul>
-            <p>
-              Este portal não recebe mensagens por formulário nesta versão. Não solicitamos dados
-              pessoais ou financeiros por aqui.
-            </p>
+            <p>Escolha o assunto e converse com o Instituto pelos canais oficiais.</p>
           </div>
         </div>
       </section>
@@ -675,55 +664,46 @@ export function Legal({ terms = false }: { terms?: boolean }) {
     <>
       <Intro
         eyebrow={terms ? 'Uso do portal' : 'Privacidade'}
-        title={terms ? 'Informação com responsabilidade.' : 'Respeito pelas pessoas e seus dados.'}
+        title={terms ? 'Informação com responsabilidade.' : 'Respeito às pessoas e seus dados.'}
       />
       <section className="section">
         <div className="container reading">
           {terms ? (
             <>
-              <h2>Sobre este portal</h2>
+              <h2>Sobre o conteúdo</h2>
               <p>
-                O portal apresenta informações científicas e institucionais. Conteúdo educativo não
-                representa promessa de resultado científico, orientação profissional individualizada
-                ou oferta de investimento.
+                O portal reúne informações institucionais e científicas do Instituto Foton.
+                As informações educativas têm finalidade de divulgação e comunicação científica.
               </p>
-              <h2>Apoio à ciência</h2>
+              <h2>Iniciativas e colaboração</h2>
               <p>
-                As modalidades apresentadas são informativas e estão em estruturação. Este site não
-                processa doações, Pix, pagamentos ou inscrições em bolsas.
+                Para informações sobre atividades, cooperação e apoio à ciência,
+                utilize os canais oficiais do Instituto.
               </p>
-              <h2>Fontes e links</h2>
+              <h2>Fontes e referências</h2>
               <p>
-                Conteúdo de terceiros permanece sob responsabilidade de sua fonte. Consulte a origem
-                indicada para verificar atualizações e condições de uso.
+                Os documentos institucionais estão disponíveis nas páginas
+                de apresentação e transparência. Conteúdos de terceiros
+                são identificados por suas fontes quando aplicável.
               </p>
             </>
           ) : (
             <>
-              <h2>Navegação pública</h2>
+              <h2>Navegação e informações técnicas</h2>
               <p>
-                Esta versão não inclui ferramentas de publicidade, rastreamento de visitantes,
-                formulário de contato ou processamento de pagamentos. A hospedagem e os serviços de
-                infraestrutura podem tratar registros técnicos necessários à entrega e à proteção do
-                site.
+                O site disponibiliza páginas e documentos institucionais públicos.
+                O serviço de hospedagem pode processar registros técnicos necessários
+                ao funcionamento e à segurança da navegação.
               </p>
-              <h2>Acesso institucional</h2>
+              <h2>Contato institucional</h2>
               <p>
-                O login é destinado a Marketing e Diretoria e utiliza Google e Supabase.
-                Identificadores de conta e sessão são usados para autenticar a pessoa e verificar
-                sua autorização institucional. A biblioteca oficial mantém a sessão no navegador;
-                ela pode ser encerrada pelo botão de sair.
+                Questões sobre privacidade e tratamento de informações podem ser
+                encaminhadas pelos canais oficiais do Instituto Foton.
               </p>
-              <h2>Serviços externos</h2>
+              <h2>Sites e serviços externos</h2>
               <p>
-                Links externos e o login levam a serviços com políticas próprias. Este portal não
-                recebe sua senha Google.
-              </p>
-              <h2>Contato e direitos</h2>
-              <p>
-                Para questões sobre dados e identificação dos responsáveis institucionais, consulte
-                os canais oficiais do Instituto. Uma política institucional completa será
-                disponibilizada após aprovação; este aviso descreve os recursos desta versão.
+                Links para serviços externos seguem as políticas de privacidade
+                e os termos próprios de seus responsáveis.
               </p>
               <TextLink to="/contato">Canais institucionais</TextLink>
             </>
@@ -738,7 +718,7 @@ export function NotFound() {
   return (
     <>
       <Intro eyebrow="Página não encontrada · 404" title="Vamos encontrar outro caminho.">
-        <p>Esta página não existe ou o conteúdo ainda não está disponível para publicação.</p>
+        <p>Confira o endereço ou utilize o menu para conhecer as páginas do Instituto.</p>
       </Intro>
       <section className="section">
         <div className="container">
