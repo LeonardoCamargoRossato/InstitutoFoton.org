@@ -48,9 +48,7 @@ if (
 )
   throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
 // Derivados precisam corresponder exatamente aos 31 SVGs aprovados.
-const displayReport = JSON.parse(
-  await readFile('assets/partner-svg-display-report.json', 'utf8'),
-);
+const displayReport = JSON.parse(await readFile('assets/partner-svg-display-report.json', 'utf8'));
 const displayFiles = new Set(displayReport.records.map((record) => record.file));
 if (
   displayReport.count !== 31 ||
