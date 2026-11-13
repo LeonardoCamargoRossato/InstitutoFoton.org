@@ -37,8 +37,8 @@ function PartnerLogo({
   );
 }
 
-// Algumas logomarcas oficiais são claras ou monocromáticas e precisam de
-// contraste no cartão. O arquivo original não é alterado.
+// Em cards sempre brancos, logos originalmente claras recebem contraste apenas via CSS.
+// Os SVGs originais e as versões de exibição permanecem intactos.
 const lightLogos = new Set(['instituto-rc', 'unisotech']);
 const approvedGroups = partnerGroups(publishedPartners());
 function PartnerCard({
@@ -53,7 +53,7 @@ function PartnerCard({
   const url = safePartnerUrl(partner.partner_url);
   const cardClass =
     'partner-card' +
-    (partner.logo_slug && lightLogos.has(partner.logo_slug) ? ' partner-card-dark' : '');
+    (partner.logo_slug && lightLogos.has(partner.logo_slug) ? ' partner-card-contrast' : '');
   const contents = (
     <>
       <PartnerLogo partner={partner} eager={eager} critical={critical} />
