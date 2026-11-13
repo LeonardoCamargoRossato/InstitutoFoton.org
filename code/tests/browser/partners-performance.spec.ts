@@ -52,8 +52,8 @@ test('Parceiros: 31 SVGs leves, sem animação de entrada, preenchimento e estab
     for (let y = 1; y < info.height - 1; y++) {
       for (let x = 1; x < info.width - 1; x++) {
         const offset = (y * info.width + x) * info.channels;
-        const visiblyColored = data[offset + 3] > 70 &&
-          Math.min(data[offset], data[offset + 1], data[offset + 2]) < 220;
+        const visiblyColored =
+          data[offset + 3] > 70 && Math.min(data[offset], data[offset + 1], data[offset + 2]) < 220;
         if (!visiblyColored) continue;
         painted++;
         left = Math.min(left, x);
