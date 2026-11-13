@@ -3,11 +3,11 @@ import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
 // Auditoria negativa: registrar qualquer tentativa de acesso ao serviço desativado.
-const remoteRequests = new WeakMap<object,string[]>();
+const remoteRequests = new WeakMap<object, string[]>();
 test.beforeEach(({ page }) => {
   const hits: string[] = [];
-  remoteRequests.set(page,hits);
-  page.on('request', req => {
+  remoteRequests.set(page, hits);
+  page.on('request', (req) => {
     if (/supabase\.co|storage\/v1|auth\/v1/i.test(req.url())) hits.push(req.url());
   });
 });
@@ -90,7 +90,8 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
     const word = document.querySelector<HTMLElement>('.photon-section .large-word');
     const end = path.getPointAtLength(path.getTotalLength());
     const story = path.closest<HTMLElement>('.institute-story');
-    if (!wrapper || !word || !story) throw new Error('Institute light-path geometry is unavailable');
+    if (!wrapper || !word || !story)
+      throw new Error('Institute light-path geometry is unavailable');
     let wordLeft = 0;
     let current: HTMLElement | null = word;
     while (current && current !== story) {
@@ -118,9 +119,13 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   await expect(story).toHaveClass(/pulse-arrived/);
   await expect(photon.locator('.photon-wave > span')).toHaveCount(5);
   expect(
-    await photon.locator('.photon-wave > span').first().evaluate((element) =>
-      `${getComputedStyle(element).animationName}:${getComputedStyle(element).animationDelay}`,
-    ),
+    await photon
+      .locator('.photon-wave > span')
+      .first()
+      .evaluate(
+        (element) =>
+          `${getComputedStyle(element).animationName}:${getComputedStyle(element).animationDelay}`,
+      ),
   ).toBe('photon-word-wave:0s');
 });
 
@@ -159,13 +164,16 @@ for (const viewport of [
   });
 }
 
-test('apoie a ciência oferece contato, não modalidades ou pagamentos fictícios', async ({ page }) => {
+test('apoie a ciência oferece contato, não modalidades ou pagamentos fictícios', async ({
+  page,
+}) => {
   await page.goto('./apoie');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Apoiar a ciência começa com uma conversa.',
   );
-  await expect(page.locator('.support-card, .support-researcher-photo, .human-page-hero-photo'))
-    .toHaveCount(0);
+  await expect(
+    page.locator('.support-card, .support-researcher-photo, .human-page-hero-photo'),
+  ).toHaveCount(0);
   await expect(page.getByText(/O apoio à ciência começa com diálogo/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
 });
@@ -187,7 +195,10 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
   await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-video')).toHaveCount(0);
   const cartaNorte = page.locator('.regional-letter').nth(1).locator('.manifesto-image img');
-  await expect(cartaNorte).toHaveAttribute('src', /assets\/WebP\/manifesto-quantico\/Thumb_CartaNorte\.webp$/);
+  await expect(cartaNorte).toHaveAttribute(
+    'src',
+    /assets\/WebP\/manifesto-quantico\/Thumb_CartaNorte\.webp$/,
+  );
   await expect(cartaNorte).toHaveAttribute(
     'data-full-image',
     /assets\/PNG\/manifesto-quantico\/Thumb_CartaNorte\.png$/,
@@ -201,7 +212,9 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
 
   await page.locator('.regional-letter').nth(2).locator('.manifesto-image').click();
   await expect(page.getByRole('dialog', { name: 'Carta do Nordeste' })).toBeVisible();
-  await expect(page.getByRole('dialog').getByText(/Jornada conectou polos de inovação/i)).toBeVisible();
+  await expect(
+    page.getByRole('dialog').getByText(/Jornada conectou polos de inovação/i),
+  ).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
 
@@ -290,11 +303,13 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
       if (name === 'manifesto') {
         // Em capturas fullPage a imagem lazy pode não ter terminado de carregar.
         // Verificar bytes renderizados antes da captura, sem desativar lazy-loading em produção.
-        const overview=page.locator('.manifesto-image img').first();
+        const overview = page.locator('.manifesto-image img').first();
         await overview.scrollIntoViewIfNeeded();
-        await expect.poll(() => overview.evaluate(img => (img as HTMLImageElement).naturalWidth), {
-          timeout: 15000,
-        }).toBeGreaterThan(0);
+        await expect
+          .poll(() => overview.evaluate((img) => (img as HTMLImageElement).naturalWidth), {
+            timeout: 15000,
+          })
+          .toBeGreaterThan(0);
       }
       await page.screenshot({ path: testInfo.outputPath(`${name}-${width}.png`), fullPage: true });
     }

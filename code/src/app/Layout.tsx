@@ -93,7 +93,10 @@ export default function Layout() {
       );
       sections.forEach((section, index) => {
         if (observed.has(section)) return;
-        section.classList.add('reveal-section', `reveal-${['rise', 'right', 'left', 'depth'][index % 4]}`);
+        section.classList.add(
+          'reveal-section',
+          `reveal-${['rise', 'right', 'left', 'depth'][index % 4]}`,
+        );
         observed.add(section);
         observer.observe(section);
       });
@@ -128,7 +131,10 @@ export default function Layout() {
             <img
               className="brand-logo"
               src={assetUrl(imageAsset('foton-logo-light').webpPath)}
-              onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = assetUrl(imageAsset('foton-logo-light').pngPath); }}
+              onError={(event) => {
+                event.currentTarget.onerror = null;
+                event.currentTarget.src = assetUrl(imageAsset('foton-logo-light').pngPath);
+              }}
               alt="Foton"
               width="329"
               height="146"
@@ -186,7 +192,10 @@ export default function Layout() {
                 <img
                   className="brand-logo"
                   src={assetUrl(imageAsset('foton-logo').webpPath)}
-                  onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = assetUrl(imageAsset('foton-logo').pngPath); }}
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = assetUrl(imageAsset('foton-logo').pngPath);
+                  }}
                   alt="Foton"
                   width="1920"
                   height="595"

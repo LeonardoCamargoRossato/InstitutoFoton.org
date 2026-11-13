@@ -1,10 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { TRANSPARENCY_CATEGORIES, transparencyCategory } from '../src/features/TransparencyCategories';
+import {
+  TRANSPARENCY_CATEGORIES,
+  transparencyCategory,
+} from '../src/features/TransparencyCategories';
 
 describe('classificação de documentos públicos', () => {
   it('mantém as cinco categorias essenciais explícitas', () => {
-    expect(TRANSPARENCY_CATEGORIES.map((category) => category.id))
-      .toEqual(['statute', 'assembly', 'annual', 'periodic', 'financial']);
+    expect(TRANSPARENCY_CATEGORIES.map((category) => category.id)).toEqual([
+      'statute',
+      'assembly',
+      'annual',
+      'periodic',
+      'financial',
+    ]);
   });
   it('aceita as categorias em português e inglês sem inferir categorias desconhecidas', () => {
     expect(transparencyCategory('statute')).toBe('statute');

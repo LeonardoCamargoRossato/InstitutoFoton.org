@@ -10,11 +10,7 @@
     "logo_filename": "LogoIHR.svg",
     "tag": "FOTON-ENT-IHR",
     "description": "Instituto de pesquisa e inovação em mobilidade, materiais inteligentes e sistemas embarcados.",
-    "keywords": [
-      "Mobilidade",
-      "Materiais inteligentes",
-      "Sistemas embarcados"
-    ],
+    "keywords": ["Mobilidade", "Materiais inteligentes", "Sistemas embarcados"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -29,11 +25,7 @@
     "logo_filename": "LogoINDT.svg",
     "tag": "FOTON-ENT-INDT",
     "description": "Instituto de P&D com soluções em cibersegurança, materiais, conectividade e manufatura avançada.",
-    "keywords": [
-      "Pesquisa e desenvolvimento",
-      "Indústria 4.0",
-      "Tecnologia"
-    ],
+    "keywords": ["Pesquisa e desenvolvimento", "Indústria 4.0", "Tecnologia"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -48,11 +40,7 @@
     "logo_filename": "LogoTecnopuc.svg",
     "tag": "FOTON-ENT-TECNOPUC",
     "description": "Parque científico e tecnológico da PUCRS que conecta negócios, pesquisa, startups e talentos.",
-    "keywords": [
-      "Parque tecnológico",
-      "Startups",
-      "Pesquisa e desenvolvimento"
-    ],
+    "keywords": ["Parque tecnológico", "Startups", "Pesquisa e desenvolvimento"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -67,11 +55,7 @@
     "logo_filename": "LogoSoftsul.svg",
     "tag": "FOTON-ENT-SOFTSUL",
     "description": "Associação que promove empresas de software, inovação e desenvolvimento de negócios de TI no RS.",
-    "keywords": [
-      "Software",
-      "Associativismo",
-      "Inovação"
-    ],
+    "keywords": ["Software", "Associativismo", "Inovação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -86,11 +70,7 @@
     "logo_filename": "LogoPIT.svg",
     "tag": "FOTON-ENT-PIT",
     "description": "Parque de Inovação Tecnológica de São José dos Campos que conecta empresas, startups e pesquisa.",
-    "keywords": [
-      "Parque tecnológico",
-      "Startups",
-      "Inovação"
-    ],
+    "keywords": ["Parque tecnológico", "Startups", "Inovação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -105,11 +85,7 @@
     "logo_filename": "LogoUnisoTech.svg",
     "tag": "FOTON-ENT-UNISOTECH",
     "description": "ICT da Universidade de Sorocaba que apoia startups e projetos empresariais de P&D.",
-    "keywords": [
-      "Pesquisa e desenvolvimento",
-      "Startups",
-      "Inovação"
-    ],
+    "keywords": ["Pesquisa e desenvolvimento", "Startups", "Inovação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -124,11 +100,7 @@
     "logo_filename": "LogoCNECGravatai.svg",
     "tag": "FOTON-ENT-CNEC-GRAVATAI",
     "description": "Instituição educacional com cursos de graduação, pós-graduação e atividades acadêmicas.",
-    "keywords": [
-      "Ensino superior",
-      "Graduação",
-      "Pós-graduação"
-    ],
+    "keywords": ["Ensino superior", "Graduação", "Pós-graduação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -143,11 +115,7 @@
     "logo_filename": "LogoAnhembiMorumbiCampusAthonSorocaba.svg",
     "tag": "FOTON-ENT-ANHEMBI-MORUMBI-CAMPUS-ATHON-SOROCABA",
     "description": "Instituição de ensino superior em Sorocaba com graduação, especializações e formação executiva.",
-    "keywords": [
-      "Ensino superior",
-      "Graduação",
-      "MBA"
-    ],
+    "keywords": ["Ensino superior", "Graduação", "MBA"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -162,11 +130,7 @@
     "logo_filename": "LogoLACQFeynman.svg",
     "tag": "FOTON-ENT-LACQ-FEYNMAN",
     "description": "Liga acadêmica que democratiza a computação quântica por meio de cursos, projetos e eventos.",
-    "keywords": [
-      "Educação quântica",
-      "Pesquisa",
-      "Comunidade"
-    ],
+    "keywords": ["Educação quântica", "Pesquisa", "Comunidade"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -181,11 +145,7 @@
     "logo_filename": "LogoPrefeituraGravatai.svg",
     "tag": "FOTON-ENT-PREFEITURA-GRAVATAI",
     "description": "Portal da Prefeitura de Gravataí com serviços públicos e informações de gestão municipal.",
-    "keywords": [
-      "Gestão municipal",
-      "Gravataí",
-      "Serviços públicos"
-    ],
+    "keywords": ["Gestão municipal", "Gravataí", "Serviços públicos"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -200,11 +160,7 @@
     "logo_filename": "LogoInovaBR.svg",
     "tag": "FOTON-ENT-INOVA-BR",
     "description": "Instituto sem fins lucrativos que promove empreendedorismo, educação e ecossistemas de inovação.",
-    "keywords": [
-      "Empreendedorismo",
-      "Inovação",
-      "Educação"
-    ],
+    "keywords": ["Empreendedorismo", "Inovação", "Educação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -219,11 +175,7 @@
     "logo_filename": "LogoSERGS.svg",
     "tag": "FOTON-ENT-SERGS",
     "description": "Entidade representativa de profissionais da engenharia no Rio Grande do Sul, com eventos e debates.",
-    "keywords": [
-      "Engenharia",
-      "Associativismo",
-      "Eventos"
-    ],
+    "keywords": ["Engenharia", "Associativismo", "Eventos"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -238,11 +190,7 @@
     "logo_filename": "LogoAssesproRS.svg",
     "tag": "FOTON-ENT-ASSESPRO-RS",
     "description": "Associação que representa empresas de tecnologia da informação no Rio Grande do Sul.",
-    "keywords": [
-      "Tecnologia da informação",
-      "Associativismo",
-      "Negócios"
-    ],
+    "keywords": ["Tecnologia da informação", "Associativismo", "Negócios"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -272,11 +220,7 @@
     "logo_filename": "LogoAGTI.svg",
     "tag": "FOTON-ENT-AGTI",
     "description": "Associação do Vale do Gravataí que fomenta tecnologia, pesquisa, capacitação e negócios inovadores.",
-    "keywords": [
-      "Tecnologia",
-      "Inovação",
-      "Empreendedorismo"
-    ],
+    "keywords": ["Tecnologia", "Inovação", "Empreendedorismo"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -291,11 +235,7 @@
     "logo_filename": "LogoNAU.svg",
     "tag": "FOTON-ENT-NAU",
     "description": "Espaço de coworking e eventos que oferece salas, reuniões e atividades para a comunidade empresarial.",
-    "keywords": [
-      "Coworking",
-      "Eventos",
-      "Networking"
-    ],
+    "keywords": ["Coworking", "Eventos", "Networking"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -310,11 +250,7 @@
     "logo_filename": "LogoInstitutoPlaneta.svg",
     "tag": "FOTON-ENT-INSTITUTO-PROJETA-PLANETA",
     "description": "Instituto Projeta Planeta, de Manaus, apresenta iniciativas em ciência, tecnologia e formação; o link cadastrado não abriu na consulta.",
-    "keywords": [
-      "Ciência",
-      "Tecnologia",
-      "Educação"
-    ],
+    "keywords": ["Ciência", "Tecnologia", "Educação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -329,11 +265,7 @@
     "logo_filename": "LogoDobslit.svg",
     "tag": "FOTON-ENT-DOBSLIT",
     "description": "Empresa que desenvolve soluções, produtos e capacitações em computação e tecnologias quânticas.",
-    "keywords": [
-      "Computação quântica",
-      "Algoritmos quânticos",
-      "Capacitação"
-    ],
+    "keywords": ["Computação quântica", "Algoritmos quânticos", "Capacitação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -348,11 +280,7 @@
     "logo_filename": "LogoQuantuLoop.svg",
     "tag": "FOTON-ENT-QUANTULOOP",
     "description": "Oferece software, consultoria e capacitação para adoção empresarial de computação quântica.",
-    "keywords": [
-      "Software quântico",
-      "Consultoria",
-      "Capacitação"
-    ],
+    "keywords": ["Software quântico", "Consultoria", "Capacitação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -367,11 +295,7 @@
     "logo_filename": "LogoHYPAQ.svg",
     "tag": "FOTON-ENT-HYPAQ",
     "description": "Aplica inteligência artificial, otimização e computação quântica a problemas industriais e logísticos.",
-    "keywords": [
-      "Otimização",
-      "Computação quântica",
-      "Inteligência artificial"
-    ],
+    "keywords": ["Otimização", "Computação quântica", "Inteligência artificial"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -386,11 +310,7 @@
     "logo_filename": "LogoQBra.svg",
     "tag": "FOTON-ENT-Q-BRA",
     "description": "Startup que desenvolve projetos e iniciativas educativas em tecnologias quânticas.",
-    "keywords": [
-      "Tecnologias quânticas",
-      "Educação",
-      "Startups"
-    ],
+    "keywords": ["Tecnologias quânticas", "Educação", "Startups"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -405,11 +325,7 @@
     "logo_filename": "LogoKuatia.svg",
     "tag": "FOTON-ENT-KUATIA",
     "description": "Empresa que atua em inovação disruptiva e na disseminação de tecnologias quânticas.",
-    "keywords": [
-      "Tecnologias quânticas",
-      "Inovação disruptiva",
-      "Sustentabilidade"
-    ],
+    "keywords": ["Tecnologias quânticas", "Inovação disruptiva", "Sustentabilidade"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -424,11 +340,7 @@
     "logo_filename": "LogoProNext.svg",
     "tag": "FOTON-ENT-PRONEXT",
     "description": "Empresa de TI com desenvolvimento de software, inteligência artificial, infraestrutura e automação.",
-    "keywords": [
-      "Desenvolvimento de software",
-      "Inteligência artificial",
-      "Automação"
-    ],
+    "keywords": ["Desenvolvimento de software", "Inteligência artificial", "Automação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -443,11 +355,7 @@
     "logo_filename": "LogoAssimetry.svg",
     "tag": "FOTON-ENT-ASSIMETRY",
     "description": "Consultoria empresarial em ciência, tecnologia e inovação aplicada a empresas e ICTs.",
-    "keywords": [
-      "Consultoria",
-      "Tecnologia",
-      "Inovação"
-    ],
+    "keywords": ["Consultoria", "Tecnologia", "Inovação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -462,11 +370,7 @@
     "logo_filename": "LogoAISR.svg",
     "tag": "FOTON-ENT-AISR",
     "description": "Desenvolve análises de dados, inteligência artificial aplicada e plataformas de apoio a decisões.",
-    "keywords": [
-      "Inteligência artificial",
-      "Análise de dados",
-      "Tomada de decisão"
-    ],
+    "keywords": ["Inteligência artificial", "Análise de dados", "Tomada de decisão"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -481,11 +385,7 @@
     "logo_filename": "LogoAlibiDigital.svg",
     "tag": "FOTON-ENT-ALIBI-DIGITAL",
     "description": "Oferece verificação de autenticidade e integridade de evidências digitais para uso jurídico.",
-    "keywords": [
-      "Provas digitais",
-      "Perícia digital",
-      "Segurança da informação"
-    ],
+    "keywords": ["Provas digitais", "Perícia digital", "Segurança da informação"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -500,11 +400,7 @@
     "logo_filename": "LogoVentiur.svg",
     "tag": "FOTON-ENT-VENTIUR",
     "description": "Investidora e aceleradora de startups que conecta empreendedores a capital, mentoria e negócios.",
-    "keywords": [
-      "Venture capital",
-      "Aceleração",
-      "Startups"
-    ],
+    "keywords": ["Venture capital", "Aceleração", "Startups"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -519,11 +415,7 @@
     "logo_filename": "LogoY4.svg",
     "tag": "FOTON-ENT-Y4-SOLUTION",
     "description": "Empresa de infraestrutura de data center, nuvem soberana, segurança e continuidade operacional.",
-    "keywords": [
-      "Data center",
-      "Cloud soberana",
-      "Cibersegurança"
-    ],
+    "keywords": ["Data center", "Cloud soberana", "Cibersegurança"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -538,11 +430,7 @@
     "logo_filename": "LogoPropulse.svg",
     "tag": "FOTON-ENT-PROPULSE",
     "description": "Assessoria especializada em captação de recursos públicos e privados para inovação e startups.",
-    "keywords": [
-      "Captação de recursos",
-      "Editais",
-      "Startups"
-    ],
+    "keywords": ["Captação de recursos", "Editais", "Startups"],
     "status": "publicado",
     "locale": "pt-br"
   },
@@ -557,11 +445,7 @@
     "logo_filename": "LogoArea56.svg",
     "tag": "FOTON-ENT-AREA-56-INOVACAO",
     "description": "Centro de treinamento voltado à liderança, cultura de inovação e empreendedorismo.",
-    "keywords": [
-      "Capacitação",
-      "Inovação",
-      "Liderança"
-    ],
+    "keywords": ["Capacitação", "Inovação", "Liderança"],
     "status": "publicado",
     "locale": "pt-br"
   },
