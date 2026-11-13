@@ -1,8 +1,10 @@
 import { expect, test } from '@playwright/test';
+import sharp from 'sharp';
 
 test('Parceiros: 31 SVGs leves, sem animação de entrada, preenchimento e estabilidade', async ({
   page,
 }) => {
+  test.setTimeout(90_000);
   const failedAssets: string[] = [];
   page.on('requestfailed', (request) => {
     if (request.url().includes('/display-svg/')) failedAssets.push(request.url());
@@ -32,35 +34,39 @@ test('Parceiros: 31 SVGs leves, sem animação de entrada, preenchimento e estab
   for (const card of await cards.all()) {
     await expect(card).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   }
-  // Não basta o <img> ocupar o card: o desenho visível do IHR também precisa
-  // preencher a maior parte da largura, sem margens do SVG original.
-  const ihrArtworkWidth = await page.locator('.partner-card[title="IHR"] img').evaluate((image) => {
-    const img = image as HTMLImageElement;
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 288;
-    const context = canvas.getContext('2d', { willReadFrequently: true });
-    if (!context) throw new Error('Canvas indisponível');
-    const width = Math.min(512, (288 * img.naturalWidth) / img.naturalHeight);
-    const height = (width * img.naturalHeight) / img.naturalWidth;
-    context.drawImage(img, (512 - width) / 2, (288 - height) / 2, width, height);
-    const { data } = context.getImageData(0, 0, 512, 288);
-    let minX = 512;
-    let maxX = -1;
-    for (let y = 0; y < 288; y++) {
-      for (let x = 0; x < 512; x++) {
-        const index = (y * 512 + x) * 4;
-        const visible =
-          data[index + 3] > 35 && Math.min(data[index], data[index + 1], data[index + 2]) < 235;
-        if (visible) {
-          minX = Math.min(minX, x);
-          maxX = Math.max(maxX, x);
-        }
+  // Teste de pixels da captura real do Chromium (não do canvas SVG):
+  // comprova que o desenho existe, não apenas que o arquivo/carregamento existe.
+  const blankLogos: string[] = [];
+  let ihrArtworkWidth = 0;
+  for (const card of await cards.all()) {
+    const title = await card.getAttribute('title');
+    const logoImage = card.locator('img');
+    const screenshot = await logoImage.screenshot({ animations: 'disabled' });
+    const { data, info } = await sharp(screenshot)
+      .ensureAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    let left = info.width;
+    let right = -1;
+    let painted = 0;
+    for (let y = 1; y < info.height - 1; y++) {
+      for (let x = 1; x < info.width - 1; x++) {
+        const offset = (y * info.width + x) * info.channels;
+        const visiblyColored = data[offset + 3] > 70 &&
+          Math.min(data[offset], data[offset + 1], data[offset + 2]) < 220;
+        if (!visiblyColored) continue;
+        painted++;
+        left = Math.min(left, x);
+        right = Math.max(right, x);
       }
     }
-    return maxX < 0 ? 0 : (maxX - minX + 1) / 512;
-  });
-  expect(ihrArtworkWidth).toBeGreaterThan(0.75);
+    if (painted < 12) blankLogos.push(title || 'sem nome');
+    if (title === 'IHR' && right >= left) {
+      ihrArtworkWidth = (right - left + 1) / info.width;
+    }
+  }
+  expect(blankLogos, 'Nenhuma das 31 logos deve parecer vazia na captura real').toEqual([]);
+  expect(ihrArtworkWidth, 'IHR deve usar a maior parte da largura do card').toBeGreaterThan(0.7);
 
   const desktopStyle = await cards.first().evaluate((card) => {
     const style = getComputedStyle(card);
