@@ -11,11 +11,23 @@ export default function SiteImageViewer() {
         (target.matches('.foton-photo[role="button"], .technical-visit-photo[role="button"]') ? target.querySelector('img') : null);
       if (!(el instanceof HTMLImageElement) || !el.closest('#conteudo')) return null;
       if (el.closest('.foton-zoom-dialog, .manifesto-image, .gallery-track, .manifesto-video')) return null;
-      if (el.closest('a') && !el.closest('.human-mosaic-tile')) return null;
+      // Identidade visual continua sendo link para a Home. Imagens nos cards
+      // abrem o PNG correspondente, sem interceptar cliques no texto do card.
+      if (el.closest('.site-header, .site-footer, .brand')) return null;
+      const preview = el.currentSrc || el.src;
+      const local = new URL(preview, window.location.href);
+      const canonicalWebP = local.origin === window.location.origin &&
+        /\/assets\/WebP\/[^?#]+\.webp$/i.test(local.pathname);
+      if (canonicalWebP) {
+        local.pathname = local.pathname
+          .replace('/assets/WebP/', '/assets/PNG/')
+          .replace(/\.webp$/i, '.png');
+      }
       const src = (window.matchMedia('(max-width: 700px)').matches
         ? el.dataset.mobileFullImage || el.dataset.fullImage
-        : el.dataset.fullImage) || el.currentSrc || el.src;
-      return src ? { src, fallback: el.currentSrc || el.src, title: el.alt || 'Fotografia do Instituto Foton' } : null;
+        : el.dataset.fullImage) || (canonicalWebP ? local.href : undefined);
+      if (!src) return null;
+      return { src, fallback: preview, title: el.alt || 'Imagem do Instituto Foton' };
     }
     function click(event: MouseEvent) {
       const match = resolve(event.target);
