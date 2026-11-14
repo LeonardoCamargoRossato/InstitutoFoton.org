@@ -10,8 +10,8 @@ const letters = ['f', 'ó', 't', 'o', 'n'];
  */
 export default function PhotonIdentityAnimation() {
   const root = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(() =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  const [active, setActive] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   );
 
   useEffect(() => {
