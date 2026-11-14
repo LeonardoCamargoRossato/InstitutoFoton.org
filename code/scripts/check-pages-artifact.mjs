@@ -28,7 +28,7 @@ const teamPhotos = [
   'FotoPerfilRosangelaMaraschin.webp',
   'FotoPerfilSuzielliMendonca.webp',
   'FotoPerfilVivianeStamm.webp',
-  'FotoPerfilWilsonFonseca.webp'
+  'FotoPerfilWilsonFonseca.webp',
 ];
 for (const name of teamPhotos) expected.add('assets/img-diretoria/' + name);
 const partnerSnapshot = JSON.parse(await readFile('src/content/partners.json', 'utf8'));
