@@ -28,8 +28,11 @@ test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', 
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
     'Transformar ciência de fronteira',
   );
-  await expect(page.locator('.home-hero img, .human-mosaic-tile, .manifesto-feature')).toHaveCount(
-    0,
+  await expect(page.locator('.human-mosaic-tile, .manifesto-feature')).toHaveCount(0);
+  await expect(page.locator('.home-hero img')).toHaveCount(1);
+  await expect(page.locator('.home-network-center img')).toHaveAttribute(
+    'src',
+    /assets\/WebP\/branding\/favicon\.webp$/,
   );
   await expect(page.locator('.home-hero .hero-identity')).toBeVisible();
   await expect(page.locator('.institutional-programs .research-card')).toHaveCount(4);
