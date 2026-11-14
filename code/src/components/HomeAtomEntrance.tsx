@@ -1,33 +1,101 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { BookOpen, Network, Rocket, UsersRound } from 'lucide-react';
+import { assetUrl } from '../lib/siteAssets';
 
-function AtomArtwork() {
+const fronts = [
+  { id: 'ecosystem', label: 'Formação de ecossistema', Icon: Network },
+  { id: 'talents', label: 'Conexão de talentos', Icon: UsersRound },
+  { id: 'education', label: 'Pesquisa e educação', Icon: BookOpen },
+  { id: 'startups', label: 'Geração de novas startups', Icon: Rocket },
+] as const;
+
+function ArrivingOrbitals() {
   return (
-    <>
-      <span className="hero-identity-orbit hero-identity-orbit-one" />
-      <span className="hero-identity-orbit hero-identity-orbit-two" />
-      <span className="hero-identity-orbit hero-identity-orbit-three" />
-      <span className="hero-identity-nucleus" />
-      <span className="hero-identity-spark spark-one" />
-      <span className="hero-identity-spark spark-two" />
-      <span className="hero-identity-spark spark-three" />
-      <span className="hero-identity-spark spark-four" />
-      <span className="hero-identity-equation">E = hν</span>
-    </>
+    <svg className="home-atom-flight-svg" viewBox="0 0 420 420" aria-hidden="true">
+      <defs>
+        <radialGradient id="home-atom-electron-glow">
+          <stop offset="0" stopColor="#fff" />
+          <stop offset=".42" stopColor="#9deeff" />
+          <stop offset="1" stopColor="#269cff" />
+        </radialGradient>
+      </defs>
+      <g className="home-arriving-orbit home-arriving-orbit-one">
+        <ellipse cx="210" cy="210" rx="149" ry="62" />
+        <circle className="home-orbit-electron" cx="359" cy="210" r="6" />
+        <circle className="home-orbit-electron home-orbit-electron-small" cx="62" cy="210" r="3" />
+      </g>
+      <g className="home-arriving-orbit home-arriving-orbit-two">
+        <ellipse cx="210" cy="210" rx="142" ry="58" />
+        <circle className="home-orbit-electron" cx="68" cy="210" r="5.5" />
+      </g>
+      <g className="home-arriving-orbit home-arriving-orbit-three">
+        <ellipse cx="210" cy="210" rx="155" ry="54" />
+        <circle className="home-orbit-electron" cx="210" cy="156" r="5" />
+      </g>
+      <g className="home-singular-atom">
+        <circle className="home-singular-halo" cx="210" cy="210" r="31" />
+        <circle className="home-singular-nucleus" cx="210" cy="210" r="14" />
+        <circle className="home-singular-highlight" cx="206" cy="206" r="4" />
+      </g>
+      <g className="home-atom-burst">
+        <circle cx="210" cy="210" r="34" className="home-atom-burst-ring" />
+        <circle cx="210" cy="210" r="65" className="home-atom-burst-ring-secondary" />
+        {Array.from({ length: 12 }, (_, index) => {
+          const radians = (index * Math.PI) / 6;
+          return (
+            <line
+              key={index}
+              x1={210 + Math.cos(radians) * 28}
+              y1={210 + Math.sin(radians) * 28}
+              x2={210 + Math.cos(radians) * 108}
+              y2={210 + Math.sin(radians) * 108}
+            />
+          );
+        })}
+      </g>
+    </svg>
+  );
+}
+
+function FotonNetwork({ settled, destination }: { settled: boolean; destination: React.RefObject<HTMLDivElement | null> }) {
+  return (
+    <div
+      ref={destination}
+      className={'hero-identity hero-identity--network' + (settled ? ' is-settled' : '')}
+      role="img"
+      aria-label="Foton conecta formação de ecossistema, conexão de talentos, pesquisa e educação, e geração de novas startups."
+      data-testid="home-foton-network"
+    >
+      <svg className="home-network-edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 24 22 Q 36 31 50 50" />
+        <path d="M 76 22 Q 64 31 50 50" />
+        <path d="M 24 78 Q 36 69 50 50" />
+        <path d="M 76 78 Q 64 69 50 50" />
+        <circle cx="50" cy="50" r="2.3" />
+      </svg>
+      <div className="home-network-center">
+        <img src={assetUrl('assets/WebP/branding/favicon.webp')} alt="" width="60" height="68" />
+        <strong>Foton</strong>
+      </div>
+      {fronts.map(({ id, label, Icon }) => (
+        <div className={'home-network-node home-network-node--' + id} key={id}>
+          <Icon size={17} strokeWidth={2} aria-hidden="true" />
+          <span>{label}</span>
+        </div>
+      ))}
+    </div>
   );
 }
 
 /**
- * Usa uma cópia transitória do átomo original sobre a viewport e faz a transição
- * até as coordenadas reais do átomo da Home. A cópia desaparece ao terminar;
- * o elemento estático original ocupa exatamente a mesma posição.
- *
- * Uma única animação por montagem da Home; sem imagens, bibliotecas adicionais,
- * polling, scroll-jank ou alterações de layout.
+ * Orbitais individuais chegam do alto sem um card ao redor.
+ * Eles convergem em um único núcleo, há um pulso de expansão e só então
+ * surge o grafo do Foton. A arte final permanece estática e acessível.
  */
 export default function HomeAtomEntrance() {
-  const stationary = useRef<HTMLDivElement>(null);
-  const flying = useRef<HTMLDivElement>(null);
+  const destination = useRef<HTMLDivElement>(null);
+  const flight = useRef<HTMLDivElement>(null);
   const [settled, setSettled] = useState(
     () =>
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
@@ -37,64 +105,37 @@ export default function HomeAtomEntrance() {
 
   useLayoutEffect(() => {
     if (settled) return;
-    const destination = stationary.current;
-    const overlay = flying.current;
-    if (!destination || !overlay) return;
+    const target = destination.current;
+    const overlay = flight.current;
+    if (!target || !overlay) return;
 
-    const target = destination.getBoundingClientRect();
+    const placeOrbitals = () => {
+      const bounds = target.getBoundingClientRect();
+      Object.assign(overlay.style, {
+        left: bounds.left + 'px',
+        top: bounds.top + 'px',
+        width: bounds.width + 'px',
+        height: bounds.height + 'px',
+        visibility: 'visible',
+      });
+      const fall = bounds.top + bounds.height / 2 + Math.max(260, innerHeight * 0.52);
+      overlay.style.setProperty('--orbital-fall', fall + 'px');
+    };
+
+    placeOrbitals();
+    window.addEventListener('resize', placeOrbitals);
     const mobile = window.innerWidth <= 700;
-    const centerX = target.left + target.width / 2;
-    const fromX = window.innerWidth * (mobile ? 0.45 : 0.48) - centerX;
-    const fromY = -target.top - target.height * (mobile ? 1.55 : 1.85);
-    const duration = mobile ? 2200 : 2900;
+    overlay.style.setProperty('--motion-factor', mobile ? '0.82' : '1');
 
-    // Layout idêntico ao destino: apenas transform/opacity são animados.
-    Object.assign(overlay.style, {
-      left: target.left + 'px',
-      top: target.top + 'px',
-      width: target.width + 'px',
-      height: target.height + 'px',
-      visibility: 'visible',
-    });
-
-    const frames: Keyframe[] = [
-      {
-        offset: 0,
-        opacity: 1,
-        transform: `translate3d(${fromX}px, ${fromY}px, 0) rotate(-115deg) scale(${mobile ? 1.9 : 2.65})`,
-        easing: 'cubic-bezier(0.42, 0, 0.72, 0.95)',
-      },
-      {
-        offset: 0.38,
-        opacity: 1,
-        transform: `translate3d(${fromX * 0.72}px, ${fromY * 0.32}px, 0) rotate(-64deg) scale(${mobile ? 1.45 : 1.85})`,
-        easing: 'cubic-bezier(0.18, 0.78, 0.3, 1)',
-      },
-      {
-        offset: 0.73,
-        opacity: 1,
-        transform: `translate3d(${-Math.min(45, target.width * 0.14)}px, -${Math.min(54, target.height * 0.16)}px, 0) rotate(14deg) scale(1.17)`,
-        easing: 'cubic-bezier(0.22, 0.8, 0.22, 1)',
-      },
-      {
-        offset: 0.92,
-        opacity: 1,
-        transform: 'translate3d(0, 0, 0) rotate(0deg) scale(1)',
-      },
-      {
-        offset: 1,
-        opacity: 0,
-        transform: 'translate3d(0, 0, 0) rotate(0deg) scale(1)',
-      },
-    ];
-    const animation = overlay.animate(frames, {
-      duration,
-      easing: 'linear',
+    // Mantém o ciclo de vida alinhado ao término da explosão (sem polling/timers).
+    const animation = overlay.animate([{ opacity: 1 }, { opacity: 1 }], {
+      duration: mobile ? 3150 : 3850,
       fill: 'both',
     });
     animation.onfinish = () => setSettled(true);
 
     return () => {
+      window.removeEventListener('resize', placeOrbitals);
       animation.onfinish = null;
       animation.cancel();
     };
@@ -102,22 +143,11 @@ export default function HomeAtomEntrance() {
 
   return (
     <>
-      <div
-        ref={stationary}
-        className={'hero-identity hero-identity--static' + (settled ? ' is-settled' : '')}
-        aria-hidden="true"
-      >
-        <AtomArtwork />
-      </div>
+      <FotonNetwork settled={settled} destination={destination} />
       {!settled &&
         createPortal(
-          <div
-            ref={flying}
-            className="hero-identity hero-identity--flight"
-            aria-hidden="true"
-            data-testid="hero-atom-flight"
-          >
-            <AtomArtwork />
+          <div ref={flight} className="home-atom-flight" data-testid="home-atom-orbitals" aria-hidden="true">
+            <ArrivingOrbitals />
           </div>,
           document.body,
         )}
