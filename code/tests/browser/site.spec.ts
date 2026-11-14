@@ -107,7 +107,7 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   expect(arrival.endX).toBeLessThan(arrival.wordLeft);
   expect(arrival.wordLeft - arrival.endX).toBeGreaterThanOrEqual(24);
   expect(arrival.wordLeft - arrival.endX).toBeLessThanOrEqual(28);
-  await photon.scrollIntoViewIfNeeded();
+  await identity.scrollIntoViewIfNeeded();
   await expect(identity).toHaveClass(/is-active/);
   await expect(identity.locator('.photon-identity-letter')).toHaveCount(5);
   await expect(identity.locator('.photon-identity-type-letter')).toHaveCount(5);
