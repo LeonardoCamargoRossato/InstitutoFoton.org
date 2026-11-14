@@ -1,0 +1,290 @@
+/* Identidade Foton: partícula, reação em cadeia, símbolo oficial e digitação.
+   Isolada do caminho luminoso da página e sem dependências de JavaScript por frame. */
+@layer components {
+  .photon-identity {
+    position: relative;
+    width: min(100%, 560px);
+    min-height: 265px;
+    color: var(--navy);
+    isolation: isolate;
+  }
+  .photon-identity-stage {
+    position: relative;
+    width: 100%;
+    height: 178px;
+  }
+  .photon-identity-initial,
+  .photon-identity-final {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .photon-identity-initial {
+    z-index: 1;
+    transform-origin: 16% 55%;
+  }
+  .photon-identity-word {
+    display: inline-flex;
+    align-items: baseline;
+    font-size: clamp(4.4rem, 8.5vw, 8rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.07em;
+    white-space: nowrap;
+  }
+  .photon-identity-letter {
+    display: inline-block;
+    transform-origin: 50% 80%;
+  }
+  .photon-identity-particle,
+  .photon-identity-impact-ring {
+    position: absolute;
+    left: 6.5%;
+    top: 8%;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .photon-identity-particle {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff 0%, #66e9ff 25%, #006cff 70%);
+    box-shadow:
+      0 0 12px #00c5d8,
+      0 0 28px rgba(0, 108, 255, 0.75);
+  }
+  .photon-identity-impact-ring {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #22d3ee;
+    border-radius: 50%;
+    transform: translate(-4px, -4px) scale(0.1);
+  }
+  .photon-identity-final {
+    z-index: 2;
+    gap: clamp(15px, 2vw, 28px);
+    opacity: 0;
+    transform-origin: left center;
+  }
+  .photon-identity-icon {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    filter: drop-shadow(0 0 16px rgba(1, 88, 187, 0.18));
+  }
+  .photon-identity-icon img {
+    width: clamp(64px, 6.5vw, 88px);
+    height: auto;
+  }
+  .photon-identity-typed {
+    display: inline-flex;
+    align-items: baseline;
+    font-size: clamp(3.8rem, 7vw, 6.8rem);
+    font-weight: 500;
+    line-height: 1.16;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+  }
+  .photon-identity-type-letter {
+    opacity: 0;
+    display: inline-block;
+  }
+  .photon-identity-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.8em;
+    margin-left: 6px;
+    border-radius: 3px;
+    background: var(--blue);
+    opacity: 0;
+    transform: translateY(0.08em);
+  }
+  .photon-identity-caption {
+    display: block;
+    width: fit-content;
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, #6f36ff, #006cff, #00c5d8, #6ed35d, #ffb000, #ef3d7d) 1;
+    color: var(--blue);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+  .photon-identity.is-active .photon-identity-particle {
+    animation: photon-particle-arrive 860ms cubic-bezier(0.3, 0.2, 0.5, 1) 180ms both;
+  }
+  .photon-identity.is-active .photon-identity-impact-ring {
+    animation: photon-impact-ring 660ms ease-out 800ms both;
+  }
+  .photon-identity.is-active .photon-identity-letter {
+    animation: photon-letter-react 720ms cubic-bezier(0.2, 0.72, 0.2, 1) both;
+    animation-delay: 940ms;
+  }
+  .photon-identity.is-active .photon-identity-letter:nth-child(2) {
+    animation-delay: 1110ms;
+  }
+  .photon-identity.is-active .photon-identity-letter:nth-child(3) {
+    animation-delay: 1280ms;
+  }
+  .photon-identity.is-active .photon-identity-letter:nth-child(4) {
+    animation-delay: 1450ms;
+  }
+  .photon-identity.is-active .photon-identity-letter:nth-child(5) {
+    animation-delay: 1620ms;
+  }
+  .photon-identity.is-active .photon-identity-initial {
+    animation: photon-word-transform 520ms ease-in-out 2480ms both;
+  }
+  .photon-identity.is-active .photon-identity-final {
+    animation: photon-icon-reveal 720ms cubic-bezier(0.17, 0.82, 0.28, 1.1) 2920ms both;
+  }
+  .photon-identity.is-active .photon-identity-type-letter {
+    animation: photon-type-in 130ms steps(1, end) both;
+    animation-delay: 3650ms;
+  }
+  .photon-identity.is-active .photon-identity-type-letter:nth-child(2) {
+    animation-delay: 3830ms;
+  }
+  .photon-identity.is-active .photon-identity-type-letter:nth-child(3) {
+    animation-delay: 4010ms;
+  }
+  .photon-identity.is-active .photon-identity-type-letter:nth-child(4) {
+    animation-delay: 4190ms;
+  }
+  .photon-identity.is-active .photon-identity-type-letter:nth-child(5) {
+    animation-delay: 4370ms;
+  }
+  .photon-identity.is-active .photon-identity-cursor {
+    animation: photon-cursor-blink 700ms step-end 3650ms 3;
+  }
+  @keyframes photon-particle-arrive {
+    0% {
+      opacity: 0;
+      transform: translate3d(-75px, -90px, 0) scale(0.35);
+    }
+    18% {
+      opacity: 1;
+    }
+    78% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1.15);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(0, 0, 0) scale(2);
+    }
+  }
+  @keyframes photon-impact-ring {
+    0% {
+      opacity: 0.9;
+      transform: translate(-4px, -4px) scale(0.1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-4px, -4px) scale(4.4);
+    }
+  }
+  @keyframes photon-letter-react {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0) scale(1);
+      color: var(--navy);
+    }
+    30% {
+      transform: translate3d(0, -19px, 0) rotate(-6deg) scale(1.06);
+      color: #006cff;
+    }
+    64% {
+      transform: translate3d(0, 6px, 0) rotate(3deg) scale(0.98);
+      color: #6f36ff;
+    }
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0) scale(1);
+      color: var(--navy);
+    }
+  }
+  @keyframes photon-word-transform {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.7) translateX(-12%);
+    }
+  }
+  @keyframes photon-icon-reveal {
+    0% {
+      opacity: 0;
+      transform: translate3d(-20px, 8px, 0) scale(0.68);
+    }
+    62% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1.055);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+  @keyframes photon-type-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes photon-cursor-blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
+  }
+}
+@layer responsive {
+  @media (max-width: 700px) {
+    .photon-identity {
+      min-height: 235px;
+      width: 100%;
+    }
+    .photon-identity-stage {
+      height: 150px;
+    }
+    .photon-identity-word {
+      font-size: clamp(3.8rem, 15vw, 5.8rem);
+    }
+    .photon-identity-typed {
+      font-size: clamp(3rem, 12vw, 4.7rem);
+    }
+    .photon-identity-particle,
+    .photon-identity-impact-ring {
+      left: 7%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photon-identity .photon-identity-initial,
+    .photon-identity .photon-identity-particle,
+    .photon-identity .photon-identity-impact-ring {
+      display: none;
+    }
+    .photon-identity .photon-identity-final {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    .photon-identity .photon-identity-type-letter {
+      opacity: 1;
+      animation: none;
+    }
+    .photon-identity .photon-identity-cursor {
+      display: none;
+    }
+  }
+}

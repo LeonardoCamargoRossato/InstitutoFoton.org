@@ -20,7 +20,7 @@ export function Presentation() {
   return (
     <>
       <Intro eyebrow="Apresentação institucional" title="Conheça o Foton mais de perto.">
-        <p>Ciência, propósito e conexões. Apresentação institucional de 10 de setembro de 2026.</p>
+        <p>Ciência, propósito e conexões. Conheça a identidade e as iniciativas do Foton.</p>
       </Intro>
       <section className="section section-gray">
         <div className="container">

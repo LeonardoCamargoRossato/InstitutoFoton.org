@@ -4,6 +4,7 @@ import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-reac
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import { researchLines } from './content';
 import PartnerEcosystem from './PartnerEcosystem';
+import PhotonIdentityAnimation from '../components/PhotonIdentityAnimation';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
@@ -47,7 +48,7 @@ export function Home() {
               aproximar as tecnologias quânticas de desafios reais da sociedade.
             </p>
             <div className="actions">
-              <Action to="/instituto">Conheça o Instituto</Action>
+              <Action to="/instituto">Conheça o Foton</Action>
               <TextLink to="/apresentacao">Apresentação institucional</TextLink>
             </div>
             <a className="scroll-hint" href="#porque-existe">
@@ -76,7 +77,7 @@ export function Home() {
               “Transformar ciência de fronteira em decisões, soluções e oportunidades.”
             </blockquote>
             <p>
-              O Instituto busca articular inteligência estratégica, educação, pesquisa aplicada e
+              O Foton busca articular inteligência estratégica, educação, pesquisa aplicada e
               diálogo entre ciência, organizações e sociedade.
             </p>
             <p>
@@ -95,9 +96,8 @@ export function Home() {
             <TextLink to="/instituto">Sobre a rede</TextLink>
           </div>
           <p className="section-description">
-            A rede reúne trajetórias de diferentes áreas do conhecimento. A apresentação
-            institucional de setembro de 2026 registra a participação em 15 estados e mais de 140
-            membros.
+            O Foton reúne trajetórias de diferentes áreas do conhecimento e conecta pessoas,
+            pesquisadores e instituições em diferentes regiões do Brasil.
           </p>
           <div className="documentary-metrics institutional-metrics">
             <div>
@@ -108,7 +108,7 @@ export function Home() {
               <strong>140+</strong>
               <span>membros registrados</span>
             </div>
-            <p className="metrics-source">Dados institucionais · setembro de 2026.</p>
+            <p className="metrics-source">Indicadores institucionais da rede Foton.</p>
           </div>
         </div>
       </section>
@@ -119,8 +119,7 @@ export function Home() {
             <Heading eyebrow="Frentes e programas" title="Do conhecimento à articulação." />
           </div>
           <p className="section-description">
-            Conheça as frentes de pesquisa, formação, inovação e articulação apresentadas pelo
-            Instituto Foton em setembro de 2026.
+            Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.
           </p>
           <div className="research-grid institutional-programs">
             {programs.map((program, index) => (
@@ -145,8 +144,8 @@ export function Home() {
           <Heading eyebrow="Documento institucional" title="Conheça a apresentação do Foton." />
           <div className="body-copy">
             <p>
-              Consulte a apresentação institucional de 10 de setembro de 2026, com a identidade, o
-              propósito, o ecossistema e as iniciativas do Instituto.
+              Explore a identidade, o propósito, o ecossistema e as iniciativas do Foton na
+              apresentação institucional.
             </p>
             <Action to="/apresentacao">Visualizar apresentação</Action>
           </div>
@@ -157,13 +156,15 @@ export function Home() {
 
       <section className="section institutional-contact">
         <div className="container split">
-          <Heading eyebrow="Contato" title="Converse com o Instituto Foton." />
+          <Heading eyebrow="Contato" title="Converse com o Foton." />
           <div className="body-copy">
             <p>
-              Para conhecer as atividades ou conversar sobre pesquisa e colaboração, utilize os
-              canais institucionais disponíveis na página de contato.
+              Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos
+              nossos canais de contato.
             </p>
-            <Action to="/contato">Canais de contato</Action>
+            <div className="institutional-contact-actions">
+              <Action to="/contato">Canais de contato</Action>
+            </div>
           </div>
         </div>
       </section>
@@ -197,7 +198,7 @@ function InstituteLightPath() {
       const bounds = wrapper.getBoundingClientRect();
       const title = wrapper.querySelector<HTMLElement>('.page-intro h1');
       const history = wrapper.querySelector<HTMLElement>('.institute-history h2');
-      const word = wrapper.querySelector<HTMLElement>('.large-word');
+      const word = wrapper.querySelector<HTMLElement>('.photon-identity');
       if (!title || !history || !word) return;
       const relative = (element: HTMLElement) => {
         let x = element.offsetWidth / 2;
@@ -300,8 +301,8 @@ export function Institute() {
                 soluções e oportunidades.
               </p>
               <p>
-                Sua atuação multidisciplinar conecta ciência, educação e articulação institucional,
-                conforme a apresentação de setembro de 2026.
+                A atuação multidisciplinar do Foton conecta ciência, educação e articulação
+                institucional, aproximando diferentes áreas do conhecimento.
               </p>
             </div>
           </div>
@@ -333,21 +334,14 @@ export function Institute() {
             <i className="quantum-particle particle-three" />
           </div>
           <div className="container split">
-            <div className="large-word" aria-label="fóton">
-              <span className="photon-wave" aria-hidden="true">
-                {'fóton'.split('').map((letter, index) => (
-                  <span key={`${letter}-${index}`}>{letter}</span>
-                ))}
-              </span>
-              <span className="large-word-caption">luz · conexão · ciência</span>
-            </div>
+            <PhotonIdentityAnimation />
             <div>
               <Heading
                 eyebrow="Por que Foton?"
                 title="Um nome que carrega uma ideia de movimento."
               />
               <p>
-                O fóton é a partícula elementar da luz. Para o Instituto, o nome simboliza ciência,
+                O fóton é a partícula elementar da luz. Para o Foton, o nome simboliza ciência,
                 conexão e transformação.
               </p>
               <blockquote>
@@ -429,8 +423,8 @@ export function Research() {
       <section className="section">
         <div className="container">
           <p className="section-description">
-            Explore cinco agrupamentos de temas científicos. A apresentação institucional de
-            setembro de 2026 reúne informações sobre a estrutura temática do Instituto.
+            Explore cinco grandes áreas de pesquisa e desenvolvimento em tecnologias quânticas
+            articuladas pelo Foton.
           </p>
           <div className="research-grid full-research">
             {researchLines.map((line) => (
@@ -479,8 +473,8 @@ export function Journey() {
     <>
       <Intro eyebrow="Programa institucional" title="Jornada do Cientista Inovador">
         <p>
-          Iniciativa apresentada pelo Instituto Foton em setembro de 2026, com foco na aproximação
-          entre formação, pesquisa e inovação.
+          Uma iniciativa do Foton que aproxima formação científica, pesquisa, inovação e
+          oportunidades de conexão entre pessoas.
         </p>
       </Intro>
       <section className="section">
@@ -488,12 +482,12 @@ export function Journey() {
           <Heading eyebrow="Propósito" title="Formação científica e conexões entre pessoas." />
           <div className="body-copy">
             <p>
-              A Jornada do Cientista Inovador integra a apresentação institucional como uma frente
-              de aproximação com a ciência e suas possibilidades de formação e articulação.
+              A Jornada do Cientista Inovador aproxima pessoas da ciência e amplia possibilidades de
+              formação, colaboração e articulação.
             </p>
             <p>
-              Para conhecer atividades e oportunidades de participação na Jornada, converse com o
-              Instituto pelos canais institucionais.
+              Para conhecer oportunidades de participação na Jornada, converse com o Foton pelos
+              canais institucionais.
             </p>
             <div className="actions">
               <Action to="/contato">Canais de contato</Action>
@@ -664,7 +658,7 @@ export function Contact() {
       </Intro>
       <section className="section">
         <div className="container reading">
-          <Heading title="Fale com o Instituto Foton" />
+          <Heading title="Fale com o Foton" />
           <p>
             Encontre os canais oficiais para conversar com a equipe sobre pesquisa, educação,
             colaboração e iniciativas institucionais.
@@ -681,7 +675,7 @@ export function Contact() {
               <li>Patrocínio empresarial</li>
               <li>Imprensa</li>
             </ul>
-            <p>Escolha o assunto e converse com o Instituto pelos canais oficiais.</p>
+            <p>Escolha o assunto e converse com o Foton pelos canais oficiais.</p>
           </div>
         </div>
       </section>

@@ -51,7 +51,7 @@ test('home, pesquisa, manifesto e navegação sem erros de aplicação', async (
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('./');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Transformar ciência');
-  await page.getByRole('link', { name: 'Conheça o Instituto', exact: true }).click();
+  await page.getByRole('link', { name: 'Conheça o Foton', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Ciência que aproxima. Conhecimento que transforma.',
   );
@@ -83,11 +83,12 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   const story = page.locator('.institute-story');
   await expect(lightPath).toBeAttached();
   await expect(story).not.toHaveClass(/pulse-arrived/);
-  await expect(photon.locator('.photon-wave > span').first()).toHaveCSS('animation-name', 'none');
+  const identity = photon.locator('.photon-identity');
+  await expect(identity).not.toHaveClass(/is-active/);
   const arrival = await lightPath.evaluate((element) => {
     const path = element as SVGPathElement;
     const wrapper = path.closest('.institute-story')?.getBoundingClientRect();
-    const word = document.querySelector<HTMLElement>('.photon-section .large-word');
+    const word = document.querySelector<HTMLElement>('.photon-section .photon-identity');
     const end = path.getPointAtLength(path.getTotalLength());
     const story = path.closest<HTMLElement>('.institute-story');
     if (!wrapper || !word || !story)
@@ -106,27 +107,29 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   expect(arrival.endX).toBeLessThan(arrival.wordLeft);
   expect(arrival.wordLeft - arrival.endX).toBeGreaterThanOrEqual(24);
   expect(arrival.wordLeft - arrival.endX).toBeLessThanOrEqual(28);
-  await photon.scrollIntoViewIfNeeded();
-  // A animação termina quando o trajeto luminoso alcança a palavra, e não
-  // quando apenas o topo da seção entra na viewport.
-  await page.evaluate(() => {
-    const story = document.querySelector('.institute-story');
-    if (!story) throw new Error('Percurso do Instituto indisponível');
-    const bottom = scrollY + story.getBoundingClientRect().bottom;
-    scrollTo({ top: bottom - innerHeight * 0.35, behavior: 'instant' });
+  await identity.scrollIntoViewIfNeeded();
+  await expect(identity).toHaveClass(/is-active/);
+  await expect(identity.locator('.photon-identity-letter')).toHaveCount(5);
+  await expect(identity.locator('.photon-identity-type-letter')).toHaveCount(5);
+  await expect(identity.locator('.photon-identity-particle')).toHaveCSS(
+    'animation-name',
+    'photon-particle-arrive',
+  );
+  await expect(identity.locator('.photon-identity-final')).toHaveCSS('opacity', '1', {
+    timeout: 10000,
   });
-  await expect(photon).toHaveClass(/is-revealed/);
-  await expect(story).toHaveClass(/pulse-arrived/);
-  await expect(photon.locator('.photon-wave > span')).toHaveCount(5);
-  expect(
-    await photon
-      .locator('.photon-wave > span')
-      .first()
-      .evaluate(
-        (element) =>
-          `${getComputedStyle(element).animationName}:${getComputedStyle(element).animationDelay}`,
-      ),
-  ).toBe('photon-word-wave:0s');
+  await expect
+    .poll(() =>
+      identity
+        .locator('.photon-identity-icon img')
+        .evaluate((img) => (img as HTMLImageElement).naturalWidth),
+    )
+    .toBeGreaterThan(0);
+  await page.screenshot({
+    path: 'test-results/foton-identity-final.png',
+    fullPage: false,
+    animations: 'disabled',
+  });
 });
 
 for (const viewport of [
