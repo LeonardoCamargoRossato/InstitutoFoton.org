@@ -196,7 +196,11 @@ export default function InstituteTeamDashboard() {
                 <div className="team-lines">
                   {lines.map((line) => (
                     <div
-                      className={`team-line ${members.filter((m) => m.thematicLine === line).length === 1 ? 'team-line--single' : 'team-line--multiple'}`}
+                      className={`team-line ${
+                        members.filter((m) => m.thematicLine === line).length === 1
+                          ? 'team-line--single'
+                          : 'team-line--multiple'
+                      }`}
                       key={line}
                     >
                       <h4>{line}</h4>
@@ -211,7 +215,11 @@ export default function InstituteTeamDashboard() {
                   ))}
                 </div>
               ) : (
-                <div className={key === 'vice-presidencia' ? 'team-grid team-grid--centered' : 'team-grid'}>
+                <div
+                  className={
+                    key === 'vice-presidencia' ? 'team-grid team-grid--centered' : 'team-grid'
+                  }
+                >
                   {members.map((m) => (
                     <PersonCard key={m.id} member={m} onOpen={setSelected} />
                   ))}
