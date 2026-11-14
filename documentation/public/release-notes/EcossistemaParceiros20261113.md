@@ -30,8 +30,8 @@ Extração em modo público do componente efetivamente renderizado no site comer
 
 **Ecossistema de Empresas de Quantum e Tecnologias Emergentes (13):** AISR; AlibiDigital; Área 56 Inovação; Assimetry; Dobslit; HYPAQ Technologies; Kuatiá; MultiCortex; ProNext; Propulse; Q-Bra; QuantuLoop; Y4.
 
-**Proveniência técnica detalhada:** `code/assets/partners-source-inventory.json`, com nome, categoria, posição da Home original, URL oficial, logo original, SHA-256, arquivos locais e estado de recuperação. Os `display_order` locais refletem fielmente **a sequência visual renderizada**; não são valores extraídos diretamente da tabela SQL.
+**Proveniência histórica:** o inventário da importação inicial foi descontinuado na consolidação estática; os 31 logotipos autorizados e a lista pública de parceiros continuam versionados em `code/public/assets/` e `code/src/content/partners.json`. O histórico deste release permanece disponível no Git.
 
-O site `.org` usa exclusivamente as mídias locais, não a origem comercial em tempo de execução. Não houve alteração do Supabase, das páginas do `.com.br`, da `main` ou da Hostinger.
+O site `.org` usa exclusivamente as mídias locais, não a origem comercial em tempo de execução. Não houve alteração do sistema do `.com.br` nem da Hostinger neste registro histórico.
 
 **Revisão institucional:** confirmar a vigência formal dos vínculos quando necessário. Esta importação demonstra a correspondência com registros publicamente exibidos na origem e não constitui validação independente de contratos.

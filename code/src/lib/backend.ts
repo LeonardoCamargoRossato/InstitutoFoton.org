@@ -1,4 +1,4 @@
-// Backend público temporariamente 100% estático. Dados do Supabase preservados fora da aplicação.
+// Catálogo público estático, servido exclusivamente a partir de conteúdo local aprovado.
 import publicData from '../content/publications.json';
 import { institutionalStatements } from '../content/institutional';
 import { publicDocuments } from '../content/public-documents';
@@ -30,7 +30,7 @@ export type PublicDocument = {
   allow_page_export: boolean;
 };
 const approvedPublications = publicData as Publication[];
-// O catálogo é vazio até importação de material aprovado. Não representa o estado do banco.
+// O catálogo permanece vazio até a inclusão de material editorial aprovado.
 export async function publications(page = 0, search = '', category = 'Todas', sort = 'recent') {
   const normalize = (s: string) =>
     s

@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import sharp from 'sharp';
 
 const root = resolve('public/assets');
-const inventory = JSON.parse(await readFile('assets/asset-inventory.json', 'utf8'));
+const inventory = JSON.parse(await readFile('scripts/data/asset-inventory.json', 'utf8'));
 const write = process.argv.includes('--write');
 const errors = [],
   duplicateIndex = new Map(),
@@ -50,7 +50,7 @@ for (const item of inventory.items) {
 }
 const summary = { count: report.length, duplicates: duplicatePairs, errors, images: report };
 if (write)
-  await writeFile('assets/conversion-report.json', JSON.stringify(summary, null, 2) + '\n');
+  await writeFile('scripts/data/conversion-report.json', JSON.stringify(summary, null, 2) + '\n');
 console.log(
   'Assets:',
   report.length,
