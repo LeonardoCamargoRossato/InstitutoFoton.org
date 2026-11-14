@@ -31,6 +31,12 @@ const teamPhotos = [
   'FotoPerfilWilsonFonseca.webp',
 ];
 for (const name of teamPhotos) expected.add('assets/img-diretoria/' + name);
+// Nove pares documentais autorizados: capa e carrossel da fundação do Instituto.
+for (let number = 1; number <= 9; number++) {
+  const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
+  expected.add('assets/WebP/instituto/fundacao/' + name + '.webp');
+  expected.add('assets/PNG/instituto/fundacao/' + name + '.png');
+}
 const partnerSnapshot = JSON.parse(await readFile('src/content/partners.json', 'utf8'));
 const logoFilenames = JSON.parse(await readFile('scripts/data/partner-logo-names.json', 'utf8'));
 const svgNames = new Set();
@@ -66,7 +72,7 @@ const expectedGroups = [
   ['Empresas Parceiras', 9],
 ];
 if (
-  expected.size !== 98 + 64 + 31 + 31 + 2 + teamPhotos.length ||
+  expected.size !== 98 + 64 + 31 + 31 + 2 + teamPhotos.length + 18 ||
   svgNames.size !== 31 ||
   expectedGroups.some(([group, n]) => groupCounts.get(group) !== n) ||
   groupCounts.size !== 4
@@ -113,6 +119,7 @@ const routeDirectories = new Set([
   'jornada',
   'manifesto',
   'noticias',
+  'noticias/fundacao-instituto-foton',
   'apresentacao',
   'transparencia',
   'apoie',

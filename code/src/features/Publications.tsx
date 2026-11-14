@@ -7,13 +7,27 @@ import { publications, publication, type Publication } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 import { dateLabel, safeExternalUrl } from '../lib/config';
 import { NotFound } from './PublicPages';
+import { FoundationGallery, foundationRoute, foundationCards } from '../components/FoundationHistory';
+import { assetUrl } from '../lib/siteAssets';
 
 export function PublicationCard({ item }: { item: Publication }) {
   const body = (
     <>
-      <div className="publication-art">
-        <BookOpen size={45} strokeWidth={1} aria-hidden="true" />
-        <span>Conhecimento em movimento</span>
+      <div className={item.main_image_path ? 'publication-art publication-art--photo' : 'publication-art'}>
+        {item.main_image_path ? (
+          <img
+            src={assetUrl(item.main_image_path)}
+            width={1080}
+            height={1350}
+            loading="lazy"
+            alt={item.slug === foundationRoute.split('/').at(-1) ? foundationCards[0].title : item.title}
+          />
+        ) : (
+          <>
+            <BookOpen size={45} strokeWidth={1} aria-hidden="true" />
+            <span>Conhecimento em movimento</span>
+          </>
+        )}
       </div>
       <div className="publication-content">
         <p className="eyebrow">
@@ -24,7 +38,9 @@ export function PublicationCard({ item }: { item: Publication }) {
         <span className="card-link">
           {item.type === 'press'
             ? `Ler na fonte${item.source_name ? ` · ${item.source_name}` : ''}`
-            : 'Continuar leitura'}
+            : item.slug === 'fundacao-instituto-foton'
+              ? 'Conheça essa história'
+              : 'Continuar leitura'}
           <ArrowUpRight size={18} aria-hidden="true" />
         </span>
       </div>
@@ -222,6 +238,7 @@ export function Article() {
                   </ReactMarkdown>
                 </div>
               )}
+              {item.slug === 'fundacao-instituto-foton' && <FoundationGallery />}
               {item.source_url && (
                 <p className="source-note">
                   <External href={item.source_url}>

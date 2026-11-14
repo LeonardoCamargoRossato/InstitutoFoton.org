@@ -10,6 +10,7 @@ type Props = {
   onClose: () => void;
   onPrevious?: () => void;
   onNext?: () => void;
+  previewUntilLoaded?: boolean;
 };
 
 export function ImageZoomDialog({
@@ -20,8 +21,22 @@ export function ImageZoomDialog({
   onClose,
   onPrevious,
   onNext,
+  previewUntilLoaded = false,
 }: Props) {
-  const [currentSrc, setCurrentSrc] = useState(src);
+  const [currentSrc, setCurrentSrc] = useState(previewUntilLoaded && fallback ? fallback : src);
+  useEffect(() => {
+    if (!previewUntilLoaded || !fallback) {
+      setCurrentSrc(src);
+      return;
+    }
+    setCurrentSrc(fallback);
+    const fullResolution = new Image();
+    fullResolution.onload = () => setCurrentSrc(src);
+    fullResolution.src = src;
+    return () => {
+      fullResolution.onload = null;
+    };
+  }, [src, fallback, previewUntilLoaded]);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const closeRef = useRef<HTMLButtonElement>(null);
