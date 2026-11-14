@@ -1,89 +1,118 @@
 .institute-purpose {
-  --purpose-bg: #102c4d;
-  background: radial-gradient(ellipse at 92% 0%, #19436a 0%, transparent 43%), var(--purpose-bg);
+  background: #102b49;
   color: #fff;
-  scroll-margin-top: 90px;
+  scroll-margin-top: 112px;
+}
+.institute-purpose > .container {
+  max-width: 1180px;
 }
 .institute-purpose-heading {
   text-align: center;
-  margin-bottom: clamp(1.8rem, 4vw, 3rem);
+  max-width: 780px;
+  margin: 0 auto clamp(2rem, 4vw, 3.4rem);
 }
 .institute-purpose-eyebrow {
-  color: #7de0ee;
+  color: #a7cadb;
   text-transform: uppercase;
-  font-weight: 750;
-  letter-spacing: 0.18em;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.22em;
+  font-weight: 700;
 }
 .institute-purpose-heading h2 {
   color: #fff;
-  margin: 0.6rem 0 0;
-  font-size: clamp(2rem, 4.8vw, 3.7rem);
-  line-height: 1.12;
+  margin: 0.8rem 0 0;
+  font-size: clamp(2rem, 4.3vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
 }
 .institute-purpose-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.9rem, 2vw, 1.6rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
   align-items: stretch;
 }
 .institute-purpose-card {
-  --accent: #12c9d4;
-  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: clamp(1.2rem, 2.4vw, 2rem);
-  border: 1px solid #ffffff27;
-  border-top: 5px solid var(--accent);
-  border-radius: 8px 8px 24px 24px;
-  background: #0b2543;
-  box-shadow: 0 18px 45px #00152b36;
+  padding: clamp(1.5rem, 2.7vw, 2.5rem);
+  background: #f9fbfd;
+  color: #19344b;
+  border: 1px solid #d7e2eb;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgb(3 20 38 / 10%);
 }
-.institute-purpose-card--visao {
-  --accent: #ffae35;
-}
-.institute-purpose-card--proposito {
-  --accent: #24c886;
-}
-.institute-purpose-card header {
+.institute-purpose-card-header {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  min-height: 3.3rem;
+  justify-content: space-between;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
 }
 .institute-purpose-icon {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  flex: none;
+  color: #0c6186;
+  background: #eaf2f6;
+  border: 1px solid #d4e3ec;
+  border-radius: 14px;
+}
+.institute-purpose-index {
+  color: #8fa4b5;
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
 }
 .institute-purpose-card h3 {
-  color: var(--accent);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: clamp(0.86rem, 1.5vw, 1.12rem);
+  color: #123a58;
+  font-size: clamp(1.4rem, 2.1vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin: 0 0 1.1rem;
 }
 .institute-purpose-text {
-  background: #f6f9fd;
-  color: #243a4c;
-  border-radius: 16px;
-  margin: 1.2rem 0 1.4rem;
-  padding: clamp(1.15rem, 2.4vw, 2rem);
-  line-height: 1.65;
-  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  margin: 0 0 2rem;
+  color: #385366;
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  line-height: 1.75;
   flex: 1;
 }
 .institute-purpose-subtitle {
   margin: auto 0 0;
-  color: var(--accent);
+  padding-top: 1.2rem;
+  border-top: 1px solid #d9e4ed;
+  color: #0d6387;
+  font-size: 0.83rem;
+  font-style: normal;
   font-weight: 700;
-  font-style: italic;
-  font-size: 0.95rem;
+  letter-spacing: 0.015em;
 }
 @media (max-width: 900px) {
   .institute-purpose-grid {
     grid-template-columns: 1fr;
     max-width: 620px;
     margin-inline: auto;
+  }
+  .institute-purpose-card {
+    padding: clamp(1.5rem, 5vw, 2.25rem);
+  }
+  .institute-purpose-card-header {
+    margin-bottom: 1.35rem;
+  }
+  .institute-purpose-text {
+    margin-bottom: 1.6rem;
+  }
+}
+@media (max-width: 440px) {
+  .institute-purpose-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .institute-purpose-card h3 {
+    font-size: 1.45rem;
   }
 }
