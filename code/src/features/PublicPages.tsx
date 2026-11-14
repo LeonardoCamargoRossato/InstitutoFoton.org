@@ -6,6 +6,7 @@ import { researchLines } from './content';
 import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
 import PhotonIdentityAnimation from '../components/PhotonIdentityAnimation';
+import HomeAtomEntrance from '../components/HomeAtomEntrance';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
@@ -56,17 +57,7 @@ export function Home() {
               <ArrowDown size={15} aria-hidden="true" /> Entenda nosso propósito
             </a>
           </div>
-          <div className="hero-identity" aria-hidden="true">
-            <span className="hero-identity-orbit hero-identity-orbit-one" />
-            <span className="hero-identity-orbit hero-identity-orbit-two" />
-            <span className="hero-identity-orbit hero-identity-orbit-three" />
-            <span className="hero-identity-nucleus" />
-            <span className="hero-identity-spark spark-one" />
-            <span className="hero-identity-spark spark-two" />
-            <span className="hero-identity-spark spark-three" />
-            <span className="hero-identity-spark spark-four" />
-            <span className="hero-identity-equation">E = hν</span>
-          </div>
+          <HomeAtomEntrance />
         </div>
       </section>
 
