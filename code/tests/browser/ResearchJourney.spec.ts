@@ -24,7 +24,12 @@ test('menu unificado e cinco áreas originais abrem suas páginas canônicas', a
     mainNav.locator('summary').filter({ hasText: 'P&D - Cientista Inovador' }),
   ).toHaveCount(1);
   await expect(mainNav.getByRole('link', { name: 'Pesquisa', exact: true })).toHaveCount(0);
-  await expect(mainNav.locator('details.nav-dropdown').filter({ hasText: 'P&D - Cientista Inovador' }).locator('.nav-dropdown-links a')).toHaveCount(3);
+  await expect(
+    mainNav
+      .locator('details.nav-dropdown')
+      .filter({ hasText: 'P&D - Cientista Inovador' })
+      .locator('.nav-dropdown-links a'),
+  ).toHaveCount(3);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(title);
   await expect(page.getByRole('main').getByRole('heading', { level: 2 })).toHaveText([
     'Áreas de pesquisa',
