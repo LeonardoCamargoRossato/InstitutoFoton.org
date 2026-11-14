@@ -141,22 +141,28 @@ test('acesso direto à identidade começa com a marca completa, sem reproduzir o
   expect((await readImpact(artwork)).animationCount).toBe(0);
 });
 
-test('recarregar após a colisão exibe a marca completa, sem repetir o impacto', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  const artwork = await openInstitute(page);
-  await expect(artwork).toHaveAttribute('data-artwork-status', 'ready');
-  const { scroll } = await readImpact(artwork);
-  await scrollTo(page, scroll + 30);
-  await expect(artwork).toHaveAttribute('data-phase', 'playing');
-  await page.reload();
-  await expect(artwork).toHaveAttribute('data-artwork-status', 'ready');
-  await expect(artwork).toHaveAttribute('data-phase', 'static');
-  await expect(artwork.locator('.pulso')).toBeHidden();
-  await expect(artwork.locator('#Marca use[href="#LetraN"].marca-escura')).toBeInViewport();
-  expect((await readImpact(artwork)).animationCount).toBe(0);
-});
+for (const offset of [-30, 30]) {
+  const before = offset < 0;
+  test(`recarregar ${before ? 'perto do ponto de chegada' : 'após a colisão'} exibe a marca completa`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const artwork = await openInstitute(page);
+    await expect(artwork).toHaveAttribute('data-artwork-status', 'ready');
+    const { scroll } = await readImpact(artwork);
+    await scrollTo(page, scroll + offset);
+    await expect(artwork).toHaveAttribute('data-phase', before ? 'approach' : 'playing');
+    await expect
+      .poll(() => page.evaluate(() => history.state?.instituteIdentityScroll))
+      .toBe(scroll + offset);
+    await page.reload();
+    await expect(artwork).toHaveAttribute('data-artwork-status', 'ready');
+    await expect(artwork).toHaveAttribute('data-phase', 'static');
+    await expect(artwork.locator('.pulso')).toBeHidden();
+    await expect(artwork.locator('#Marca use[href="#LetraN"].marca-escura')).toBeInViewport();
+    expect((await readImpact(artwork)).animationCount).toBe(0);
+  });
+}
 
 test('movimento reduzido apresenta a marca completa imediatamente', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'dark' });

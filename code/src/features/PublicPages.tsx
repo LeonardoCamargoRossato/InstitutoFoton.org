@@ -227,6 +227,7 @@ function InstituteLightPath({
     let length = 0;
     let start = 0;
     let end = 0;
+    let restoreFrom = 0;
     let impactDocumentY = 0;
 
     const layoutPath = () => {
@@ -272,6 +273,7 @@ function InstituteLightPath({
       impactDocumentY = scrollY + impactOnScreen.y;
       start = scrollY + bounds.top - innerHeight * 0.12;
       end = impactDocumentY - innerHeight * 0.55;
+      restoreFrom = end - innerHeight * 0.08;
     };
 
     const update = () => {
@@ -285,19 +287,17 @@ function InstituteLightPath({
       }
       if (!length) return;
 
-      const saved = history.state?.instituteIdentityScroll;
+      const saved = Number(history.state?.instituteIdentityScroll);
+      const resumeAtIdentity = saved >= restoreFrom;
       if (restoreScroll || initialPosition) {
         restoreScroll = false;
-        if (!location.hash && Number.isFinite(saved) && saved >= end - 1) {
+        if (!location.hash && resumeAtIdentity) {
           // A posição pode ser restaurada antes de a rota React ter altura suficiente.
           window.scrollTo({ top: saved, behavior: 'instant' });
         }
       }
       const scrollTop = scrollY;
-      if (
-        initialPosition &&
-        (location.hash === '#identidade-foton' || (Number.isFinite(saved) && saved >= end - 1))
-      ) {
+      if (initialPosition && (location.hash === '#identidade-foton' || resumeAtIdentity)) {
         arrived = true;
         onPhaseChange('static');
       }
@@ -320,10 +320,13 @@ function InstituteLightPath({
       light.setAttribute('cx', String(point.x));
       light.setAttribute('cy', String(point.y));
 
-      if (!arrived && travelled === length) {
-        arrived = true;
+      const impact = !arrived && travelled === length;
+      if (impact || (scrollTop >= restoreFrom && !resumeAtIdentity)) {
         // Guarda a posição deste item de navegação antes de um possível recarregamento.
         history.replaceState({ ...history.state, instituteIdentityScroll: scrollTop }, '');
+      }
+      if (impact) {
+        arrived = true;
         const phase =
           !initialPosition && impactInView && artworkStatus === 'ready' ? 'playing' : 'static';
         // Aplica a fase antes do quadro que esconde a partícula no centro da estrela.
@@ -352,7 +355,9 @@ function InstituteLightPath({
       relayout();
     };
     const savePosition = () => {
-      if (arrived) history.replaceState({ ...history.state, instituteIdentityScroll: scrollY }, '');
+      if (Number.isFinite(history.state?.instituteIdentityScroll)) {
+        history.replaceState({ ...history.state, instituteIdentityScroll: scrollY }, '');
+      }
     };
     const resize = new ResizeObserver(relayout);
     [wrapper, title, historyTitle, mark].forEach((element) => resize.observe(element));
