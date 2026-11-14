@@ -1,0 +1,35 @@
+name: LCR one-shot orbital graph formatting
+on:
+  push:
+    branches:
+      - hotfix/home-orbitals-graph-20261114
+    paths:
+      - .github/workflows/lcr-home-orbitals-prettier-once.yml
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: code
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+      - run: npx prettier --write src/components/HomeAtomEntrance.tsx src/styles/home-atom-entrance.css tests/browser/home-atom-entrance.spec.ts
+      - name: Commit only formatted hotfix files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- src/components/HomeAtomEntrance.tsx src/styles/home-atom-entrance.css tests/browser/home-atom-entrance.spec.ts
+          if ! git diff --cached --quiet; then
+            git commit -m "style(home): format orbital convergence and ecosystem graph"
+            git push origin HEAD:refs/heads/hotfix/home-orbitals-graph-20261114
+          fi
