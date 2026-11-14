@@ -4,10 +4,14 @@ import { createHash } from 'node:crypto';
 const base = process.env.VITE_BASE_PATH || '/';
 if (!/^\/(?:[A-Za-z0-9._-]+\/)*$/.test(base)) throw new Error('VITE_BASE_PATH inválido');
 const origin = process.env.VITE_SITE_ORIGIN || '';
+const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
 const pages = [
   '',
   'instituto',
   'pesquisa',
+  'pesquisa/jornada',
+  'pesquisa/haquantum',
+  ...researchLines.map(({ slug }) => `pesquisa/${slug}`),
   'parceiros',
   'jornada',
   'manifesto',
@@ -53,7 +57,10 @@ await writeFile(
 if (publicOrigin) {
   await writeFile(
     'dist/sitemap.xml',
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.map((p) => `<url><loc>${publicOrigin}${base}${p}</loc></url>`).join('')}</urlset>`,
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages
+      .filter((p) => p !== 'jornada')
+      .map((p) => `<url><loc>${publicOrigin}${base}${p}</loc></url>`)
+      .join('')}</urlset>`,
   );
 }
 

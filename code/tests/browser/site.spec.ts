@@ -100,10 +100,10 @@ for (const viewport of [
       await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
       await page
         .getByRole('navigation')
-        .getByRole('link', { name: 'Pesquisa', exact: true })
+        .getByRole('link', { name: 'Pesquisa e Jornada do Cientista Inovador', exact: true })
         .click();
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-        'Diferentes saberes. Perguntas em comum.',
+        'Pesquisa e Jornada do Cientista Inovador',
       );
       await expect(page.getByRole('button', { name: 'Abrir menu' })).toHaveAttribute(
         'aria-expanded',
@@ -234,7 +234,8 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
       ['./', 'home'],
       ['./instituto', 'instituto'],
       ['./pesquisa', 'pesquisa'],
-      ['./jornada', 'jornada'],
+      ['./pesquisa/jornada', 'jornada'],
+      ['./pesquisa/haquantum', 'haquantum'],
       ['./apoie', 'apoie'],
       ['./noticias', 'noticias'],
       ['./contato', 'contato'],

@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "computacao-quantica",
+    "title": "Computação quântica",
+    "label": "01",
+    "summary": "Novas formas de processar informação. Novas perguntas para a ciência.",
+    "description": "A computação quântica investiga como propriedades de sistemas quânticos podem ser usadas no processamento de informação. Hardware, software e firmware se encontram em uma área que exige pesquisa fundamental e colaboração entre especialidades.",
+    "topics": ["Hardware e software", "Computação fotônica", "Pesquisa colaborativa"]
+  },
+  {
+    "slug": "comunicacao-e-criptografia",
+    "title": "Comunicação e criptografia",
+    "label": "02",
+    "summary": "Conhecimento para pensar o futuro da comunicação e da segurança.",
+    "description": "Comunicação quântica e criptografia pós-quântica são abordagens distintas. A primeira utiliza propriedades físicas de sistemas quânticos; a segunda desenvolve algoritmos criptográficos clássicos concebidos para resistir a ataques de computadores quânticos.",
+    "topics": ["Comunicação quântica", "Criptografia pós-quântica", "Transição criptográfica"]
+  },
+  {
+    "slug": "sensores-e-materiais",
+    "title": "Sensores e materiais quânticos",
+    "label": "03",
+    "summary": "Observar com precisão para descobrir possibilidades.",
+    "description": "Sensoriamento quântico explora propriedades quânticas para realizar medições. A pesquisa em materiais busca compreender e desenvolver propriedades físicas. Essas frentes aproximam ciência fundamental e questões de aplicação, por meio de instituições e laboratórios parceiros.",
+    "topics": ["Medições de precisão", "Materiais avançados", "Propriedades físicas"]
+  },
+  {
+    "slug": "algoritmos-e-otimizacao",
+    "title": "Algoritmos e otimização",
+    "label": "04",
+    "summary": "Investigar caminhos para problemas complexos.",
+    "description": "Algoritmos quânticos e métodos híbridos são estudados em problemas de cálculo e otimização, com investigação de aplicações em saúde e em outros setores.",
+    "topics": ["Métodos híbridos", "Otimização", "Aplicações em investigação"]
+  },
+  {
+    "slug": "quantica-nos-negocios",
+    "title": "Quântica nos negócios",
+    "label": "05",
+    "summary": "Uma ponte entre pesquisa, organizações e sociedade.",
+    "description": "Compreender tecnologias emergentes também envolve formação, gestão e diálogo. Essa frente aproxima o conhecimento científico das questões enfrentadas por organizações, respeitando o estágio de maturidade de cada tecnologia.",
+    "topics": ["Formação", "Gestão da inovação", "Ciência e sociedade"]
+  }
+]

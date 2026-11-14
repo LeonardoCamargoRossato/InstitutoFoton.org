@@ -1,5 +1,6 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { join, resolve, extname } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const dist = resolve('dist');
 const inventory = JSON.parse(await readFile('assets/asset-inventory.json', 'utf8'));
@@ -65,9 +66,26 @@ if (
 const slideAsset =
   'assets/img-logos-parceiros-foton/EcossistemasEParceirosSlideApresentacaoInstitucionalFoton.svg';
 expected.add(slideAsset);
+const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
+const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
+  (number) => `assets/img-haquantum/HaQuantum${String(number).padStart(2, '0')}.jpg`,
+);
+if (
+  researchMedia.haquantum.map(({ path }) => path).join() !== photoPaths.join() ||
+  researchMedia.pulso.path !== 'assets/img-jornada/EtapaPulsoYouTube.jpg'
+) {
+  throw Error('Sequência de fotografias do HaQuantum ou miniatura da Etapa Pulso divergente');
+}
+const eventMedia = new Map(
+  [researchMedia.pulso, ...researchMedia.haquantum].map(({ path, sha256 }) => [path, sha256]),
+);
+const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
 const routeDirectories = new Set([
   'instituto',
   'pesquisa',
+  'pesquisa/jornada',
+  'pesquisa/haquantum',
+  ...researchLines.map(({ slug }) => `pesquisa/${slug}`),
   'parceiros',
   'jornada',
   'manifesto',
@@ -146,7 +164,9 @@ async function walk(dir, prefix = '') {
       violations.push('sensitive extension ' + rel);
       continue;
     }
-    if (routeDirectories.has(top) && rel !== top + '/index.html')
+    if (routeDirectories.has(top) && !routeDirectories.has(parts.slice(0, -1).join('/')))
+      violations.push('route file ' + rel);
+    else if (routeDirectories.has(top) && parts.at(-1) !== 'index.html')
       violations.push('route file ' + rel);
     else if (top === 'documents' && !expectedDocuments.has(rel))
       violations.push('document not approved ' + rel);
@@ -157,6 +177,7 @@ async function walk(dir, prefix = '') {
     else if (
       top === 'assets' &&
       !['PNG', 'WebP', 'img-logos-parceiros-foton'].includes(parts[1]) &&
+      !eventMedia.has(rel) &&
       !/^assets\/[^/]+\.(?:js|mjs|css|woff2?|ttf|svg)$/i.test(rel)
     )
       violations.push('unexpected bundler asset ' + rel);
@@ -177,6 +198,18 @@ for (const a of expected) {
 }
 for (const d of expectedDocuments) {
   if (!seen.has(d)) violations.push('missing public pdf ' + d);
+}
+for (const route of routeDirectories) {
+  if (!seen.has(route + '/index.html')) violations.push('missing route ' + route);
+}
+for (const [path, hash] of eventMedia) {
+  if (!seen.has(path)) violations.push('missing event image ' + path);
+  else if (
+    createHash('sha256')
+      .update(await readFile(join(dist, path)))
+      .digest('hex') !== hash
+  )
+    violations.push('event image differs from original ' + path);
 }
 if (!seen.has('index.html')) violations.push('missing index');
 for (const a of expected) {

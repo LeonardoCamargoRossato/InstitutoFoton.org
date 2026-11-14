@@ -1,9 +1,8 @@
 import { Suspense, lazy, useEffect, useRef, useState, type RefObject } from 'react';
 import { flushSync } from 'react-dom';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
-import { researchLines } from './content';
 import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
 import PhotonIdentityAnimation, {
@@ -34,7 +33,7 @@ export function Home() {
     {
       title: 'Jornada do Cientista Inovador',
       description: 'Formação, conexões e aproximação de pessoas com a ciência.',
-      to: '/jornada',
+      to: '/pesquisa/jornada',
     },
   ];
   return (
@@ -502,128 +501,6 @@ export function Institute() {
         </div>
       </section>
       <OfficialStatements />
-    </>
-  );
-}
-
-export function Research() {
-  const { slug } = useParams();
-  const selected = researchLines.find((l) => l.slug === slug);
-  if (slug && !selected) return <NotFound />;
-  if (selected)
-    return (
-      <>
-        <Intro eyebrow={`Pesquisa · Área ${selected.label}`} title={selected.title}>
-          <p>{selected.summary}</p>
-        </Intro>
-        <section className="section">
-          <div className="container reading">
-            <p className="lead">{selected.description}</p>
-            <h2>Perspectivas de investigação</h2>
-            <ul className="topic-list">
-              {selected.topics.map((topic) => (
-                <li key={topic}>{topic}</li>
-              ))}
-            </ul>
-            <div className="notice">
-              <h3>Pesquisa se faz em rede</h3>
-              <p>
-                O Instituto articula temas de investigação que conectam diferentes especialidades e
-                instituições em torno das tecnologias quânticas.
-              </p>
-            </div>
-            <div className="actions">
-              <Action to="/pesquisa">Todas as áreas</Action>
-              <TextLink to="/jornada">Conheça a Jornada</TextLink>
-            </div>
-          </div>
-        </section>
-      </>
-    );
-  return (
-    <>
-      <Intro eyebrow="Pesquisa e ecossistema" title="Diferentes saberes. Perguntas em comum.">
-        <p>
-          Conheça campos de investigação em tecnologias quânticas e as conexões multidisciplinares
-          do Instituto Foton.
-        </p>
-      </Intro>
-      <section className="section">
-        <div className="container">
-          <p className="section-description">
-            Explore cinco grandes áreas de pesquisa e desenvolvimento em tecnologias quânticas
-            articuladas pelo Foton.
-          </p>
-          <div className="research-grid full-research">
-            {researchLines.map((line) => (
-              <Link className="research-card" to={`/pesquisa/${line.slug}`} key={line.slug}>
-                <div className="card-top">
-                  <span className="number">{line.label}</span>
-                  <ArrowUpRight aria-hidden="true" />
-                </div>
-                <h2>{line.title}</h2>
-                <p>{line.summary}</p>
-                <span className="card-link">
-                  Explorar essa área
-                  <ArrowUpRight size={18} aria-hidden="true" />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="section section-gray">
-        <div className="container split">
-          <Heading
-            eyebrow="Ciência acontece em rede"
-            title="Conexões que respeitam a contribuição de cada parte."
-          />
-          <div>
-            <p>
-              Universidades, instituições de pesquisa, profissionais e organizações podem reunir
-              conhecimentos complementares. Projetos, instalações e resultados devem ser atribuídos
-              a seus responsáveis.
-            </p>
-            <p>
-              O catálogo de parceiros e projetos será disponibilizado com vínculos, fontes e
-              informações institucionais validados.
-            </p>
-            <TextLink to="/contato">Conheça os canais institucionais</TextLink>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-export function Journey() {
-  return (
-    <>
-      <Intro eyebrow="Programa institucional" title="Jornada do Cientista Inovador">
-        <p>
-          Uma iniciativa do Foton que aproxima formação científica, pesquisa, inovação e
-          oportunidades de conexão entre pessoas.
-        </p>
-      </Intro>
-      <section className="section">
-        <div className="container split">
-          <Heading eyebrow="Propósito" title="Formação científica e conexões entre pessoas." />
-          <div className="body-copy">
-            <p>
-              A Jornada do Cientista Inovador aproxima pessoas da ciência e amplia possibilidades de
-              formação, colaboração e articulação.
-            </p>
-            <p>
-              Para conhecer oportunidades de participação na Jornada, converse com o Foton pelos
-              canais institucionais.
-            </p>
-            <div className="actions">
-              <Action to="/contato">Canais de contato</Action>
-              <TextLink to="/apresentacao">Apresentação institucional</TextLink>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

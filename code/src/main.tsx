@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import '@fontsource/raleway/latin-400.css';
 import '@fontsource/raleway/latin-500.css';
 import '@fontsource/raleway/latin-600.css';
@@ -13,22 +13,30 @@ import './styles/photon-identity.css';
 import './styles/presentation-preview.css';
 import './styles/home-atom-entrance.css';
 import Layout from './app/Layout';
-import {
-  Home,
-  Institute,
-  Research,
-  Journey,
-  Manifesto,
-  Contact,
-  Legal,
-  NotFound,
-} from './features/PublicPages';
+import { Home, Institute, Manifesto, Contact, Legal, NotFound } from './features/PublicPages';
 import Support from './features/Support';
 const News = lazy(() => import('./features/Publications').then((m) => ({ default: m.News })));
 const Article = lazy(() => import('./features/Publications').then((m) => ({ default: m.Article })));
 import { Transparency, Presentation } from './features/Documents';
 const Access = lazy(() => import('./features/Access'));
 const PartnersPage = lazy(() => import('./features/PartnersPage'));
+const Research = lazy(() =>
+  import('./features/ResearchPages').then(({ Research }) => ({ default: Research })),
+);
+const ResearchArea = lazy(() =>
+  import('./features/ResearchPages').then(({ ResearchArea }) => ({ default: ResearchArea })),
+);
+const Journey = lazy(() =>
+  import('./features/ResearchPages').then(({ Journey }) => ({ default: Journey })),
+);
+const HaQuantum = lazy(() =>
+  import('./features/ResearchPages').then(({ HaQuantum }) => ({ default: HaQuantum })),
+);
+
+function LegacyJourneyRedirect() {
+  const { search, hash } = useLocation();
+  return <Navigate to={{ pathname: '/pesquisa/jornada', search, hash }} replace />;
+}
 
 const deployedVersion = async () => {
   try {
@@ -73,8 +81,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="instituto" element={<Institute />} />
             <Route path="pesquisa" element={<Research />} />
             <Route path="parceiros" element={<PartnersPage />} />
-            <Route path="pesquisa/:slug" element={<Research />} />
-            <Route path="jornada" element={<Journey />} />
+            <Route path="pesquisa/jornada" element={<Journey />} />
+            <Route path="pesquisa/haquantum" element={<HaQuantum />} />
+            <Route path="pesquisa/:slug" element={<ResearchArea />} />
+            <Route path="jornada" element={<LegacyJourneyRedirect />} />
             <Route path="manifesto" element={<Manifesto />} />
             <Route path="apoie" element={<Support />} />
             <Route path="noticias" element={<News />} />
