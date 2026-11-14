@@ -10,6 +10,7 @@ import PhotonIdentityAnimation, {
 } from '../components/PhotonIdentityAnimation';
 import HomeAtomEntrance from '../components/HomeAtomEntrance';
 import InstituteTeamDashboard from '../components/InstituteTeamDashboard';
+import InstitutePurpose from '../components/InstitutePurpose';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
@@ -479,6 +480,7 @@ export function Institute() {
           </div>
         </section>
       </div>
+      <InstitutePurpose />
       <section className="section">
         <div className="container">
           <Heading eyebrow="Frentes de articulação" title="Ciência, formação e estratégia." />
