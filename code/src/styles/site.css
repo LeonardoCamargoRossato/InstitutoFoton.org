@@ -606,6 +606,11 @@
     color: var(--navy);
     padding-block: 11px;
   }
+  .main-nav > .nav-research {
+    max-width: 165px;
+    white-space: normal;
+    line-height: 1.35;
+  }
   .main-nav > a.active:not(.nav-support) {
     text-decoration: underline;
     text-underline-offset: 8px;
@@ -2471,6 +2476,9 @@
     .main-nav > a {
       font-size: 0.9rem;
       padding: 13px 8px;
+    }
+    .main-nav > .nav-research {
+      max-width: none;
     }
     .main-nav .nav-support {
       margin-top: 12px;

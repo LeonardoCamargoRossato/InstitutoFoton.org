@@ -1,0 +1,66 @@
+{
+  "haquantum": [
+    {
+      "path": "assets/img-haquantum/HaQuantum01.jpg",
+      "width": 960,
+      "height": 1280,
+      "alt": "Participantes reunidos no espaço do HaQuantum.",
+      "sha256": "21bac81f380f0d2dfc61f9b74ba2b4b344ab666ad573dc0ff0f9f202667321a2"
+    },
+    {
+      "path": "assets/img-haquantum/HaQuantum02.jpg",
+      "width": 4160,
+      "height": 3120,
+      "alt": "Apresentação em sala durante a programação do HaQuantum.",
+      "sha256": "a97019c112804e3e3136b1d7486fda5301bf445e2f4db1a9c603eb176120c7f4"
+    },
+    {
+      "path": "assets/img-haquantum/HaQuantum03.jpg",
+      "width": 960,
+      "height": 1280,
+      "alt": "Grupo posa para foto com um documento ao lado do painel do evento.",
+      "sha256": "c3f81b8468637e405c73b464dca22aad38c6cd2230e4e14669202381f9120095"
+    },
+    {
+      "path": "assets/img-haquantum/HaQuantum04.jpg",
+      "width": 4160,
+      "height": 3120,
+      "alt": "Integrantes da banca à mesa durante as apresentações.",
+      "sha256": "2d6c1d94d12439a022f91aaa488e326c1b90a8ec7594be1330e040cfc3b6831b"
+    },
+    {
+      "path": "assets/img-haquantum/HaQuantum05.jpg",
+      "width": 720,
+      "height": 1280,
+      "alt": "Grupo posa com um documento na sala de apresentações.",
+      "sha256": "51cc16d3986cc266418662fc674dc0aa66cadeb1891b84d0d18098c661e0cd7c"
+    },
+    {
+      "path": "assets/img-haquantum/HaQuantum06.jpg",
+      "width": 960,
+      "height": 1280,
+      "alt": "Três participantes em frente ao slide da equipe Entangled Minds.",
+      "sha256": "3350e3814c875abe6270065e000317a8f8849db570ad32d0c3728e2d44142229"
+    },
+    {
+      "path": "assets/img-haquantum/HaQuantum08.jpg",
+      "width": 960,
+      "height": 1280,
+      "alt": "Três pessoas posam com um documento ao lado da tela do evento.",
+      "sha256": "3bd08ab7eb943d5c6cbd6e02d31335894d294dd139c5e2427847f11122f88c49"
+    },
+    {
+      "path": "assets/img-haquantum/HaQuantum09.jpg",
+      "width": 960,
+      "height": 1280,
+      "alt": "Grupo posa com um documento após as apresentações.",
+      "sha256": "16370942a8c2d57298d9b03bfaaa0156c4381535865a1ec534491d64d692b17d"
+    }
+  ],
+  "pulso": {
+    "path": "assets/img-jornada/EtapaPulsoYouTube.jpg",
+    "width": 1280,
+    "height": 720,
+    "sha256": "2770356b0042c0377ad32805651161cbe916ed0d1d9132c54c7833ddf1b27c7d"
+  }
+}

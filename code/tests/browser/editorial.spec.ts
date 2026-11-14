@@ -39,7 +39,13 @@ test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', 
   await expect(page.locator('.institutional-metrics .metrics-source')).toHaveText(
     'Indicadores institucionais da rede Foton.',
   );
-  for (const path of ['/instituto', '/apresentacao', '/manifesto', '/jornada', '/contato']) {
+  for (const path of [
+    '/instituto',
+    '/apresentacao',
+    '/manifesto',
+    '/pesquisa/jornada',
+    '/contato',
+  ]) {
     await expect(page.locator('a[href$="' + path + '"]').first()).toBeAttached();
   }
 });
@@ -49,6 +55,7 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
     './instituto',
     './pesquisa',
     './jornada',
+    './pesquisa/haquantum',
     './apoie',
     './transparencia',
     './noticias',
@@ -107,16 +114,15 @@ test('Transparência permanece acessível e não fabrica documentos', async ({ p
   await expect(item.getByRole('button', { name: /Baixar/ })).toBeVisible();
 });
 
-test('Apoie e Jornada mantêm informação objetiva sem inscrições, bolsas ou cobranças', async ({
+test('Apoie e Jornada mantêm informação objetiva sobre participação voluntária', async ({
   page,
 }) => {
   await page.goto('./apoie');
   await expect(page.locator('.support-card, .pix-panel, .human-page-hero-photo')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Canais de contato' })).toBeVisible();
-  await page.goto('./jornada');
-  await expect(
-    page.locator('.journey-steps, .journey-photo-grid, .human-page-hero-photo'),
-  ).toHaveCount(0);
+  await page.goto('./pesquisa/jornada');
+  await expect(page.getByText(/colaborativa e voluntária, sem vínculo de emprego/)).toBeVisible();
+  await expect(page.getByRole('link', { name: /inscreva|inscriç|bolsa/i })).toHaveCount(0);
   await expect(
     page.getByText(/Para conhecer oportunidades de participação na Jornada/),
   ).toBeVisible();
@@ -129,6 +135,7 @@ test('Home e páginas essenciais sem rolagem lateral em mobile', async ({ page }
     './instituto',
     './pesquisa',
     './jornada',
+    './pesquisa/haquantum',
     './apoie',
     './manifesto',
     './transparencia',
@@ -151,6 +158,7 @@ test('nenhuma página pública requisita Storage ou banco Supabase', async ({ pa
     './instituto',
     './pesquisa',
     './jornada',
+    './pesquisa/haquantum',
     './apoie',
     './manifesto',
     './transparencia',
@@ -379,6 +387,9 @@ test('Ecossistema de Parceiros é acessível pelo menu mobile e não causa overf
       .getByRole('link', { name: 'Ecossistema de Parceiros' })
       .click();
     await expect(page).toHaveURL(/\/parceiros$/);
+    await expect(page.locator('.partner-card img')).toHaveCount(
+      verifiedPartners().filter((partner) => partner.logo_slug).length,
+    );
     for (const image of await page.locator('.partner-card img').all()) {
       await image.scrollIntoViewIfNeeded();
       await expect

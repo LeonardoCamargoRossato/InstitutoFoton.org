@@ -1,0 +1,409 @@
+@layer components {
+  .research-experience .page-intro {
+    background:
+      radial-gradient(ellipse at 86% 14%, #c3e7f4 0%, transparent 46%),
+      linear-gradient(145deg, #fff 12%, #edf5ff);
+  }
+  .research-experience .page-intro h1 {
+    max-width: 20ch;
+    font-size: clamp(2.3rem, 5.7vw, 5.4rem);
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  .research-experience [id] {
+    scroll-margin-top: 0.75rem;
+  }
+  .research-experience .section {
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+  }
+  .research-jump-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 0.8rem;
+    margin-top: 1.85rem;
+  }
+  .research-jump-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.52rem 0.82rem;
+    border: 1px solid #adc7e6;
+    border-radius: 999px;
+    background: #fff9;
+    color: var(--navy);
+    font-size: 0.83rem;
+    font-weight: 700;
+  }
+  .research-jump-links a:hover {
+    background: #fff;
+    text-decoration: underline;
+  }
+  .research-areas .section-description {
+    margin-bottom: 1.6rem;
+  }
+  .research-areas .research-card {
+    min-height: 215px;
+    padding: clamp(1.35rem, 3vw, 2.3rem);
+    border: 1px solid #dfe9f5;
+  }
+  .research-areas .research-card h3 {
+    max-width: 24ch;
+  }
+  .research-areas .research-card p {
+    margin-top: 0.7rem;
+    margin-bottom: 1.4rem;
+  }
+  .research-areas .card-link {
+    justify-content: flex-start;
+    margin-top: auto;
+    opacity: 1;
+    color: var(--blue);
+    font-weight: 700;
+  }
+  .research-journey-intro .split,
+  .research-pulso .split,
+  .research-haquantum-intro,
+  .research-groups .split {
+    gap: clamp(1.5rem, 5vw, 5rem);
+  }
+  .pathway-preview,
+  .research-pathway {
+    color: #fff;
+    background:
+      radial-gradient(ellipse at 100% 0%, #14619b 0%, transparent 57%),
+      linear-gradient(151deg, #071c40, #0b326e);
+  }
+  .pathway-preview {
+    padding: clamp(1.4rem, 4vw, 3rem);
+    border-radius: 1.45rem 3.25rem 1.45rem 1.45rem;
+    box-shadow: 0 20px 45px #0b326e26;
+  }
+  .pathway-preview h3,
+  .research-pathway h2 {
+    color: #fff;
+  }
+  .pathway-preview h3 {
+    font-size: clamp(1.5rem, 3vw, 2.3rem);
+  }
+  .pathway-preview p,
+  .research-pathway p {
+    color: #dcebf8;
+  }
+  .pathway-preview p {
+    margin-top: 0.65rem;
+  }
+  .pathway-preview ol {
+    list-style: none;
+    margin: 1.35rem 0 0 0.25rem;
+    padding: 0 0 0 1.18rem;
+    border-left: 1px solid #6edbe9;
+  }
+  .pathway-preview li {
+    position: relative;
+    padding-block: 0.3rem;
+    font-weight: 600;
+  }
+  .pathway-preview li::before {
+    position: absolute;
+    top: 0.92em;
+    left: -1.42rem;
+    width: 0.46rem;
+    height: 0.46rem;
+    border-radius: 50%;
+    background: #85ebf5;
+    content: '';
+  }
+  .research-experience .research-events-intro {
+    padding-bottom: 1.5rem;
+  }
+  .research-experience .research-pulso {
+    padding-top: 2rem;
+  }
+  .research-event-actions .text-link,
+  .research-event-actions .button {
+    width: fit-content;
+  }
+  .research-date {
+    color: var(--navy);
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+  .pulso-player {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 1.3rem;
+    background: #07254c;
+    box-shadow: 0 18px 40px #14284a24;
+  }
+  .pulso-player img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .pulso-player:focus-visible {
+    outline: 3px solid #bff8ff;
+    outline-offset: -6px;
+  }
+  .pulso-play-icon {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    display: grid;
+    place-items: center;
+    width: clamp(3rem, 6vw, 4.35rem);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 1px solid #c4f2ff9c;
+    border-radius: 50%;
+    background: #072c7be8;
+    color: #fff;
+    box-shadow: 0 6px 24px #0a254e6b;
+  }
+  .pulso-player:hover .pulso-play-icon,
+  .pulso-player:focus-visible .pulso-play-icon {
+    background: var(--blue);
+  }
+  .research-haquantum {
+    background: linear-gradient(145deg, #eff7ff, #f5f9fc 70%);
+    border-radius: 2.5rem 0 0 0;
+  }
+  .research-haquantum-intro {
+    margin-bottom: 2.1rem;
+  }
+  .haquantum-gallery {
+    --photo-width: min(76cqw, 31rem);
+    container-type: inline-size;
+  }
+  .haquantum-track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.35rem calc((100% - var(--photo-width)) / 2) 0.35rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: #9bb7d4 #eaf2fa;
+    overscroll-behavior-inline: contain;
+  }
+  .haquantum-photo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: 0 0 var(--photo-width);
+    height: clamp(17rem, 33vw, 24rem);
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #bdcce0;
+    border-radius: 1.1rem;
+    background: #142f50;
+    scroll-snap-align: center;
+  }
+  .haquantum-photo:first-child {
+    scroll-snap-align: start;
+  }
+  .haquantum-photo img {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    object-fit: contain;
+  }
+  .haquantum-photo span {
+    position: absolute;
+    right: 0.65rem;
+    bottom: 0.65rem;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #0a254de8;
+    color: #fff;
+  }
+  .haquantum-photo:focus-visible {
+    outline: 3px solid #8befff;
+    outline-offset: -5px;
+  }
+  .haquantum-gallery-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.2rem 1rem;
+    margin-top: 0.8rem;
+  }
+  .haquantum-gallery-arrows,
+  .haquantum-gallery-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .haquantum-gallery-arrows .icon-button {
+    border: 1px solid #adbfdb;
+    background: #fff;
+    color: var(--navy);
+  }
+  .haquantum-gallery-arrows .icon-button:not(:disabled):hover {
+    background: #e0f1ff;
+  }
+  .haquantum-gallery-dots button {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border-radius: 2px;
+  }
+  .haquantum-gallery-dots button::before {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #496e9d;
+    border-radius: 50%;
+    content: '';
+  }
+  .haquantum-gallery-dots [aria-current]::before {
+    background: var(--navy);
+    transform: scale(1.25);
+  }
+  .haquantum-gallery-position {
+    color: var(--navy);
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .research-experience .research-pathway {
+    border-radius: 0 3.6rem 0 0;
+  }
+  .research-pathway .section-heading p {
+    max-width: 66ch;
+  }
+  .pathway-steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: end;
+    gap: 0.65rem;
+    margin: 2.15rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pathway-steps li {
+    position: relative;
+    min-height: 9.75rem;
+    padding: 1.1rem 0.85rem 0.9rem;
+    border: 1px solid #74b4d95c;
+    border-radius: 0.95rem;
+    background: #ffffff0d;
+  }
+  .pathway-steps li:nth-child(2) {
+    margin-bottom: 0.85rem;
+  }
+  .pathway-steps li:nth-child(3) {
+    margin-bottom: 1.7rem;
+  }
+  .pathway-steps li:nth-child(4) {
+    margin-bottom: 2.55rem;
+  }
+  .pathway-steps li:nth-child(5) {
+    margin-bottom: 3.4rem;
+  }
+  .pathway-steps li::before {
+    display: block;
+    width: 0.55rem;
+    height: 0.55rem;
+    margin-bottom: 0.68rem;
+    border-radius: 50%;
+    background: #85ebf5;
+    box-shadow: 0 0 0 4px #85ebf52a;
+    content: '';
+  }
+  .pathway-steps h3 {
+    color: #fff;
+    font-size: 1.12rem;
+    hyphens: auto;
+  }
+  .pathway-steps p {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+  .research-groups .topic-list {
+    margin-block: 0;
+  }
+  .research-groups .topic-list li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--navy);
+    font-weight: 700;
+  }
+  .research-groups .topic-list li a:hover {
+    text-decoration: underline;
+  }
+  .research-event-stages {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  .research-event-stages div {
+    padding: 1.3rem 0.65rem 0 0;
+    border-top: 2px solid #4d9ad4;
+  }
+  .research-event-stages p {
+    margin-top: 0.55rem;
+  }
+}
+
+@layer responsive {
+  @media (max-width: 900px) {
+    .pathway-steps {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      padding-left: 1.2rem;
+      border-left: 1px solid #6edbe9;
+    }
+    .pathway-steps li:nth-child(n) {
+      min-height: auto;
+      margin-bottom: 0;
+    }
+    .pathway-steps li::before {
+      position: absolute;
+      top: 1.6rem;
+      left: -1.52rem;
+    }
+  }
+  @media (max-width: 700px) {
+    .research-experience .page-intro h1 {
+      font-size: clamp(2.1rem, 9.25vw, 3.6rem);
+    }
+    .research-experience .section {
+      padding-block: 3.55rem;
+    }
+    .research-experience .research-events-intro {
+      padding-bottom: 1.2rem;
+    }
+    .research-experience .research-pulso {
+      padding-top: 1.45rem;
+    }
+    .research-areas .research-card {
+      min-height: 0;
+    }
+    .haquantum-gallery {
+      --photo-width: 84cqw;
+    }
+    .haquantum-gallery-dots {
+      order: 1;
+      width: 100%;
+      justify-content: center;
+    }
+    .research-event-stages {
+      grid-template-columns: 1fr;
+    }
+  }
+}

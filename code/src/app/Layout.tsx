@@ -4,13 +4,13 @@ import { Menu, X, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { siteOrigin, basePath } from '../lib/config';
 import SiteImageViewer from '../components/SiteImageViewer';
 import { assetUrl, imageAsset } from '../lib/siteAssets';
+import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from '../features/content';
 
 const navigation = [
   ['/', 'Início'],
   ['/instituto', 'O Instituto'],
   ['/parceiros', 'Ecossistema de Parceiros'],
-  ['/pesquisa', 'Pesquisa'],
-  ['/jornada', 'Jornada do Cientista'],
+  ['/pesquisa', researchTitle],
   ['/manifesto', 'Manifesto'],
   ['/noticias', 'Notícias'],
   ['/transparencia', 'Transparência'],
@@ -19,8 +19,10 @@ const titles: Record<string, string> = {
   '/': 'Ciências e Tecnologias Quânticas',
   '/instituto': 'O Instituto',
   '/parceiros': 'Ecossistema de Parceiros',
-  '/pesquisa': 'Pesquisa em rede',
-  '/jornada': 'Jornada do Cientista',
+  '/pesquisa': researchTitle,
+  '/pesquisa/jornada': journeyTitle,
+  '/pesquisa/haquantum': haQuantumTitle,
+  ...Object.fromEntries(researchLines.map(({ slug, title }) => [`/pesquisa/${slug}`, title])),
   '/manifesto': 'Manifesto Quântico Nacional',
   '/noticias': 'Notícias e histórias',
   '/transparencia': 'Transparência',
@@ -164,7 +166,12 @@ export default function Layout() {
             }}
           >
             {navigation.map(([path, label]) => (
-              <NavLink end={path === '/'} key={path} to={path}>
+              <NavLink
+                end={path === '/'}
+                key={path}
+                to={path}
+                className={path === '/pesquisa' ? 'nav-research' : undefined}
+              >
                 {label}
               </NavLink>
             ))}
@@ -213,9 +220,8 @@ export default function Layout() {
             <div>
               <h2>Explore</h2>
               <Link to="/instituto">O Instituto</Link>
-              <Link to="/pesquisa">Pesquisa</Link>
+              <Link to="/pesquisa">{researchTitle}</Link>
               <Link to="/parceiros">Ecossistema de Parceiros</Link>
-              <Link to="/jornada">Jornada do Cientista</Link>
               <Link to="/manifesto">Manifesto</Link>
             </div>
             <div>
@@ -233,8 +239,8 @@ export default function Layout() {
               </p>
               <Link
                 className="footer-circle"
-                to="/jornada"
-                aria-label="Conheça a Jornada do Cientista"
+                to="/pesquisa/jornada"
+                aria-label="Conheça a Jornada do Cientista Inovador"
               >
                 <ArrowUpRight />
               </Link>
