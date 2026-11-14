@@ -3572,3 +3572,10 @@
     font-size: 0.69rem;
   }
 }
+
+@layer components {
+  /* O CTA de contato respira em relação ao texto, sem alterar outros botões. */
+  .institutional-contact-actions {
+    margin-top: clamp(30px, 3.5vw, 48px);
+  }
+}
