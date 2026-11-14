@@ -7,9 +7,14 @@ const caption =
 test('fundação aparece no Instituto e abre a única reportagem canônica', async ({ page }) => {
   await page.goto('./instituto');
   const teaser = page.locator('#fundacao');
-  await expect(teaser.getByRole('heading', { name: 'O dia em que nasceu o Instituto Foton' })).toBeVisible();
+  await expect(
+    teaser.getByRole('heading', { name: 'O dia em que nasceu o Instituto Foton' }),
+  ).toBeVisible();
   await expect(teaser).toContainText('30 de janeiro de 2025 · Porto Alegre, RS');
-  await expect(teaser.locator('img')).toHaveAttribute('src', /\/assets\/WebP\/instituto\/fundacao\/Img-Fundacao-Foton-01\.webp$/);
+  await expect(teaser.locator('img')).toHaveAttribute(
+    'src',
+    /\/assets\/WebP\/instituto\/fundacao\/Img-Fundacao-Foton-01\.webp$/,
+  );
   await teaser.getByRole('link', { name: 'Saiba mais sobre nossa fundação' }).click();
   await expect(page).toHaveURL(/\/noticias\/fundacao-instituto-foton$/);
   await expect(page.locator('.markdown')).toContainText('NAU Live Spaces');
@@ -18,7 +23,9 @@ test('fundação aparece no Instituto e abre a única reportagem canônica', asy
 
 test('a notícia consta na listagem e o card navega sem abrir o visualizador', async ({ page }) => {
   await page.goto('./noticias');
-  const card = page.locator('.publication-card').filter({ hasText: 'O dia em que nasceu o Instituto Foton' });
+  const card = page
+    .locator('.publication-card')
+    .filter({ hasText: 'O dia em que nasceu o Instituto Foton' });
   await expect(card).toHaveCount(1);
   await expect(card.locator('img')).toHaveAttribute('src', /Img-Fundacao-Foton-01\.webp$/);
   await card.locator('img').click();
@@ -26,7 +33,9 @@ test('a notícia consta na listagem e o card navega sem abrir o visualizador', a
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
-test('galeria mantém nove registros na ordem, legenda histórica e PNG somente ao ampliar', async ({ page }) => {
+test('galeria mantém nove registros na ordem, legenda histórica e PNG somente ao ampliar', async ({
+  page,
+}) => {
   const pngRequests: string[] = [];
   page.on('request', (request) => {
     if (/\/assets\/PNG\/instituto\/fundacao\/Img-Fundacao-Foton-\d\d\.png/.test(request.url())) {
@@ -52,7 +61,9 @@ test('galeria mantém nove registros na ordem, legenda histórica e PNG somente 
   }
   await expect(gallery.locator('.foundation-carousel-position')).toHaveText('3 / 9');
   await expect(gallery.locator('.foundation-carousel-caption')).toHaveText(caption);
-  await expect(page.locator('.foundation-historical-note')).toContainText('não integrava a Diretoria estatutária');
+  await expect(page.locator('.foundation-historical-note')).toContainText(
+    'não integrava a Diretoria estatutária',
+  );
   await gallery.getByRole('button', { name: /^Ampliar imagem 3 de 9/ }).click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
