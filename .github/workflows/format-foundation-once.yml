@@ -1,0 +1,31 @@
+name: Format foundation implementation once
+on:
+  push:
+    branches: [feat/fundacao-instituto-foton-20261114]
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/fundacao-instituto-foton-20261114
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+        working-directory: code
+      - run: npx prettier --write src/components/FoundationHistory.tsx src/components/FoundationHistory.css src/components/ImageZoomDialog.tsx src/components/SiteImageViewer.tsx src/features/PublicPages.tsx src/features/Publications.tsx scripts/check-pages-artifact.mjs scripts/postbuild.mjs src/content/publications.json
+        working-directory: code
+      - name: Commit formatting
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add code/src/components/FoundationHistory.tsx code/src/components/FoundationHistory.css code/src/components/ImageZoomDialog.tsx code/src/components/SiteImageViewer.tsx code/src/features/PublicPages.tsx code/src/features/Publications.tsx code/scripts/check-pages-artifact.mjs code/scripts/postbuild.mjs code/src/content/publications.json
+          if ! git diff --cached --quiet; then
+            git commit -m "style(fundacao): aplicar Prettier à implementação"
+            git push origin HEAD:feat/fundacao-instituto-foton-20261114
+          fi
