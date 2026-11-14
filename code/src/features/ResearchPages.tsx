@@ -104,7 +104,7 @@ export function Research() {
         <div className="container">
           <Heading title="Áreas de pesquisa" />
           <p className="section-description">
-            Explore cinco grandes áreas de pesquisa e desenvolvimento em tecnologias quânticas
+            Explore seis grandes áreas de pesquisa e desenvolvimento em tecnologias quânticas
             articuladas pelo Foton.
           </p>
           <div className="research-grid full-research">
