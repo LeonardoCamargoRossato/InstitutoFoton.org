@@ -185,7 +185,13 @@ export default function InstituteTeamDashboard() {
         {levels.map(({ key, title, subtitle }) => {
           const members = grouped(key);
           const lines =
-            key === 'coordenacao' ? Array.from(new Set(members.map((m) => m.thematicLine))) : [];
+            key === 'coordenacao'
+              ? Array.from(new Set(members.map((m) => m.thematicLine))).sort(
+                  (a, b) =>
+                    members.filter((m) => m.thematicLine === a).length -
+                    members.filter((m) => m.thematicLine === b).length,
+                )
+              : [];
           return (
             <div className="team-level" key={key}>
               <div className="team-level-heading">
@@ -217,7 +223,9 @@ export default function InstituteTeamDashboard() {
               ) : (
                 <div
                   className={
-                    key === 'vice-presidencia' ? 'team-grid team-grid--centered' : 'team-grid'
+                    key === 'vice-presidencia' || key === 'adviser'
+                      ? 'team-grid team-grid--centered'
+                      : 'team-grid'
                   }
                 >
                   {members.map((m) => (
