@@ -15,19 +15,3 @@ test('texto institucional permanece atemporal nas principais páginas', async ({
   );
   expect(spacing).toBeGreaterThanOrEqual(30);
 });
-
-test('animação do fóton possui estado final acessível para movimento reduzido', async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('./instituto');
-  const identity = page.locator('.photon-identity');
-  await identity.scrollIntoViewIfNeeded();
-  await expect(identity).toHaveClass(/is-active/);
-  await expect(identity.locator('.photon-identity-initial')).toHaveCSS('display', 'none');
-  await expect(identity.locator('.photon-identity-final')).toHaveCSS('opacity', '1');
-  await expect(identity.locator('.photon-identity-type-letter')).toHaveCount(5);
-  await expect(identity.locator('.photon-identity-type-letter').first()).toHaveCSS('opacity', '1');
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-});

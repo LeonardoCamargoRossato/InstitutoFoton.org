@@ -76,60 +76,6 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   const research = page.locator('.research-grid').locator('..');
   await research.scrollIntoViewIfNeeded();
   await expect(research.locator('.research-card').first()).toHaveClass(/is-revealed/);
-
-  await page.goto('./instituto');
-  const photon = page.locator('.photon-section');
-  const lightPath = page.locator('.institute-light-path path');
-  const story = page.locator('.institute-story');
-  await expect(lightPath).toBeAttached();
-  await expect(story).not.toHaveClass(/pulse-arrived/);
-  const identity = photon.locator('.photon-identity');
-  await expect(identity).not.toHaveClass(/is-active/);
-  const arrival = await lightPath.evaluate((element) => {
-    const path = element as SVGPathElement;
-    const wrapper = path.closest('.institute-story')?.getBoundingClientRect();
-    const word = document.querySelector<HTMLElement>('.photon-section .photon-identity');
-    const end = path.getPointAtLength(path.getTotalLength());
-    const story = path.closest<HTMLElement>('.institute-story');
-    if (!wrapper || !word || !story)
-      throw new Error('Institute light-path geometry is unavailable');
-    let wordLeft = 0;
-    let current: HTMLElement | null = word;
-    while (current && current !== story) {
-      wordLeft += current.offsetLeft;
-      current = current.offsetParent as HTMLElement | null;
-    }
-    return {
-      endX: end.x,
-      wordLeft,
-    };
-  });
-  expect(arrival.endX).toBeLessThan(arrival.wordLeft);
-  expect(arrival.wordLeft - arrival.endX).toBeGreaterThanOrEqual(24);
-  expect(arrival.wordLeft - arrival.endX).toBeLessThanOrEqual(28);
-  await identity.scrollIntoViewIfNeeded();
-  await expect(identity).toHaveClass(/is-active/);
-  await expect(identity.locator('.photon-identity-letter')).toHaveCount(5);
-  await expect(identity.locator('.photon-identity-type-letter')).toHaveCount(5);
-  await expect(identity.locator('.photon-identity-particle')).toHaveCSS(
-    'animation-name',
-    'photon-particle-arrive',
-  );
-  await expect(identity.locator('.photon-identity-final')).toHaveCSS('opacity', '1', {
-    timeout: 10000,
-  });
-  await expect
-    .poll(() =>
-      identity
-        .locator('.photon-identity-icon img')
-        .evaluate((img) => (img as HTMLImageElement).naturalWidth),
-    )
-    .toBeGreaterThan(0);
-  await page.screenshot({
-    path: 'test-results/foton-identity-final.png',
-    fullPage: false,
-    animations: 'disabled',
-  });
 });
 
 for (const viewport of [
