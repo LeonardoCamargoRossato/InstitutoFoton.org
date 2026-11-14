@@ -66,7 +66,7 @@ const expectedGroups = [
   ['Empresas Parceiras', 9],
 ];
 if (
-  expected.size !== 98 + 64 + 31 + 31 + 2 ||
+  expected.size !== 98 + 64 + 31 + 31 + 2 + teamPhotos.length ||
   svgNames.size !== 31 ||
   expectedGroups.some(([group, n]) => groupCounts.get(group) !== n) ||
   groupCounts.size !== 4
