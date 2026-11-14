@@ -9,6 +9,7 @@ import PhotonIdentityAnimation, {
   type PhotonIdentityPhase,
 } from '../components/PhotonIdentityAnimation';
 import HomeAtomEntrance from '../components/HomeAtomEntrance';
+import InstituteTeamDashboard from '../components/InstituteTeamDashboard';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
@@ -500,6 +501,7 @@ export function Institute() {
           </div>
         </div>
       </section>
+      <InstituteTeamDashboard />
       <OfficialStatements />
     </>
   );
