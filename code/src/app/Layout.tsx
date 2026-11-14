@@ -182,7 +182,9 @@ export default function Layout() {
                     }
                   }}
                 >
-                  <summary>{path === '/instituto' ? 'O Instituto' : 'P&D - Cientista Inovador'}</summary>
+                  <summary>
+                    {path === '/instituto' ? 'O Instituto' : 'P&D - Cientista Inovador'}
+                  </summary>
                   <div
                     className="nav-dropdown-links"
                     onClick={(event) => {
