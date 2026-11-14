@@ -96,7 +96,12 @@ export default function Layout() {
         ':scope > section, :scope > .institute-story > section, :scope > .values-strip, :scope > .anchor-bar, :scope > .support-cta',
       );
       sections.forEach((section, index) => {
-        if (section.classList.contains('partner-ecosystem') || observed.has(section)) return;
+        if (
+          section.classList.contains('partner-ecosystem') ||
+          section.classList.contains('institute-team-section') ||
+          observed.has(section)
+        )
+          return;
         section.classList.add(
           'reveal-section',
           `reveal-${['rise', 'right', 'left', 'depth'][index % 4]}`,
