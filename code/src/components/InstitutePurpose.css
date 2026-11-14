@@ -1,0 +1,89 @@
+.institute-purpose {
+  --purpose-bg: #102c4d;
+  background: radial-gradient(ellipse at 92% 0%, #19436a 0%, transparent 43%), var(--purpose-bg);
+  color: #fff;
+  scroll-margin-top: 90px;
+}
+.institute-purpose-heading {
+  text-align: center;
+  margin-bottom: clamp(1.8rem, 4vw, 3rem);
+}
+.institute-purpose-eyebrow {
+  color: #7de0ee;
+  text-transform: uppercase;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  font-size: 0.8rem;
+}
+.institute-purpose-heading h2 {
+  color: #fff;
+  margin: 0.6rem 0 0;
+  font-size: clamp(2rem, 4.8vw, 3.7rem);
+  line-height: 1.12;
+}
+.institute-purpose-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+  align-items: stretch;
+}
+.institute-purpose-card {
+  --accent: #12c9d4;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+  border: 1px solid #ffffff27;
+  border-top: 5px solid var(--accent);
+  border-radius: 8px 8px 24px 24px;
+  background: #0b2543;
+  box-shadow: 0 18px 45px #00152b36;
+}
+.institute-purpose-card--visao {
+  --accent: #ffae35;
+}
+.institute-purpose-card--proposito {
+  --accent: #24c886;
+}
+.institute-purpose-card header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 3.3rem;
+}
+.institute-purpose-icon {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1;
+}
+.institute-purpose-card h3 {
+  color: var(--accent);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: clamp(0.86rem, 1.5vw, 1.12rem);
+}
+.institute-purpose-text {
+  background: #f6f9fd;
+  color: #243a4c;
+  border-radius: 16px;
+  margin: 1.2rem 0 1.4rem;
+  padding: clamp(1.15rem, 2.4vw, 2rem);
+  line-height: 1.65;
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  flex: 1;
+}
+.institute-purpose-subtitle {
+  margin: auto 0 0;
+  color: var(--accent);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+@media (max-width: 900px) {
+  .institute-purpose-grid {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+}
