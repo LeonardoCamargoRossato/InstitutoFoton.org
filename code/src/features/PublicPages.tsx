@@ -198,7 +198,7 @@ function InstituteLightPath() {
       const bounds = wrapper.getBoundingClientRect();
       const title = wrapper.querySelector<HTMLElement>('.page-intro h1');
       const history = wrapper.querySelector<HTMLElement>('.institute-history h2');
-      const word = wrapper.querySelector<HTMLElement>('.large-word');
+      const word = wrapper.querySelector<HTMLElement>('.photon-identity');
       if (!title || !history || !word) return;
       const relative = (element: HTMLElement) => {
         let x = element.offsetWidth / 2;
