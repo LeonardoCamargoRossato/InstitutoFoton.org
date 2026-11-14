@@ -98,10 +98,18 @@ for (const viewport of [
     if (viewport.width <= 1000) {
       await page.getByRole('button', { name: 'Abrir menu' }).click();
       await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
-      await page
-        .getByRole('navigation')
-        .getByRole('link', { name: 'Pesquisa e Jornada do Cientista Inovador', exact: true })
-        .click();
+      const researchDropdown = page
+        .getByRole('navigation', { name: 'Navegação principal' })
+        .locator('details.nav-dropdown');
+      await researchDropdown.locator('summary').click();
+      await expect(researchDropdown).toHaveAttribute('open', '');
+      await expect(researchDropdown.locator('.nav-dropdown-links a')).toHaveText([
+        'Linhas temáticas de pesquisa',
+        'Jornadas do Cientista Inovador',
+        'Hack Quantum',
+      ]);
+      await researchDropdown.getByRole('link', { name: 'Linhas temáticas de pesquisa' }).click();
+      await expect(page).toHaveURL(/\/pesquisa#areas-de-pesquisa$/);
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(
         'Pesquisa e Jornada do Cientista Inovador',
       );
@@ -112,6 +120,30 @@ for (const viewport of [
     }
   });
 }
+
+test('as três opções do menu PD e Cientista Inovador navegam em desktop e mobile', async ({
+  page,
+}) => {
+  const options = [
+    { name: 'Linhas temáticas de pesquisa', destination: /\/pesquisa#areas-de-pesquisa$/ },
+    { name: 'Jornadas do Cientista Inovador', destination: /\/pesquisa\/jornada$/ },
+    { name: 'Hack Quantum', destination: /\/pesquisa\/haquantum$/ },
+  ];
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const option of options) {
+      await page.goto('./');
+      if (width <= 1000) await page.getByRole('button', { name: 'Abrir menu' }).click();
+      const dropdown = page
+        .getByRole('navigation', { name: 'Navegação principal' })
+        .locator('details.nav-dropdown');
+      await dropdown.locator('summary').click();
+      await expect(dropdown.locator('.nav-dropdown-links a')).toHaveCount(3);
+      await dropdown.getByRole('link', { name: option.name, exact: true }).click();
+      await expect(page).toHaveURL(option.destination);
+    }
+  }
+});
 
 test('apoie a ciência oferece contato, não modalidades ou pagamentos fictícios', async ({
   page,
