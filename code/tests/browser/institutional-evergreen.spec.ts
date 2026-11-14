@@ -10,7 +10,9 @@ test('texto institucional permanece atemporal nas principais páginas', async ({
   await expect(page.getByRole('heading', { name: 'Converse com o Foton.' })).toBeVisible();
   const cta = page.locator('.institutional-contact-actions');
   await expect(cta).toBeAttached();
-  const spacing = await cta.evaluate((element) => Number.parseFloat(getComputedStyle(element).marginTop));
+  const spacing = await cta.evaluate((element) =>
+    Number.parseFloat(getComputedStyle(element).marginTop),
+  );
   expect(spacing).toBeGreaterThanOrEqual(30);
 });
 

@@ -120,7 +120,9 @@ test('movimento progressivo alterna seções e respeita desempenho', async ({ pa
   });
   await expect
     .poll(() =>
-      identity.locator('.photon-identity-icon img').evaluate((img) => (img as HTMLImageElement).naturalWidth),
+      identity
+        .locator('.photon-identity-icon img')
+        .evaluate((img) => (img as HTMLImageElement).naturalWidth),
     )
     .toBeGreaterThan(0);
   await page.screenshot({

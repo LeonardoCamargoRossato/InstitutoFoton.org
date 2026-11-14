@@ -482,12 +482,12 @@ export function Journey() {
           <Heading eyebrow="Propósito" title="Formação científica e conexões entre pessoas." />
           <div className="body-copy">
             <p>
-              A Jornada do Cientista Inovador aproxima pessoas da ciência e amplia possibilidades
-              de formação, colaboração e articulação.
+              A Jornada do Cientista Inovador aproxima pessoas da ciência e amplia possibilidades de
+              formação, colaboração e articulação.
             </p>
             <p>
-              Para conhecer oportunidades de participação na Jornada, converse com o Foton
-              pelos canais institucionais.
+              Para conhecer oportunidades de participação na Jornada, converse com o Foton pelos
+              canais institucionais.
             </p>
             <div className="actions">
               <Action to="/contato">Canais de contato</Action>
