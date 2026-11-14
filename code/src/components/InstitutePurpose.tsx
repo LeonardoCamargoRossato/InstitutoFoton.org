@@ -40,7 +40,9 @@ export default function InstitutePurpose() {
           {pillars.map(({ key, icon, title, subtitle, text }) => (
             <article className={`institute-purpose-card institute-purpose-card--${key}`} key={key}>
               <header>
-                <span className="institute-purpose-icon" aria-hidden="true">{icon}</span>
+                <span className="institute-purpose-icon" aria-hidden="true">
+                  {icon}
+                </span>
                 <h3>{title}</h3>
               </header>
               <p className="institute-purpose-text">{text}</p>
