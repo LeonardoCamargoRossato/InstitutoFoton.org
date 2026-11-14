@@ -10,6 +10,27 @@ const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath])
 // Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
 expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp');
 expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-02.webp');
+// Fotografias institucionais autorizadas para o dashboard Nossa Equipe.
+const teamPhotos = [
+  "FotoPerfilClaudioDias.webp",
+  "FotoPerfilCynthiaMichels.webp",
+  "FotoPerfilDanielaPellin.webp",
+  "FotoPerfilDanielliSanderi.webp",
+  "FotoPerfilDenicezarBaldo.webp",
+  "FotoPerfilHeberLopes.webp",
+  "FotoPerfilJorgeKrug.webp",
+  "FotoPerfilJorgeVerschoore.webp",
+  "FotoPerfilLarissaCrestani.webp",
+  "FotoPerfilLeonardoRossato.webp",
+  "FotoPerfilLesterFaria.webp",
+  "FotoPerfilLucasFriedrich.webp",
+  "FotoPerfilMarceloSchiller.webp",
+  "FotoPerfilRosangelaMaraschin.webp",
+  "FotoPerfilSuzielliMendonca.webp",
+  "FotoPerfilVivianeStamm.webp",
+  "FotoPerfilWilsonFonseca.webp"
+];
+for (const name of teamPhotos) expected.add('assets/img-diretoria/' + name);
 const partnerSnapshot = JSON.parse(await readFile('src/content/partners.json', 'utf8'));
 const logoFilenames = JSON.parse(await readFile('assets/partner-logo-names.json', 'utf8'));
 const svgNames = new Set();
@@ -177,6 +198,7 @@ async function walk(dir, prefix = '') {
     else if (
       top === 'assets' &&
       !['PNG', 'WebP', 'img-logos-parceiros-foton'].includes(parts[1]) &&
+      !expected.has(rel) &&
       !eventMedia.has(rel) &&
       !/^assets\/[^/]+\.(?:js|mjs|css|woff2?|ttf|svg)$/i.test(rel)
     )
