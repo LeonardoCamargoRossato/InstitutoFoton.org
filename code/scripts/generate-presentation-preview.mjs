@@ -9,10 +9,7 @@ const run = promisify(execFile);
 const source = resolve('public/documents/apresentacao-institucional-2026-09-10.pdf');
 const destination = resolve('public/assets/WebP/apresentacao');
 const temp = await mkdtemp(join(tmpdir(), 'foton-apresentacao-'));
-const outputs = [
-  'apresentacao-foton-pagina-01.webp',
-  'apresentacao-foton-pagina-02.webp',
-];
+const outputs = ['apresentacao-foton-pagina-01.webp', 'apresentacao-foton-pagina-02.webp'];
 
 await mkdir(destination, { recursive: true });
 
@@ -46,9 +43,7 @@ try {
 
   for (let i = 0; i < pngs.length; i++) {
     const output = join(destination, outputs[i]);
-    const result = await sharp(join(temp, pngs[i]))
-      .webp({ quality: 84, effort: 5 })
-      .toFile(output);
+    const result = await sharp(join(temp, pngs[i])).webp({ quality: 84, effort: 5 }).toFile(output);
     const metadata = await sharp(output).metadata();
     if (!metadata.width || !metadata.height || metadata.format !== 'webp') {
       throw new Error('Imagem WebP inválida: ' + outputs[i]);
@@ -57,9 +52,7 @@ try {
     if (bytes < 1000 || bytes > 800000) {
       throw new Error('Prévia com tamanho fora do esperado: ' + outputs[i] + ' (' + bytes + ')');
     }
-    console.log(
-      outputs[i] + ': ' + result.width + 'x' + result.height + ' · ' + bytes + ' bytes',
-    );
+    console.log(outputs[i] + ': ' + result.width + 'x' + result.height + ' · ' + bytes + ' bytes');
   }
 } finally {
   await rm(temp, { recursive: true, force: true });

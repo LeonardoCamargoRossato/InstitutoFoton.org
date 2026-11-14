@@ -10,7 +10,9 @@ test('Home exibe duas páginas WebP oficiais em composição ampla e clicável',
   await page.goto('./');
   const section = page.locator('#apresentacao');
   await section.scrollIntoViewIfNeeded();
-  await expect(section.getByRole('heading', { name: 'Conheça a apresentação do Foton.' })).toBeVisible();
+  await expect(
+    section.getByRole('heading', { name: 'Conheça a apresentação do Foton.' }),
+  ).toBeVisible();
 
   const link = section.getByRole('link', {
     name: 'Visualizar o PDF da apresentação institucional do Foton',
