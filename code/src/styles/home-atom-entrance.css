@@ -1,0 +1,112 @@
+/* Entrada cinematográfica do átomo da Home: visual original preservado. */
+@layer components {
+  /* O átomo estático preserva seu espaço e só aparece quando o voo termina. */
+  .hero-identity--static:not(.is-settled) {
+    opacity: 0;
+  }
+
+  .hero-identity--flight {
+    position: fixed;
+    z-index: 120;
+    margin: 0;
+    min-height: 0;
+    max-width: none;
+    pointer-events: none;
+    visibility: hidden;
+    transform-origin: 50% 50%;
+    will-change: transform, opacity;
+  }
+
+  .hero-identity--flight .hero-identity-orbit-one {
+    animation: hero-atom-orbit-one 2100ms linear infinite;
+  }
+
+  .hero-identity--flight .hero-identity-orbit-two {
+    animation: hero-atom-orbit-two 1650ms linear infinite;
+  }
+
+  .hero-identity--flight .hero-identity-orbit-three {
+    animation: hero-atom-orbit-three 2400ms linear infinite;
+  }
+
+  .hero-identity--flight .hero-identity-nucleus {
+    animation: hero-atom-nucleus-pulse 920ms ease-in-out infinite alternate;
+  }
+
+  .hero-identity--flight .hero-identity-spark {
+    animation: hero-atom-spark 800ms ease-in-out infinite alternate;
+  }
+
+  .hero-identity--flight .spark-two {
+    animation-delay: 200ms;
+  }
+
+  .hero-identity--flight .spark-three {
+    animation-delay: 430ms;
+  }
+
+  .hero-identity--flight .spark-four {
+    animation-delay: 600ms;
+  }
+
+  @keyframes hero-atom-orbit-one {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  @keyframes hero-atom-orbit-two {
+    from {
+      transform: translate(-50%, -50%) rotate(53deg) scaleX(0.6);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(413deg) scaleX(0.6);
+    }
+  }
+
+  @keyframes hero-atom-orbit-three {
+    from {
+      transform: translate(-50%, -50%) rotate(-40deg) scaleX(0.68);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(-400deg) scaleX(0.68);
+    }
+  }
+
+  @keyframes hero-atom-nucleus-pulse {
+    from {
+      filter: brightness(1);
+      scale: 1;
+    }
+    to {
+      filter: brightness(1.3);
+      scale: 1.2;
+    }
+  }
+
+  @keyframes hero-atom-spark {
+    from {
+      opacity: 0.45;
+      scale: 0.7;
+    }
+    to {
+      opacity: 1;
+      scale: 1.2;
+    }
+  }
+}
+
+@layer responsive {
+  @media (prefers-reduced-motion: reduce) {
+    .hero-identity--flight {
+      display: none;
+    }
+
+    .hero-identity--static {
+      opacity: 1;
+    }
+  }
+}
