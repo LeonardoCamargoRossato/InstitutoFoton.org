@@ -165,16 +165,47 @@ export default function Layout() {
               }
             }}
           >
-            {navigation.map(([path, label]) => (
-              <NavLink
-                end={path === '/'}
-                key={path}
-                to={path}
-                className={path === '/pesquisa' ? 'nav-research' : undefined}
-              >
-                {label}
-              </NavLink>
-            ))}
+            {navigation.map(([path, label]) =>
+              path === '/pesquisa' ? (
+                <details
+                  className="nav-dropdown"
+                  key={path}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget))
+                      event.currentTarget.open = false;
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') {
+                      event.stopPropagation();
+                      event.currentTarget.open = false;
+                      event.currentTarget.querySelector('summary')?.focus();
+                    }
+                  }}
+                >
+                  <summary>PD e Cientista Inovador</summary>
+                  <div
+                    className="nav-dropdown-links"
+                    onClick={(event) => {
+                      if ((event.target as HTMLElement).closest('a'))
+                        event.currentTarget.closest('details')?.removeAttribute('open');
+                    }}
+                  >
+                    <Link to="/pesquisa#areas-de-pesquisa">Linhas temáticas de pesquisa</Link>
+                    <Link to="/pesquisa/jornada">Jornadas do Cientista Inovador</Link>
+                    <Link to="/pesquisa/haquantum">Hack Quantum</Link>
+                  </div>
+                </details>
+              ) : (
+                <NavLink
+                  end={path === '/'}
+                  key={path}
+                  to={path}
+                  className={path === '/pesquisa' ? 'nav-research' : undefined}
+                >
+                  {label}
+                </NavLink>
+              ),
+            )}
             <NavLink to="/apoie" className="nav-support">
               Apoie a Ciência
               <ArrowUpRight size={16} aria-hidden="true" />
