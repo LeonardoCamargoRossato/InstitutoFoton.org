@@ -100,7 +100,7 @@ for (const viewport of [
       await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
       const researchDropdown = page
         .getByRole('navigation', { name: 'Navegação principal' })
-        .locator('details.nav-dropdown');
+        .locator('details.nav-dropdown').filter({ hasText: 'P&D - Cientista Inovador' });
       await researchDropdown.locator('summary').click();
       await expect(researchDropdown).toHaveAttribute('open', '');
       await expect(researchDropdown.locator('.nav-dropdown-links a')).toHaveText([
@@ -136,7 +136,7 @@ test('as três opções do menu P&D - Cientista Inovador navegam em desktop e mo
       if (width <= 1000) await page.getByRole('button', { name: 'Abrir menu' }).click();
       const dropdown = page
         .getByRole('navigation', { name: 'Navegação principal' })
-        .locator('details.nav-dropdown');
+        .locator('details.nav-dropdown').filter({ hasText: 'P&D - Cientista Inovador' });
       await dropdown.locator('summary').click();
       await expect(dropdown.locator('.nav-dropdown-links a')).toHaveCount(3);
       await dropdown.getByRole('link', { name: option.name, exact: true }).click();
