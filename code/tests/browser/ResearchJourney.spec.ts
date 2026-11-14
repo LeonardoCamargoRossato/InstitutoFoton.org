@@ -20,9 +20,11 @@ const pulso = 'Quantum Pathway — Encerramento da Etapa Pulso';
 test('menu unificado e cinco áreas originais abrem suas páginas canônicas', async ({ page }) => {
   await page.goto('./pesquisa');
   const mainNav = page.getByRole('navigation', { name: 'Navegação principal' });
-  await expect(mainNav.getByRole('link', { name: title, exact: true })).toHaveCount(1);
+  await expect(
+    mainNav.locator('summary').filter({ hasText: 'PD e Cientista Inovador' }),
+  ).toHaveCount(1);
   await expect(mainNav.getByRole('link', { name: 'Pesquisa', exact: true })).toHaveCount(0);
-  await expect(mainNav.locator('a[href$="/jornada"], a[href$="/haquantum"]')).toHaveCount(0);
+  await expect(mainNav.locator('.nav-dropdown-links a')).toHaveCount(3);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(title);
   await expect(page.getByRole('main').getByRole('heading', { level: 2 })).toHaveText([
     'Áreas de pesquisa',
@@ -160,7 +162,9 @@ test('navegação e layout cabem em desktop, tablet e celular', async ({ page })
     const toggle = page.getByRole('button', { name: 'Abrir menu' });
     if (await toggle.isVisible()) await toggle.click();
     const mainNav = page.getByRole('navigation', { name: 'Navegação principal' });
-    await expect(mainNav.getByRole('link', { name: title, exact: true })).toBeVisible();
+    await expect(
+      mainNav.locator('summary').filter({ hasText: 'PD e Cientista Inovador' }),
+    ).toBeVisible();
     const navWidth = await mainNav.evaluate((nav) => nav.getBoundingClientRect().right);
     expect(navWidth).toBeLessThanOrEqual(width);
   }
