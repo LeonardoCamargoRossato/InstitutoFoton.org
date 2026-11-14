@@ -10,6 +10,7 @@ import './styles/human-editorial.css';
 import './styles/image-zoom.css';
 import './styles/partners.css';
 import './styles/photon-identity.css';
+import './styles/presentation-preview.css';
 import Layout from './app/Layout';
 import {
   Home,

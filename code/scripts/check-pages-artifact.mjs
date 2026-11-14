@@ -6,6 +6,9 @@ const inventory = JSON.parse(await readFile('assets/asset-inventory.json', 'utf8
 if (inventory.count !== 49 || inventory.items.length !== 49)
   throw Error('Inventário dos 49 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
+// Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
+expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp');
+expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-02.webp');
 const partnerSnapshot = JSON.parse(await readFile('src/content/partners.json', 'utf8'));
 const logoFilenames = JSON.parse(await readFile('assets/partner-logo-names.json', 'utf8'));
 const svgNames = new Set();
@@ -41,7 +44,7 @@ const expectedGroups = [
   ['Empresas Parceiras', 9],
 ];
 if (
-  expected.size !== 98 + 64 + 31 + 31 ||
+  expected.size !== 98 + 64 + 31 + 31 + 2 ||
   svgNames.size !== 31 ||
   expectedGroups.some(([group, n]) => groupCounts.get(group) !== n) ||
   groupCounts.size !== 4
