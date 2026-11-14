@@ -41,7 +41,11 @@ test('orbitais independentes descem, colapsam em um átomo e revelam o grafo Fot
 
   expect(choreography.duration).toBe(3850);
   expect(choreography.orbitAnimation).toBe('home-orbit-one-arrive');
-  expect(choreography.orbitalTransform).toContain('orbital-fall');
+  const initialY = Number(
+    choreography.orbitalTransform.match(/translate3d\([^,]+,\s*(-?[\d.]+)px/)?.[1],
+  );
+  expect(initialY).toBeLessThan(-300);
+  expect(choreography.orbitalTransform).toContain('rotate(-140deg)');
   expect(choreography.background).toBe('rgba(0, 0, 0, 0)');
 
   await expect(graph).toHaveClass(/is-settled/, { timeout: 10000 });
