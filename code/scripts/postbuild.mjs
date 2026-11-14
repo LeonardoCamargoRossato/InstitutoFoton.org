@@ -16,6 +16,7 @@ const pages = [
   'jornada',
   'manifesto',
   'noticias',
+  'noticias/fundacao-instituto-foton',
   'apresentacao',
   'transparencia',
   'apoie',
