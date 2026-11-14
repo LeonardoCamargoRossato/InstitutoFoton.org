@@ -35,7 +35,11 @@ export function FoundationTeaser() {
   const [open, setOpen] = useState(false);
   const cover = foundationCards[0];
   return (
-    <section className="section foundation-teaser" id="fundacao" aria-labelledby="foundation-teaser-heading">
+    <section
+      className="section foundation-teaser"
+      id="fundacao"
+      aria-labelledby="foundation-teaser-heading"
+    >
       <div className="container foundation-teaser-layout">
         <div className="foundation-teaser-copy">
           <p className="eyebrow">Nossa história · Fundação</p>
@@ -43,17 +47,17 @@ export function FoundationTeaser() {
           <h2 id="foundation-teaser-heading">O dia em que nasceu o Instituto Foton</h2>
           <p>
             Em 30 de janeiro de 2025, pesquisadores e profissionais ligados às ciências e
-            tecnologias quânticas reuniram-se no NAU Live Spaces, em Porto Alegre, e também
-            de forma online, conectando participantes de diferentes regiões do Brasil.
+            tecnologias quânticas reuniram-se no NAU Live Spaces, em Porto Alegre, e também de forma
+            online, conectando participantes de diferentes regiões do Brasil.
           </p>
           <p>
-            Naquela assembleia, nasceu formalmente o Instituto Foton, uma iniciativa construída
-            em torno de um propósito coletivo: aproximar pessoas, conhecimentos e oportunidades
-            para fortalecer o desenvolvimento das tecnologias quânticas.
+            Naquela assembleia, nasceu formalmente o Instituto Foton, uma iniciativa construída em
+            torno de um propósito coletivo: aproximar pessoas, conhecimentos e oportunidades para
+            fortalecer o desenvolvimento das tecnologias quânticas.
           </p>
           <p>
-            Mais do que a criação de uma instituição, aquele encontro marcou o início de uma
-            jornada de colaboração científica, formação e inovação.
+            Mais do que a criação de uma instituição, aquele encontro marcou o início de uma jornada
+            de colaboração científica, formação e inovação.
           </p>
           <Link className="button foundation-link" to={foundationRoute}>
             Saiba mais sobre nossa fundação <ArrowRight size={18} aria-hidden="true" />
@@ -66,7 +70,9 @@ export function FoundationTeaser() {
           aria-label="Ampliar primeiro registro da fundação do Instituto Foton"
         >
           <img src={cover.webp} width={1080} height={1350} loading="lazy" alt={cover.title} />
-          <span className="foundation-zoom-hint"><Maximize2 size={17} /> Ampliar imagem</span>
+          <span className="foundation-zoom-hint">
+            <Maximize2 size={17} /> Ampliar imagem
+          </span>
         </button>
       </div>
       {open && (
@@ -87,7 +93,8 @@ export function FoundationGallery() {
   const [zoom, setZoom] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const slide = foundationCards[active];
-  const show = (delta: number) => setActive((current) => (current + delta + foundationCards.length) % foundationCards.length);
+  const show = (delta: number) =>
+    setActive((current) => (current + delta + foundationCards.length) % foundationCards.length);
   const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     if (touchStart === null) return;
     const distance = event.changedTouches[0].clientX - touchStart;
@@ -109,8 +116,14 @@ export function FoundationGallery() {
         onTouchStart={(event) => setTouchStart(event.touches[0].clientX)}
         onTouchEnd={onTouchEnd}
         onKeyDown={(event) => {
-          if (event.key === 'ArrowRight') { event.preventDefault(); show(1); }
-          if (event.key === 'ArrowLeft') { event.preventDefault(); show(-1); }
+          if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            show(1);
+          }
+          if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            show(-1);
+          }
         }}
       >
         <div className="foundation-stage">
@@ -127,17 +140,29 @@ export function FoundationGallery() {
               alt={slide.title}
               loading={active === 0 ? 'eager' : 'lazy'}
             />
-            <span className="foundation-zoom-hint"><Maximize2 size={17} /> Ampliar imagem</span>
+            <span className="foundation-zoom-hint">
+              <Maximize2 size={17} /> Ampliar imagem
+            </span>
           </button>
         </div>
         <div className="foundation-carousel-controls">
-          <button className="foundation-carousel-arrow" type="button" onClick={() => show(-1)} aria-label="Imagem anterior">
+          <button
+            className="foundation-carousel-arrow"
+            type="button"
+            onClick={() => show(-1)}
+            aria-label="Imagem anterior"
+          >
             <ChevronLeft size={23} />
           </button>
           <span className="foundation-carousel-position" aria-live="polite">
             {active + 1} / {foundationCards.length}
           </span>
-          <button className="foundation-carousel-arrow" type="button" onClick={() => show(1)} aria-label="Próxima imagem">
+          <button
+            className="foundation-carousel-arrow"
+            type="button"
+            onClick={() => show(1)}
+            aria-label="Próxima imagem"
+          >
             <ChevronRight size={23} />
           </button>
         </div>
@@ -145,8 +170,8 @@ export function FoundationGallery() {
       </div>
       <p className="foundation-historical-note">
         Gabriel Albuquerque aparece no terceiro registro como presidente da LACQ Feynman,
-        instituição irmã, e não integrava a Diretoria estatutária do Instituto Foton.
-        Os cargos descritos referem-se à fundação, não à composição atual da equipe.
+        instituição irmã, e não integrava a Diretoria estatutária do Instituto Foton. Os cargos
+        descritos referem-se à fundação, não à composição atual da equipe.
       </p>
       {zoom && (
         <ImageZoomDialog

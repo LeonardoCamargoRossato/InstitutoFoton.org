@@ -18,7 +18,12 @@ export default function SiteImageViewer() {
         return null;
       // Identidade visual continua sendo link para a Home. Imagens nos cards
       // abrem o PNG correspondente, sem interceptar cliques no texto do card.
-      if (el.closest('.site-header, .site-footer, .brand, .partner-card, .publication-card, .foundation-cover-button, .foundation-stage-image')) return null;
+      if (
+        el.closest(
+          '.site-header, .site-footer, .brand, .partner-card, .publication-card, .foundation-cover-button, .foundation-stage-image',
+        )
+      )
+        return null;
       const preview = el.currentSrc || el.src;
       const local = new URL(preview, window.location.href);
       const canonicalWebP =

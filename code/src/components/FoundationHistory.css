@@ -30,7 +30,8 @@
   align-items: center;
   margin-top: 0.6rem;
 }
-.foundation-cover-button, .foundation-stage-image {
+.foundation-cover-button,
+.foundation-stage-image {
   position: relative;
   display: block;
   width: 100%;
@@ -43,7 +44,8 @@
   cursor: zoom-in;
   box-shadow: 0 16px 35px rgb(17 50 77 / 12%);
 }
-.foundation-cover-button img, .foundation-stage-image img {
+.foundation-cover-button img,
+.foundation-stage-image img {
   display: block;
   width: 100%;
   height: auto;
@@ -85,7 +87,10 @@
   max-width: 600px;
   margin-inline: auto;
 }
-.foundation-stage { max-width: 520px; margin-inline: auto; }
+.foundation-stage {
+  max-width: 520px;
+  margin-inline: auto;
+}
 .foundation-carousel-controls {
   display: flex;
   justify-content: center;
@@ -104,8 +109,16 @@
   height: 48px;
   cursor: pointer;
 }
-.foundation-carousel-position { color: #264a66; font-weight: 700; font-variant-numeric: tabular-nums; }
-.foundation-carousel-caption { text-align: center; line-height: 1.7; color: #38566d; }
+.foundation-carousel-position {
+  color: #264a66;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.foundation-carousel-caption {
+  text-align: center;
+  line-height: 1.7;
+  color: #38566d;
+}
 .foundation-historical-note {
   max-width: 680px;
   margin: 1.6rem auto;
@@ -115,17 +128,33 @@
   color: #36546a;
   line-height: 1.7;
 }
-.foundation-cover-button:focus-visible, .foundation-stage-image:focus-visible,
-.foundation-carousel-arrow:focus-visible, .foundation-link:focus-visible {
+.foundation-cover-button:focus-visible,
+.foundation-stage-image:focus-visible,
+.foundation-carousel-arrow:focus-visible,
+.foundation-link:focus-visible {
   outline: 3px solid #15a7cc;
   outline-offset: 4px;
 }
 @media (max-width: 768px) {
-  .foundation-teaser-layout { grid-template-columns: minmax(0, 1fr); gap: 1.7rem; }
-  .foundation-cover-button { max-width: 480px; margin-inline: auto; }
-  .foundation-teaser-copy h2 { font-size: clamp(1.75rem, 7vw, 2.6rem); }
-  .foundation-gallery { margin-top: 2rem; padding-top: 2rem; }
+  .foundation-teaser-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.7rem;
+  }
+  .foundation-cover-button {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+  .foundation-teaser-copy h2 {
+    font-size: clamp(1.75rem, 7vw, 2.6rem);
+  }
+  .foundation-gallery {
+    margin-top: 2rem;
+    padding-top: 2rem;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .foundation-cover-button, .foundation-stage-image { transition: none; }
+  .foundation-cover-button,
+  .foundation-stage-image {
+    transition: none;
+  }
 }

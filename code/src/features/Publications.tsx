@@ -7,20 +7,32 @@ import { publications, publication, type Publication } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 import { dateLabel, safeExternalUrl } from '../lib/config';
 import { NotFound } from './PublicPages';
-import { FoundationGallery, foundationRoute, foundationCards } from '../components/FoundationHistory';
+import {
+  FoundationGallery,
+  foundationRoute,
+  foundationCards,
+} from '../components/FoundationHistory';
 import { assetUrl } from '../lib/siteAssets';
 
 export function PublicationCard({ item }: { item: Publication }) {
   const body = (
     <>
-      <div className={item.main_image_path ? 'publication-art publication-art--photo' : 'publication-art'}>
+      <div
+        className={
+          item.main_image_path ? 'publication-art publication-art--photo' : 'publication-art'
+        }
+      >
         {item.main_image_path ? (
           <img
             src={assetUrl(item.main_image_path)}
             width={1080}
             height={1350}
             loading="lazy"
-            alt={item.slug === foundationRoute.split('/').at(-1) ? foundationCards[0].title : item.title}
+            alt={
+              item.slug === foundationRoute.split('/').at(-1)
+                ? foundationCards[0].title
+                : item.title
+            }
           />
         ) : (
           <>
