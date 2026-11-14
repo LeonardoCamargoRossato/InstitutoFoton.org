@@ -12,14 +12,14 @@ const levels = [
     subtitle: 'Articulação estratégica, pesquisa e ensino.',
   },
   {
-    key: 'coordenacao',
-    title: 'Nossas Coordenações Científicas',
-    subtitle: 'Conhecimento especializado, colaboração interdisciplinar e pesquisa em rede.',
-  },
-  {
     key: 'adviser',
     title: 'Conselheiros e Advisers',
     subtitle: 'Experiência e conhecimento para ampliar nossas perspectivas.',
+  },
+  {
+    key: 'coordenacao',
+    title: 'Nossas Coordenações Científicas',
+    subtitle: 'Conhecimento especializado, colaboração interdisciplinar e pesquisa em rede.',
   },
 ] as const;
 
@@ -195,7 +195,10 @@ export default function InstituteTeamDashboard() {
               {key === 'coordenacao' ? (
                 <div className="team-lines">
                   {lines.map((line) => (
-                    <div className="team-line" key={line}>
+                    <div
+                      className={`team-line ${members.filter((m) => m.thematicLine === line).length === 1 ? 'team-line--single' : 'team-line--multiple'}`}
+                      key={line}
+                    >
                       <h4>{line}</h4>
                       <div className="team-grid">
                         {members
@@ -208,7 +211,7 @@ export default function InstituteTeamDashboard() {
                   ))}
                 </div>
               ) : (
-                <div className="team-grid">
+                <div className={key === 'vice-presidencia' ? 'team-grid team-grid--centered' : 'team-grid'}>
                   {members.map((m) => (
                     <PersonCard key={m.id} member={m} onOpen={setSelected} />
                   ))}
