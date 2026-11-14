@@ -38,5 +38,13 @@
     "summary": "Uma ponte entre pesquisa, organizações e sociedade.",
     "description": "Compreender tecnologias emergentes também envolve formação, gestão e diálogo. Essa frente aproxima o conhecimento científico das questões enfrentadas por organizações, respeitando o estágio de maturidade de cada tecnologia.",
     "topics": ["Formação", "Gestão da inovação", "Ciência e sociedade"]
+  },
+  {
+    "slug": "quantum-no-direito",
+    "title": "Quantum no Direito",
+    "label": "06",
+    "summary": "Conectar a evolução das tecnologias quânticas às questões jurídicas e sociais.",
+    "description": "A linha Quantum no Direito promove o diálogo interdisciplinar sobre as implicações jurídicas, éticas e institucionais das tecnologias quânticas. Entre seus temas de investigação estão a proteção de dados, a segurança da informação, a propriedade intelectual e os desafios de regulação e governança associados à transformação tecnológica.",
+    "topics": ["Direito e tecnologias emergentes", "Proteção de dados e segurança", "Regulação e governança"]
   }
 ]
