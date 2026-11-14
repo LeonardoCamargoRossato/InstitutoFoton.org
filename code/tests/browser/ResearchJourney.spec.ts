@@ -17,7 +17,7 @@ const journey = 'Jornada do Cientista Inovador';
 const haQuantum = 'HaQuantum — Hackathon de Tecnologias Quânticas';
 const pulso = 'Quantum Pathway — Encerramento da Etapa Pulso';
 
-test('menu unificado e cinco áreas originais abrem suas páginas canônicas', async ({ page }) => {
+test('menu unificado e seis áreas de pesquisa abrem suas páginas canônicas', async ({ page }) => {
   await page.goto('./pesquisa');
   const mainNav = page.getByRole('navigation', { name: 'Navegação principal' });
   await expect(
@@ -39,7 +39,7 @@ test('menu unificado e cinco áreas originais abrem suas páginas canônicas', a
     haQuantum,
   ]);
   const cards = page.locator('.research-areas .research-card');
-  await expect(cards).toHaveCount(5);
+  await expect(cards).toHaveCount(6);
   for (const line of researchLines) {
     const card = cards.filter({
       has: page.getByRole('heading', { name: line.title, exact: true }),
