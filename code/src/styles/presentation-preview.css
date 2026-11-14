@@ -1,0 +1,213 @@
+/* Prévia visual da apresentação institucional: duas páginas reais do PDF.
+   Sem imagens sintéticas; o link inteiro leva ao visualizador institucional. */
+@layer components {
+  .institutional-presentation {
+    padding-block: clamp(94px, 9vw, 132px);
+  }
+
+  .presentation-feature-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.18fr);
+    align-items: center;
+    column-gap: clamp(76px, 9vw, 138px);
+  }
+
+  .presentation-feature-copy {
+    min-width: 0;
+    align-self: center;
+  }
+
+  .presentation-feature-copy .section-heading h2 {
+    max-width: 460px;
+  }
+
+  .presentation-feature-media {
+    min-width: 0;
+    width: 100%;
+    max-width: 630px;
+    justify-self: end;
+  }
+
+  .presentation-preview-link {
+    display: block;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 20px;
+    outline-offset: 8px;
+  }
+
+  .presentation-preview-stack {
+    display: block;
+    isolation: isolate;
+    position: relative;
+    width: 100%;
+    height: clamp(300px, 32vw, 420px);
+  }
+
+  .presentation-preview-image {
+    position: absolute;
+    display: block;
+    width: 83%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    border: 7px solid white;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow:
+      0 22px 62px rgba(9, 38, 82, 0.18),
+      0 4px 14px rgba(9, 38, 82, 0.08);
+    transition:
+      transform 320ms cubic-bezier(0.2, 0.72, 0.2, 1),
+      box-shadow 320ms ease,
+      border-color 320ms ease;
+    pointer-events: none;
+    backface-visibility: hidden;
+  }
+
+  .presentation-preview-back {
+    z-index: 1;
+    top: 1%;
+    right: 0;
+    transform: rotate(6deg);
+  }
+
+  .presentation-preview-front {
+    z-index: 2;
+    top: 20%;
+    left: 0;
+    transform: rotate(-6deg);
+  }
+
+  .presentation-preview-action {
+    position: absolute;
+    right: 4%;
+    bottom: 1%;
+    z-index: 3;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 18px;
+    color: white;
+    background: var(--navy);
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    line-height: 1.4;
+    box-shadow: 0 10px 24px rgba(9, 38, 82, 0.2);
+    transition:
+      background 220ms ease,
+      transform 220ms ease;
+  }
+
+  .presentation-preview-caption {
+    max-width: 550px;
+    margin: 20px auto 0;
+    color: var(--ink-light);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .presentation-preview-link:hover .presentation-preview-front,
+  .presentation-preview-link:focus-visible .presentation-preview-front {
+    transform: rotate(-3deg) translate3d(-7px, -9px, 0);
+    box-shadow: 0 28px 66px rgba(9, 38, 82, 0.23);
+  }
+
+  .presentation-preview-link:hover .presentation-preview-back,
+  .presentation-preview-link:focus-visible .presentation-preview-back {
+    transform: rotate(4deg) translate3d(7px, 4px, 0);
+    box-shadow: 0 22px 56px rgba(9, 38, 82, 0.2);
+  }
+
+  .presentation-preview-link:hover .presentation-preview-action,
+  .presentation-preview-link:focus-visible .presentation-preview-action {
+    background: var(--blue);
+    transform: translateY(-3px);
+  }
+
+  .presentation-preview-link:focus-visible {
+    outline: 3px solid var(--blue);
+  }
+}
+
+@layer responsive {
+  @media (max-width: 1020px) {
+    .presentation-feature-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: clamp(48px, 7vw, 72px);
+    }
+
+    .presentation-feature-media {
+      width: min(100%, 640px);
+      justify-self: center;
+    }
+
+    .presentation-preview-stack {
+      height: clamp(295px, 58vw, 460px);
+    }
+  }
+
+  @media (max-width: 540px) {
+    .institutional-presentation {
+      padding-block: 74px 82px;
+    }
+
+    .presentation-feature-layout {
+      gap: 44px;
+    }
+
+    .presentation-preview-stack {
+      height: clamp(205px, 61vw, 300px);
+    }
+
+    .presentation-preview-image {
+      width: 84%;
+      border-width: 4px;
+      border-radius: 11px;
+    }
+
+    .presentation-preview-front {
+      top: 22%;
+    }
+
+    .presentation-preview-action {
+      right: 0;
+      bottom: 0;
+      padding: 10px 13px;
+      gap: 7px;
+      font-size: 0.78rem;
+    }
+
+    .presentation-preview-caption {
+      margin-top: 22px;
+      font-size: 0.82rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .presentation-preview-image,
+    .presentation-preview-action {
+      transition: none;
+    }
+
+    .presentation-preview-link:hover .presentation-preview-front,
+    .presentation-preview-link:focus-visible .presentation-preview-front {
+      transform: rotate(-6deg);
+    }
+
+    .presentation-preview-link:hover .presentation-preview-back,
+    .presentation-preview-link:focus-visible .presentation-preview-back {
+      transform: rotate(6deg);
+    }
+
+    .presentation-preview-link:hover .presentation-preview-action,
+    .presentation-preview-link:focus-visible .presentation-preview-action {
+      transform: none;
+    }
+  }
+}
