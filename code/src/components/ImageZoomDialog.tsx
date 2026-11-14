@@ -25,11 +25,7 @@ export function ImageZoomDialog({
 }: Props) {
   const [currentSrc, setCurrentSrc] = useState(previewUntilLoaded && fallback ? fallback : src);
   useEffect(() => {
-    if (!previewUntilLoaded || !fallback) {
-      setCurrentSrc(src);
-      return;
-    }
-    setCurrentSrc(fallback);
+    if (!previewUntilLoaded || !fallback) return;
     const fullResolution = new Image();
     fullResolution.onload = () => setCurrentSrc(src);
     fullResolution.src = src;
