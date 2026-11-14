@@ -223,9 +223,11 @@ export default function InstituteTeamDashboard() {
               ) : (
                 <div
                   className={
-                    key === 'vice-presidencia' || key === 'adviser'
-                      ? 'team-grid team-grid--centered'
-                      : 'team-grid'
+                    key === 'vice-presidencia'
+                      ? 'team-grid team-grid--centered team-grid--vice'
+                      : key === 'adviser'
+                        ? 'team-grid team-grid--centered'
+                        : 'team-grid'
                   }
                 >
                   {members.map((m) => (
