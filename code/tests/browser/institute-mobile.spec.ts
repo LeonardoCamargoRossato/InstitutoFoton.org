@@ -32,7 +32,9 @@ test('O Instituto mantém a equipe dentro da largura mobile', async ({ page }) =
       });
     });
     console.log('MOBILE_TEAM_DIAGNOSTICS', width, JSON.stringify(metrics));
-    const result = metrics.find((metric) => metric.selector === '.institute-team-section > .container');
+    const result = metrics.find(
+      (metric) => metric.selector === '.institute-team-section > .container',
+    );
     expect(result?.width).toBeLessThanOrEqual(width);
     expect(result?.right).toBeLessThanOrEqual(width);
   }
