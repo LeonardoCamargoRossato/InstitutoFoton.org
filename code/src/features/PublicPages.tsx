@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import { researchLines } from './content';
+import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
 import PhotonIdentityAnimation from '../components/PhotonIdentityAnimation';
 import { odqs, cartas, methodology } from './manifesto-content';
@@ -140,14 +141,43 @@ export function Home() {
       </section>
 
       <section className="section section-gray institutional-presentation" id="apresentacao">
-        <div className="container split">
-          <Heading eyebrow="Documento institucional" title="Conheça a apresentação do Foton." />
-          <div className="body-copy">
-            <p>
-              Explore a identidade, o propósito, o ecossistema e as iniciativas do Foton na
-              apresentação institucional.
+        <div className="container presentation-feature-layout">
+          <div className="presentation-feature-copy">
+            <Heading eyebrow="Documento institucional" title="Conheça a apresentação do Foton." />
+          </div>
+          <div className="presentation-feature-media">
+            <Link
+              to="/apresentacao"
+              className="presentation-preview-link"
+              aria-label="Visualizar o PDF da apresentação institucional do Foton"
+            >
+              <span className="presentation-preview-stack">
+                <img
+                  className="presentation-preview-image presentation-preview-back"
+                  src={assetUrl('assets/WebP/apresentacao/apresentacao-foton-pagina-02.webp')}
+                  alt="Segunda página da apresentação institucional do Foton"
+                  width={1200}
+                  height={675}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  className="presentation-preview-image presentation-preview-front"
+                  src={assetUrl('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp')}
+                  alt="Capa oficial da apresentação institucional do Foton"
+                  width={1200}
+                  height={675}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="presentation-preview-action" aria-hidden="true">
+                  Visualizar apresentação <ArrowUpRight size={20} />
+                </span>
+              </span>
+            </Link>
+            <p className="presentation-preview-caption">
+              Clique na imagem para acessar o PDF da apresentação institucional do Foton.
             </p>
-            <Action to="/apresentacao">Visualizar apresentação</Action>
           </div>
         </div>
       </section>
