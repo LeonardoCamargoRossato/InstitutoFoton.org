@@ -11,6 +11,7 @@ import PhotonIdentityAnimation, {
 import HomeAtomEntrance from '../components/HomeAtomEntrance';
 import InstituteTeamDashboard from '../components/InstituteTeamDashboard';
 import InstitutePurpose from '../components/InstitutePurpose';
+import { FoundationTeaser } from '../components/FoundationHistory';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
@@ -480,6 +481,7 @@ export function Institute() {
           </div>
         </section>
       </div>
+      <FoundationTeaser />
       <InstitutePurpose />
       <section className="section">
         <div className="container">
