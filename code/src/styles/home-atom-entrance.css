@@ -56,8 +56,7 @@
     transform: translate(-50%, -50%);
     border: 2px solid rgba(210, 248, 255, 0.95);
     border-radius: 50%;
-    background:
-      radial-gradient(circle at 35% 22%, #fff 0%, #e7f8ff 55%, #b5dbff 100%);
+    background: radial-gradient(circle at 35% 22%, #fff 0%, #e7f8ff 55%, #b5dbff 100%);
     box-shadow:
       0 0 0 10px rgba(81, 204, 255, 0.06),
       0 0 44px rgba(69, 201, 255, 0.28),
@@ -95,8 +94,7 @@
     line-height: 1.24;
     border: 1px solid rgba(148, 218, 255, 0.54);
     border-radius: 15px;
-    background:
-      linear-gradient(135deg, rgba(25, 102, 190, 0.9), rgba(7, 51, 125, 0.96));
+    background: linear-gradient(135deg, rgba(25, 102, 190, 0.9), rgba(7, 51, 125, 0.96));
     box-shadow: 0 10px 30px rgba(0, 9, 39, 0.2);
   }
 
@@ -253,8 +251,7 @@
   @keyframes home-orbit-one-arrive {
     0% {
       opacity: 0;
-      transform: translate3d(-95px, calc(0px - var(--orbital-fall)), 0) rotate(-140deg)
-        scale(2.15);
+      transform: translate3d(-95px, calc(0px - var(--orbital-fall)), 0) rotate(-140deg) scale(2.15);
     }
     8% {
       opacity: 0.95;
@@ -276,8 +273,7 @@
   @keyframes home-orbit-two-arrive {
     0% {
       opacity: 0;
-      transform: translate3d(105px, calc(0px - var(--orbital-fall)), 0) rotate(115deg)
-        scale(2.25);
+      transform: translate3d(105px, calc(0px - var(--orbital-fall)), 0) rotate(115deg) scale(2.25);
     }
     8% {
       opacity: 0.92;
@@ -299,8 +295,7 @@
   @keyframes home-orbit-three-arrive {
     0% {
       opacity: 0;
-      transform: translate3d(-26px, calc(0px - var(--orbital-fall)), 0) rotate(64deg)
-        scale(2.05);
+      transform: translate3d(-26px, calc(0px - var(--orbital-fall)), 0) rotate(64deg) scale(2.05);
     }
     9% {
       opacity: 0.9;

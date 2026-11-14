@@ -58,7 +58,13 @@ function ArrivingOrbitals() {
   );
 }
 
-function FotonNetwork({ settled, destination }: { settled: boolean; destination: React.RefObject<HTMLDivElement | null> }) {
+function FotonNetwork({
+  settled,
+  destination,
+}: {
+  settled: boolean;
+  destination: React.RefObject<HTMLDivElement | null>;
+}) {
   return (
     <div
       ref={destination}
@@ -67,7 +73,12 @@ function FotonNetwork({ settled, destination }: { settled: boolean; destination:
       aria-label="Foton conecta formação de ecossistema, conexão de talentos, pesquisa e educação, e geração de novas startups."
       data-testid="home-foton-network"
     >
-      <svg className="home-network-edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <svg
+        className="home-network-edges"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
         <path d="M 24 22 Q 36 31 50 50" />
         <path d="M 76 22 Q 64 31 50 50" />
         <path d="M 24 78 Q 36 69 50 50" />
@@ -146,7 +157,12 @@ export default function HomeAtomEntrance() {
       <FotonNetwork settled={settled} destination={destination} />
       {!settled &&
         createPortal(
-          <div ref={flight} className="home-atom-flight" data-testid="home-atom-orbitals" aria-hidden="true">
+          <div
+            ref={flight}
+            className="home-atom-flight"
+            data-testid="home-atom-orbitals"
+            aria-hidden="true"
+          >
             <ArrivingOrbitals />
           </div>,
           document.body,

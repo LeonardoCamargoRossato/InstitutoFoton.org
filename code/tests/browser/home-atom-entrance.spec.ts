@@ -54,7 +54,9 @@ test('orbitais independentes descem, colapsam em um átomo e revelam o grafo Fot
   await expect(graph.locator('.home-network-center strong')).toHaveText('Foton');
   await expect
     .poll(() =>
-      graph.locator('.home-network-center img').evaluate((image) => (image as HTMLImageElement).naturalWidth),
+      graph
+        .locator('.home-network-center img')
+        .evaluate((image) => (image as HTMLImageElement).naturalWidth),
     )
     .toBeGreaterThan(0);
   await expect(graph).toHaveCSS('opacity', '1', { timeout: 5000 });
