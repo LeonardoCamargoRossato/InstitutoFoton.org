@@ -51,7 +51,7 @@ test('home, pesquisa, manifesto e navegação sem erros de aplicação', async (
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('./');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Transformar ciência');
-  await page.getByRole('link', { name: 'Conheça o Instituto', exact: true }).click();
+  await page.getByRole('link', { name: 'Conheça o Foton', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Ciência que aproxima. Conhecimento que transforma.',
   );
