@@ -182,7 +182,7 @@ export default function Layout() {
                     }
                   }}
                 >
-                  <summary>PD e Cientista Inovador</summary>
+                  <summary>P&D - Cientista Inovador</summary>
                   <div
                     className="nav-dropdown-links"
                     onClick={(event) => {

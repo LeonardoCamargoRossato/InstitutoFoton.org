@@ -121,7 +121,7 @@ for (const viewport of [
   });
 }
 
-test('as três opções do menu PD e Cientista Inovador navegam em desktop e mobile', async ({
+test('as três opções do menu P&D - Cientista Inovador navegam em desktop e mobile', async ({
   page,
 }) => {
   const options = [
