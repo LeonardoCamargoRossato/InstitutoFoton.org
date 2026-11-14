@@ -106,7 +106,7 @@
   .presentation-preview-caption {
     max-width: 550px;
     margin: 20px auto 0;
-    color: var(--ink-light);
+    color: var(--muted);
     font-size: 0.9rem;
     line-height: 1.6;
     text-align: center;
