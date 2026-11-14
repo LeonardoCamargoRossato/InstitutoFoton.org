@@ -107,6 +107,11 @@
     margin-bottom: 1.6rem;
   }
 }
+@media (max-width: 700px) {
+  .institute-purpose {
+    scroll-margin-top: 172px;
+  }
+}
 @media (max-width: 440px) {
   .institute-purpose-icon {
     width: 48px;
