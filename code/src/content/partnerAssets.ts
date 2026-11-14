@@ -1,5 +1,5 @@
 import { assetUrl } from '../lib/siteAssets';
-import logoFilenames from '../../assets/partner-logo-names.json';
+import logoFilenames from '../../scripts/data/partner-logo-names.json';
 
 // Nomes PascalCase aprovados e mídia SVG original do Drive.
 export type PartnerLogo = { svg: string };

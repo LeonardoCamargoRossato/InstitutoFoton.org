@@ -6,7 +6,7 @@ import sharp from 'sharp';
 
 const root = process.cwd();
 const inventory = JSON.parse(
-  await readFile(path.join(root, 'assets/partner-svg-inventory.json'), 'utf8'),
+  await readFile(path.join(root, 'scripts/data/partner-svg-inventory.json'), 'utf8'),
 );
 const originals = path.join(root, 'public/assets/img-logos-parceiros-foton/assets-svg');
 const previews = path.join(root, 'public/assets/img-logos-parceiros-foton/display-svg');
@@ -168,7 +168,7 @@ const summary = {
   records: report,
 };
 await writeFile(
-  path.join(root, 'assets/partner-svg-display-report.json'),
+  path.join(root, 'scripts/data/partner-svg-display-report.json'),
   JSON.stringify(summary, null, 2) + '\n',
 );
 console.log(

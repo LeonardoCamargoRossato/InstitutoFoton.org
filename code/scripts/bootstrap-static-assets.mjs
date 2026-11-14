@@ -126,9 +126,9 @@ for (let i = 1; i <= 20; i++) {
 }
 if (items.length !== 49 || new Set(items.map((x) => x.pngPath)).size !== 49)
   throw Error('Inventário incompleto');
-await mkdir(join(root, 'assets'), { recursive: true });
+await mkdir(join(root, 'scripts/data'), { recursive: true });
 await writeFile(
-  join(root, 'assets/asset-inventory.json'),
+  join(root, 'scripts/data/asset-inventory.json'),
   JSON.stringify(
     {
       count: items.length,

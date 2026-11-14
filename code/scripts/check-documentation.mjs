@@ -16,7 +16,7 @@ const approvedPrivateFiles = new Set([
   'docs/REFERENCE_INVENTORY.md',
   'docs/ROADMAP.md',
   'docs/SECURITY.md',
-  'docs/SUPABASE_SETUP.md',
+  'docs/STATIC_SITE.md',
   'docs/V0_ACCEPTANCE.md',
   'docs/screenshots/apoie-1440.png',
   'docs/screenshots/apresentacao-1440.png',

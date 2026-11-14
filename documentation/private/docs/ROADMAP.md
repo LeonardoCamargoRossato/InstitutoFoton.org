@@ -1,9 +1,11 @@
-# Evolução
+# Evolução — portal estático
 
-V0: portal, identidade, rotas, conteúdo referenciado, Manifesto literal, PDF, modalidades explicativas, consultas públicas, estrutura SQL/RLS/Storage e shell de acesso condicionado ao backend real.
+**Atual:** aplicação React/Vite com conteúdo aprovado local, seis verticais de pesquisa, equipe, parceiros, Manifesto, PDF, notícias e páginas institucionais.
 
-V1: CMS com rascunho/revisão/aprovação/publicação, documentos versionados e upload controlado, indicadores atualizados, projetos e campanhas aprovados. Pagamentos somente após regras institucionais, gateway/Pix validado, webhooks verificados, conciliação e consentimentos. Recorrência com relatórios trimestrais, patrocínios contratuais e reconhecimento opt-in. Nunca confiar na confirmação do navegador.
+**Editorial:** novas publicações, imagens, documentos e dados de transparência exigem validação e aprovação institucional antes de entrarem no repositório.
 
-Futuro: perfis científicos consentidos, histórias intergeracionais, mentoria, Radar de Oportunidades com origem/atualização, bolsas com regulamento, visualização do ecossistema e integração por APIs autorizadas. Sem compartilhamento de bancos ou credenciais de outros produtos.
+**Técnico:** acompanhar acessibilidade, desempenho mobile, cache, SEO, integridade de assets e regressões nos testes.
 
-Pendências editoriais: literal aprovado de Missão/Visão/Propósito, denominação/estágio da sexta frente de Direito, confirmação atual de governança/contatos, export de publicações, assets e autorizações de fotografias. Atualizar documentos de proveniência junto de cada aprovação.
+**Futuro:** qualquer CMS, API, banco ou autenticação exigirá decisão arquitetural, escopo distinto e revisão de segurança; não reativar scripts de serviços legados como atalho.
+
+**Pendências:** revisão contínua de papéis e minibios de pessoas, proveniência de conteúdos e mídias, atualização de indicadores.
