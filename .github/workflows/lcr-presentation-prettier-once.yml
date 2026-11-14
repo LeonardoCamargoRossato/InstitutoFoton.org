@@ -1,0 +1,35 @@
+name: LCR one-shot presentation preview formatting
+on:
+  push:
+    branches:
+      - hotfix/home-preview-apresentacao-webp-20261114
+    paths:
+      - .github/workflows/lcr-presentation-prettier-once.yml
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: code
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+      - run: npx prettier --write scripts/generate-presentation-preview.mjs tests/browser/presentation-preview.spec.ts
+      - name: Commit formatting
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- scripts/generate-presentation-preview.mjs tests/browser/presentation-preview.spec.ts
+          if ! git diff --cached --quiet; then
+            git commit -m "style(home): format PDF render script and visual regression tests"
+            git push origin HEAD:refs/heads/hotfix/home-preview-apresentacao-webp-20261114
+          fi
