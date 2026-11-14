@@ -166,7 +166,7 @@ export default function Layout() {
             }}
           >
             {navigation.map(([path, label]) =>
-              path === '/pesquisa' ? (
+              path === '/instituto' || path === '/pesquisa' ? (
                 <details
                   className="nav-dropdown"
                   key={path}
@@ -182,7 +182,7 @@ export default function Layout() {
                     }
                   }}
                 >
-                  <summary>P&D - Cientista Inovador</summary>
+                  <summary>{path === '/instituto' ? 'O Instituto' : 'P&D - Cientista Inovador'}</summary>
                   <div
                     className="nav-dropdown-links"
                     onClick={(event) => {
@@ -190,9 +190,18 @@ export default function Layout() {
                         event.currentTarget.closest('details')?.removeAttribute('open');
                     }}
                   >
-                    <Link to="/pesquisa#areas-de-pesquisa">Linhas temáticas de pesquisa</Link>
-                    <Link to="/pesquisa/jornada">Jornadas do Cientista Inovador</Link>
-                    <Link to="/pesquisa/haquantum">Hack Quantum</Link>
+                    {path === '/instituto' ? (
+                      <>
+                        <Link to="/instituto">Conheça o Instituto</Link>
+                        <Link to="/instituto#equipe">Nossa Equipe</Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/pesquisa#areas-de-pesquisa">Linhas temáticas de pesquisa</Link>
+                        <Link to="/pesquisa/jornada">Jornadas do Cientista Inovador</Link>
+                        <Link to="/pesquisa/haquantum">Hack Quantum</Link>
+                      </>
+                    )}
                   </div>
                 </details>
               ) : (
