@@ -10,15 +10,14 @@ const letters = ['f', 'ó', 't', 'o', 'n'];
  */
 export default function PhotonIdentityAnimation() {
   const root = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(() =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
 
   useEffect(() => {
     const element = root.current;
     if (!element) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setActive(true);
-      return;
-    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
