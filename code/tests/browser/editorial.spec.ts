@@ -33,7 +33,7 @@ test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', 
   );
   await expect(page.locator('.home-hero .hero-identity')).toBeVisible();
   await expect(page.locator('.institutional-programs .research-card')).toHaveCount(4);
-  await expect(page.getByText('Setembro de 2026', { exact: false }).first()).toBeVisible();
+  await expect(page.locator('.institutional-metrics .metrics-source')).toHaveText('Indicadores institucionais da rede Foton.');
   for (const path of ['/instituto', '/apresentacao', '/manifesto', '/jornada', '/contato']) {
     await expect(page.locator('a[href$="' + path + '"]').first()).toBeAttached();
   }
@@ -55,7 +55,7 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
     ).toHaveCount(0);
   }
   await page.goto('./pesquisa');
-  await expect(page.getByText(/Explore cinco agrupamentos de temas científicos/)).toBeVisible();
+  await expect(page.getByText(/Explore cinco grandes áreas de pesquisa e desenvolvimento/)).toBeVisible();
 });
 
 test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({ page }) => {
@@ -111,7 +111,7 @@ test('Apoie e Jornada mantêm informação objetiva sem inscrições, bolsas ou 
     page.locator('.journey-steps, .journey-photo-grid, .human-page-hero-photo'),
   ).toHaveCount(0);
   await expect(
-    page.getByText(/Para conhecer atividades e oportunidades de participação/),
+    page.getByText(/Para conhecer oportunidades de participação na Jornada/),
   ).toBeVisible();
 });
 
@@ -199,7 +199,7 @@ test('indicadores datados possuem apresentação discreta e sem ressalvas defens
   await expect(metrics.getByText('15', { exact: true })).toBeVisible();
   await expect(metrics.getByText('140+', { exact: true })).toBeVisible();
   await expect(metrics.locator('.metrics-source')).toHaveText(
-    'Dados institucionais · setembro de 2026.',
+    'Indicadores institucionais da rede Foton.',
   );
   await expect(metrics).not.toContainText(/parceria vigente|não implica|não atualizados/i);
   const source = metrics.locator('.metrics-source');
