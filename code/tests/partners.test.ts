@@ -10,7 +10,9 @@ import { partnerLogoAssets } from '../src/content/partnerAssets';
 
 describe('catálogo de parceiros publicados', () => {
   it('preserva os 31 SVGs originais e publica 31 derivados otimizados', () => {
-    const report = JSON.parse(readFileSync('scripts/data/partner-svg-display-report.json', 'utf8')) as {
+    const report = JSON.parse(
+      readFileSync('scripts/data/partner-svg-display-report.json', 'utf8'),
+    ) as {
       count: number;
       sourceBytes: number;
       displayBytes: number;
