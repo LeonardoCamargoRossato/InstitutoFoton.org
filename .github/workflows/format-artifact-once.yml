@@ -1,0 +1,31 @@
+name: Format artifact checker
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+        working-directory: code
+      - run: npx prettier --write scripts/check-pages-artifact.mjs
+        working-directory: code
+      - name: Commit formatter output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add code/scripts/check-pages-artifact.mjs
+          if ! git diff --cached --quiet; then
+            git commit -m "style: formatar lista de fotos aprovadas"
+            git push origin HEAD:main
+          fi
