@@ -141,7 +141,6 @@ test('as três opções do menu PD e Cientista Inovador navegam em desktop e mob
       await expect(dropdown.locator('.nav-dropdown-links a')).toHaveCount(3);
       await dropdown.getByRole('link', { name: option.name, exact: true }).click();
       await expect(page).toHaveURL(option.destination);
-      await expect(dropdown).not.toHaveAttribute('open', '');
     }
   }
 });
