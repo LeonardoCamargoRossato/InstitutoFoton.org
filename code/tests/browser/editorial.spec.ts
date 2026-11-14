@@ -68,7 +68,7 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
   }
   await page.goto('./pesquisa');
   await expect(
-    page.getByText(/Explore cinco grandes áreas de pesquisa e desenvolvimento/),
+    page.getByText(/Explore seis grandes áreas de pesquisa e desenvolvimento/),
   ).toBeVisible();
 });
 
