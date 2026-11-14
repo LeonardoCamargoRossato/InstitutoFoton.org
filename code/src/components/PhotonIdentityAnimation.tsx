@@ -1,72 +1,80 @@
-import { useEffect, useRef, useState } from 'react';
-import { assetUrl } from '../lib/siteAssets';
+import { useEffect, useState, type RefObject } from 'react';
+import { assetUrl, imageAsset } from '../lib/siteAssets';
 
-const letters = ['f', 'ó', 't', 'o', 'n'];
+const logo = imageAsset('foton-logo-light');
 
-/**
- * Sequência acessível, acionada somente quando a identidade entra na viewport:
- * partícula → impacto no f → reação das cinco letras → ícone oficial → texto digitado.
- * O estado final permanece estável, inclusive com movimento reduzido.
- */
-export default function PhotonIdentityAnimation() {
-  const root = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(
-    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
+// Verifica os bytes aprovados antes de importar o SVG para a página.
+const approvedIntegrity = 'sha256-64ZXikb0ysnr6nPZRYir8RGW9yH/aGroI/VvlnaiC7c=';
+
+export type PhotonIdentityPhase = 'approach' | 'playing' | 'static';
+
+export default function PhotonIdentityAnimation({
+  artwork,
+  phase,
+}: {
+  artwork: RefObject<HTMLDivElement | null>;
+  phase: PhotonIdentityPhase;
+}) {
+  const [fallbackToPng, setFallbackToPng] = useState(false);
 
   useEffect(() => {
-    const element = root.current;
-    if (!element) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        setActive(true);
-        observer.disconnect();
-      },
-      { threshold: 0.35, rootMargin: '0px 0px -6% 0px' },
-    );
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    const host = artwork.current;
+    if (!host) return;
+    const controller = new AbortController();
+
+    async function loadArtwork(host: HTMLDivElement) {
+      try {
+        const response = await fetch(assetUrl('assets/AnimacaoIdentidadeFoton.svg'), {
+          integrity: approvedIntegrity,
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error('SVG indisponível');
+        const xml = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
+        if (controller.signal.aborted) return;
+        if (xml.documentElement.localName !== 'svg') throw new Error('SVG inválido');
+
+        // A seção é clara. As regras de reprodução ficam isoladas do restante da página.
+        const rules = document.createElement('style');
+        rules.textContent = `
+          svg { display: block; width: 100%; height: 100%; }
+          :host(:not([data-phase="playing"])) svg * { animation: none !important; }
+          :host(:not([data-phase="playing"])) .efeitos { display: none !important; }
+          :host(:not([data-phase="playing"])) #Marca g[mask] { mask: none; }
+          @media (prefers-reduced-motion: no-preference) {
+            :host([data-phase="approach"]) #Marca g[mask] { visibility: hidden; }
+          }
+          @media (prefers-color-scheme: dark) and (forced-colors: none) {
+            #Marca .marca-escura { display: inline; }
+            #Marca .marca-clara { display: none; }
+          }
+        `;
+        const svg = document.importNode(xml.documentElement, true);
+        const shadow = host.shadowRoot ?? host.attachShadow({ mode: 'open' });
+        shadow.replaceChildren(svg, rules);
+        host.setAttribute('data-artwork-status', 'ready');
+      } catch {
+        // Sem a arte animada, a imagem institucional estática continua no componente.
+        if (!controller.signal.aborted) host.setAttribute('data-artwork-status', 'failed');
+      }
+    }
+
+    void loadArtwork(host);
+    return () => controller.abort();
+  }, [artwork]);
 
   return (
-    <div
-      ref={root}
-      className={'photon-identity' + (active ? ' is-active' : '')}
-      role="img"
-      aria-label="Fóton: uma partícula luminosa toca a palavra, ilumina suas letras e revela o símbolo do Foton."
-    >
-      <div className="photon-identity-stage" aria-hidden="true">
-        <div className="photon-identity-initial">
-          <span className="photon-identity-particle" />
-          <span className="photon-identity-impact-ring" />
-          <span className="photon-identity-word">
-            {letters.map((letter, index) => (
-              <span className="photon-identity-letter" key={index}>
-                {letter}
-              </span>
-            ))}
-          </span>
-        </div>
-        <div className="photon-identity-final">
-          <span className="photon-identity-icon">
-            <img
-              src={assetUrl('assets/WebP/branding/favicon.webp')}
-              alt=""
-              width={88}
-              height={98}
-              decoding="async"
-            />
-          </span>
-          <span className="photon-identity-typed">
-            {letters.map((letter, index) => (
-              <span className="photon-identity-type-letter" key={index}>
-                {letter}
-              </span>
-            ))}
-            <span className="photon-identity-cursor" />
-          </span>
+    <div className="photon-identity" role="img" aria-label="Instituto Foton">
+      <div id="identidade-foton" className="photon-identity-stage" aria-hidden="true">
+        <div ref={artwork} className="photon-identity-artwork" data-phase={phase}>
+          <img
+            className="photon-identity-fallback"
+            src={assetUrl(fallbackToPng ? logo.pngPath : logo.webpPath)}
+            width={logo.width}
+            height={logo.height}
+            alt=""
+            decoding="async"
+            onError={fallbackToPng ? undefined : () => setFallbackToPng(true)}
+          />
         </div>
       </div>
       <span className="photon-identity-caption" aria-hidden="true">

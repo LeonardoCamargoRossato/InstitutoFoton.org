@@ -1,11 +1,14 @@
-import { Suspense, lazy, useEffect, useRef } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState, type RefObject } from 'react';
+import { flushSync } from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
 import { researchLines } from './content';
 import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
-import PhotonIdentityAnimation from '../components/PhotonIdentityAnimation';
+import PhotonIdentityAnimation, {
+  type PhotonIdentityPhase,
+} from '../components/PhotonIdentityAnimation';
 import HomeAtomEntrance from '../components/HomeAtomEntrance';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
@@ -193,7 +196,13 @@ export function Home() {
   );
 }
 
-function InstituteLightPath() {
+function InstituteLightPath({
+  artwork,
+  onPhaseChange,
+}: {
+  artwork: RefObject<HTMLDivElement | null>;
+  onPhaseChange: (phase: PhotonIdentityPhase) => void;
+}) {
   const root = useRef<HTMLDivElement>(null);
   const svg = useRef<SVGSVGElement>(null);
   const path = useRef<SVGPathElement>(null);
@@ -204,23 +213,25 @@ function InstituteLightPath() {
     const drawing = svg.current;
     const line = path.current;
     const light = pulse.current;
-    if (
-      !wrapper ||
-      !drawing ||
-      !line ||
-      !light ||
-      matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-      return;
+    const mark = artwork.current;
+    const title = wrapper?.querySelector<HTMLElement>('.page-intro h1');
+    const historyTitle = wrapper?.querySelector<HTMLElement>('.institute-history h2');
+    if (!wrapper || !drawing || !line || !light || !mark || !title || !historyTitle) return;
+
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
-    let arrived = false;
-    let wordCenterY = 0;
+    let needsLayout = true;
+    let needsInitialPosition = true;
+    let arrived = motion.matches;
+    let restoreScroll = false;
+    let length = 0;
+    let start = 0;
+    let end = 0;
+    let restoreFrom = 0;
+    let impactDocumentY = 0;
+
     const layoutPath = () => {
       const bounds = wrapper.getBoundingClientRect();
-      const title = wrapper.querySelector<HTMLElement>('.page-intro h1');
-      const history = wrapper.querySelector<HTMLElement>('.institute-history h2');
-      const word = wrapper.querySelector<HTMLElement>('.photon-identity');
-      if (!title || !history || !word) return;
       const relative = (element: HTMLElement) => {
         let x = element.offsetWidth / 2;
         let y = element.offsetHeight / 2;
@@ -233,54 +244,143 @@ function InstituteLightPath() {
         return { x, y };
       };
       const titleAt = relative(title);
-      const historyAt = relative(history);
-      const wordAt = relative(word);
-      wordCenterY = wordAt.y;
-      const wordEntranceX = Math.max(22, wordAt.x - word.offsetWidth / 2 - 26);
+      const historyAt = relative(historyTitle);
       drawing.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
+
+      // Enquanto carrega, calcula a mesma projeção xMidYMid meet do SVG aprovado.
+      const stageBounds = mark.getBoundingClientRect();
+      const scale = Math.min(stageBounds.width / 2512, stageBounds.height / 750);
+      const artworkToScreen = mark.shadowRoot?.querySelector('svg')?.getScreenCTM();
+      const impactOnScreen = artworkToScreen
+        ? new DOMPoint(161, 160).matrixTransform(artworkToScreen)
+        : new DOMPoint(
+            stageBounds.left + (stageBounds.width - 2512 * scale) / 2 + (161 + 66) * scale,
+            stageBounds.top + (stageBounds.height - 750 * scale) / 2 + (160 + 79) * scale,
+          );
+      const drawingToScreen = drawing.getScreenCTM();
+      if (!drawingToScreen) return;
+      const impact = impactOnScreen.matrixTransform(drawingToScreen.inverse());
+      const approachX = Math.max(8, stageBounds.left - bounds.left - bounds.width * 0.18);
+
       line.setAttribute(
         'd',
         `M ${Math.max(26, titleAt.x - title.offsetWidth / 2)} 10
          C ${bounds.width * 0.04} ${titleAt.y * 0.18}, ${bounds.width * 0.98} ${titleAt.y * 0.34}, ${bounds.width * 0.9} ${titleAt.y}
          C ${bounds.width * 1.08} ${historyAt.y * 0.5}, ${bounds.width * 0.08} ${historyAt.y * 0.58}, ${historyAt.x} ${historyAt.y}
-         C ${bounds.width * 0.02} ${(historyAt.y + wordAt.y) / 2}, ${Math.max(8, wordEntranceX - bounds.width * 0.18)} ${wordAt.y * 0.93}, ${wordEntranceX} ${wordAt.y}`,
+         C ${bounds.width * 0.02} ${(historyAt.y + impact.y) / 2}, ${approachX} ${impact.y - 24}, ${impact.x} ${impact.y}`,
       );
+      length = line.getTotalLength();
+      impactDocumentY = scrollY + impactOnScreen.y;
+      start = scrollY + bounds.top - innerHeight * 0.12;
+      end = impactDocumentY - innerHeight * 0.55;
+      restoreFrom = end - innerHeight * 0.08;
     };
+
     const update = () => {
       frame = 0;
-      const rect = wrapper.getBoundingClientRect();
-      const top = scrollY + rect.top;
-      const start = top - innerHeight * 0.12;
-      const end = top + wordCenterY - innerHeight * 0.55;
-      const progress = Math.max(0, Math.min(1, (scrollY - start) / Math.max(end - start, 1)));
-      line.style.strokeDashoffset = String(1 - progress);
+      if (motion.matches) return;
+      const initialPosition = needsInitialPosition;
+      needsInitialPosition = false;
+      if (needsLayout) {
+        layoutPath();
+        needsLayout = false;
+      }
+      if (!length) return;
+
+      const saved = Number(history.state?.instituteIdentityScroll);
+      const resumeAtIdentity = saved >= restoreFrom;
+      if (restoreScroll || initialPosition) {
+        restoreScroll = false;
+        if (!location.hash && resumeAtIdentity) {
+          // A posição pode ser restaurada antes de a rota React ter altura suficiente.
+          window.scrollTo({ top: saved, behavior: 'instant' });
+        }
+      }
+      const scrollTop = scrollY;
+      if (initialPosition && (location.hash === '#identidade-foton' || resumeAtIdentity)) {
+        arrived = true;
+        onPhaseChange('static');
+      }
+      const reachedImpact = scrollTop >= end;
+      const impactInView =
+        impactDocumentY >= scrollTop && impactDocumentY < scrollTop + innerHeight;
+      const artworkStatus = mark.dataset.artworkStatus;
+      const waitingForArtwork =
+        !initialPosition &&
+        !arrived &&
+        reachedImpact &&
+        impactInView &&
+        artworkStatus === undefined;
+      const progress = Math.max(0, Math.min(1, (scrollTop - start) / Math.max(end - start, 1)));
+      // Mantém o último trecho em espera se o scroll chegar antes dos bytes do SVG.
+      const travelled = waitingForArtwork ? Math.max(0, length - 8) : length * progress;
+      line.style.strokeDashoffset = String(1 - travelled / length);
       line.style.opacity = String(Math.min(0.28, 0.05 + progress * 0.24));
-      const point = line.getPointAtLength(line.getTotalLength() * progress);
+      const point = line.getPointAtLength(travelled);
       light.setAttribute('cx', String(point.x));
       light.setAttribute('cy', String(point.y));
-      light.style.opacity = progress > 0.015 && progress < 0.995 ? '1' : '0';
-      if (!arrived && progress >= 0.985) {
-        arrived = true;
-        wrapper.classList.add('pulse-arrived');
+
+      const impact = !arrived && travelled === length;
+      if (impact || (scrollTop >= restoreFrom && !resumeAtIdentity)) {
+        // Guarda a posição deste item de navegação antes de um possível recarregamento.
+        history.replaceState({ ...history.state, instituteIdentityScroll: scrollTop }, '');
       }
+      if (impact) {
+        arrived = true;
+        const phase =
+          !initialPosition && impactInView && artworkStatus === 'ready' ? 'playing' : 'static';
+        // Aplica a fase antes do quadro que esconde a partícula no centro da estrela.
+        flushSync(() => onPhaseChange(phase));
+      }
+      light.style.opacity = !arrived && progress > 0.015 ? '1' : '0';
     };
+
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
-    const resize = () => {
-      layoutPath();
+    const relayout = () => {
+      needsLayout = true;
       schedule();
     };
-    layoutPath();
-    update();
+    const motionChanged = () => {
+      if (motion.matches) {
+        arrived = true;
+        onPhaseChange('static');
+      }
+      relayout();
+    };
+    const restorePosition = () => {
+      needsInitialPosition = true;
+      restoreScroll = true;
+      relayout();
+    };
+    const savePosition = () => {
+      if (Number.isFinite(history.state?.instituteIdentityScroll)) {
+        history.replaceState({ ...history.state, instituteIdentityScroll: scrollY }, '');
+      }
+    };
+    const resize = new ResizeObserver(relayout);
+    [wrapper, title, historyTitle, mark].forEach((element) => resize.observe(element));
+    const load = new MutationObserver(relayout);
+    load.observe(mark, { attributeFilter: ['data-artwork-status'] });
+    if (document.readyState === 'complete') restoreScroll = true;
+    schedule();
     addEventListener('scroll', schedule, { passive: true });
-    addEventListener('resize', resize);
+    addEventListener('resize', relayout);
+    addEventListener('pageshow', restorePosition);
+    addEventListener('pagehide', savePosition);
+    motion.addEventListener('change', motionChanged);
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      resize.disconnect();
+      load.disconnect();
       removeEventListener('scroll', schedule);
-      removeEventListener('resize', resize);
+      removeEventListener('resize', relayout);
+      removeEventListener('pageshow', restorePosition);
+      removeEventListener('pagehide', savePosition);
+      motion.removeEventListener('change', motionChanged);
     };
-  }, []);
+  }, [artwork, onPhaseChange]);
 
   return (
     <div ref={root} className="institute-light-path" aria-hidden="true">
@@ -302,10 +402,17 @@ function InstituteLightPath() {
 }
 
 export function Institute() {
+  const identityArtwork = useRef<HTMLDivElement>(null);
+  const [identityPhase, setIdentityPhase] = useState<PhotonIdentityPhase>(() =>
+    matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash === '#identidade-foton'
+      ? 'static'
+      : 'approach',
+  );
+
   return (
     <>
       <div className="institute-story">
-        <InstituteLightPath />
+        <InstituteLightPath artwork={identityArtwork} onPhaseChange={setIdentityPhase} />
         <Intro eyebrow="O Instituto" title="Ciência que aproxima. Conhecimento que transforma.">
           <p>
             Somos uma rede que conecta pessoas, instituições e diferentes áreas do conhecimento em
@@ -355,7 +462,7 @@ export function Institute() {
             <i className="quantum-particle particle-three" />
           </div>
           <div className="container split">
-            <PhotonIdentityAnimation />
+            <PhotonIdentityAnimation artwork={identityArtwork} phase={identityPhase} />
             <div>
               <Heading
                 eyebrow="Por que Foton?"
