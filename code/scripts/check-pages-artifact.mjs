@@ -3,9 +3,7 @@ import { join, resolve, extname } from 'node:path';
 import { createHash } from 'node:crypto';
 
 const dist = resolve('dist');
-const inventory = JSON.parse(
-  await readFile('scripts/data/asset-inventory.json', 'utf8'),
-);
+const inventory = JSON.parse(await readFile('scripts/data/asset-inventory.json', 'utf8'));
 if (inventory.count !== 49 || inventory.items.length !== 49)
   throw Error('Inventário dos 49 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
@@ -34,9 +32,7 @@ const teamPhotos = [
 ];
 for (const name of teamPhotos) expected.add('assets/img-diretoria/' + name);
 const partnerSnapshot = JSON.parse(await readFile('src/content/partners.json', 'utf8'));
-const logoFilenames = JSON.parse(
-  await readFile('scripts/data/partner-logo-names.json', 'utf8'),
-);
+const logoFilenames = JSON.parse(await readFile('scripts/data/partner-logo-names.json', 'utf8'));
 const svgNames = new Set();
 const groupCounts = new Map();
 if (partnerSnapshot.length !== 31) throw Error('Exatamente 31 parceiros SVG são obrigatórios');
