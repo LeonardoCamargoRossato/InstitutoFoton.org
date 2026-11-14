@@ -33,7 +33,9 @@ test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', 
   );
   await expect(page.locator('.home-hero .hero-identity')).toBeVisible();
   await expect(page.locator('.institutional-programs .research-card')).toHaveCount(4);
-  await expect(page.locator('.institutional-metrics .metrics-source')).toHaveText('Indicadores institucionais da rede Foton.');
+  await expect(page.locator('.institutional-metrics .metrics-source')).toHaveText(
+    'Indicadores institucionais da rede Foton.',
+  );
   for (const path of ['/instituto', '/apresentacao', '/manifesto', '/jornada', '/contato']) {
     await expect(page.locator('a[href$="' + path + '"]').first()).toBeAttached();
   }
@@ -55,7 +57,9 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
     ).toHaveCount(0);
   }
   await page.goto('./pesquisa');
-  await expect(page.getByText(/Explore cinco grandes áreas de pesquisa e desenvolvimento/)).toBeVisible();
+  await expect(
+    page.getByText(/Explore cinco grandes áreas de pesquisa e desenvolvimento/),
+  ).toBeVisible();
 });
 
 test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({ page }) => {
