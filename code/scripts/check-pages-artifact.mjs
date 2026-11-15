@@ -137,7 +137,10 @@ for (let number = 1; number <= 2; number++) {
 }
 for (let number = 1; number <= 9; number++) {
   const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
-  for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+  for (const [format, ext] of [
+    ['PNG', 'png'],
+    ['WebP', 'webp'],
+  ]) {
     const original = `assets/${format}/instituto/fundacao/${name}.${ext}`;
     const copy = `${foundationRoot}${format}/${name}.${ext}`;
     approveMirror(original, copy);
@@ -145,7 +148,10 @@ for (let number = 1; number <= 9; number++) {
 }
 for (let number = 1; number <= 20; number++) {
   const name = 'visita-' + String(number).padStart(2, '0');
-  for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+  for (const [format, ext] of [
+    ['PNG', 'png'],
+    ['WebP', 'webp'],
+  ]) {
     const original = `assets/${format}/visitas-tecnicas/${name}.${ext}`;
     const copy = `${visitsRoot}${format}/${name}.${ext}`;
     approveMirror(original, copy);
@@ -154,7 +160,10 @@ for (let number = 1; number <= 20; number++) {
 for (const name of teamPhotos) {
   approveMirror('assets/img-diretoria/' + name, teamRoot + name);
 }
-for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+for (const [format, ext] of [
+  ['PNG', 'png'],
+  ['WebP', 'webp'],
+]) {
   const research = 'pesquisa-collaboration.' + ext;
   const original = `assets/${format}/pesquisa/${research}`;
   const copy = `${researchImagesRoot}${format}/${research}`;
