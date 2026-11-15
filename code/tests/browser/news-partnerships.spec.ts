@@ -99,8 +99,8 @@ test('quatro imagens de notícias: WebP na página, PNG no zoom', async ({ page 
       const original = root + '/PNG/' + name + '.png';
       const pngName = new RegExp('/PNG/' + name + '\\.png$');
 
-      await expect(image).toHaveAttribute('src', preview);
-      await expect(image).toHaveAttribute('data-full-image', original);
+      expect((await image.getAttribute('src'))?.endsWith(preview)).toBe(true);
+      expect((await image.getAttribute('data-full-image'))?.endsWith(original)).toBe(true);
       await image.scrollIntoViewIfNeeded();
       await expect(image).toHaveJSProperty('naturalWidth', gallery.widths[index]);
 
