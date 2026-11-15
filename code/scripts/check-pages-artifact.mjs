@@ -109,6 +109,67 @@ if (
 const eventMedia = new Map(
   [researchMedia.pulso, ...researchMedia.haquantum].map(({ path, sha256 }) => [path, sha256]),
 );
+// Cópias de organização por aba mantidas na branch durante a migração Drive → GitHub.
+// Cada cópia só é permitida se seu arquivo canônico estiver autorizado e tiver bytes idênticos.
+const mirroredAssets = new Map();
+function approveMirror(source, mirror) {
+  if (!expected.has(source) || mirroredAssets.has(mirror))
+    throw Error('Espelho de asset não autorizado: ' + mirror);
+  expected.add(mirror);
+  mirroredAssets.set(mirror, source);
+}
+for (let number = 1; number <= 2; number++) {
+  const name = 'apresentacao-foton-pagina-' + String(number).padStart(2, '0') + '.webp';
+  approveMirror('assets/WebP/apresentacao/' + name, 'assets/01 - Início/Apresentação/WebP/' + name);
+}
+for (let number = 1; number <= 9; number++) {
+  const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
+  for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+    approveMirror(
+      'assets/' + format + '/instituto/fundacao/' + name + '.' + ext,
+      'assets/02 - O Instituto/02A - Conheça o Instituto/Fundação do Instituto Foton/' + format + '/' + name + '.' + ext,
+    );
+  }
+}
+for (let number = 1; number <= 20; number++) {
+  const name = 'visita-' + String(number).padStart(2, '0');
+  for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+    approveMirror(
+      'assets/' + format + '/visitas-tecnicas/' + name + '.' + ext,
+      'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/' + format + '/' + name + '.' + ext,
+    );
+  }
+}
+for (const name of teamPhotos) {
+  approveMirror(
+    'assets/img-diretoria/' + name,
+    'assets/02 - O Instituto/02B - Nossa Equipe/WebP/' + name,
+  );
+}
+for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+  const research = 'pesquisa-collaboration.' + ext;
+  approveMirror(
+    'assets/' + format + '/pesquisa/' + research,
+    'assets/04 - P&D - Cientista Inovador/04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/' + format + '/' + research,
+  );
+  for (const name of ['jornada-hero-pathways', 'jornada-hero-pathways-mobile']) {
+    approveMirror(
+      'assets/' + format + '/jornada/' + name + '.' + ext,
+      'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/' + format + '/' + name + '.' + ext,
+    );
+  }
+  for (const item of inventory.items.filter((item) => item.category === 'manifesto-quantico')) {
+    approveMirror(
+      'assets/' + format + '/manifesto-quantico/' + item.id + '.' + ext,
+      'assets/05 - Manifesto/Imagens da Página/' + format + '/' + item.id + '.' + ext,
+    );
+  }
+}
+if (mirroredAssets.size !== 99) throw Error('Espelhos de assets esperados: 99');
+// Fotografia documental adicional da Jornada: arquivo único importado do acervo.
+expected.add(
+  'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/pesquisador_explicando_posPalestra2025_LatinoWare.png',
+);
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
 const routeDirectories = new Set([
   'instituto',
@@ -252,6 +313,15 @@ for (const [path, hash] of eventMedia) {
       .digest('hex') !== hash
   )
     violations.push('event image differs from original ' + path);
+}
+for (const [mirror, source] of mirroredAssets) {
+  if (seen.has(mirror) && seen.has(source)) {
+    const [original, copy] = await Promise.all([
+      readFile(join(dist, source)),
+      readFile(join(dist, mirror)),
+    ]);
+    if (!original.equals(copy)) violations.push('mirror differs from canonical asset ' + mirror);
+  }
 }
 if (!seen.has('index.html')) violations.push('missing index');
 for (const a of expected) {
