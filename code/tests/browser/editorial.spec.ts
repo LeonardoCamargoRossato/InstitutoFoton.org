@@ -77,7 +77,7 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
   const third = page.locator('.gallery-track img').nth(2);
   await third.scrollIntoViewIfNeeded();
-  await expect(third).toHaveAttribute('src', /assets\/WebP\/visitas-tecnicas\/visita-03\.webp$/);
+  await expect(third).toHaveAttribute('src', /Visitas Técnicas\/WebP\/visita-03\.webp$/);
   await expect
     .poll(() => third.evaluate((img) => (img as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0);
@@ -86,7 +86,7 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
+    /Visitas Técnicas\/PNG\/visita-03\.png$/,
   );
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
   await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
@@ -225,7 +225,7 @@ test('indicadores datados possuem apresentação discreta e sem ressalvas defens
 test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ page }) => {
   const assetRequests: string[] = [];
   page.on('request', (request) => {
-    if (/\/assets\/(?:PNG|WebP)\/(?:visitas-tecnicas|manifesto-quantico)\//.test(request.url())) {
+    if (/\/(?:PNG|WebP)\//.test(request.url())) {
       assetRequests.push(request.url());
     }
   });
@@ -235,18 +235,18 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   for (let index = 0; index < (await thumbnails.count()); index++) {
     const img = thumbnails.nth(index);
     await img.scrollIntoViewIfNeeded();
-    await expect(img).toHaveAttribute('data-full-image', /\/assets\/PNG\/.+\.png$/);
-    await expect(img).toHaveAttribute('src', /\/assets\/WebP\/.+\.webp$/);
+    await expect(img).toHaveAttribute('data-full-image', /\/PNG\/.+\.png$/);
+    await expect(img).toHaveAttribute('src', /\/WebP\/.+\.webp$/);
     await expect
       .poll(() => img.evaluate((element) => (element as HTMLImageElement).naturalWidth))
       .toBeGreaterThan(0);
   }
-  expect(assetRequests.filter((url) => /\/assets\/PNG\//.test(url))).toEqual([]);
+  expect(assetRequests.filter((url) => /\/PNG\//.test(url))).toEqual([]);
 
   const letter = page.locator('.manifesto-image').first();
   await letter.click();
   const modal = page.getByRole('dialog');
-  await expect(modal.locator('img')).toHaveAttribute('src', /\/assets\/PNG\/.+\.png$/);
+  await expect(modal.locator('img')).toHaveAttribute('src', /\/PNG\/.+\.png$/);
   await expect
     .poll(() => modal.locator('img').evaluate((img) => (img as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0);
@@ -258,7 +258,7 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   const videoPoster = page.locator('.manifesto-video-block').first();
   await videoPoster.getByRole('button', { name: /Ampliar imagem de capa/ }).click();
   const posterModal = page.getByRole('dialog', { name: /Imagem de capa/ });
-  await expect(posterModal.locator('img')).toHaveAttribute('src', /\/assets\/PNG\/.+\.png$/);
+  await expect(posterModal.locator('img')).toHaveAttribute('src', /\/PNG\/.+\.png$/);
   await expect(videoPoster.locator('iframe')).toHaveCount(0);
   await posterModal.getByRole('button', { name: 'Fechar galeria' }).click();
 
@@ -268,7 +268,7 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   const visitModal = page.getByRole('dialog', { name: 'Visita técnica 20' });
   await expect(visitModal.locator('img')).toHaveAttribute(
     'src',
-    /\/assets\/PNG\/visitas-tecnicas\/visita-20\.png$/,
+    /Visitas Técnicas\/PNG\/visita-20\.png$/,
   );
   await visitModal.getByRole('button', { name: 'Imagem anterior' }).click();
   await expect(page.getByRole('dialog', { name: 'Visita técnica 19' })).toBeVisible();
@@ -299,7 +299,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /\/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
+    /\/Visitas Técnicas\/PNG\/visita-03\.png$/,
   );
   await expect
     .poll(() => dialog.locator('img').evaluate((el) => (el as HTMLImageElement).naturalWidth))
