@@ -75,8 +75,8 @@ if (
 )
   throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
-if (newsMedia.length !== 19 || new Set(newsMedia.map((m) => m.original)).size !== 19)
-  throw Error('Inventário de notícias deve conter 19 imagens distintas');
+if (newsMedia.length !== 4 || new Set(newsMedia.map((m) => m.original)).size !== 4)
+  throw Error('Inventário de notícias deve conter 4 imagens distintas');
 for (const media of newsMedia) {
   if (
     !/^assets\/(?:noticias\/(?:softsul|assespro-rs|cubotech)|06 - Notícias\/Reportagens\/(?:01-Foton-SOFTSUL|03-Foton-Assespro-RS)\/PNG)\/[A-Za-z0-9]+\.png$/.test(
