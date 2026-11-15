@@ -180,6 +180,16 @@ for (const [format, ext] of [
     approveMirror(original, copy);
   }
 }
+// Registro documental da inauguração do Manifesto Quântico Nacional, em PNG e WebP.
+const inaugurationRoot = 'assets/05 - Manifesto/Imagens do Manifesto/';
+for (const [format, extension] of [
+  ['PNG', 'png'],
+  ['WebP', 'webp'],
+]) {
+  expected.add(
+    inaugurationRoot + format + '/inauguracao_ManifestoQuantico_fotonSaoPessoas.' + extension,
+  );
+}
 // Notícias: versões organizadas por reportagem, sem replicar as fontes já no diretório numerado.
 const newsRoot = 'assets/06 - Notícias/Reportagens/';
 for (const media of newsMedia) {
