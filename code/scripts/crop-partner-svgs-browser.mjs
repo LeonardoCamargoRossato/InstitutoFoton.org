@@ -6,7 +6,10 @@ import path from 'node:path';
 import { chromium } from '@playwright/test';
 
 const root = process.cwd();
-const dir = path.join(root, 'public/assets/img-logos-parceiros-foton/display-svg');
+const dir = path.join(
+  root,
+  'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/display-svg',
+);
 const reportFile = path.join(root, 'scripts/data/partner-svg-display-report.json');
 const report = JSON.parse(await readFile(reportFile, 'utf8'));
 const browser = await chromium.launch({
