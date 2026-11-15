@@ -66,51 +66,49 @@ test('imagens de notícias usam WebP inicialmente e originais apenas na ampliaç
   }
 });
 
-test('os quatro pares oficiais das reportagens carregam WebP e ampliam em PNG', async ({
-  page,
-}) => {
+test('quatro imagens de notícias: WebP na página, PNG no zoom', async ({ page }) => {
   const galleries = [
     {
       slug: 'foton-softsul-cooperacao-tecnologias-quanticas',
       folder: '01-Foton-SOFTSUL',
-      images: ['AcordoFotonSoftsul', 'FotonSoftsulAcervo20250314WA0021'],
+      names: ['AcordoFotonSoftsul', 'FotonSoftsulAcervo20250314WA0021'],
+      widths: [1024, 1280],
     },
     {
       slug: 'foton-assespro-rs-termo-cooperacao',
       folder: '03-Foton-Assespro-RS',
-      images: ['ParceriaFotonAssesproRS'],
+      names: ['ParceriaFotonAssesproRS'],
+      widths: [1207],
     },
     {
       slug: 'seminario-cubotech-direito-computacao-quantica',
       folder: '04-Seminario-CUBOTECH',
-      images: ['SeminarioCubotechDireitoComputacaoQuantica'],
+      names: ['SeminarioCubotechDireitoComputacaoQuantica'],
+      widths: [3780],
     },
   ];
 
   for (const gallery of galleries) {
     await page.goto('./noticias/' + gallery.slug);
     const photos = page.locator('.news-media-photo');
-    await expect(photos).toHaveCount(gallery.images.length);
-    for (const [index, name] of gallery.images.entries()) {
+    await expect(photos).toHaveCount(gallery.names.length);
+    for (const [index, name] of gallery.names.entries()) {
       const image = photos.nth(index);
       const root = 'assets/06 - Notícias/Reportagens/' + gallery.folder;
-      await expect(image).toHaveAttribute('src', root + '/WebP/' + name + '.webp');
-      await expect(image).toHaveAttribute('data-full-image', root + '/PNG/' + name + '.png');
+      const preview = root + '/WebP/' + name + '.webp';
+      const original = root + '/PNG/' + name + '.png';
+      const pngName = new RegExp('/PNG/' + name + '\\.png$');
+
+      await expect(image).toHaveAttribute('src', preview);
+      await expect(image).toHaveAttribute('data-full-image', original);
       await image.scrollIntoViewIfNeeded();
-      await expect
-        .poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth))
-        .toBeGreaterThan(0);
+      await expect(image).toHaveJSProperty('naturalWidth', gallery.widths[index]);
 
       await image.click();
       const dialog = page.getByRole('dialog');
-      await expect(dialog.locator('img')).toHaveAttribute(
-        'src',
-        new RegExp('/PNG/' + name + '\\.png
-      await expect
-        .poll(() =>
-          dialog.locator('img').evaluate((element: HTMLImageElement) => element.naturalWidth),
-        )
-        .toBeGreaterThan(0);
+      const zoomImage = dialog.locator('img');
+      await expect(zoomImage).toHaveAttribute('src', pngName);
+      await expect(zoomImage).toHaveJSProperty('naturalWidth', gallery.widths[index]);
       await page.keyboard.press('Escape');
       await expect(dialog).toHaveCount(0);
     }
