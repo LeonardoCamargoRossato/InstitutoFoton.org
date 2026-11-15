@@ -179,7 +179,35 @@ for (const [format, ext] of [
     approveMirror(original, copy);
   }
 }
-if (mirroredAssets.size !== 99) throw Error('Espelhos de assets esperados: 99');
+// Notícias: versões organizadas por reportagem, sem replicar as fontes já no diretório numerado.
+const newsRoot = 'assets/06 - Notícias/Reportagens/';
+for (const media of newsMedia) {
+  const previewName = media.preview.split('/').at(-1);
+  const previewCopy = newsRoot + media.group + '/WebP/' + previewName;
+  approveMirror(media.preview, previewCopy);
+  if (media.original.startsWith('assets/noticias/')) {
+    const originalCopy = newsRoot + media.group + '/PNG/' + media.name;
+    approveMirror(media.original, originalCopy);
+  }
+}
+// Apoie a Ciência: somente as três duplas já catalogadas.
+const supportRoot = 'assets/08 - Apoie a Ciência/Imagens de Apoio/';
+for (const asset of inventory.items.filter((item) => item.category === 'apoie')) {
+  approveMirror(asset.pngPath, supportRoot + 'PNG/' + asset.id + '.png');
+  approveMirror(asset.webpPath, supportRoot + 'WebP/' + asset.id + '.webp');
+}
+// Identidade Visual: marcas raster e a animação SVG efetivamente aprovada.
+const brandRoot = 'assets/09 - Identidade Visual/';
+for (const asset of inventory.items.filter((item) => item.category === 'branding')) {
+  approveMirror(asset.pngPath, brandRoot + 'PNG/' + asset.id + '.png');
+  approveMirror(asset.webpPath, brandRoot + 'WebP/' + asset.id + '.webp');
+}
+expected.add('assets/AnimacaoIdentidadeFoton.svg');
+approveMirror(
+  'assets/AnimacaoIdentidadeFoton.svg',
+  'assets/09 - Identidade Visual/SVG/AnimacaoIdentidadeFoton.svg',
+);
+if (mirroredAssets.size !== 118) throw Error('Espelhos de assets esperados: 118');
 // Fotografia documental adicional da Jornada: arquivo único importado do acervo.
 expected.add(journeyImagesRoot + 'PNG/pesquisador_explicando_posPalestra2025_LatinoWare.png');
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
