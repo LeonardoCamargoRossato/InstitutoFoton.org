@@ -130,10 +130,7 @@ const manifestoImagesRoot = 'assets/05 - Manifesto/Imagens da Página/';
 
 for (let number = 1; number <= 2; number++) {
   const name = 'apresentacao-foton-pagina-' + String(number).padStart(2, '0') + '.webp';
-  approveMirror(
-    'assets/WebP/apresentacao/' + name,
-    'assets/01 - Início/Apresentação/WebP/' + name,
-  );
+  approveMirror('assets/WebP/apresentacao/' + name, 'assets/01 - Início/Apresentação/WebP/' + name);
 }
 for (let number = 1; number <= 9; number++) {
   const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
