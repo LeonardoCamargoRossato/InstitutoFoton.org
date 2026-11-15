@@ -7,6 +7,7 @@ import {
   type PartnerRecord,
 } from '../src/content/partners';
 import { partnerLogoAssets } from '../src/content/partnerAssets';
+import logoFilenames from '../scripts/data/partner-logo-names.json';
 
 describe('catálogo de parceiros publicados', () => {
   it('preserva somente os 31 SVGs canônicos', () => {
@@ -34,6 +35,8 @@ describe('catálogo de parceiros publicados', () => {
     const entries = publishedPartners();
     expect(entries).toHaveLength(31);
     expect(new Set(entries.map((p) => p.logo_filename)).size).toBe(31);
+    expect(Object.keys(logoFilenames)).toHaveLength(31);
+    expect(logoFilenames).not.toHaveProperty('rede4-0');
     expect(partnerGroups(entries).map((g) => [g.tier, g.items.length])).toEqual([
       ['Ciência e Pesquisa', 8],
       ['Ecossistema e Instituições', 9],
