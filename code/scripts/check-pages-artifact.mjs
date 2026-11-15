@@ -95,6 +95,21 @@ if (
 const slideAsset =
   'assets/img-logos-parceiros-foton/EcossistemasEParceirosSlideApresentacaoInstitucionalFoton.svg';
 expected.add(slideAsset);
+const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
+if (newsMedia.length !== 19 || new Set(newsMedia.map((m) => m.original)).size !== 19)
+  throw Error('Inventário de notícias deve conter 19 imagens distintas');
+for (const media of newsMedia) {
+  if (
+    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.(jpg|png)$/.test(
+      media.original,
+    ) ||
+    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.webp$/.test(media.preview) ||
+    media.original.replace(/\.(jpg|png)$/, '.webp') !== media.preview
+  )
+    throw Error('Nome de imagem de notícia inválido');
+  expected.add(media.original);
+  expected.add(media.preview);
+}
 const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
 const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
   (number) => `assets/img-haquantum/HaQuantum${String(number).padStart(2, '0')}.jpg`,
@@ -120,6 +135,9 @@ const routeDirectories = new Set([
   'manifesto',
   'noticias',
   'noticias/fundacao-instituto-foton',
+  'noticias/foton-softsul-cooperacao-tecnologias-quanticas',
+  'noticias/foton-assespro-rs-termo-cooperacao',
+  'noticias/seminario-cubotech-direito-computacao-quantica',
   'apresentacao',
   'transparencia',
   'apoie',
@@ -202,11 +220,13 @@ async function walk(dir, prefix = '') {
       violations.push('document not approved ' + rel);
     else if (top === 'assets' && ['PNG', 'WebP'].includes(parts[1]) && !expected.has(rel))
       violations.push('image not inventoried ' + rel);
+    else if (top === 'assets' && parts[1] === 'noticias' && !expected.has(rel))
+      violations.push('noticia sem inventário ' + rel);
     else if (top === 'assets' && parts[1] === 'img-logos-parceiros-foton' && !expected.has(rel))
       violations.push('SVG não autorizado ' + rel);
     else if (
       top === 'assets' &&
-      !['PNG', 'WebP', 'img-logos-parceiros-foton'].includes(parts[1]) &&
+      !['PNG', 'WebP', 'img-logos-parceiros-foton', 'noticias'].includes(parts[1]) &&
       !expected.has(rel) &&
       !eventMedia.has(rel) &&
       !/^assets\/[^/]+\.(?:js|mjs|css|woff2?|ttf|svg)$/i.test(rel)

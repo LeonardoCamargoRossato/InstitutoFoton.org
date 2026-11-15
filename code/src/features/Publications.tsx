@@ -13,6 +13,8 @@ import {
   foundationCards,
 } from '../components/FoundationHistory';
 import { assetUrl } from '../lib/siteAssets';
+import newsMedia from '../content/news-media.json';
+import './NewsMedia.css';
 
 export function PublicationCard({ item }: { item: Publication }) {
   const body = (
@@ -251,6 +253,40 @@ export function Article() {
                 </div>
               )}
               {item.slug === 'fundacao-instituto-foton' && <FoundationGallery />}
+              {[
+                'foton-softsul-cooperacao-tecnologias-quanticas',
+                'foton-assespro-rs-termo-cooperacao',
+                'seminario-cubotech-direito-computacao-quantica',
+              ].includes(item.slug) && (
+                <section className="news-media" aria-label="Registros visuais da notícia">
+                  <h2>Registros institucionais</h2>
+                  <div className="news-media-grid">
+                    {newsMedia
+                      .filter((media) =>
+                        item.slug.startsWith('foton-softsul')
+                          ? media.group === 'softsul'
+                          : item.slug.startsWith('foton-assespro')
+                            ? media.group === 'assespro-rs'
+                            : media.group === 'cubotech',
+                      )
+                      .map((media) => (
+                        <img
+                          key={media.original}
+                          className="news-media-photo"
+                          src={assetUrl(media.preview)}
+                          data-full-image={assetUrl(media.original)}
+                          alt={media.alt}
+                          width={media.width}
+                          height={media.height}
+                          loading="lazy"
+                          tabIndex={0}
+                          role="button"
+                          aria-label={`Ampliar: ${media.alt}`}
+                        />
+                      ))}
+                  </div>
+                </section>
+              )}
               {item.source_url && (
                 <p className="source-note">
                   <External href={item.source_url}>
