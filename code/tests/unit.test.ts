@@ -70,7 +70,8 @@ describe('fontes públicas estáticas sem autenticação', () => {
       ['jornada-hero-pathways', journey],
       ['jornada-hero-pathways-mobile', journey],
     ]) {
-      for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+      for (const format of ['PNG', 'WebP']) {
+        const ext = format === 'PNG' ? 'png' : 'webp';
         expect(existsSync(`${dir}${format}/${id}.${ext}`)).toBe(false);
       }
       expect(SITE_ASSETS[id]).toBeUndefined();
@@ -80,7 +81,8 @@ describe('fontes públicas estáticas sem autenticação', () => {
       ['jornada-hero-pathways', 'jornada'],
       ['jornada-hero-pathways-mobile', 'jornada'],
     ]) {
-      for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+      for (const format of ['PNG', 'WebP']) {
+        const ext = format === 'PNG' ? 'png' : 'webp';
         expect(existsSync(`public/assets/${format}/${category}/${id}.${ext}`)).toBe(false);
       }
     }
