@@ -179,10 +179,7 @@ const branding = brands.map(
 
 export const SITE_ASSETS: Record<string, SiteAsset> = Object.fromEntries([
   ...illustrativeEntries,
-  ...[
-    'apoie-hero-scientists-mobile',
-    'jornada-hero-pathways-mobile',
-  ].map((id) => {
+  ...['apoie-hero-scientists-mobile', 'jornada-hero-pathways-mobile'].map((id) => {
     const category = categoryOf(id);
     const parent = id.replace(/-mobile$/, '');
     const entry = PHOTO_LIBRARY[parent as PhotoId];

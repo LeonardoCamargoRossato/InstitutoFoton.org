@@ -51,7 +51,9 @@ describe('fontes públicas estáticas sem autenticação', () => {
       const extension = kind === 'PNG' ? 'png' : 'webp';
       for (const name of ['instituto-community', 'instituto-community-mobile']) {
         expect(
-          existsSync(`public/assets/02 - O Instituto/02A - Conheça o Instituto/${kind}/${name}.${extension}`),
+          existsSync(
+            `public/assets/02 - O Instituto/02A - Conheça o Instituto/${kind}/${name}.${extension}`,
+          ),
         ).toBe(false);
         expect(existsSync(`public/assets/${kind}/instituto/${name}.${extension}`)).toBe(false);
       }
