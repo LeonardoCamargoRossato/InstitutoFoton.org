@@ -52,7 +52,9 @@ test('imagens de notícias usam WebP inicialmente e originais apenas na ampliaç
     await page.goto('./noticias/' + story.slug);
     const image = page.locator('.news-media-photo').first();
     await expect(image).toHaveAttribute('src', new RegExp(story.preview + '$'));
-    await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth)).toBeGreaterThan(0);
+    await expect
+      .poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth))
+      .toBeGreaterThan(0);
     expect(originalRequests).toHaveLength(0);
     await image.click();
     await expect(page.getByRole('dialog')).toBeVisible();
