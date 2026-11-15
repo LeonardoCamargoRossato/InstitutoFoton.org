@@ -99,9 +99,13 @@ const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8
 if (newsMedia.length !== 19 || new Set(newsMedia.map((m) => m.original)).size !== 19)
   throw Error('Inventário de notícias deve conter 19 imagens distintas');
 for (const media of newsMedia) {
-  if (!/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.(jpg|png)$/.test(media.original) ||
-      !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.webp$/.test(media.preview) ||
-      media.original.replace(/\.(jpg|png)$/, '.webp') !== media.preview)
+  if (
+    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.(jpg|png)$/.test(
+      media.original,
+    ) ||
+    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.webp$/.test(media.preview) ||
+    media.original.replace(/\.(jpg|png)$/, '.webp') !== media.preview
+  )
     throw Error('Nome de imagem de notícia inválido');
   expected.add(media.original);
   expected.add(media.preview);
