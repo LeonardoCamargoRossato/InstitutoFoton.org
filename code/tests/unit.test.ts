@@ -38,8 +38,12 @@ describe('integridade documental', () => {
 describe('fontes públicas estáticas sem autenticação', () => {
   it('possui 34 imagens canônicas e caminhos GitHub Pages relativos', () => {
     expect(Object.keys(SITE_ASSETS)).toHaveLength(34);
-    expect(imageAsset('visita-03').pngPath).toBe('assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/PNG/visita-03.png');
-    expect(imageAsset('visita-03').webpPath).toBe('assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/WebP/visita-03.webp');
+    expect(imageAsset('visita-03').pngPath).toBe(
+      'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/PNG/visita-03.png',
+    );
+    expect(imageAsset('visita-03').webpPath).toBe(
+      'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/WebP/visita-03.webp',
+    );
     expect(imageAsset('apoie-hero-scientists').sourceType).toBe('ai-illustration');
     expect(SITE_ASSETS['pesquisa-collaboration']).toBeUndefined();
     expect(SITE_ASSETS['jornada-hero-pathways']).toBeUndefined();
