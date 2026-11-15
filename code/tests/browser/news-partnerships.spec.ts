@@ -66,7 +66,6 @@ test('imagens de notícias usam WebP inicialmente e originais apenas na ampliaç
   }
 });
 
-
 test('os quatro pares oficiais das reportagens carregam WebP e ampliam em PNG', async ({
   page,
 }) => {
@@ -107,18 +106,7 @@ test('os quatro pares oficiais das reportagens carregam WebP e ampliam em PNG', 
 
       await image.click();
       const dialog = page.getByRole('dialog');
-      await expect(dialog.locator('img')).toHaveAttribute(
-        'src',
-        new RegExp('/PNG/' + name + '\\.png, async ({ page }) => {
-  for (const width of [390, 768, 1280]) {
-    await page.setViewportSize({ width, height: 840 });
-    await page.goto('./noticias/seminario-cubotech-direito-computacao-quantica');
-    const difference = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-    expect(difference).toBeLessThanOrEqual(1);
-  }
-});
-),
-      );
+      await expect(dialog.locator('img')).toHaveAttribute('src', new RegExp('/PNG/' + name + '\\.png$'));
       await expect
         .poll(() => dialog.locator('img').evaluate((element: HTMLImageElement) => element.naturalWidth))
         .toBeGreaterThan(0);
