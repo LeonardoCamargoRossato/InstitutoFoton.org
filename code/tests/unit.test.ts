@@ -35,11 +35,11 @@ describe('integridade documental', () => {
 });
 
 describe('fontes públicas estáticas sem autenticação', () => {
-  it('possui 49 imagens canônicas e caminhos GitHub Pages relativos', () => {
-    expect(Object.keys(SITE_ASSETS)).toHaveLength(49);
+  it('possui 39 imagens canônicas e caminhos GitHub Pages relativos', () => {
+    expect(Object.keys(SITE_ASSETS)).toHaveLength(39);
     expect(imageAsset('visita-03').pngPath).toBe('assets/PNG/visitas-tecnicas/visita-03.png');
     expect(imageAsset('visita-03').webpPath).toBe('assets/WebP/visitas-tecnicas/visita-03.webp');
-    expect(imageAsset('home-hero-community').sourceType).toBe('ai-illustration');
+    expect(imageAsset('apoie-hero-scientists').sourceType).toBe('ai-illustration');
     for (const asset of Object.values(SITE_ASSETS)) {
       expect(asset.pngPath).toMatch(/^assets\/PNG\/[^/]+\/[^/]+\.png$/);
       expect(asset.webpPath).toMatch(/^assets\/WebP\/[^/]+\/[^/]+\.webp$/);
