@@ -4,8 +4,8 @@ import { createHash } from 'node:crypto';
 
 const dist = resolve('dist');
 const inventory = JSON.parse(await readFile('scripts/data/asset-inventory.json', 'utf8'));
-if (inventory.count !== 37 || inventory.items.length !== 37)
-  throw Error('Inventário dos 37 pares ausente');
+if (inventory.count !== 34 || inventory.items.length !== 34)
+  throw Error('Inventário dos 34 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
 // Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
 expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp');
@@ -124,9 +124,6 @@ const instituteInfo = instituteRoot + '02A - Conheça o Instituto/';
 const foundationRoot = instituteInfo + 'Fundação do Instituto Foton/';
 const visitsRoot = instituteInfo + 'Visitas Técnicas/';
 const teamRoot = instituteRoot + '02B - Nossa Equipe/WebP/';
-const researchRoot = 'assets/04 - P&D - Cientista Inovador/';
-const researchImagesRoot = researchRoot + '04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/';
-const journeyImagesRoot = researchRoot + '04B - Jornadas do Cientista Inovador/Imagens da Jornada/';
 const manifestoImagesRoot = 'assets/05 - Manifesto/Imagens da Página/';
 
 for (let number = 1; number <= 2; number++) {
@@ -164,15 +161,6 @@ for (const [format, ext] of [
   ['PNG', 'png'],
   ['WebP', 'webp'],
 ]) {
-  const research = 'pesquisa-collaboration.' + ext;
-  const original = `assets/${format}/pesquisa/${research}`;
-  const copy = `${researchImagesRoot}${format}/${research}`;
-  approveMirror(original, copy);
-  for (const name of ['jornada-hero-pathways', 'jornada-hero-pathways-mobile']) {
-    const original = `assets/${format}/jornada/${name}.${ext}`;
-    const copy = `${journeyImagesRoot}${format}/${name}.${ext}`;
-    approveMirror(original, copy);
-  }
   for (const item of inventory.items.filter((item) => item.category === 'manifesto-quantico')) {
     const original = `assets/${format}/manifesto-quantico/${item.id}.${ext}`;
     const copy = `${manifestoImagesRoot}${format}/${item.id}.${ext}`;
@@ -207,9 +195,7 @@ approveMirror(
   'assets/AnimacaoIdentidadeFoton.svg',
   'assets/09 - Identidade Visual/SVG/AnimacaoIdentidadeFoton.svg',
 );
-if (mirroredAssets.size !== 118) throw Error('Espelhos de assets esperados: 118');
-// Fotografia documental adicional da Jornada: arquivo único importado do acervo.
-expected.add(journeyImagesRoot + 'PNG/pesquisador_explicando_posPalestra2025_LatinoWare.png');
+if (mirroredAssets.size !== 112) throw Error('Espelhos de assets esperados: 112');
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
 const routeDirectories = new Set([
   'instituto',

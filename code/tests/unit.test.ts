@@ -36,8 +36,8 @@ describe('integridade documental', () => {
 });
 
 describe('fontes públicas estáticas sem autenticação', () => {
-  it('possui 37 imagens canônicas e caminhos GitHub Pages relativos', () => {
-    expect(Object.keys(SITE_ASSETS)).toHaveLength(37);
+  it('possui 34 imagens canônicas e caminhos GitHub Pages relativos', () => {
+    expect(Object.keys(SITE_ASSETS)).toHaveLength(34);
     expect(imageAsset('visita-03').pngPath).toBe('assets/PNG/visitas-tecnicas/visita-03.png');
     expect(imageAsset('visita-03').webpPath).toBe('assets/WebP/visitas-tecnicas/visita-03.webp');
     expect(imageAsset('apoie-hero-scientists').sourceType).toBe('ai-illustration');
@@ -60,6 +60,34 @@ describe('fontes públicas estáticas sem autenticação', () => {
     }
     expect(SITE_ASSETS['instituto-community']).toBeUndefined();
     expect(SITE_ASSETS['instituto-community-mobile']).toBeUndefined();
+  });
+  it('não publica imagens ilustrativas não usadas de Pesquisa e Jornada', () => {
+    const research = 'public/assets/04 - P&D - Cientista Inovador/';
+    const areas = research + '04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/';
+    const journey = research + '04B - Jornadas do Cientista Inovador/Imagens da Jornada/';
+    for (const [id, dir] of [
+      ['pesquisa-collaboration', areas],
+      ['jornada-hero-pathways', journey],
+      ['jornada-hero-pathways-mobile', journey],
+    ]) {
+      for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+        expect(existsSync(`${dir}${format}/${id}.${ext}`)).toBe(false);
+      }
+      expect(SITE_ASSETS[id]).toBeUndefined();
+    }
+    for (const [id, category] of [
+      ['pesquisa-collaboration', 'pesquisa'],
+      ['jornada-hero-pathways', 'jornada'],
+      ['jornada-hero-pathways-mobile', 'jornada'],
+    ]) {
+      for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
+        expect(existsSync(`public/assets/${format}/${category}/${id}.${ext}`)).toBe(false);
+      }
+    }
+    expect(
+      existsSync(journey + 'PNG/pesquisador_explicando_posPalestra2025_LatinoWare.png'),
+    ).toBe(false);
+    expect(existsSync(journey + 'PNG/EtapaPulsoYouTube.png')).toBe(true);
   });
   it('mantém PDF local aprovado e valores oficiais sem inventar mission/visão', async () => {
     const docs = await documents();

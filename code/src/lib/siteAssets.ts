@@ -35,27 +35,6 @@ export const PHOTO_LIBRARY = {
     crop: 'horizontal',
     alt: 'Cena ilustrativa de uma pesquisadora fictícia usando um microscópio.',
   },
-  'jornada-hero-pathways': {
-    file: 'jornada-hero-pathways.avif',
-    mobile: 'jornada-hero-pathways-mobile.avif',
-    width: 1400,
-    height: 396,
-    page: 'Jornada',
-    section: 'hero',
-    position: 'center',
-    crop: 'wide / mobile 4:3',
-    alt: 'Cena fictícia de jovem cientista examinando uma amostra vegetal no laboratório.',
-  },
-  'pesquisa-collaboration': {
-    file: 'pesquisa-collaboration.avif',
-    width: 1060,
-    height: 377,
-    page: 'Pesquisa',
-    section: 'ciência em rede',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Composição ilustrativa de pesquisadores fictícios trabalhando juntos em laboratório.',
-  },
 } as const satisfies Record<string, FotonImage>;
 
 export type PhotoId = keyof typeof PHOTO_LIBRARY;
@@ -179,7 +158,7 @@ const branding = brands.map(
 
 export const SITE_ASSETS: Record<string, SiteAsset> = Object.fromEntries([
   ...illustrativeEntries,
-  ...['apoie-hero-scientists-mobile', 'jornada-hero-pathways-mobile'].map((id) => {
+  ...['apoie-hero-scientists-mobile'].map((id) => {
     const category = categoryOf(id);
     const parent = id.replace(/-mobile$/, '');
     const entry = PHOTO_LIBRARY[parent as PhotoId];

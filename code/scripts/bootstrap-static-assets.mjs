@@ -20,9 +20,6 @@ const illustrative = [
   'apoie-hero-scientists-mobile',
   'apoie-hero-scientists',
   'apoie-researcher-support',
-  'jornada-hero-pathways-mobile',
-  'jornada-hero-pathways',
-  'pesquisa-collaboration',
 ];
 const manifest = {
   Thumb_CartaSudeste: 'Thumb_CartaSudeste.jpg',
@@ -112,7 +109,7 @@ for (let i = 1; i <= 20; i++) {
     'documentary',
   );
 }
-if (items.length !== 37 || new Set(items.map((x) => x.pngPath)).size !== 37)
+if (items.length !== 34 || new Set(items.map((x) => x.pngPath)).size !== 34)
   throw Error('Inventário incompleto');
 await mkdir(join(root, 'scripts/data'), { recursive: true });
 await writeFile(
