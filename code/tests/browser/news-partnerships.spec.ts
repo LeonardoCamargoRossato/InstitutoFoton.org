@@ -6,7 +6,7 @@ const stories = [
     name: 'SOFTSUL',
     original: 'AcordoFotonSoftsul.png',
     preview: 'AcordoFotonSoftsul.webp',
-    photos: 17,
+    photos: 2,
   },
   {
     slug: 'foton-assespro-rs-termo-cooperacao',
