@@ -4,8 +4,8 @@ import { createHash } from 'node:crypto';
 
 const dist = resolve('dist');
 const inventory = JSON.parse(await readFile('scripts/data/asset-inventory.json', 'utf8'));
-if (inventory.count !== 49 || inventory.items.length !== 49)
-  throw Error('Inventário dos 49 pares ausente');
+if (inventory.count !== 39 || inventory.items.length !== 39)
+  throw Error('Inventário dos 39 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
 // Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
 expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp');
