@@ -225,8 +225,9 @@ test('indicadores datados possuem apresentação discreta e sem ressalvas defens
 test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ page }) => {
   const assetRequests: string[] = [];
   page.on('request', (request) => {
-    if (/\/(?:PNG|WebP)\//.test(request.url())) {
-      assetRequests.push(request.url());
+    const url = decodeURIComponent(request.url());
+    if (url.includes('/Imagens da Página/') || url.includes('/Visitas Técnicas/')) {
+      assetRequests.push(url);
     }
   });
   await page.goto('./manifesto');
@@ -299,7 +300,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /\/Visitas Técnicas\/PNG\/visita-03\.png$/,
+    /\/\/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
   );
   await expect
     .poll(() => dialog.locator('img').evaluate((el) => (el as HTMLImageElement).naturalWidth))
