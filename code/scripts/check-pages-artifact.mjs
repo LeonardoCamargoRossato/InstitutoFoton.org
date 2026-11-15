@@ -87,9 +87,9 @@ for (const media of newsMedia) {
   const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
   if (
     !folder ||
-    !/^[A-Za-z0-9]+\\.png$/.test(media.name) ||
+    !/^[A-Za-z0-9]+\.png$/.test(media.name) ||
     media.original !== prefix + 'PNG/' + media.name ||
-    media.preview !== prefix + 'WebP/' + media.name.replace(/\\.png$/, '.webp')
+    media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp')
   )
     throw Error('Caminho de imagem de notícia não padronizado: ' + media.name);
   expected.add(media.original);
