@@ -104,7 +104,8 @@ const photoPreviewPaths = photoPaths.map((path) =>
 );
 if (
   researchMedia.haquantum.map(({ path }) => path).join() !== photoPaths.join() ||
-  researchMedia.haquantum.map(({ previewPath }) => previewPath).join() !== photoPreviewPaths.join() ||
+  researchMedia.haquantum.map(({ previewPath }) => previewPath).join() !==
+    photoPreviewPaths.join() ||
   researchMedia.pulso.path !==
     'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/EtapaPulsoYouTube.png' ||
   researchMedia.pulso.previewPath !==
@@ -114,15 +115,9 @@ if (
 }
 const eventMedia = new Map([
   ...[researchMedia.pulso, ...researchMedia.haquantum].map(({ path, sha256 }) => [path, sha256]),
-  ...researchMedia.haquantum.map(({ previewPath, previewSha256 }) => [
-    previewPath,
-    previewSha256,
-  ]),
+  ...researchMedia.haquantum.map(({ previewPath, previewSha256 }) => [previewPath, previewSha256]),
 ]);
-if (
-  eventMedia.size !== 17 ||
-  [...eventMedia.values()].some((hash) => !/^[a-f0-9]{64}$/.test(hash))
-)
+if (eventMedia.size !== 17 || [...eventMedia.values()].some((hash) => !/^[a-f0-9]{64}$/.test(hash)))
   throw Error('As oito prévias WebP da galeria devem ter SHA-256 válido');
 for (const path of photoPreviewPaths) expected.add(path);
 const pulsoWebp = researchMedia.pulso.previewPath;
