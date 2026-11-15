@@ -121,7 +121,7 @@ test('HaQuantum tem registro histórico, WebP no carrossel, PNG no zoom e regula
   await expect(gallery.getByRole('img')).toHaveCount(8);
   for (const [index, photo] of researchMedia.haquantum.entries()) {
     const image = gallery.getByRole('img').nth(index);
-    await expect(image).toHaveAttribute('src', new RegExp(photo.previewPath + '
+    expect((await image.getAttribute('src'))?.endsWith(photo.previewPath)).toBe(true);
     await expect(image).toHaveAttribute('width', String(photo.width));
     await expect(image).toHaveAttribute('height', String(photo.height));
   }
