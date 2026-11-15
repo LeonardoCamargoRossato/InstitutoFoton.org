@@ -20,20 +20,10 @@ const illustrative = [
   'apoie-hero-scientists-mobile',
   'apoie-hero-scientists',
   'apoie-researcher-support',
-  'home-generational-legacy',
-  'home-hero-community-mobile',
-  'home-hero-community',
-  'home-science-network',
   'instituto-community-mobile',
   'instituto-community',
   'jornada-hero-pathways-mobile',
   'jornada-hero-pathways',
-  'mosaic-collaborators',
-  'mosaic-community',
-  'mosaic-partners',
-  'mosaic-society',
-  'mosaic-students',
-  'mosaic-training',
   'pesquisa-collaboration',
 ];
 const manifest = {
@@ -124,7 +114,7 @@ for (let i = 1; i <= 20; i++) {
     'documentary',
   );
 }
-if (items.length !== 49 || new Set(items.map((x) => x.pngPath)).size !== 49)
+if (items.length !== 39 || new Set(items.map((x) => x.pngPath)).size !== 39)
   throw Error('Inventário incompleto');
 await mkdir(join(root, 'scripts/data'), { recursive: true });
 await writeFile(
