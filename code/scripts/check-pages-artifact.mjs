@@ -118,16 +118,29 @@ function approveMirror(source, mirror) {
   expected.add(mirror);
   mirroredAssets.set(mirror, source);
 }
+const instituteRoot = 'assets/02 - O Instituto/';
+const instituteInfo = instituteRoot + '02A - Conheça o Instituto/';
+const foundationRoot = instituteInfo + 'Fundação do Instituto Foton/';
+const visitsRoot = instituteInfo + 'Visitas Técnicas/';
+const teamRoot = instituteRoot + '02B - Nossa Equipe/WebP/';
+const researchRoot = 'assets/04 - P&D - Cientista Inovador/';
+const researchImagesRoot = researchRoot + '04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/';
+const journeyImagesRoot = researchRoot + '04B - Jornadas do Cientista Inovador/Imagens da Jornada/';
+const manifestoImagesRoot = 'assets/05 - Manifesto/Imagens da Página/';
+
 for (let number = 1; number <= 2; number++) {
   const name = 'apresentacao-foton-pagina-' + String(number).padStart(2, '0') + '.webp';
-  approveMirror('assets/WebP/apresentacao/' + name, 'assets/01 - Início/Apresentação/WebP/' + name);
+  approveMirror(
+    'assets/WebP/apresentacao/' + name,
+    'assets/01 - Início/Apresentação/WebP/' + name,
+  );
 }
 for (let number = 1; number <= 9; number++) {
   const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
   for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
     approveMirror(
       'assets/' + format + '/instituto/fundacao/' + name + '.' + ext,
-      'assets/02 - O Instituto/02A - Conheça o Instituto/Fundação do Instituto Foton/' + format + '/' + name + '.' + ext,
+      foundationRoot + format + '/' + name + '.' + ext,
     );
   }
 }
@@ -136,40 +149,35 @@ for (let number = 1; number <= 20; number++) {
   for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
     approveMirror(
       'assets/' + format + '/visitas-tecnicas/' + name + '.' + ext,
-      'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/' + format + '/' + name + '.' + ext,
+      visitsRoot + format + '/' + name + '.' + ext,
     );
   }
 }
 for (const name of teamPhotos) {
-  approveMirror(
-    'assets/img-diretoria/' + name,
-    'assets/02 - O Instituto/02B - Nossa Equipe/WebP/' + name,
-  );
+  approveMirror('assets/img-diretoria/' + name, teamRoot + name);
 }
 for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
   const research = 'pesquisa-collaboration.' + ext;
   approveMirror(
     'assets/' + format + '/pesquisa/' + research,
-    'assets/04 - P&D - Cientista Inovador/04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/' + format + '/' + research,
+    researchImagesRoot + format + '/' + research,
   );
   for (const name of ['jornada-hero-pathways', 'jornada-hero-pathways-mobile']) {
     approveMirror(
       'assets/' + format + '/jornada/' + name + '.' + ext,
-      'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/' + format + '/' + name + '.' + ext,
+      journeyImagesRoot + format + '/' + name + '.' + ext,
     );
   }
   for (const item of inventory.items.filter((item) => item.category === 'manifesto-quantico')) {
     approveMirror(
       'assets/' + format + '/manifesto-quantico/' + item.id + '.' + ext,
-      'assets/05 - Manifesto/Imagens da Página/' + format + '/' + item.id + '.' + ext,
+      manifestoImagesRoot + format + '/' + item.id + '.' + ext,
     );
   }
 }
 if (mirroredAssets.size !== 99) throw Error('Espelhos de assets esperados: 99');
 // Fotografia documental adicional da Jornada: arquivo único importado do acervo.
-expected.add(
-  'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/pesquisador_explicando_posPalestra2025_LatinoWare.png',
-);
+expected.add(journeyImagesRoot + 'PNG/pesquisador_explicando_posPalestra2025_LatinoWare.png');
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
 const routeDirectories = new Set([
   'instituto',
