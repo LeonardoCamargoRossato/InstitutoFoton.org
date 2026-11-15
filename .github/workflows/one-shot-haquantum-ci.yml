@@ -1,0 +1,46 @@
+name: Auditoria pontual WebP HaQuantum
+on:
+  push:
+    branches:
+      - feat/asset-migration-drive-20261115
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: code
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+      - run: npm run scan:secrets
+      - run: npm run docs:check
+      - run: npm run format:check
+      - run: npm run check
+      - run: npm run assets:verify
+      - run: npm run artifact:check
+      - name: Preparar Chromium para testes
+        run: |
+          browser="$(command -v google-chrome || command -v chromium || true)"
+          if [ -n "$browser" ]; then
+            echo "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=$browser" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium --only-shell
+          fi
+      - run: npm run test:e2e
+      - name: Remover workflow temporário após validação completa
+        working-directory: .
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -- .github/workflows/one-shot-haquantum-ci.yml
+          git commit -m "chore(ci): remover validador pontual após testes HaQuantum"
+          git push origin HEAD:feat/asset-migration-drive-20261115
