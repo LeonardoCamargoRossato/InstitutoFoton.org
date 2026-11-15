@@ -20,7 +20,10 @@ test('Parceiros: 31 SVGs originais, sem animação de entrada, preenchimento e e
   const images = cards.locator('img');
   await expect(images).toHaveCount(31);
   for (const image of await images.all()) {
-    await expect(image).toHaveAttribute('src', /\/assets-svg\/Logo[A-Za-z0-9]+\.svg$/);
+    await expect(image).toHaveAttribute(
+      'src',
+      /\/03 - Ecossistema de Parceiros\/Logos dos Parceiros\/SVG\/assets-svg\/Logo[A-Za-z0-9]+\.svg$/,
+    );
     await expect(image).toHaveAttribute('loading', 'eager');
     await expect
       .poll(() => image.evaluate((el) => (el as HTMLImageElement).naturalWidth), {
