@@ -9,7 +9,7 @@ const researchLines = JSON.parse(readFileSync('src/content/research-lines.json',
   topics: string[];
 }[];
 const researchMedia = JSON.parse(readFileSync('src/content/research-media.json', 'utf8')) as {
-  haquantum: { path: string; width: number; height: number }[];
+  haquantum: { path: string; previewPath: string; width: number; height: number }[];
 };
 
 const title = 'Pesquisa e Jornada do Cientista Inovador';
@@ -105,16 +105,101 @@ test('Etapa Pulso mostra a miniatura oficial e abre a transmissão no YouTube s�
   await video.close();
 });
 
-test('HaQuantum tem registro histórico, oito fotos na ordem e regulamento oficial', async ({
+test('HaQuantum tem registro histórico, WebP no carrossel, PNG no zoom e regulamento oficial', async ({
   page,
 }) => {
+  const pngRequests: string[] = [];
+  page.on('request', (request) => {
+    const url = decodeURIComponent(request.url());
+    if (url.includes('/04C - HaQuantum/Galeria HaQuantum/PNG/') && url.endsWith('.png')) {
+      pngRequests.push(url);
+    }
+  });
   await page.goto('./pesquisa');
   const gallery = page.getByRole('region', { name: 'Galeria do HaQuantum' });
   await gallery.scrollIntoViewIfNeeded();
   await expect(gallery.getByRole('img')).toHaveCount(8);
   for (const [index, photo] of researchMedia.haquantum.entries()) {
     const image = gallery.getByRole('img').nth(index);
-    await expect(image).toHaveAttribute('src', new RegExp(photo.path + '$'));
+    await expect(image).toHaveAttribute('src', new RegExp(photo.previewPath + '
+    await expect(image).toHaveAttribute('width', String(photo.width));
+    await expect(image).toHaveAttribute('height', String(photo.height));
+  }
+
+  expect(pngRequests).toEqual([]);
+
+  await gallery.getByRole('button', { name: 'Próxima foto' }).click();
+  await expect(gallery.getByText('Foto 2 de 8', { exact: true })).toBeVisible();
+  await gallery.getByRole('button', { name: 'Foto anterior' }).click();
+  await expect(gallery.getByText('Foto 1 de 8', { exact: true })).toBeVisible();
+  const first = gallery.getByRole('button', { name: /^Ampliar foto 1\./ });
+  await first.focus();
+  await first.press('ArrowRight');
+  await expect(gallery.getByRole('button', { name: /^Ampliar foto 2\./ })).toBeFocused();
+  await gallery.getByRole('button', { name: 'Ir para a foto 8' }).click();
+  await expect(gallery.getByText('Foto 8 de 8', { exact: true })).toBeVisible();
+
+  const last = gallery.getByRole('button', { name: /^Ampliar foto 8\./ });
+  await last.click();
+  const dialog = page.getByRole('dialog', { name: 'HaQuantum · Foto 8' });
+  await expect(dialog.getByRole('img')).toHaveAttribute('src', /\/haquantum9\.png$/);
+  await expect.poll(() => pngRequests.some((url) => url.endsWith('/haquantum9.png'))).toBe(true);
+  await expect(dialog.getByRole('img')).toHaveJSProperty('naturalWidth', 960);
+  await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
+  await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
+  await expect(last).toBeFocused();
+
+  await page.getByRole('link', { name: 'Saiba mais sobre o HaQuantum' }).click();
+  await expect(page).toHaveURL(/\/pesquisa\/haquantum$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(haQuantum);
+  await expect(page.locator('.page-intro .research-date')).toHaveText(
+    '9 de maio a 11 de junho de 2026',
+  );
+  await expect(page.getByRole('link', { name: /Consultar regulamento oficial/ })).toHaveAttribute(
+    'href',
+    'https://drive.google.com/file/d/1O-z8Br-EllIzKcj0cNmUPer1jfKGPmnl/view',
+  );
+  await expect(page.getByRole('link', { name: /inscreva|inscriç/i })).toHaveCount(0);
+});
+
+test('navegação e layout cabem em desktop, tablet e celular', async ({ page }) => {
+  for (const width of [1440, 1024, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of ['./pesquisa', './pesquisa/jornada', './pesquisa/haquantum']) {
+      await page.goto(path);
+      await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+        width,
+      );
+    }
+    const toggle = page.getByRole('button', { name: 'Abrir menu' });
+    if (await toggle.isVisible()) await toggle.click();
+    const mainNav = page.getByRole('navigation', { name: 'Navegação principal' });
+    await expect(
+      mainNav.locator('summary').filter({ hasText: 'P&D - Cientista Inovador' }),
+    ).toBeVisible();
+    const navWidth = await mainNav.evaluate((nav) => nav.getBoundingClientRect().right);
+    expect(navWidth).toBeLessThanOrEqual(width);
+  }
+});
+
+test('as novas páginas passam nas verificações automatizadas de acessibilidade', async ({
+  page,
+}) => {
+  for (const path of ['./pesquisa', './pesquisa/jornada', './pesquisa/haquantum']) {
+    await page.goto(path);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    const result = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+      .analyze();
+    expect(
+      result.violations.map(({ id, nodes }) => [id, nodes.map((node) => node.target)]),
+    ).toEqual([]);
+  }
+});
+));
     await expect(image).toHaveAttribute('width', String(photo.width));
     await expect(image).toHaveAttribute('height', String(photo.height));
   }

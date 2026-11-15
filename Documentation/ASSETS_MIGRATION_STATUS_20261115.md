@@ -52,3 +52,12 @@ Renderização inicial preferencial em WebP; ampliação/zoom usa PNG. SVG para 
 - Em `04B - Jornadas do Cientista Inovador/Imagens da Jornada/`, `EtapaPulsoYouTube.png` é o original preservado e `EtapaPulsoYouTube.webp` é a versão leve usada na primeira renderização do vídeo.
 - Em `04C - HaQuantum/Galeria HaQuantum/PNG/`, as oito fotografias documentais aprovadas permanecem no acervo.
 - A validação antes de qualquer merge inclui lint, TypeScript, testes unitários, build, verificação de imagens, verificação de artefato e E2E no navegador. Conferir a execução correspondente ao commit final.
+
+## HaQuantum — miniaturas WebP e ampliação PNG (15/11/2026)
+
+- Os oito PNG documentais originais permanecem inalterados em `04C - HaQuantum/Galeria HaQuantum/PNG/`.
+- Foram gerados oito WebP a partir desses originais e sincronizados com o Drive em `04C - HaQuantum/Galeria HaQuantum/WebP/`; as miniaturas têm até 1.280 pixels de largura, sem ampliação artificial.
+- `HaQuantumGallery.tsx` passa a usar `previewPath` (WebP) na visualização inicial e `path` (PNG) somente quando o usuário amplia uma imagem.
+- O catálogo `research-media.json` registra também o hash SHA-256 de cada WebP; o verificador do artefato confirma a presença e integridade dos 16 arquivos.
+- O teste E2E verifica oito miniaturas WebP, nenhuma solicitação aos PNG antes do clique e a exibição do PNG original ao ampliar.
+- Nenhuma alteração na `main`; o CI completo deve ser confirmado antes de aprovar o PR.
