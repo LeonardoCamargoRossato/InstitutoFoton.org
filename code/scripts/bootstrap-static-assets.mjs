@@ -20,8 +20,6 @@ const illustrative = [
   'apoie-hero-scientists-mobile',
   'apoie-hero-scientists',
   'apoie-researcher-support',
-  'instituto-community-mobile',
-  'instituto-community',
   'jornada-hero-pathways-mobile',
   'jornada-hero-pathways',
   'pesquisa-collaboration',
@@ -114,7 +112,7 @@ for (let i = 1; i <= 20; i++) {
     'documentary',
   );
 }
-if (items.length !== 39 || new Set(items.map((x) => x.pngPath)).size !== 39)
+if (items.length !== 37 || new Set(items.map((x) => x.pngPath)).size !== 37)
   throw Error('Inventário incompleto');
 await mkdir(join(root, 'scripts/data'), { recursive: true });
 await writeFile(

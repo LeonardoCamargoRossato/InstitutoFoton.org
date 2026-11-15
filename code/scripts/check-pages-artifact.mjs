@@ -4,8 +4,8 @@ import { createHash } from 'node:crypto';
 
 const dist = resolve('dist');
 const inventory = JSON.parse(await readFile('scripts/data/asset-inventory.json', 'utf8'));
-if (inventory.count !== 39 || inventory.items.length !== 39)
-  throw Error('Inventário dos 39 pares ausente');
+if (inventory.count !== 37 || inventory.items.length !== 37)
+  throw Error('Inventário dos 37 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
 // Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
 expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp');
@@ -68,7 +68,7 @@ const expectedGroups = [
   ['Empresas Parceiras', 9],
 ];
 if (
-  expected.size !== 98 + 31 + 2 + teamPhotos.length + 18 ||
+  expected.size !== inventory.count * 2 + 31 + 2 + teamPhotos.length + 18 ||
   svgNames.size !== 31 ||
   expectedGroups.some(([group, n]) => groupCounts.get(group) !== n) ||
   groupCounts.size !== 4

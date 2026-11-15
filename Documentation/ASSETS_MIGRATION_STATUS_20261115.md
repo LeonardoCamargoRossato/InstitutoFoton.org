@@ -32,3 +32,13 @@ Renderização inicial preferencial em WebP; ampliação/zoom usa PNG. SVG para 
 - **Parceiros:** o site aponta para `assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/assets-svg/`; os 31 SVGs oficiais foram preservados. Os 32 PNG e 32 WebP de `assets/PNG/parceiros/` e `assets/WebP/parceiros/` foram eliminados da branch, incluindo os dois `.gitkeep` dessas pastas.
 - **JPG legados:** o inventário atual da branch contém zero `.jpg` e `.jpeg` (substituições anteriores mantidas).
 - **Controle de regressão:** teste de ausência de diretórios raster de parceiros acrescentado a `code/tests/partners.test.ts`. Validação de nomes e árvores realizada; build/testes automatizados devem ser executados antes de qualquer merge.
+
+## Limpeza das ilustrações institucionais — 15/11/2026
+
+- Conferidos 114 arquivos de código, configuração, testes e documentação na branch: nenhuma página ou componente em execução aponta para os assets `instituto-community` ou `instituto-community-mobile`.
+- Apagadas as 8 cópias PNG/WebP desses dois IDs, tanto na pasta numerada `02 - O Instituto/02A - Conheça o Instituto/` quanto nas pastas legadas `PNG/instituto/` e `WebP/instituto/`.
+- Removidos os dois itens de `src/lib/siteAssets.ts`, `scripts/data/asset-inventory.json` e `scripts/bootstrap-static-assets.mjs`.
+- Inventário e verificações atualizados de 39 para 37 pares; corrigido o cálculo esperado no verificador de artefatos para evitar falsa falha por total hardcoded.
+- Teste de regressão criado para garantir que os arquivos excluídos e IDs do inventário não reapareçam.
+- **Preservação:** os 9 PNG e 9 WebP da fundação e as 17 fotos WebP da equipe permanecem sem alteração. A `main` não foi modificada.
+- Os testes automatizados devem ser executados na validação antes do merge.

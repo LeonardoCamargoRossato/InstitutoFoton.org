@@ -56,17 +56,6 @@ export const PHOTO_LIBRARY = {
     crop: 'horizontal',
     alt: 'Composição ilustrativa de pesquisadores fictícios trabalhando juntos em laboratório.',
   },
-  'instituto-community': {
-    file: 'instituto-community.avif',
-    mobile: 'instituto-community-mobile.avif',
-    width: 1400,
-    height: 313,
-    page: 'Instituto',
-    section: 'comunidade',
-    position: 'center',
-    crop: 'wide / mobile 4:3',
-    alt: 'Cena ilustrativa intergeracional de pessoas fictícias reunidas para conversar sobre ciência.',
-  },
 } as const satisfies Record<string, FotonImage>;
 
 export type PhotoId = keyof typeof PHOTO_LIBRARY;
@@ -192,7 +181,6 @@ export const SITE_ASSETS: Record<string, SiteAsset> = Object.fromEntries([
   ...illustrativeEntries,
   ...[
     'apoie-hero-scientists-mobile',
-    'instituto-community-mobile',
     'jornada-hero-pathways-mobile',
   ].map((id) => {
     const category = categoryOf(id);

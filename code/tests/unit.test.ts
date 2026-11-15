@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { existsSync } from 'node:fs';
 import { safeExternalUrl, dateLabel } from '../src/lib/config';
 import { odqs, cartas, methodology } from '../src/features/manifesto-content';
 import { imageAsset, SITE_ASSETS } from '../src/lib/siteAssets';
@@ -35,8 +36,8 @@ describe('integridade documental', () => {
 });
 
 describe('fontes públicas estáticas sem autenticação', () => {
-  it('possui 39 imagens canônicas e caminhos GitHub Pages relativos', () => {
-    expect(Object.keys(SITE_ASSETS)).toHaveLength(39);
+  it('possui 37 imagens canônicas e caminhos GitHub Pages relativos', () => {
+    expect(Object.keys(SITE_ASSETS)).toHaveLength(37);
     expect(imageAsset('visita-03').pngPath).toBe('assets/PNG/visitas-tecnicas/visita-03.png');
     expect(imageAsset('visita-03').webpPath).toBe('assets/WebP/visitas-tecnicas/visita-03.webp');
     expect(imageAsset('apoie-hero-scientists').sourceType).toBe('ai-illustration');
@@ -44,6 +45,19 @@ describe('fontes públicas estáticas sem autenticação', () => {
       expect(asset.pngPath).toMatch(/^assets\/PNG\/[^/]+\/[^/]+\.png$/);
       expect(asset.webpPath).toMatch(/^assets\/WebP\/[^/]+\/[^/]+\.webp$/);
     }
+  });
+  it('não mantém imagens instituto-community nas duas hierarquias de assets', () => {
+    for (const kind of ['PNG', 'WebP']) {
+      const extension = kind === 'PNG' ? 'png' : 'webp';
+      for (const name of ['instituto-community', 'instituto-community-mobile']) {
+        expect(
+          existsSync(`public/assets/02 - O Instituto/02A - Conheça o Instituto/${kind}/${name}.${extension}`),
+        ).toBe(false);
+        expect(existsSync(`public/assets/${kind}/instituto/${name}.${extension}`)).toBe(false);
+      }
+    }
+    expect(SITE_ASSETS['instituto-community']).toBeUndefined();
+    expect(SITE_ASSETS['instituto-community-mobile']).toBeUndefined();
   });
   it('mantém PDF local aprovado e valores oficiais sem inventar mission/visão', async () => {
     const docs = await documents();

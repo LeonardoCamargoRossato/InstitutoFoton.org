@@ -1,5 +1,5 @@
 {
-  "count": 39,
+  "count": 37,
   "scope": "Exportação de imagens públicas; buckets não integralmente auditados",
   "items": [
     {
@@ -91,36 +91,6 @@
       "webpPath": "assets/WebP/apoie/apoie-researcher-support.webp",
       "originalBytes": 10326,
       "webpBytes": 35078
-    },
-    {
-      "id": "instituto-community-mobile",
-      "category": "instituto",
-      "sourceType": "ai-illustration",
-      "source": "site/images/illustrative/instituto-community-mobile.avif",
-      "originalFormat": "avif",
-      "pngDerived": true,
-      "width": 720,
-      "height": 520,
-      "hasAlpha": false,
-      "pngPath": "assets/PNG/instituto/instituto-community-mobile.png",
-      "webpPath": "assets/WebP/instituto/instituto-community-mobile.webp",
-      "originalBytes": 12309,
-      "webpBytes": 38286
-    },
-    {
-      "id": "instituto-community",
-      "category": "instituto",
-      "sourceType": "ai-illustration",
-      "source": "site/images/illustrative/instituto-community.avif",
-      "originalFormat": "avif",
-      "pngDerived": true,
-      "width": 1400,
-      "height": 313,
-      "hasAlpha": false,
-      "pngPath": "assets/PNG/instituto/instituto-community.png",
-      "webpPath": "assets/WebP/instituto/instituto-community.webp",
-      "originalBytes": 18152,
-      "webpBytes": 63640
     },
     {
       "id": "jornada-hero-pathways-mobile",
