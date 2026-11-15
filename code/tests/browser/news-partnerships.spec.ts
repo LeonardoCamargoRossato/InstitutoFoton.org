@@ -123,22 +123,3 @@ test('notícias mantêm largura de tela em celular, tablet e desktop', async ({ 
     expect(difference).toBeLessThanOrEqual(1);
   }
 });
-),
-      );
-      await expect
-        .poll(() => dialog.locator('img').evaluate((element: HTMLImageElement) => element.naturalWidth))
-        .toBeGreaterThan(0);
-      await page.keyboard.press('Escape');
-      await expect(dialog).toHaveCount(0);
-    }
-  }
-});
-
-test('notícias mantêm largura de tela em celular, tablet e desktop', async ({ page }) => {
-  for (const width of [390, 768, 1280]) {
-    await page.setViewportSize({ width, height: 840 });
-    await page.goto('./noticias/seminario-cubotech-direito-computacao-quantica');
-    const difference = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-    expect(difference).toBeLessThanOrEqual(1);
-  }
-});
