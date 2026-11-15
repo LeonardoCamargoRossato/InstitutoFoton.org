@@ -8,8 +8,12 @@ const root = process.cwd();
 const inventory = JSON.parse(
   await readFile(path.join(root, 'scripts/data/partner-svg-inventory.json'), 'utf8'),
 );
-const originals = path.join(root, 'public/assets/img-logos-parceiros-foton/assets-svg');
-const previews = path.join(root, 'public/assets/img-logos-parceiros-foton/display-svg');
+const partnerRoot = path.join(
+  root,
+  'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG',
+);
+const originals = path.join(partnerRoot, 'assets-svg');
+const previews = path.join(partnerRoot, 'display-svg');
 await mkdir(previews, { recursive: true });
 
 function applyAttribute(svgTag, attribute, value) {
