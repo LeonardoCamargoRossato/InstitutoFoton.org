@@ -264,7 +264,11 @@ export function Article() {
                     {newsMedia
                       .filter((media) =>
                         item.slug.startsWith('foton-softsul')
-                          ? media.group === 'softsul' &&\n                            ['AcordoFotonSoftsul.png', 'FotonSoftsulAcervo20250314WA0021.jpg'].includes(media.name)
+                          ? media.group === 'softsul' &&
+                            [
+                              'AcordoFotonSoftsul.png',
+                              'FotonSoftsulAcervo20250314WA0021.jpg',
+                            ].includes(media.name)
                           : item.slug.startsWith('foton-assespro')
                             ? media.group === 'assespro-rs'
                             : media.group === 'cubotech',
