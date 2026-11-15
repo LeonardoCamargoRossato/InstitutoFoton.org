@@ -102,14 +102,16 @@ const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
 if (
   researchMedia.haquantum.map(({ path }) => path).join() !== photoPaths.join() ||
   researchMedia.pulso.path !==
-    'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/EtapaPulsoYouTube.png'
+    'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/EtapaPulsoYouTube.png' ||
+  researchMedia.pulso.previewPath !==
+    'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/WebP/EtapaPulsoYouTube.webp'
 ) {
   throw Error('Sequência de fotografias do HaQuantum ou miniatura da Etapa Pulso divergente');
 }
 const eventMedia = new Map(
   [researchMedia.pulso, ...researchMedia.haquantum].map(({ path, sha256 }) => [path, sha256]),
 );
-const pulsoWebp = researchMedia.pulso.path.replace('/PNG/', '/WebP/').replace(/\.png$/, '.webp');
+const pulsoWebp = researchMedia.pulso.previewPath;
 expected.add(pulsoWebp);
 // Cópias de organização por aba mantidas na branch durante a migração Drive → GitHub.
 // Cada cópia só é permitida se seu arquivo canônico estiver autorizado e tiver bytes idênticos.

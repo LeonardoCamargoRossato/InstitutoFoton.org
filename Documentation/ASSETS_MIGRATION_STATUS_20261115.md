@@ -42,3 +42,13 @@ Renderização inicial preferencial em WebP; ampliação/zoom usa PNG. SVG para 
 - Teste de regressão criado para garantir que os arquivos excluídos e IDs do inventário não reapareçam.
 - **Preservação:** os 9 PNG e 9 WebP da fundação e as 17 fotos WebP da equipe permanecem sem alteração. A `main` não foi modificada.
 - Os testes automatizados devem ser executados na validação antes do merge.
+
+## Revisão de encerramento do PR #27 — 15/11/2026
+
+- A migração foi implementada somente em `feat/asset-migration-drive-20261115`. A `main` não foi alterada por este PR.
+- O inventário vigente tem **34 pares canônicos PNG/WebP**, com os arquivos antigos de ilustração de Pesquisa, Jornada e `instituto-community` removidos dos catálogos e da branch.
+- O Ecossistema de Parceiros mantém **31 logos SVG** oficiais, sem dependência das logos raster antigas e sem mapeamento `LogoRede40`.
+- Em `04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/`, as subpastas `PNG/` e `WebP/` estão vazias, preservadas por `.gitkeep`, removidos apenas do artefato publicado pelo postbuild.
+- Em `04B - Jornadas do Cientista Inovador/Imagens da Jornada/`, `EtapaPulsoYouTube.png` é o original preservado e `EtapaPulsoYouTube.webp` é a versão leve usada na primeira renderização do vídeo.
+- Em `04C - HaQuantum/Galeria HaQuantum/PNG/`, as oito fotografias documentais aprovadas permanecem no acervo.
+- A validação antes de qualquer merge inclui lint, TypeScript, testes unitários, build, verificação de imagens, verificação de artefato e E2E no navegador. Conferir a execução correspondente ao commit final.

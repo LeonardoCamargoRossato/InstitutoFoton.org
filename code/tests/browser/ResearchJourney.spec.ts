@@ -91,7 +91,7 @@ test('Etapa Pulso mostra a miniatura oficial e abre a transmissão no YouTube s�
   await expect(section.locator('time')).toHaveText('28 de março de 2026');
   await expect(section.locator('iframe')).toHaveCount(0);
   expect(playerRequests).toEqual([]);
-  await expect(section.locator('img')).toHaveAttribute('src', /\/EtapaPulsoYouTube\.png$/);
+  await expect(section.locator('img')).toHaveAttribute('src', /\/EtapaPulsoYouTube\.webp$/);
   await expect(section.locator('img')).toHaveJSProperty('naturalWidth', 1280);
   await expect(
     section.getByRole('link', { name: /Assistir à transmissão completa/ }),

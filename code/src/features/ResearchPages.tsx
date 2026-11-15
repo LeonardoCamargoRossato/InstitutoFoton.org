@@ -56,7 +56,7 @@ function PulsoVideo() {
       aria-label="Abrir o vídeo da Etapa Pulso no YouTube (nova aba)"
     >
       <img
-        src={assetUrl(researchMedia.pulso.path)}
+        src={assetUrl(researchMedia.pulso.previewPath)}
         width={researchMedia.pulso.width}
         height={researchMedia.pulso.height}
         alt=""
