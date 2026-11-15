@@ -109,6 +109,8 @@ if (
 const eventMedia = new Map(
   [researchMedia.pulso, ...researchMedia.haquantum].map(({ path, sha256 }) => [path, sha256]),
 );
+const pulsoWebp = researchMedia.pulso.path.replace('/PNG/', '/WebP/').replace(/\.png$/, '.webp');
+expected.add(pulsoWebp);
 // Cópias de organização por aba mantidas na branch durante a migração Drive → GitHub.
 // Cada cópia só é permitida se seu arquivo canônico estiver autorizado e tiver bytes idênticos.
 const mirroredAssets = new Map();
@@ -339,6 +341,12 @@ for (const [path, hash] of eventMedia) {
       .digest('hex') !== hash
   )
     violations.push('event image differs from original ' + path);
+}
+if (seen.has(pulsoWebp)) {
+  const header = await readFile(join(dist, pulsoWebp));
+  if (header.toString('ascii', 0, 4) !== 'RIFF' || header.toString('ascii', 8, 12) !== 'WEBP') {
+    violations.push('miniatura da Etapa Pulso não é um WebP válido');
+  }
 }
 for (const [mirror, source] of mirroredAssets) {
   if (seen.has(mirror) && seen.has(source)) {

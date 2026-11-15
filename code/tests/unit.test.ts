@@ -64,6 +64,15 @@ describe('fontes públicas estáticas sem autenticação', () => {
     expect(SITE_ASSETS['instituto-community']).toBeUndefined();
     expect(SITE_ASSETS['instituto-community-mobile']).toBeUndefined();
   });
+  it('preserva os marcadores PNG e WebP vazios da Pesquisa e a miniatura WebP da Jornada', () => {
+    const root = 'public/assets/04 - P&D - Cientista Inovador/';
+    const research = root + '04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/';
+    const journey = root + '04B - Jornadas do Cientista Inovador/Imagens da Jornada/';
+    expect(existsSync(research + 'PNG/.gitkeep')).toBe(true);
+    expect(existsSync(research + 'WebP/.gitkeep')).toBe(true);
+    expect(existsSync(journey + 'PNG/EtapaPulsoYouTube.png')).toBe(true);
+    expect(existsSync(journey + 'WebP/EtapaPulsoYouTube.webp')).toBe(true);
+  });
   it('mantém PDF local aprovado e valores oficiais sem inventar mission/visão', async () => {
     const docs = await documents();
     expect(docs).toHaveLength(1);
