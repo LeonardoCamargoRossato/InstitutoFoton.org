@@ -119,7 +119,10 @@ const eventMedia = new Map([
     previewSha256,
   ]),
 ]);
-if (eventMedia.size !== 17 || [...eventMedia.values()].some((hash) => !/^[a-f0-9]{64}$/.test(hash)))
+if (
+  eventMedia.size !== 17 ||
+  [...eventMedia.values()].some((hash) => !/^[a-f0-9]{64}$/.test(hash))
+)
   throw Error('As oito prévias WebP da galeria devem ter SHA-256 válido');
 for (const path of photoPreviewPaths) expected.add(path);
 const pulsoWebp = researchMedia.pulso.previewPath;
