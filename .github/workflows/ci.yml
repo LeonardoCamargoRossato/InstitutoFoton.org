@@ -19,9 +19,6 @@ jobs:
           cache: npm
           cache-dependency-path: code/package-lock.json
       - run: npm ci
-      - name: Diagnóstico temporário de formatação
-        run: |
-          npx prettier scripts/check-pages-artifact.mjs | diff -u scripts/check-pages-artifact.mjs - || true
       - run: npm run scan:secrets
       - run: npm run docs:check
       - run: npm run format:check

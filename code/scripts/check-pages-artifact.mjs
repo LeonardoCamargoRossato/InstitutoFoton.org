@@ -113,8 +113,9 @@ const eventMedia = new Map(
 // Cada cópia só é permitida se seu arquivo canônico estiver autorizado e tiver bytes idênticos.
 const mirroredAssets = new Map();
 function approveMirror(source, mirror) {
-  if (!expected.has(source) || mirroredAssets.has(mirror))
+  if (!expected.has(source) || mirroredAssets.has(mirror)) {
     throw Error('Espelho de asset não autorizado: ' + mirror);
+  }
   expected.add(mirror);
   mirroredAssets.set(mirror, source);
 }
@@ -130,24 +131,24 @@ const manifestoImagesRoot = 'assets/05 - Manifesto/Imagens da Página/';
 
 for (let number = 1; number <= 2; number++) {
   const name = 'apresentacao-foton-pagina-' + String(number).padStart(2, '0') + '.webp';
-  approveMirror('assets/WebP/apresentacao/' + name, 'assets/01 - Início/Apresentação/WebP/' + name);
+  const original = 'assets/WebP/apresentacao/' + name;
+  const copy = 'assets/01 - Início/Apresentação/WebP/' + name;
+  approveMirror(original, copy);
 }
 for (let number = 1; number <= 9; number++) {
   const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
   for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
-    approveMirror(
-      'assets/' + format + '/instituto/fundacao/' + name + '.' + ext,
-      foundationRoot + format + '/' + name + '.' + ext,
-    );
+    const original = `assets/${format}/instituto/fundacao/${name}.${ext}`;
+    const copy = `${foundationRoot}${format}/${name}.${ext}`;
+    approveMirror(original, copy);
   }
 }
 for (let number = 1; number <= 20; number++) {
   const name = 'visita-' + String(number).padStart(2, '0');
   for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
-    approveMirror(
-      'assets/' + format + '/visitas-tecnicas/' + name + '.' + ext,
-      visitsRoot + format + '/' + name + '.' + ext,
-    );
+    const original = `assets/${format}/visitas-tecnicas/${name}.${ext}`;
+    const copy = `${visitsRoot}${format}/${name}.${ext}`;
+    approveMirror(original, copy);
   }
 }
 for (const name of teamPhotos) {
@@ -155,21 +156,18 @@ for (const name of teamPhotos) {
 }
 for (const [format, ext] of [['PNG', 'png'], ['WebP', 'webp']]) {
   const research = 'pesquisa-collaboration.' + ext;
-  approveMirror(
-    'assets/' + format + '/pesquisa/' + research,
-    researchImagesRoot + format + '/' + research,
-  );
+  const original = `assets/${format}/pesquisa/${research}`;
+  const copy = `${researchImagesRoot}${format}/${research}`;
+  approveMirror(original, copy);
   for (const name of ['jornada-hero-pathways', 'jornada-hero-pathways-mobile']) {
-    approveMirror(
-      'assets/' + format + '/jornada/' + name + '.' + ext,
-      journeyImagesRoot + format + '/' + name + '.' + ext,
-    );
+    const original = `assets/${format}/jornada/${name}.${ext}`;
+    const copy = `${journeyImagesRoot}${format}/${name}.${ext}`;
+    approveMirror(original, copy);
   }
   for (const item of inventory.items.filter((item) => item.category === 'manifesto-quantico')) {
-    approveMirror(
-      'assets/' + format + '/manifesto-quantico/' + item.id + '.' + ext,
-      manifestoImagesRoot + format + '/' + item.id + '.' + ext,
-    );
+    const original = `assets/${format}/manifesto-quantico/${item.id}.${ext}`;
+    const copy = `${manifestoImagesRoot}${format}/${item.id}.${ext}`;
+    approveMirror(original, copy);
   }
 }
 if (mirroredAssets.size !== 99) throw Error('Espelhos de assets esperados: 99');
