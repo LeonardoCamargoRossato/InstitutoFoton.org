@@ -1,0 +1,75 @@
+name: Geração pontual de WebP — HaQuantum
+on:
+  push:
+    branches:
+      - feat/asset-migration-drive-20261115
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+        working-directory: code
+      - name: Converter oito PNG aprovados em WebP leves
+        working-directory: code
+        run: |
+          node --input-type=module <<'NODE'
+          import sharp from 'sharp';
+          import { createHash } from 'node:crypto';
+          import { mkdir, readFile, stat } from 'node:fs/promises';
+          import { dirname } from 'node:path';
+          const media = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
+          const expectedNames = [1, 2, 3, 4, 5, 6, 8, 9].map((n) => 'haquantum' + n + '.png');
+          const selected = media.haquantum;
+          if (selected.length !== 8 ||
+              selected.some(({ path }, i) => !path.endsWith('/PNG/' + expectedNames[i]))) {
+            throw Error('O catálogo de oito imagens HaQuantum mudou');
+          }
+          for (const photo of selected) {
+            const png = 'public/' + photo.path;
+            const webp = png.replace('/PNG/', '/WebP/').replace(/\.png$/, '.webp');
+            const original = await readFile(png);
+            const actualHash = createHash('sha256').update(original).digest('hex');
+            if (actualHash !== photo.sha256) throw Error('PNG diferente do original aprovado: ' + png);
+            const input = await sharp(original).metadata();
+            if (input.format !== 'png' || input.width !== photo.width || input.height !== photo.height) {
+              throw Error('Dimensões PNG alteradas: ' + png);
+            }
+            await mkdir(dirname(webp), { recursive: true });
+            await sharp(original)
+              .resize({ width: 1280, withoutEnlargement: true })
+              .webp({ quality: 84, effort: 6 })
+              .toFile(webp);
+            const output = await sharp(webp).metadata();
+            if (output.format !== 'webp' || output.width > input.width || output.height > input.height) {
+              throw Error('Conversão WebP inválida: ' + webp);
+            }
+            const bytes = (await stat(webp)).size;
+            if (bytes >= original.length) throw Error('WebP não reduziu o arquivo: ' + webp);
+            console.log(photo.path.split('/').at(-1), original.length, '→', bytes, output.width, 'x', output.height);
+          }
+          NODE
+      - name: Disponibilizar oito WebP para sincronização com Google Drive
+        uses: actions/upload-artifact@v4
+        with:
+          name: haquantum-webp-site-foton
+          path: code/public/assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/*.webp
+          if-no-files-found: error
+          retention-days: 7
+      - name: Gravar WebP na branch e remover workflow pontual
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- 'code/public/assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/'
+          git rm -- .github/workflows/one-shot-haquantum-webp.yml
+          git commit -m "feat(assets): criar oito miniaturas WebP para galeria HaQuantum"
+          git push origin HEAD:feat/asset-migration-drive-20261115
