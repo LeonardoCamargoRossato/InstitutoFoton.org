@@ -1,0 +1,31 @@
+name: Formatar teste de noticias (temporario)
+on:
+  push:
+    branches: [feat/noticias-parcerias-20261114]
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/noticias-parcerias-20261114
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - run: npm ci
+        working-directory: code
+      - run: npx prettier --write tests/browser/news-partnerships.spec.ts
+        working-directory: code
+      - name: Commit formatted file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add code/tests/browser/news-partnerships.spec.ts
+          if ! git diff --cached --quiet; then
+            git commit -m "style(noticias): formatar teste de navegador"
+            git push origin HEAD:feat/noticias-parcerias-20261114
+          fi
