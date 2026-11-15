@@ -86,6 +86,7 @@ const illustrativeEntries = Object.entries(PHOTO_LIBRARY).map(([id, entry]) => {
   };
   return [id, asset] as const;
 });
+const visitsRoot = 'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/';
 const visits = Array.from({ length: 20 }, (_, i) => {
   const id = 'visita-' + String(i + 1).padStart(2, '0');
   return [
@@ -96,14 +97,15 @@ const visits = Array.from({ length: 20 }, (_, i) => {
       section: 'Visitas técnicas',
       category: 'visitas-tecnicas',
       sourceType: 'documentary' as const,
-      pngPath: 'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/PNG/' + id + '.png',
-      webpPath: 'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/WebP/' + id + '.webp',
+      pngPath: visitsRoot + 'PNG/' + id + '.png',
+      webpPath: visitsRoot + 'WebP/' + id + '.webp',
       alt: 'Visita técnica ' + String(i + 1).padStart(2, '0') + ' do acervo do Instituto Foton.',
       width: 1920,
       height: 1080,
     },
   ] as const;
 });
+const manifestoRoot = 'assets/05 - Manifesto/Imagens da Página/';
 const manifesto = [
   ['Thumb_CartaSudeste', 1080, 603],
   ['Thumb_CartaNorte', 1600, 1200],
@@ -124,8 +126,8 @@ const manifestoEntries = manifesto.map(
         section: 'Cartas e metodologia',
         category: 'manifesto-quantico',
         sourceType: 'documentary' as const,
-        pngPath: 'assets/05 - Manifesto/Imagens da Página/PNG/' + id + '.png',
-        webpPath: 'assets/05 - Manifesto/Imagens da Página/WebP/' + id + '.webp',
+        pngPath: manifestoRoot + 'PNG/' + id + '.png',
+        webpPath: manifestoRoot + 'WebP/' + id + '.webp',
         alt: id.replace(/_/g, ' '),
         width,
         height,
