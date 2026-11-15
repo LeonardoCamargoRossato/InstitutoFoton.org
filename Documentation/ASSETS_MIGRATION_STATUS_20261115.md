@@ -24,3 +24,11 @@ Não remover arquivos de caminhos antigos nem mudar a `main` até completar a mi
 
 ## Convenção
 Renderização inicial preferencial em WebP; ampliação/zoom usa PNG. SVG para marcas e vetores. Não adicionar JPG/JPEG novos.
+
+## Auditoria complementar — 15/11/2026
+
+- **Fundação:** preservar o comportamento da `main` na branch: primeira renderização pelas nove imagens `assets/WebP/instituto/fundacao/Img-Fundacao-Foton-01.webp` a `09.webp`; ampliação pelos nove PNG correspondentes em `assets/PNG/instituto/fundacao/`. Não foram alterados os caminhos nem as imagens na branch.
+- **Drive da fundação:** mantidos os nove PNG e nove WebP oficiais nas pastas canônicas de `Assets/02 - O Instituto/02A - Conheça o Instituto/Fundação do Instituto Foton/`. Removidos 9 PNG não usados, 8 JPG antigos e 18 cópias redundantes de nomes/tamanhos correspondentes; arquivo de documentação mantido.
+- **Parceiros:** o site aponta para `assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/assets-svg/`; os 31 SVGs oficiais foram preservados. Os 32 PNG e 32 WebP de `assets/PNG/parceiros/` e `assets/WebP/parceiros/` foram eliminados da branch, incluindo os dois `.gitkeep` dessas pastas.
+- **JPG legados:** o inventário atual da branch contém zero `.jpg` e `.jpeg` (substituições anteriores mantidas).
+- **Controle de regressão:** teste de ausência de diretórios raster de parceiros acrescentado a `code/tests/partners.test.ts`. Validação de nomes e árvores realizada; build/testes automatizados devem ser executados antes de qualquer merge.

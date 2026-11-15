@@ -20,6 +20,16 @@ describe('catálogo de parceiros publicados', () => {
       ).toBe(true);
     }
   });
+  it('não mantém logotipos PNG/WebP legados nem rasterização canônica de parceiros', () => {
+    for (const directory of [
+      'public/assets/PNG/parceiros',
+      'public/assets/WebP/parceiros',
+      'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/PNG',
+      'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/WebP',
+    ]) {
+      expect(existsSync(directory)).toBe(false);
+    }
+  });
   it('contém 31 SVGs únicos e os 4 grupos autorizados', () => {
     const entries = publishedPartners();
     expect(entries).toHaveLength(31);
