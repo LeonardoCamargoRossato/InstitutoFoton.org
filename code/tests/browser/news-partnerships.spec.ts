@@ -51,7 +51,29 @@ test('imagens de notícias usam WebP inicialmente e originais apenas na ampliaç
     page.on('request', onRequest);
     await page.goto('./noticias/' + story.slug);
     const image = page.locator('.news-media-photo').first();
-    await expect(image).toHaveAttribute('src', new RegExp(story.preview + '$'));
+    await expect(image).toHaveAttribute('src', new RegExp(story.preview + '
+      .poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth))
+      .toBeGreaterThan(0);
+    expect(originalRequests).toHaveLength(0);
+    await image.click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await expect.poll(() => originalRequests.length).toBeGreaterThan(0);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    page.off('request', onRequest);
+  }
+});
+
+test('notícias mantêm largura de tela em celular, tablet e desktop', async ({ page }) => {
+  for (const width of [390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 840 });
+    await page.goto('./noticias/seminario-cubotech-direito-computacao-quantica');
+    const difference = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(difference).toBeLessThanOrEqual(1);
+  }
+});
+));
+    await image.scrollIntoViewIfNeeded();
     await expect
       .poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth))
       .toBeGreaterThan(0);
