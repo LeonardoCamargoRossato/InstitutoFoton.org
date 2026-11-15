@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import {
   publishedPartners,
   partnerGroups,
@@ -9,28 +9,13 @@ import {
 import { partnerLogoAssets } from '../src/content/partnerAssets';
 
 describe('catálogo de parceiros publicados', () => {
-  it('preserva os 31 SVGs originais e publica 31 derivados otimizados', () => {
-    const report = JSON.parse(
-      readFileSync('scripts/data/partner-svg-display-report.json', 'utf8'),
-    ) as {
-      count: number;
-      sourceBytes: number;
-      displayBytes: number;
-      records: Array<{ file: string; cropped: boolean }>;
-    };
-    expect(report.count).toBe(31);
-    expect(report.sourceBytes).toBeGreaterThan(20_000_000);
-    expect(report.displayBytes).toBeLessThan(report.sourceBytes);
-    expect(new Set(report.records.map((record) => record.file)).size).toBe(31);
-    for (const { file } of report.records) {
+  it('preserva somente os 31 SVGs canônicos', () => {
+    for (const partner of publishedPartners()) {
+      const file = partner.logo_filename;
+      expect(file).toMatch(/^Logo[A-Za-z0-9]+\.svg$/);
       expect(
         existsSync(
           'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/assets-svg/' + file,
-        ),
-      ).toBe(true);
-      expect(
-        existsSync(
-          'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/display-svg/' + file,
         ),
       ).toBe(true);
     }

@@ -58,7 +58,6 @@ for (const partner of partnerSnapshot) {
     svgNames.add(filename + '.svg');
     groupCounts.set(partner.partner_tier, (groupCounts.get(partner.partner_tier) || 0) + 1);
     expected.add(partnerAssetRoot + '/SVG/assets-svg/' + filename + '.svg');
-    expected.add(partnerAssetRoot + '/SVG/display-svg/' + filename + '.svg');
   }
 }
 
@@ -69,36 +68,12 @@ const expectedGroups = [
   ['Empresas Parceiras', 9],
 ];
 if (
-  expected.size !== 98 + 31 + 31 + 2 + teamPhotos.length + 18 ||
+  expected.size !== 98 + 31 + 2 + teamPhotos.length + 18 ||
   svgNames.size !== 31 ||
   expectedGroups.some(([group, n]) => groupCounts.get(group) !== n) ||
   groupCounts.size !== 4
 )
   throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
-// Derivados precisam corresponder exatamente aos 31 SVGs aprovados.
-const displayReport = JSON.parse(
-  await readFile('scripts/data/partner-svg-display-report.json', 'utf8'),
-);
-const displayFiles = new Set(displayReport.records.map((record) => record.file));
-if (
-  displayReport.count !== 31 ||
-  displayReport.records.length !== 31 ||
-  displayFiles.size !== 31 ||
-  [...svgNames].some((filename) => !displayFiles.has(filename)) ||
-  displayReport.sourceBytes <= displayReport.displayBytes
-) {
-  throw Error('Derivados SVG devem ter exatamente 31 correspondências aprovadas e ser mais leves');
-}
-const slideAsset =
-  partnerAssetRoot + '/SVG/EcossistemasEParceirosSlideApresentacaoInstitucionalFoton.svg';
-expected.add(slideAsset);
-const legacyPartnerAssets = new Set([
-  'assets/img-logos-parceiros-foton/EcossistemasEParceirosSlideApresentacaoInstitucionalFoton.svg',
-  ...[...svgNames].flatMap((filename) => [
-    'assets/img-logos-parceiros-foton/assets-svg/' + filename,
-    'assets/img-logos-parceiros-foton/display-svg/' + filename,
-  ]),
-]);
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
 if (newsMedia.length !== 19 || new Set(newsMedia.map((m) => m.original)).size !== 19)
   throw Error('Inventário de notícias deve conter 19 imagens distintas');
@@ -235,19 +210,7 @@ async function walk(dir, prefix = '') {
       violations.push('SVG não autorizado ' + rel);
     else if (
       top === 'assets' &&
-      parts[1] === 'img-logos-parceiros-foton' &&
-      !legacyPartnerAssets.has(rel)
-    )
-      violations.push('asset legado de parceiros não autorizado ' + rel);
-    else if (
-      top === 'assets' &&
-      ![
-        'PNG',
-        'WebP',
-        '03 - Ecossistema de Parceiros',
-        'img-logos-parceiros-foton',
-        'noticias',
-      ].includes(parts[1]) &&
+      !['PNG', 'WebP', '03 - Ecossistema de Parceiros', 'noticias'].includes(parts[1]) &&
       !expected.has(rel) &&
       !eventMedia.has(rel) &&
       !/^assets\/[^/]+\.(?:js|mjs|css|woff2?|ttf|svg)$/i.test(rel)
