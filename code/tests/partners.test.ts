@@ -23,8 +23,16 @@ describe('catálogo de parceiros publicados', () => {
     expect(report.displayBytes).toBeLessThan(report.sourceBytes);
     expect(new Set(report.records.map((record) => record.file)).size).toBe(31);
     for (const { file } of report.records) {
-      expect(existsSync('public/assets/img-logos-parceiros-foton/assets-svg/' + file)).toBe(true);
-      expect(existsSync('public/assets/img-logos-parceiros-foton/display-svg/' + file)).toBe(true);
+      expect(
+        existsSync(
+          'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/assets-svg/' + file,
+        ),
+      ).toBe(true);
+      expect(
+        existsSync(
+          'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/display-svg/' + file,
+        ),
+      ).toBe(true);
     }
   });
   it('contém 31 SVGs únicos e os 4 grupos autorizados', () => {
@@ -88,7 +96,9 @@ describe('catálogo de parceiros publicados', () => {
     expect(safePartnerUrl('https://example.org/sobre')).toBe('https://example.org/sobre');
     expect(safePartnerUrl('http://example.org')).toBe('http://example.org/');
     expect(partnerLogoAssets('ihr')).toEqual({
-      svg: expect.stringMatching(/assets\/img-logos-parceiros-foton\/assets-svg\/LogoIHR\.svg$/),
+      svg: expect.stringMatching(
+        /assets\/03 - Ecossistema de Parceiros\/Logos dos Parceiros\/SVG\/assets-svg\/LogoIHR\.svg$/,
+      ),
     });
     expect(partnerLogoAssets('marca-exemplo')).toBeNull();
     expect(partnerLogoAssets('rede4-0')).toBeNull();
