@@ -300,7 +300,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /\/\/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
+    /\/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
   );
   await expect
     .poll(() => dialog.locator('img').evaluate((el) => (el as HTMLImageElement).naturalWidth))
