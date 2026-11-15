@@ -31,7 +31,7 @@ const visitImages = Array.from({ length: 20 }, (_, index) => ({
 // O carregamento inicial usa arquivo WebP servido no GitHub Pages.
 // Ao ampliar, a imagem original PNG é carregada exclusivamente do próprio Pages.
 const optimized = (src: string) =>
-  src.replace('/assets/PNG/', '/assets/WebP/').replace(/\.png$/, '.webp');
+  src.replace('/PNG/', '/WebP/').replace(/\.png$/, '.webp');
 
 function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
   const [fallback, setFallback] = useState(false);
