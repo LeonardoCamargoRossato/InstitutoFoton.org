@@ -11,7 +11,7 @@ const stories = [
   {
     slug: 'foton-assespro-rs-termo-cooperacao',
     name: 'Assespro-RS',
-    original: 'ParceriaFotonAssesproRS.jpg',
+    original: 'ParceriaFotonAssesproRS.png',
     preview: 'ParceriaFotonAssesproRS.webp',
     photos: 1,
   },
@@ -44,7 +44,7 @@ test('imagens de notícias usam WebP inicialmente e originais apenas na ampliaç
   for (const story of stories) {
     const originalRequests: string[] = [];
     const onRequest = (request: { url: () => string }) => {
-      if (request.url().includes('/assets/noticias/') && request.url().endsWith(story.original)) {
+      if (request.url().includes('/assets/') && request.url().endsWith(story.original)) {
         originalRequests.push(request.url());
       }
     };

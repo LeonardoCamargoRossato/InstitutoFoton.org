@@ -91,7 +91,7 @@ test('Etapa Pulso mostra a miniatura oficial e abre a transmissão no YouTube s�
   await expect(section.locator('time')).toHaveText('28 de março de 2026');
   await expect(section.locator('iframe')).toHaveCount(0);
   expect(playerRequests).toEqual([]);
-  await expect(section.locator('img')).toHaveAttribute('src', /\/EtapaPulsoYouTube\.jpg$/);
+  await expect(section.locator('img')).toHaveAttribute('src', /\/EtapaPulsoYouTube\.png$/);
   await expect(section.locator('img')).toHaveJSProperty('naturalWidth', 1280);
   await expect(
     section.getByRole('link', { name: /Assistir à transmissão completa/ }),
@@ -133,7 +133,7 @@ test('HaQuantum tem registro histórico, oito fotos na ordem e regulamento ofici
   const last = gallery.getByRole('button', { name: /^Ampliar foto 8\./ });
   await last.click();
   const dialog = page.getByRole('dialog', { name: 'HaQuantum · Foto 8' });
-  await expect(dialog.getByRole('img')).toHaveAttribute('src', /\/HaQuantum09\.jpg$/);
+  await expect(dialog.getByRole('img')).toHaveAttribute('src', /\/haquantum9\.png$/);
   await expect(dialog.getByRole('img')).toHaveJSProperty('naturalWidth', 960);
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
   await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');

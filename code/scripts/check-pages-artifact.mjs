@@ -79,11 +79,16 @@ if (newsMedia.length !== 19 || new Set(newsMedia.map((m) => m.original)).size !=
   throw Error('Inventário de notícias deve conter 19 imagens distintas');
 for (const media of newsMedia) {
   if (
-    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.(jpg|png)$/.test(
+    !/^assets\/(?:noticias\/(?:softsul|assespro-rs|cubotech)|06 - Notícias\/Reportagens\/(?:01-Foton-SOFTSUL|03-Foton-Assespro-RS)\/PNG)\/[A-Za-z0-9]+\.png$/.test(
       media.original,
     ) ||
     !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.webp$/.test(media.preview) ||
-    media.original.replace(/\.(jpg|png)$/, '.webp') !== media.preview
+    !media.preview.endsWith(
+      media.original
+        .split('/')
+        .at(-1)
+        .replace(/\.png$/, '.webp'),
+    )
   )
     throw Error('Nome de imagem de notícia inválido');
   expected.add(media.original);
@@ -91,11 +96,13 @@ for (const media of newsMedia) {
 }
 const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
 const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
-  (number) => `assets/img-haquantum/HaQuantum${String(number).padStart(2, '0')}.jpg`,
+  (number) =>
+    `assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/haquantum${number}.png`,
 );
 if (
   researchMedia.haquantum.map(({ path }) => path).join() !== photoPaths.join() ||
-  researchMedia.pulso.path !== 'assets/img-jornada/EtapaPulsoYouTube.jpg'
+  researchMedia.pulso.path !==
+    'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/EtapaPulsoYouTube.png'
 ) {
   throw Error('Sequência de fotografias do HaQuantum ou miniatura da Etapa Pulso divergente');
 }

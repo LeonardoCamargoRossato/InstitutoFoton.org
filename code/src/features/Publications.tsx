@@ -267,7 +267,7 @@ export function Article() {
                           ? media.group === 'softsul' &&
                             [
                               'AcordoFotonSoftsul.png',
-                              'FotonSoftsulAcervo20250314WA0021.jpg',
+                              'FotonSoftsulAcervo20250314WA0021.png',
                             ].includes(media.name)
                           : item.slug.startsWith('foton-assespro')
                             ? media.group === 'assespro-rs'
