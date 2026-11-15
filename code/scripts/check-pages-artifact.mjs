@@ -75,22 +75,23 @@ if (
 )
   throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
+const newsFolders = {
+  softsul: '01-Foton-SOFTSUL',
+  'assespro-rs': '03-Foton-Assespro-RS',
+  cubotech: '04-Seminario-CUBOTECH',
+};
 if (newsMedia.length !== 4 || new Set(newsMedia.map((m) => m.original)).size !== 4)
   throw Error('Inventário de notícias deve conter 4 imagens distintas');
 for (const media of newsMedia) {
+  const folder = newsFolders[media.group];
+  const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
   if (
-    !/^assets\/(?:noticias\/(?:softsul|assespro-rs|cubotech)|06 - Notícias\/Reportagens\/(?:01-Foton-SOFTSUL|03-Foton-Assespro-RS)\/PNG)\/[A-Za-z0-9]+\.png$/.test(
-      media.original,
-    ) ||
-    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.webp$/.test(media.preview) ||
-    !media.preview.endsWith(
-      media.original
-        .split('/')
-        .at(-1)
-        .replace(/\.png$/, '.webp'),
-    )
+    !folder ||
+    !/^[A-Za-z0-9]+\\.png$/.test(media.name) ||
+    media.original !== prefix + 'PNG/' + media.name ||
+    media.preview !== prefix + 'WebP/' + media.name.replace(/\\.png$/, '.webp')
   )
-    throw Error('Nome de imagem de notícia inválido');
+    throw Error('Caminho de imagem de notícia não padronizado: ' + media.name);
   expected.add(media.original);
   expected.add(media.preview);
 }
@@ -190,17 +191,6 @@ for (const [format, extension] of [
     inaugurationRoot + format + '/inauguracao_ManifestoQuantico_fotonSaoPessoas.' + extension,
   );
 }
-// Notícias: versões organizadas por reportagem, sem replicar as fontes já no diretório numerado.
-const newsRoot = 'assets/06 - Notícias/Reportagens/';
-for (const media of newsMedia) {
-  const previewName = media.preview.split('/').at(-1);
-  const previewCopy = newsRoot + media.group + '/WebP/' + previewName;
-  approveMirror(media.preview, previewCopy);
-  if (media.original.startsWith('assets/noticias/')) {
-    const originalCopy = newsRoot + media.group + '/PNG/' + media.name;
-    approveMirror(media.original, originalCopy);
-  }
-}
 // Apoie a Ciência: somente as três duplas já catalogadas.
 const supportRoot = 'assets/08 - Apoie a Ciência/Imagens de Apoio/';
 for (const asset of inventory.items.filter((item) => item.category === 'apoie')) {
@@ -218,7 +208,7 @@ approveMirror(
   'assets/AnimacaoIdentidadeFoton.svg',
   'assets/09 - Identidade Visual/SVG/AnimacaoIdentidadeFoton.svg',
 );
-if (mirroredAssets.size !== 112) throw Error('Espelhos de assets esperados: 112');
+if (mirroredAssets.size !== 106) throw Error('Espelhos de assets esperados: 106');
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
 const routeDirectories = new Set([
   'instituto',
