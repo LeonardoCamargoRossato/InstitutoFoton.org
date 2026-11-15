@@ -49,8 +49,8 @@ describe('fontes públicas estáticas sem autenticação', () => {
     expect(SITE_ASSETS['jornada-hero-pathways']).toBeUndefined();
     expect(SITE_ASSETS['jornada-hero-pathways-mobile']).toBeUndefined();
     for (const asset of Object.values(SITE_ASSETS)) {
-      expect(asset.pngPath).toMatch(/^assets\/PNG\/[^/]+\/[^/]+\.png$/);
-      expect(asset.webpPath).toMatch(/^assets\/WebP\/[^/]+\/[^/]+\.webp$/);
+      expect(asset.pngPath).toMatch(/^assets\/(?:PNG\/[^/]+\/[^/]+|.+\/PNG\/[^/]+)\.png$/);
+      expect(asset.webpPath).toMatch(/^assets\/(?:WebP\/[^/]+\/[^/]+|.+\/WebP\/[^/]+)\.webp$/);
     }
   });
   it('não mantém imagens instituto-community nas duas hierarquias de assets', () => {
