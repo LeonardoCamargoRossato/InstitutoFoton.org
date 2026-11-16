@@ -1,0 +1,23 @@
+name: Temporary manifesto hero formatting preview
+on:
+  push:
+    branches:
+      - feat/manifesto-hero-brasil-f-glass-20261116
+permissions:
+  contents: read
+jobs:
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - name: Format edited files and print only patch
+        working-directory: code
+        run: |
+          npm ci
+          npx prettier --write src/features/ManifestoHero.tsx src/styles/manifesto-hero.css src/features/PublicPages.tsx tests/browser/ManifestoHero.spec.ts
+          git diff -- src/features/ManifestoHero.tsx src/styles/manifesto-hero.css src/features/PublicPages.tsx tests/browser/ManifestoHero.spec.ts
