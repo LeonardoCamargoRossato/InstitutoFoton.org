@@ -245,7 +245,6 @@ test('WCAG automatizada nas principais páginas e modal', async ({ page }) => {
     './manifesto',
     './noticias',
     './entrar',
-    './transparencia',
   ]) {
     await page.goto(route);
     await page.getByRole('heading', { level: 1 }).waitFor();
@@ -275,7 +274,6 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
       ['./contato', 'contato'],
       ['./manifesto', 'manifesto'],
       ['./apresentacao', 'apresentacao'],
-      ['./transparencia', 'transparencia'],
       ['./entrar', 'entrar'],
     ]) {
       await page.goto(path);

@@ -222,7 +222,6 @@ const routeDirectories = new Set([
   'noticias/foton-assespro-rs-termo-cooperacao',
   'noticias/seminario-cubotech-direito-computacao-quantica',
   'apresentacao',
-  'transparencia',
   'apoie',
   'contato',
   'privacidade',

@@ -1,13 +1,8 @@
 import { lazy, Suspense, useCallback } from 'react';
-import { Intro, TextLink } from '../components/UI';
+import { Intro } from '../components/UI';
 import { documents, documentUrl } from '../lib/backend';
 import { useResource } from '../lib/useResource';
-import TransparencyBoard from './TransparencyBoard';
 const PdfViewer = lazy(() => import('./PdfViewer'));
-
-export function Transparency() {
-  return <TransparencyBoard />;
-}
 
 export function Presentation() {
   const loader = useCallback(() => documents('presentation'), []);
@@ -27,7 +22,6 @@ export function Presentation() {
           <Suspense fallback={<p role="status">Preparando o visualizador…</p>}>
             <PdfViewer key={url} url={url} allowExport={doc?.allow_page_export ?? true} />
           </Suspense>
-          <TextLink to="/transparencia">Documentos e transparência</TextLink>
         </div>
       </section>
     </>

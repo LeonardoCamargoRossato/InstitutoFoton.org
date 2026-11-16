@@ -57,7 +57,6 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
     './jornada',
     './pesquisa/haquantum',
     './apoie',
-    './transparencia',
     './noticias',
   ]) {
     await page.goto(path);
@@ -94,24 +93,21 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
   await expect(dialog).toHaveCount(0);
 });
 
-test('Transparência permanece acessível e não fabrica documentos', async ({ page }) => {
+test('Transparência não aparece na navegação e rota fica indisponível', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.locator('#main-nav a[href*="transparencia"]')).toHaveCount(0);
+  await expect(page.locator('footer a[href*="transparencia"]')).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole('button', { name: 'Abrir menu' }).click();
+  await expect(page.locator('#main-nav a[href*="transparencia"]')).toHaveCount(0);
+  await page.goto('./apoie');
+  await expect(page.locator('#conteudo a[href*="transparencia"]')).toHaveCount(0);
+  await page.goto('./apresentacao');
+  await expect(page.locator('#conteudo a[href*="transparencia"]')).toHaveCount(0);
   await page.goto('./transparencia');
-  for (const title of [
-    'Estatuto social',
-    'Atas das assembleias',
-    'Relatórios anuais',
-    'Relatórios periódicos de atividades',
-    'Documentos contábeis e demonstrações financeiras',
-  ])
-    await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible();
-  const item = page
-    .getByRole('article')
-    .filter({ hasText: 'Apresentação institucional — setembro de 2026' });
-  await expect(item.getByRole('link', { name: /Visualizar/ })).toHaveAttribute(
-    'href',
-    /documents\/apresentacao-institucional-2026-09-10\.pdf$/,
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Vamos encontrar outro caminho.',
   );
-  await expect(item.getByRole('button', { name: /Baixar/ })).toBeVisible();
 });
 
 test('Apoie e Jornada mantêm informação objetiva sobre participação voluntária', async ({
@@ -138,7 +134,6 @@ test('Home e páginas essenciais sem rolagem lateral em mobile', async ({ page }
     './pesquisa/haquantum',
     './apoie',
     './manifesto',
-    './transparencia',
     './contato',
   ]) {
     await page.goto(route);
@@ -161,7 +156,6 @@ test('nenhuma página pública requisita Storage ou banco Supabase', async ({ pa
     './pesquisa/haquantum',
     './apoie',
     './manifesto',
-    './transparencia',
     './noticias',
     './contato',
   ]) {
@@ -188,7 +182,6 @@ test('todo o conteúdo público mantém linguagem institucional definitiva', asy
     './jornada',
     './manifesto',
     './apoie',
-    './transparencia',
     './apresentacao',
     './noticias',
     './contato',
