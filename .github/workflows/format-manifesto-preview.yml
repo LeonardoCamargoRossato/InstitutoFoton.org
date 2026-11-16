@@ -1,0 +1,23 @@
+name: Temporary manifesto formatting preview
+on:
+  push:
+    branches:
+      - feat/manifesto-formulario-contribuicao-20261116
+permissions:
+  contents: read
+jobs:
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - name: Format only the three edited files and print the patch
+        working-directory: code
+        run: |
+          npm ci
+          npx prettier --write src/features/PublicPages.tsx src/styles/site.css tests/browser/site.spec.ts
+          git diff -- src/features/PublicPages.tsx src/styles/site.css tests/browser/site.spec.ts
