@@ -124,9 +124,7 @@ test('notícias mantêm largura de tela em celular, tablet e desktop', async ({ 
   }
 });
 
-test('quatro novas reportagens têm fonte verificável e preservam ausência de foto aprovada', async ({
-  page,
-}) => {
+test('quatro novas matérias têm fontes e não inventam fotos', async ({ page }) => {
   const newStories = [
     {
       slug: 'lancamento-lacq-pucrs-instituto-foton',
@@ -176,9 +174,7 @@ test('quatro novas reportagens têm fonte verificável e preservam ausência de 
 
 test('CUBOTECH continua único e tem a fonte oficial da Unisinos', async ({ page }) => {
   await page.goto('./noticias');
-  await expect(page.locator('.publication-card').filter({ hasText: 'CUBOTECH' })).toHaveCount(
-    1,
-  );
+  await expect(page.locator('.publication-card').filter({ hasText: 'CUBOTECH' })).toHaveCount(1);
   await page.goto('./noticias/seminario-cubotech-direito-computacao-quantica');
   await expect(page.getByRole('link', { name: /Ler publicação original/ })).toHaveAttribute(
     'href',
