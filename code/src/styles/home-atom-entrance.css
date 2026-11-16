@@ -146,36 +146,152 @@
     animation-delay: 420ms;
   }
 
-  .home-atom-flight {
-    position: fixed;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    overflow: hidden;
-    margin: 0;
+  .home-hero {
     isolation: isolate;
   }
+  .home-hero .hero-identity--network {
+    z-index: 1;
+  }
+  .home-atom-flight,
+  .home-quantum-glass {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, #0005, #000 68%);
+  }
+  .home-collider-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   .home-field-particle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: #a3d5e8;
+    fill: #bcefff;
     opacity: 0;
-    will-change: transform, opacity;
+    transform-origin: 0 0;
   }
-  .home-field-particle:nth-child(3n) {
-    width: 2px;
-    height: 2px;
+  .home-primary-particle {
+    fill: #e0f9ff;
+    filter: drop-shadow(0 0 5px #6bd4ff);
   }
-  .home-field-seed {
-    position: absolute;
-    width: 58px;
-    height: auto;
-    transform: translate(-50%, -50%);
+  .home-primary-trail {
+    fill: none;
     opacity: 0;
+  }
+  .home-collision-flare,
+  .home-glass-fracture,
+  .home-impact-wave,
+  .home-impact-fragment {
+    opacity: 0;
+  }
+  .home-impact-wave {
+    fill: none;
+    stroke: #a5e6ff;
+    stroke-width: 1;
+  }
+  .home-impact-wave ellipse + ellipse {
+    stroke: #9fafff;
+    stroke-opacity: 0.45;
+  }
+  .home-impact-fragment {
+    fill: #bcefff;
+  }
+  .home-glass-plate {
+    fill: url(#home-glass-tone);
+    stroke: url(#home-glass-edge);
+    stroke-width: 1;
+  }
+  .home-glass-plate-far {
+    opacity: 0.55;
+  }
+  .home-glass-undulation {
+    stroke-width: 0.85;
+    opacity: 0.65;
+  }
+  .home-glass-refraction {
+    stroke-width: 1.4;
+    opacity: 0.5;
+  }
+  .home-glass-drift {
+    animation: home-glass-drift 19s ease-in-out infinite alternate;
+  }
+  .home-glass-undulation {
+    animation: home-glass-undulate 16s ease-in-out infinite alternate;
+  }
+  .home-glass-refraction {
+    animation: home-glass-undulate 22s ease-in-out infinite alternate-reverse;
+  }
+  .home-quantum-glass[data-paused='true'] > g,
+  .home-quantum-glass[data-formed='false'] > g {
+    animation-play-state: paused;
+  }
+  .home-motion-toggle {
+    position: absolute;
+    z-index: 3;
+    right: 95px;
+    bottom: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 8px 13px;
+    border: 1px solid #b6e4ff45;
+    border-radius: 24px;
+    background: #071d4680;
+    color: #d8eeff;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+  .home-motion-toggle:hover {
+    background: #11376c;
+  }
+  @keyframes home-glass-drift {
+    from {
+      transform: translate(-8px, -6px) rotate(-0.5deg);
+    }
+    to {
+      transform: translate(12px, 10px) rotate(0.5deg);
+    }
+  }
+  @keyframes home-glass-undulate {
+    from {
+      transform: translate(-10px, 4px) scaleY(0.97);
+    }
+    to {
+      transform: translate(14px, -9px) scaleY(1.04);
+    }
+  }
+
+  .hero-identity--network.is-settled .home-network-center {
+    animation: home-nucleus-form 850ms cubic-bezier(0.2, 0.6, 0.3, 1) both;
+  }
+  .hero-identity--network.is-settled .home-network-edges {
+    transform-origin: 50% 50%;
+    animation: home-edges-form 950ms ease-out both;
+  }
+  @keyframes home-nucleus-form {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes home-edges-form {
+    from {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   @keyframes home-network-reveal {
@@ -205,6 +321,22 @@
 
 @layer responsive {
   @media (max-width: 700px) {
+    .home-atom-flight,
+    .home-quantum-glass {
+      mask-image: linear-gradient(180deg, #0003, #000 65%);
+    }
+    .home-glass-refraction {
+      display: none;
+    }
+    .home-glass-undulation {
+      opacity: 0.45;
+    }
+    .home-motion-toggle {
+      left: 20px;
+      right: auto;
+      bottom: 12px;
+      font-size: 0.65rem;
+    }
     .home-hero .hero-identity--network {
       width: min(100%, 390px);
       min-height: 310px;
@@ -240,8 +372,14 @@
       animation: none;
     }
 
-    .home-atom-flight {
+    .home-atom-flight,
+    .home-motion-toggle {
       display: none;
+    }
+    .home-quantum-glass > g,
+    .hero-identity--network.is-settled .home-network-center,
+    .hero-identity--network.is-settled .home-network-edges {
+      animation: none;
     }
   }
 }
