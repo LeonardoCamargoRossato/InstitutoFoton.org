@@ -12,14 +12,17 @@ const paths = execFileSync(
 )
   .split('\0')
   .filter(Boolean);
-const forbiddenFiles = paths.filter((p) =>
-  (/^privado\//i.test(p) ||
-    /^documentation\/private\//i.test(p) ||
-    /^Documentation\//.test(p) ||
-    /(^|\/)\.env(?:\.|$)/.test(p) ||
-    /(^|\/)(?:id_rsa|id_ed25519|credentials\.json|service-account\.json|kubeconfig|\.npmrc|\.pypirc)$/i.test(p) ||
-    /\.(?:pem|p12|pfx|keystore|jks|kdbx|dump|sql\.gz)$/i.test(p)) &&
-  !p.endsWith('.env.example'),
+const forbiddenFiles = paths.filter(
+  (p) =>
+    (/^privado\//i.test(p) ||
+      /^documentation\/private\//i.test(p) ||
+      /^Documentation\//.test(p) ||
+      /(^|\/)\.env(?:\.|$)/.test(p) ||
+      /(^|\/)(?:id_rsa|id_ed25519|credentials\.json|service-account\.json|kubeconfig|\.npmrc|\.pypirc)$/i.test(
+        p,
+      ) ||
+      /\.(?:pem|p12|pfx|keystore|jks|kdbx|dump|sql\.gz)$/i.test(p)) &&
+    !p.endsWith('.env.example'),
 );
 const hits = [];
 for (const path of paths) {
@@ -40,7 +43,10 @@ for (const path of paths) {
   if (suspicious) hits.push(path);
 }
 if (forbiddenFiles.length || hits.length) {
-  console.error('Revisão de segurança necessária:', { arquivosRestritos: forbiddenFiles.length, arquivosComCredenciais: hits.length });
+  console.error('Revisão de segurança necessária:', {
+    arquivosRestritos: forbiddenFiles.length,
+    arquivosComCredenciais: hits.length,
+  });
   process.exit(1);
 }
 console.log(

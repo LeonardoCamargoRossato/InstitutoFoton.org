@@ -7,18 +7,18 @@ import { fileURLToPath } from 'node:url';
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 const approvedPublicFiles = new Set([
-    "README.md",
-    "institution/README.md",
-    "content-policy/README.md",
-    "release-notes/README.md",
-    "lcr-overview/README.md",
-    "security/README.md",
-    "architecture/ADR-20261112-Portal-Estatico.md",
-    "release-notes/RefinamentoVisualTransparencia20261111.md",
-    "release-notes/InventarioMigracaoEstatica20261112.md",
-    "release-notes/HotfixInstitucionalMinimal20261113.md",
-    "release-notes/EcossistemaParceiros20261113.md"
-  ]);
+  'README.md',
+  'institution/README.md',
+  'content-policy/README.md',
+  'release-notes/README.md',
+  'lcr-overview/README.md',
+  'security/README.md',
+  'architecture/ADR-20261112-Portal-Estatico.md',
+  'release-notes/RefinamentoVisualTransparencia20261111.md',
+  'release-notes/InventarioMigracaoEstatica20261112.md',
+  'release-notes/HotfixInstitucionalMinimal20261113.md',
+  'release-notes/EcossistemaParceiros20261113.md',
+]);
 
 async function listFiles(folder, prefix = '') {
   const files = [];
@@ -64,17 +64,29 @@ if (!agents.includes('GUARDRAILS.md') || !agents.includes('prompt injection')) {
 const tracked = execFileSync('git', ['ls-files', '--cached', '-z'], {
   cwd: repoRoot,
   encoding: 'utf8',
-}).split('\0').filter(Boolean);
-const prohibited = tracked.filter((p) =>
-  /^privado\//i.test(p) ||
-  /^documentation\/private(?:\/|$)/i.test(p) ||
-  /^Documentation(?:\/|$)/.test(p) ||
-  /^(?:code\/public|code\/dist)\/(?:.*\/)?privado(?:\/|$)/i.test(p),
+})
+  .split('\0')
+  .filter(Boolean);
+const prohibited = tracked.filter(
+  (p) =>
+    /^privado\//i.test(p) ||
+    /^documentation\/private(?:\/|$)/i.test(p) ||
+    /^Documentation(?:\/|$)/.test(p) ||
+    /^(?:code\/public|code\/dist)\/(?:.*\/)?privado(?:\/|$)/i.test(p),
 );
 if (prohibited.length) {
-  throw new Error('Documento interno versionado no Git (' + prohibited.length + ' arquivos; caminhos omitidos).');
+  throw new Error(
+    'Documento interno versionado no Git (' + prohibited.length + ' arquivos; caminhos omitidos).',
+  );
 }
-for (const folder of ['privado', 'documentation/private', 'Documentation', 'docs', 'code/public/privado', 'code/dist/privado']) {
+for (const folder of [
+  'privado',
+  'documentation/private',
+  'Documentation',
+  'docs',
+  'code/public/privado',
+  'code/dist/privado',
+]) {
   if (existsSync(join(repoRoot, folder))) {
     throw new Error('Pasta privada ou legada presente no checkout público: ' + folder);
   }
@@ -85,21 +97,35 @@ const publicFiles = await listFiles(publicRoot);
 const extra = publicFiles.filter((f) => !approvedPublicFiles.has(f));
 const missing = [...approvedPublicFiles].filter((f) => !publicFiles.includes(f));
 if (extra.length || missing.length) {
-  throw new Error('Inventário público inválido: ' + extra.length + ' extras, ' + missing.length + ' ausentes.');
+  throw new Error(
+    'Inventário público inválido: ' + extra.length + ' extras, ' + missing.length + ' ausentes.',
+  );
 }
 for (const file of publicFiles) {
   const absolute = join(publicRoot, file);
   const content = await readFile(absolute, 'utf8');
-  if (/sb_secret_|github_pat_|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|supabase\.co|dashboard\.supabase\.com|\/workspace\/|service_role/i.test(content)) {
+  if (
+    /sb_secret_|github_pat_|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|supabase\.co|dashboard\.supabase\.com|\/workspace\/|service_role/i.test(
+      content,
+    )
+  ) {
     throw new Error('Padrão de informação restrita na documentação pública: ' + file);
   }
   for (const match of content.matchAll(/\]\(([^)]+)\)/g)) {
     let target = match[1].trim().split('#')[0];
     if (/^(https?:|mailto:|#|data:)/i.test(target) || !target) continue;
-    try { target = decodeURIComponent(target); } catch { throw new Error('URL local inválida em ' + file); }
+    try {
+      target = decodeURIComponent(target);
+    } catch {
+      throw new Error('URL local inválida em ' + file);
+    }
     if (!existsSync(resolve(dirname(absolute), target))) {
       throw new Error('Link local inexistente em: ' + file);
     }
   }
 }
-console.log('Documentação pública, índice Git e links locais validados: ' + publicFiles.length + ' documentos.');
+console.log(
+  'Documentação pública, índice Git e links locais validados: ' +
+    publicFiles.length +
+    ' documentos.',
+);

@@ -23,10 +23,6 @@ jobs:
         run: npm run audit:all
       - run: npm run scan:secrets
       - run: npm run docs:check
-      - name: Diagnóstico temporário Prettier (somente scripts públicos)
-        run: |
-          npx prettier scripts/check-documentation.mjs | diff -u scripts/check-documentation.mjs - || true
-          npx prettier scripts/scan-secrets.mjs | diff -u scripts/scan-secrets.mjs - || true
       - run: npm run format:check
       - run: npm run check
       - run: npm run assets:verify
