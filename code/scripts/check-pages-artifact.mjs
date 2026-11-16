@@ -171,10 +171,7 @@ for (let number = 1; number <= 20; number++) {
 for (const name of teamPhotos) {
   approveMirror('assets/img-diretoria/' + name, teamRoot + name);
 }
-for (const [format, ext] of [
-  ['PNG', 'png'],
-  ['WebP', 'webp'],
-]) {
+for (const format of ['PNG', 'WebP']) {
   for (const item of inventory.items.filter((item) => item.category === 'manifesto-quantico')) {
     const original = format === 'PNG' ? item.pngPath : item.webpPath;
     const copy = `${manifestoImagesRoot}${format}/${original.split('/').at(-1)}`;
