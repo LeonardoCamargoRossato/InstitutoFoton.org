@@ -5,9 +5,7 @@ import '../styles/manifesto-hero.css';
 const glassWebp = assetUrl(
   'assets/05 - Manifesto/Imagens do Manifesto/WebP/HeroManifestoFGlass.webp',
 );
-const glassPng = assetUrl(
-  'assets/05 - Manifesto/Imagens do Manifesto/PNG/HeroManifestoFGlass.png',
-);
+const glassPng = assetUrl('assets/05 - Manifesto/Imagens do Manifesto/PNG/HeroManifestoFGlass.png');
 
 // Silhueta geográfica simplificada do Brasil (Natural Earth, domínio público).
 const brazilOutline =
@@ -83,9 +81,7 @@ export default function ManifestoHero() {
             <span>Manifesto</span>
             <strong>Quântico Nacional</strong>
           </h1>
-          <p>
-            Um chamado para construir, juntos, o futuro das tecnologias quânticas no Brasil.
-          </p>
+          <p>Um chamado para construir, juntos, o futuro das tecnologias quânticas no Brasil.</p>
           <a className="manifesto-hero-action" href="#contribuir-manifesto">
             Venha contribuir <ArrowDownRight aria-hidden="true" size={21} />
           </a>
