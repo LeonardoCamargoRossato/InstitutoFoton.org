@@ -2,7 +2,10 @@ import { ArrowDownRight } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
 import '../styles/manifesto-hero.css';
 
-const glassF = assetUrl(
+const glassWebp = assetUrl(
+  'assets/05 - Manifesto/Imagens do Manifesto/WebP/HeroManifestoFGlass.webp',
+);
+const glassPng = assetUrl(
   'assets/05 - Manifesto/Imagens do Manifesto/PNG/HeroManifestoFGlass.png',
 );
 
@@ -89,16 +92,19 @@ export default function ManifestoHero() {
         </div>
         <div className="manifesto-hero-visual" aria-hidden="true">
           <div className="manifesto-hero-glass-halo" />
-          <img
-            className="manifesto-hero-glass-f"
-            src={glassF}
-            alt=""
-            width="1254"
-            height="1254"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-          />
+          <picture className="manifesto-hero-picture">
+            <source type="image/webp" srcSet={glassWebp} />
+            <img
+              className="manifesto-hero-glass-f"
+              src={glassPng}
+              alt=""
+              width="1254"
+              height="1254"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
+          </picture>
         </div>
       </div>
       <span className="manifesto-hero-bottom-line" aria-hidden="true" />
