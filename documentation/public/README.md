@@ -1,10 +1,12 @@
 # Documentação pública
 
-Índice de materiais aprovados para divulgação neste repositório.
+Materiais aprovados para consulta pública no InstitutoFoton.org.
 
-- [Instituição](institution/README.md): apresentação pública e referência ao portal.
-- [Política de conteúdo](content-policy/README.md): princípios públicos de uso de materiais.
-- [Notas públicas de versão](release-notes/README.md): espaço para comunicados de atualizações aprovadas.
-- [Visão geral LCR](lcr-overview/README.md): síntese não operacional da metodologia.
+- [Instituição](institution/README.md): apresentação e portal institucional.
+- [Arquitetura](architecture/ADR-20261112-Portal-Estatico.md): visão geral da decisão sobre o site estático.
+- [Política de conteúdo](content-policy/README.md): direitos de imagem, marcas, fontes e privacidade.
+- [Visão geral LCR](lcr-overview/README.md): papéis e responsabilidades.
+- [Segurança](security/README.md): postura pública e reporte responsável de vulnerabilidades.
+- [Notas de versão](release-notes/README.md): atualizações aprovadas.
 
-Documentos institucionais disponibilizados no próprio portal continuam acessíveis nas respectivas páginas públicas.
+A documentação interna exige autorização institucional e **não** está armazenada no GitHub público.

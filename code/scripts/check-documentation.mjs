@@ -1,39 +1,23 @@
 import { readFile, readdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
-const expectedPrivate =
-  '# Documentação técnica classificada como interna\n\n**Aviso de segurança:** este repositório GitHub é público. A pasta `documentation/private/` e todos os documentos nela disponíveis **também são públicos**, inclusive via Git, API e histórico. A palavra *private* indica somente classificação documental, **não** permissão de acesso.\n\nO conteúdo de `docs/` foi reorganizado abaixo em `docs/` para manter a estrutura visual LCR e preservar os arquivos originais. Esta movimentação não torna nenhum documento confidencial, não elimina exposição anterior e não substitui uma cópia num ambiente verdadeiramente privado.\n\nDocumentação que exija confidencialidade real deverá ser migrada mediante autorização para um repositório privado ou Google Drive institucional com permissões verificadas. Não adicione novos segredos, registros sensíveis ou documentos restritos a esta pasta.';
-const approvedPrivateFiles = new Set([
-  'README.md',
-  'docs/ARCHITECTURE.md',
-  'docs/CONTENT_VALIDATION.md',
-  'docs/DEPLOYMENT.md',
-  'docs/HOSTING_MIGRATION.md',
-  'docs/MEDIA_MANIFEST.md',
-  'docs/REFERENCE_INVENTORY.md',
-  'docs/ROADMAP.md',
-  'docs/SECURITY.md',
-  'docs/STATIC_SITE.md',
-  'docs/V0_ACCEPTANCE.md',
-  'docs/screenshots/apoie-1440.png',
-  'docs/screenshots/apresentacao-1440.png',
-  'docs/screenshots/home-1440.png',
-  'docs/screenshots/home-390.png',
-]);
 const approvedPublicFiles = new Set([
   'README.md',
   'institution/README.md',
   'content-policy/README.md',
   'release-notes/README.md',
   'lcr-overview/README.md',
+  'security/README.md',
+  'architecture/ADR-20261112-Portal-Estatico.md',
   'release-notes/RefinamentoVisualTransparencia20261111.md',
   'release-notes/InventarioMigracaoEstatica20261112.md',
   'release-notes/HotfixInstitucionalMinimal20261113.md',
   'release-notes/EcossistemaParceiros20261113.md',
-  'architecture/ADR-20261112-Portal-Estatico.md',
 ]);
 
 async function listFiles(folder, prefix = '') {
@@ -66,47 +50,82 @@ if (operationalTerms.test(readme)) {
 }
 
 const index = await readFile(join(repoRoot, 'documentation/README.md'), 'utf8');
-if (!index.includes('**atualmente públicos no GitHub**')) {
-  throw new Error(
-    'Índice deve esclarecer que private/ no GitHub público não é controle de acesso.',
-  );
+if (!index.includes('somente documentação autorizada') || !index.includes('fora do GitHub')) {
+  throw new Error('Índice documental deve informar a separação física e o acesso público.');
+}
+if (/\]\([^)]*(?:documentation\/private|private\/docs)/i.test(index)) {
+  throw new Error('Índice contém links obsoletos para documentação interna.');
+}
+const agents = await readFile(join(repoRoot, 'AGENTS.md'), 'utf8');
+if (!agents.includes('GUARDRAILS.md') || !agents.includes('prompt injection')) {
+  throw new Error('Política pública mínima dos agentes incompleta.');
 }
 
-const privateFiles = await listFiles(join(repoRoot, 'documentation/private'));
-if (
-  privateFiles.length !== approvedPrivateFiles.size ||
-  privateFiles.some((file) => !approvedPrivateFiles.has(file))
-) {
-  throw new Error('Conteúdo inesperado em documentation/private; revisão humana obrigatória.');
-}
-const rootFiles = await readdir(repoRoot);
-if (rootFiles.includes('docs')) {
-  throw new Error('A pasta docs/ não deve continuar na raiz do repositório.');
-}
-const placeholder = await readFile(join(repoRoot, 'documentation/private/README.md'), 'utf8');
-if (placeholder.trim() !== expectedPrivate) {
+const tracked = execFileSync('git', ['ls-files', '--cached', '-z'], {
+  cwd: repoRoot,
+  encoding: 'utf8',
+})
+  .split('\0')
+  .filter(Boolean);
+const prohibited = tracked.filter(
+  (p) =>
+    /^privado\//i.test(p) ||
+    /^documentation\/private(?:\/|$)/i.test(p) ||
+    /^Documentation(?:\/|$)/.test(p) ||
+    /^(?:code\/public|code\/dist)\/(?:.*\/)?privado(?:\/|$)/i.test(p),
+);
+if (prohibited.length) {
   throw new Error(
-    'Aviso de exposição pública em private/ foi alterado; revisão humana obrigatória.',
+    'Documento interno versionado no Git (' + prohibited.length + ' arquivos; caminhos omitidos).',
   );
 }
-
-const publicFiles = await listFiles(join(repoRoot, 'documentation/public'));
-for (const file of publicFiles) {
-  if (!approvedPublicFiles.has(file)) {
-    throw new Error('Novo documento público ainda não aprovado: ' + file);
+for (const folder of [
+  'privado',
+  'documentation/private',
+  'Documentation',
+  'docs',
+  'code/public/privado',
+  'code/dist/privado',
+]) {
+  if (existsSync(join(repoRoot, folder))) {
+    throw new Error('Pasta privada ou legada presente no checkout público: ' + folder);
   }
-  const content = await readFile(join(repoRoot, 'documentation/public', file), 'utf8');
+}
+
+const publicRoot = join(repoRoot, 'documentation/public');
+const publicFiles = await listFiles(publicRoot);
+const extra = publicFiles.filter((f) => !approvedPublicFiles.has(f));
+const missing = [...approvedPublicFiles].filter((f) => !publicFiles.includes(f));
+if (extra.length || missing.length) {
+  throw new Error(
+    'Inventário público inválido: ' + extra.length + ' extras, ' + missing.length + ' ausentes.',
+  );
+}
+for (const file of publicFiles) {
+  const absolute = join(publicRoot, file);
+  const content = await readFile(absolute, 'utf8');
   if (
     /sb_secret_|github_pat_|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|supabase\.co|dashboard\.supabase\.com|\/workspace\/|service_role/i.test(
       content,
     )
   ) {
-    throw new Error('Possível conteúdo operacional em: documentation/public/' + file);
+    throw new Error('Padrão de informação restrita na documentação pública: ' + file);
+  }
+  for (const match of content.matchAll(/\]\(([^)]+)\)/g)) {
+    let target = match[1].trim().split('#')[0];
+    if (/^(https?:|mailto:|#|data:)/i.test(target) || !target) continue;
+    try {
+      target = decodeURIComponent(target);
+    } catch {
+      throw new Error('URL local inválida em ' + file);
+    }
+    if (!existsSync(resolve(dirname(absolute), target))) {
+      throw new Error('Link local inexistente em: ' + file);
+    }
   }
 }
-for (const expected of approvedPublicFiles) {
-  if (!publicFiles.includes(expected)) {
-    throw new Error('Documento público ausente: ' + expected);
-  }
-}
-console.log('README institucional e separação documental pública verificados.');
+console.log(
+  'Documentação pública, índice Git e links locais validados: ' +
+    publicFiles.length +
+    ' documentos.',
+);

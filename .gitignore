@@ -17,3 +17,6 @@ playwright-report/
 .supabase/
 
 code/.asset-staging/
+
+# Documentação operacional mantida fora do repositório público
+/privado/
