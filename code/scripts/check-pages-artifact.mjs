@@ -7,6 +7,18 @@ const inventory = JSON.parse(await readFile('scripts/data/asset-inventory.json',
 if (inventory.count !== 34 || inventory.items.length !== 34)
   throw Error('Inventário dos 34 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
+// Hero oficial do Manifesto: WebP leve na renderização, PNG como original.
+const manifestoHeroMedia = new Map([
+  [
+    'assets/05 - Manifesto/Imagens do Manifesto/PNG/HeroManifestoFGlass.png',
+    '556011e60cbbfa00fa9f2e112b4ef612067a5328630acf92b54903f754e701b1',
+  ],
+  [
+    'assets/05 - Manifesto/Imagens do Manifesto/WebP/HeroManifestoFGlass.webp',
+    '6eeed41c926a2dab9c6573626d26c1fc32519f426a2ce2a4c63391d9ff579ebd',
+  ],
+]);
+for (const path of manifestoHeroMedia.keys()) expected.add(path);
 // Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
 expected.add('assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp');
 expected.add('assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp');
@@ -339,6 +351,16 @@ async function walk(dir, prefix = '') {
 await walk(dist);
 for (const a of expected) {
   if (!seen.has(a)) violations.push('missing asset ' + a);
+}
+for (const [path, hash] of manifestoHeroMedia) {
+  if (!seen.has(path)) {
+    violations.push('missing manifesto hero ' + path);
+    continue;
+  }
+  const current = createHash('sha256')
+    .update(await readFile(join(dist, path)))
+    .digest('hex');
+  if (current !== hash) violations.push('manifesto hero differs from approved asset ' + path);
 }
 for (const d of expectedDocuments) {
   if (!seen.has(d)) violations.push('missing public pdf ' + d);
