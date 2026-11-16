@@ -523,7 +523,9 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
       <div className="container manifesto-participation-layout">
         <div className="manifesto-participation-copy">
           <span className="eyebrow">Sua voz faz parte dessa construção</span>
-          <h2 id={`manifesto-participation-${placement}`}>Venha contribuir com o Manifesto.</h2>
+          <h2 id={`manifesto-participation-${placement}`}>
+            Venha contribuir com o Manifesto.
+          </h2>
           <p>
             Você também pode participar. Você também pode contribuir com o Manifesto Quântico
             Nacional. Basta clicar no formulário e compartilhar suas ideias.
@@ -534,8 +536,8 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
             <span>Reserve cerca de 5 a 10 minutos (estimativa)</span>
           </p>
           <p className="manifesto-participation-note">
-            O tempo de preenchimento pode variar conforme o conteúdo das suas respostas.
-            O formulário abre em uma nova aba do Google Forms.
+            O tempo de preenchimento pode variar conforme o conteúdo das suas respostas. O
+            formulário abre em uma nova aba do Google Forms.
           </p>
         </div>
         <a
