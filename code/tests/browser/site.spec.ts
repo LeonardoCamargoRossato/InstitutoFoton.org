@@ -205,6 +205,11 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await expect(page.getByRole('dialog', { name: 'Visita técnica 01' })).toBeVisible();
   await page.keyboard.press('ArrowRight');
   await expect(page.getByRole('dialog', { name: 'Visita técnica 02' })).toBeVisible();
+  await page.keyboard.press('ArrowLeft');
+  await expect(page.getByRole('dialog', { name: 'Visita técnica 01' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.locator('.gallery-track > button').first()).toBeFocused();
 });
 
 test('PDF real: sete páginas, navegação, zoom e exportação PNG', async ({ page }) => {

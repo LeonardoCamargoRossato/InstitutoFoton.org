@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type PointerEvent, type WheelEvent } from 'react';
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type PointerEvent,
+  type WheelEvent,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight, Maximize, Minus, Plus, X } from 'lucide-react';
 
@@ -39,7 +46,8 @@ export function ImageZoomDialog({
   const drag = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
+  // Establish modal focus before paint, so the first keystroke cannot escape.
+  useLayoutEffect(() => {
     const overflow = document.body.style.overflow;
     previousFocus.current = document.activeElement as HTMLElement;
     document.body.style.overflow = 'hidden';
@@ -50,7 +58,9 @@ export function ImageZoomDialog({
     };
   }, []);
 
-  useEffect(() => {
+  // The dialog is interactive as soon as it becomes visible, including when
+  // moving between keyed gallery images on a fast browser/CI runner.
+  useLayoutEffect(() => {
     function key(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         event.preventDefault();
