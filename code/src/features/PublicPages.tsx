@@ -13,6 +13,7 @@ import InstituteTeamDashboard from '../components/InstituteTeamDashboard';
 import InstitutePurpose from '../components/InstitutePurpose';
 import { FoundationTeaser } from '../components/FoundationHistory';
 import { odqs, cartas, methodology } from './manifesto-content';
+import ManifestoContribution from './ManifestoContribution';
 import OfficialStatements from './OfficialStatements';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
 
@@ -517,6 +518,7 @@ export function Manifesto() {
       <Intro eyebrow="Uma construção coletiva" title="Manifesto Quântico Nacional">
         <p>Por um Brasil mais competitivo, conectado e soberano.</p>
       </Intro>
+      <ManifestoContribution position="inicio" />
       <div className="anchor-bar">
         <div className="container">
           <a href="#sobre-manifesto">O movimento</a>
@@ -654,6 +656,7 @@ export function Manifesto() {
           </div>
         </div>
       </section>
+      <ManifestoContribution position="final" />
     </>
   );
 }
