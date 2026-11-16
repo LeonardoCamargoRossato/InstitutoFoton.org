@@ -523,9 +523,7 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
       <div className="container manifesto-participation-layout">
         <div className="manifesto-participation-copy">
           <span className="eyebrow">Sua voz faz parte dessa construção</span>
-          <h2 id={`manifesto-participation-${placement}`}>
-            Venha contribuir com o Manifesto.
-          </h2>
+          <h2 id={`manifesto-participation-${placement}`}>Venha contribuir com o Manifesto.</h2>
           <p>
             Você também pode participar. Você também pode contribuir com o Manifesto Quântico
             Nacional. Basta clicar no formulário e compartilhar suas ideias.
