@@ -274,19 +274,21 @@ export function Article() {
                             : media.group === 'cubotech',
                       )
                       .map((media) => (
-                        <img
-                          key={media.original}
-                          className="news-media-photo"
-                          src={assetUrl(media.preview)}
-                          data-full-image={assetUrl(media.original)}
-                          alt={media.alt}
-                          width={media.width}
-                          height={media.height}
-                          loading="lazy"
-                          tabIndex={0}
-                          role="button"
-                          aria-label={`Ampliar: ${media.alt}`}
-                        />
+                        <figure className="news-media-figure" key={media.original}>
+                          <img
+                            className="news-media-photo"
+                            src={assetUrl(media.preview)}
+                            data-full-image={assetUrl(media.original)}
+                            alt={media.alt}
+                            width={media.width}
+                            height={media.height}
+                            loading="lazy"
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`Ampliar: ${media.alt}`}
+                          />
+                          <figcaption>{media.credit}</figcaption>
+                        </figure>
                       ))}
                   </div>
                 </section>
@@ -294,7 +296,7 @@ export function Article() {
               {item.source_url && (
                 <p className="source-note">
                   <External href={item.source_url}>
-                    Fonte: {item.source_name || 'Documento de referência'}
+                    Ler publicação original · {item.source_name || 'Fonte pública'}
                   </External>
                 </p>
               )}

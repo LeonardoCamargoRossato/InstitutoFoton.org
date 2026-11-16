@@ -207,6 +207,15 @@ approveMirror(
 );
 if (mirroredAssets.size !== 106) throw Error('Espelhos de assets esperados: 106');
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
+const newsRecords = JSON.parse(await readFile('src/content/publications.json', 'utf8'));
+const newsSlugs = newsRecords.map(({ slug }) => slug);
+if (
+  newsSlugs.length !== 8 ||
+  new Set(newsSlugs).size !== newsSlugs.length ||
+  newsSlugs.some((slug) => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))
+)
+  throw Error('Catálogo de notícias com slug repetido, inválido ou quantidade inesperada');
+const newsRoutes = newsSlugs.map((slug) => 'noticias/' + slug);
 const routeDirectories = new Set([
   'instituto',
   'pesquisa',
@@ -217,10 +226,7 @@ const routeDirectories = new Set([
   'jornada',
   'manifesto',
   'noticias',
-  'noticias/fundacao-instituto-foton',
-  'noticias/foton-softsul-cooperacao-tecnologias-quanticas',
-  'noticias/foton-assespro-rs-termo-cooperacao',
-  'noticias/seminario-cubotech-direito-computacao-quantica',
+  ...newsRoutes,
   'apresentacao',
   'apoie',
   'contato',
