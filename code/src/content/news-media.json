@@ -6,7 +6,8 @@
     "preview": "assets/06 - Notícias/Reportagens/01-Foton-SOFTSUL/WebP/AcordoFotonSoftsul.webp",
     "width": 1024,
     "height": 641,
-    "alt": "Registro do acordo institucional entre Instituto Foton e SOFTSUL"
+    "alt": "Registro do acordo institucional entre Instituto Foton e SOFTSUL",
+    "credit": "Registro do acervo institucional · autoria fotográfica não informada"
   },
   {
     "group": "softsul",
@@ -15,7 +16,8 @@
     "preview": "assets/06 - Notícias/Reportagens/01-Foton-SOFTSUL/WebP/FotonSoftsulAcervo20250314WA0021.webp",
     "width": 1280,
     "height": 960,
-    "alt": "Fotografia do acervo institucional Foton e SOFTSUL 08"
+    "alt": "Fotografia do acervo institucional Foton e SOFTSUL 08",
+    "credit": "Registro do acervo institucional · autoria fotográfica não informada"
   },
   {
     "group": "assespro-rs",
@@ -24,7 +26,8 @@
     "preview": "assets/06 - Notícias/Reportagens/03-Foton-Assespro-RS/WebP/ParceriaFotonAssesproRS.webp",
     "width": 1207,
     "height": 602,
-    "alt": "Registro da parceria entre Instituto Foton e Assespro-RS"
+    "alt": "Registro da parceria entre Instituto Foton e Assespro-RS",
+    "credit": "Registro do acervo institucional · autoria fotográfica não informada"
   },
   {
     "group": "cubotech",
@@ -33,6 +36,7 @@
     "preview": "assets/06 - Notícias/Reportagens/04-Seminario-CUBOTECH/WebP/SeminarioCubotechDireitoComputacaoQuantica.webp",
     "width": 3780,
     "height": 1890,
-    "alt": "Banner oficial do Primeiro Seminário de Pesquisa em Direito e Computação Quântica"
+    "alt": "Banner oficial do Primeiro Seminário de Pesquisa em Direito e Computação Quântica",
+    "credit": "Arte de divulgação do seminário · crédito de criação não informado"
   }
 ]

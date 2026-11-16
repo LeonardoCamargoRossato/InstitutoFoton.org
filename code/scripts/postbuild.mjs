@@ -5,6 +5,15 @@ const base = process.env.VITE_BASE_PATH || '/';
 if (!/^\/(?:[A-Za-z0-9._-]+\/)*$/.test(base)) throw new Error('VITE_BASE_PATH inválido');
 const origin = process.env.VITE_SITE_ORIGIN || '';
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
+const newsRecords = JSON.parse(await readFile('src/content/publications.json', 'utf8'));
+const newsSlugs = newsRecords.map(({ slug }) => slug);
+if (
+  newsSlugs.length !== 8 ||
+  new Set(newsSlugs).size !== newsSlugs.length ||
+  newsSlugs.some((slug) => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))
+)
+  throw Error('Catálogo de notícias com slug repetido, inválido ou quantidade inesperada');
+const newsRoutes = newsSlugs.map((slug) => 'noticias/' + slug);
 const pages = [
   '',
   'instituto',
@@ -16,10 +25,7 @@ const pages = [
   'jornada',
   'manifesto',
   'noticias',
-  'noticias/fundacao-instituto-foton',
-  'noticias/foton-softsul-cooperacao-tecnologias-quanticas',
-  'noticias/foton-assespro-rs-termo-cooperacao',
-  'noticias/seminario-cubotech-direito-computacao-quantica',
+  ...newsRoutes,
   'apresentacao',
   'apoie',
   'contato',

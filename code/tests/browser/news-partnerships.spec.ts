@@ -123,3 +123,80 @@ test('notícias mantêm largura de tela em celular, tablet e desktop', async ({ 
     expect(difference).toBeLessThanOrEqual(1);
   }
 });
+
+test('quatro novas matérias têm fontes e não inventam fotos', async ({ page }) => {
+  const newStories = [
+    {
+      slug: 'lancamento-lacq-pucrs-instituto-foton',
+      title: 'Instituto Foton participa do lançamento da LACQ PUCRS',
+      source: 'brasilinovador.com.br',
+    },
+    {
+      slug: 'uniso-quantum-day-entrega-projeto-leonti',
+      title: 'Uniso Quantum Day destaca a entrega do Projeto Leonti',
+      source: 'focas.uniso.br',
+    },
+    {
+      slug: 'parceria-instituto-foton-gravatai-inovacao',
+      title: 'Instituto Foton e Gravataí registram parceria em inovação',
+      source: 'licitapncp.com.br',
+    },
+    {
+      slug: 'foton-mobi-quantum-festival-2026',
+      title: 'Foton conecta computação quântica e negócios no Mobi Festival',
+      source: 'ictqfoton.org',
+    },
+  ];
+
+  await page.goto('./noticias');
+  await expect(page.locator('.publication-card')).toHaveCount(8);
+  const headings = await page.locator('.publication-card h2').allTextContents();
+  expect(headings[0]).toContain('CUBOTECH');
+  expect(headings[1]).toContain('Mobi Festival');
+  expect(headings[2]).toContain('Gravataí');
+  expect(headings[3]).toContain('Uniso Quantum Day');
+
+  for (const story of newStories) {
+    const card = page.locator('.publication-card').filter({ hasText: story.title });
+    await expect(card).toHaveCount(1);
+    await expect(card.locator('img')).toHaveCount(0);
+    await card.locator('a').click();
+    await expect(page).toHaveURL(new RegExp('/noticias/' + story.slug + '$'));
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(story.title);
+    await expect(page.getByRole('link', { name: /Ler publicação original/ })).toHaveAttribute(
+      'href',
+      new RegExp(story.source),
+    );
+    await expect(page.locator('.news-media-photo')).toHaveCount(0);
+    await page.goto('./noticias');
+  }
+});
+
+test('CUBOTECH continua único e tem a fonte oficial da Unisinos', async ({ page }) => {
+  await page.goto('./noticias');
+  await expect(page.locator('.publication-card').filter({ hasText: 'CUBOTECH' })).toHaveCount(1);
+  await page.goto('./noticias/seminario-cubotech-direito-computacao-quantica');
+  await expect(page.getByRole('link', { name: /Ler publicação original/ })).toHaveAttribute(
+    'href',
+    'https://eventos.unisinos.br/primeiroseminariocubotech/',
+  );
+  await expect(page.locator('.news-media-figure figcaption')).toContainText([
+    'crédito de criação não informado',
+  ]);
+});
+
+test('novas páginas de Notícias mantêm layout sem rolagem horizontal', async ({ page }) => {
+  for (const width of [390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 840 });
+    for (const slug of [
+      'lancamento-lacq-pucrs-instituto-foton',
+      'uniso-quantum-day-entrega-projeto-leonti',
+      'parceria-instituto-foton-gravatai-inovacao',
+      'foton-mobi-quantum-festival-2026',
+    ]) {
+      await page.goto('./noticias/' + slug);
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+      expect(overflow, slug + ' ' + width).toBeLessThanOrEqual(1);
+    }
+  }
+});
