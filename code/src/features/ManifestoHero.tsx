@@ -78,7 +78,7 @@ export default function ManifestoHero() {
             Instituto Foton <span aria-hidden="true">•</span> Uma construção nacional
           </span>
           <h1 id="manifesto-hero-title">
-            <span>Manifesto</span>{' '}
+            <span>{'Manifesto '}</span>
             <strong>Quântico Nacional</strong>
           </h1>
           <p>Um chamado para construir, juntos, o futuro das tecnologias quânticas no Brasil.</p>
