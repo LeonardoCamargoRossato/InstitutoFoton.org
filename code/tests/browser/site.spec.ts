@@ -254,22 +254,24 @@ test('WCAG automatizada nas principais páginas e modal', async ({ page }) => {
   }
 });
 
-test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) => {
-  for (const width of [1440, 390]) {
-    await page.setViewportSize({ width, height: width === 390 ? 844 : 900 });
-    for (const [path, name] of [
-      ['./', 'home'],
-      ['./instituto', 'instituto'],
-      ['./pesquisa', 'pesquisa'],
-      ['./pesquisa/jornada', 'jornada'],
-      ['./pesquisa/haquantum', 'haquantum'],
-      ['./apoie', 'apoie'],
-      ['./noticias', 'noticias'],
-      ['./contato', 'contato'],
-      ['./manifesto', 'manifesto'],
-      ['./apresentacao', 'apresentacao'],
-      ['./entrar', 'entrar'],
-    ]) {
+// Each route/viewport gets an independent browser context and 30-second deadline.
+// Capturing all 22 pages under one deadline made CI depend on machine speed.
+for (const width of [1440, 390]) {
+  for (const [path, name] of [
+    ['./', 'home'],
+    ['./instituto', 'instituto'],
+    ['./pesquisa', 'pesquisa'],
+    ['./pesquisa/jornada', 'jornada'],
+    ['./pesquisa/haquantum', 'haquantum'],
+    ['./apoie', 'apoie'],
+    ['./noticias', 'noticias'],
+    ['./contato', 'contato'],
+    ['./manifesto', 'manifesto'],
+    ['./apresentacao', 'apresentacao'],
+    ['./entrar', 'entrar'],
+  ]) {
+    test(`screenshot para revisão: ${name} em ${width}px`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width, height: width === 390 ? 844 : 900 });
       await page.goto(path);
       await page.evaluate(() => document.fonts.ready);
       if (name === 'apresentacao')
@@ -277,8 +279,7 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
           timeout: 30000,
         });
       if (name === 'manifesto') {
-        // Em capturas fullPage a imagem lazy pode não ter terminado de carregar.
-        // Verificar bytes renderizados antes da captura, sem desativar lazy-loading em produção.
+        // Wait for the lazy image bytes before taking the full-page screenshot.
         const overview = page.locator('.manifesto-image img').first();
         await overview.scrollIntoViewIfNeeded();
         await expect
@@ -288,9 +289,9 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
           .toBeGreaterThan(0);
       }
       await page.screenshot({ path: testInfo.outputPath(`${name}-${width}.png`), fullPage: true });
-    }
+    });
   }
-});
+}
 
 test('manifesto: formulário oficial no início e no fim, acessível em desktop e mobile', async ({
   page,

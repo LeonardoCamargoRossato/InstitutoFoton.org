@@ -218,7 +218,35 @@ test('indicadores datados possuem apresentação discreta e sem ressalvas defens
   expect(fontSize).toBeLessThanOrEqual(17);
 });
 
-test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ page }) => {
+// Validate all 28 thumbnails in bounded batches, with independent test deadlines.
+for (const start of [0, 7, 14, 21]) {
+  test(`Manifesto: miniaturas WebP ${start + 1} a ${start + 7}`, async ({ page }) => {
+    const assetRequests: string[] = [];
+    page.on('request', (request) => {
+      const url = decodeURIComponent(request.url());
+      if (url.includes('/Imagens da Página/') || url.includes('/Visitas Técnicas/')) {
+        assetRequests.push(url);
+      }
+    });
+    await page.goto('./manifesto');
+    const thumbnails = page.locator(
+      '.manifesto-image img, .manifesto-video img, .gallery-track img',
+    );
+    await expect(thumbnails).toHaveCount(28);
+    for (let index = start; index < start + 7; index++) {
+      const img = thumbnails.nth(index);
+      await img.scrollIntoViewIfNeeded();
+      await expect(img).toHaveAttribute('data-full-image', /\/PNG\/.+\.png$/);
+      await expect(img).toHaveAttribute('src', /\/WebP\/.+\.webp$/);
+      await expect
+        .poll(() => img.evaluate((element) => (element as HTMLImageElement).naturalWidth))
+        .toBeGreaterThan(0);
+    }
+    expect(assetRequests.filter((url) => /\/PNG\//.test(url))).toEqual([]);
+  });
+}
+
+test('Manifesto usa PNG somente ao abrir e navegar no zoom', async ({ page }) => {
   const assetRequests: string[] = [];
   page.on('request', (request) => {
     const url = decodeURIComponent(request.url());
@@ -229,15 +257,6 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   await page.goto('./manifesto');
   const thumbnails = page.locator('.manifesto-image img, .manifesto-video img, .gallery-track img');
   await expect(thumbnails).toHaveCount(28); // 4 cartas, 2 imagens explicativas, 2 capas de vídeo e 20 visitas
-  for (let index = 0; index < (await thumbnails.count()); index++) {
-    const img = thumbnails.nth(index);
-    await img.scrollIntoViewIfNeeded();
-    await expect(img).toHaveAttribute('data-full-image', /\/PNG\/.+\.png$/);
-    await expect(img).toHaveAttribute('src', /\/WebP\/.+\.webp$/);
-    await expect
-      .poll(() => img.evaluate((element) => (element as HTMLImageElement).naturalWidth))
-      .toBeGreaterThan(0);
-  }
   expect(assetRequests.filter((url) => /\/PNG\//.test(url))).toEqual([]);
 
   const letter = page.locator('.manifesto-image').first();
@@ -352,6 +371,8 @@ test('Ecossistema de Parceiros possui rota, menu e fonte estática única', asyn
       );
       if (partner.logo_slug) {
         const img = page.locator('.partner-card').nth(index).locator('img');
+        // Lazy logos start loading only when brought into the viewport.
+        await img.scrollIntoViewIfNeeded();
         await expect(img).toHaveAttribute(
           'src',
           /assets\/03 - Ecossistema de Parceiros\/Logos dos Parceiros\/SVG\/assets-svg\/Logo[A-Za-z0-9]+\.svg$/,
@@ -365,10 +386,10 @@ test('Ecossistema de Parceiros possui rota, menu e fonte estática única', asyn
   expect(requests).toEqual([]);
 });
 
-test('Ecossistema de Parceiros é acessível pelo menu mobile e não causa overflow', async ({
-  page,
-}) => {
-  for (const width of [360, 390, 768, 1366]) {
+// Each viewport exercises 31 lazy images and takes its own screenshots.
+// Keep independent test deadlines instead of sharing 30 seconds across 124 images.
+for (const width of [360, 390, 768, 1366]) {
+  test(`Ecossistema de Parceiros: menu e layout sem overflow em ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 820 });
     await page.goto('./');
     if (width <= 1000) {
@@ -403,5 +424,5 @@ test('Ecossistema de Parceiros é acessível pelo menu mobile e não causa overf
     });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow, 'viewport ' + width).toBeLessThanOrEqual(1);
-  }
-});
+  });
+}
