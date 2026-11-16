@@ -292,7 +292,6 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
   }
 });
 
-
 test('manifesto: formulário oficial no início e no fim, acessível em desktop e mobile', async ({
   page,
 }) => {
@@ -306,9 +305,7 @@ test('manifesto: formulário oficial no início e no fim, acessível em desktop 
     await expect(
       sections.first().getByRole('heading', { name: /Venha contribuir/i }),
     ).toBeVisible();
-    await expect(
-      sections.last().getByRole('heading', { name: /Venha contribuir/i }),
-    ).toBeVisible();
+    await expect(sections.last().getByRole('heading', { name: /Venha contribuir/i })).toBeVisible();
     const links = page.getByRole('link', {
       name: /Responder ao formulário de contribuição/i,
     });
