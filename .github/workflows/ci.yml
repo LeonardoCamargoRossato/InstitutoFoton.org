@@ -13,13 +13,6 @@ jobs:
         working-directory: code
     steps:
       - uses: actions/checkout@v4
-      - name: Exportar temporariamente seis imagens Apoie a Ciência
-        uses: actions/upload-artifact@v4
-        with:
-          name: backup-apoie-ciencia-original
-          path: code/public/assets/08 - Apoie a Ciência/Imagens de Apoio/
-          retention-days: 1
-          if-no-files-found: error
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
