@@ -36,14 +36,10 @@ test('Cartão responde ao hover e permanece acessível no celular', async ({ pag
   const front = link.locator('.manifesto-form-preview-front');
   const before = await front.evaluate((el) => getComputedStyle(el).transform);
   await link.hover();
-  await expect.poll(() => front.evaluate((el) => getComputedStyle(el).transform)).not.toBe(
-    before,
-  );
+  await expect.poll(() => front.evaluate((el) => getComputedStyle(el).transform)).not.toBe(before);
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.getByRole('link', { name: linkName })).toHaveCount(2);
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
-    true,
-  );
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test('Movimento reduzido desativa transição do cartão', async ({ page }) => {
