@@ -39,8 +39,10 @@ describe('notícias institucionais verificáveis', () => {
     const images = newsMedia.filter((media) => media.group === 'mobi-quantum');
     expect(images).toHaveLength(6);
     expect(images.map((media) => media.preview)).toEqual(
-      Array.from({ length: 6 }, (_, i) =>
-        `assets/06 - Notícias/Reportagens/07-Mobi-Quantum/WebP/MobiQuantumUnisoQuantumDay${String(i + 1).padStart(2, '0')}.webp`,
+      Array.from(
+        { length: 6 },
+        (_, i) =>
+          `assets/06 - Notícias/Reportagens/07-Mobi-Quantum/WebP/MobiQuantumUnisoQuantumDay${String(i + 1).padStart(2, '0')}.webp`,
       ),
     );
   });

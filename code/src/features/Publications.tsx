@@ -78,7 +78,8 @@ function MobiQuantumCarousel() {
   const [zoomOpen, setZoomOpen] = useState(false);
   if (!images.length) return null;
   const current = images[active];
-  const go = (delta: number) => setActive((index) => (index + delta + images.length) % images.length);
+  const go = (delta: number) =>
+    setActive((index) => (index + delta + images.length) % images.length);
   return (
     <section className="news-mobi-carousel" aria-label="Carrossel de fotos do Mobi Quantum">
       <h2>Registros do Mobi Quantum</h2>
@@ -102,7 +103,9 @@ function MobiQuantumCarousel() {
           <button type="button" onClick={() => go(-1)} aria-label="Foto anterior">
             <ChevronLeft aria-hidden="true" />
           </button>
-          <span aria-live="polite">{active + 1} de {images.length}</span>
+          <span aria-live="polite">
+            {active + 1} de {images.length}
+          </span>
           <button type="button" onClick={() => go(1)} aria-label="Próxima foto">
             <ChevronRight aria-hidden="true" />
           </button>

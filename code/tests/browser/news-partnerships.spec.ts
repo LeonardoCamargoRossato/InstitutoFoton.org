@@ -159,7 +159,9 @@ test('quatro novas matérias têm fontes e não inventam fotos', async ({ page }
   for (const story of newStories) {
     const card = page.locator('.publication-card').filter({ hasText: story.title });
     await expect(card).toHaveCount(1);
-    await expect(card.locator('img')).toHaveCount(story.slug === 'foton-mobi-quantum-festival-2026' ? 1 : 0);
+    await expect(card.locator('img')).toHaveCount(
+      story.slug === 'foton-mobi-quantum-festival-2026' ? 1 : 0,
+    );
     await card.locator('a').click();
     await expect(page).toHaveURL(new RegExp('/noticias/' + story.slug + '$'));
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(story.title);
