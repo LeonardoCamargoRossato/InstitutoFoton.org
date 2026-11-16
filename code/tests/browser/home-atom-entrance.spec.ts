@@ -7,47 +7,47 @@ const fronts = [
   'Geração de novas startups',
 ];
 
-test('orbitais independentes descem, colapsam em um átomo e revelam o grafo Foton', async ({
+test('partículas discretas chegam de todas as direções e revelam a rede Foton', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('./');
-
   const graph = page.getByTestId('home-foton-network');
   const flight = page.getByTestId('home-atom-orbitals');
-
   await expect(graph).toBeAttached();
   await expect(flight).toBeAttached();
-  await expect(flight.locator('.home-arriving-orbit')).toHaveCount(3);
-  await expect(flight.locator('.home-orbit-electron')).toHaveCount(4);
-  await expect(flight.locator('.home-singular-atom')).toHaveCount(1);
-  await expect(flight.locator('.home-atom-burst')).toHaveCount(1);
-
-  const choreography = await flight.evaluate((element) => {
-    const animation = element.getAnimations()[0];
-    if (!animation) throw new Error('Animação de entrada não iniciou');
-    const firstOrbit = element.querySelector('.home-arriving-orbit-one')!;
-    const orbit = firstOrbit.getAnimations()[0];
-    if (!orbit) throw new Error('Órbita não está animada');
-    const frames = (orbit.effect as KeyframeEffect).getKeyframes();
-    const earliest = frames[0];
-    return {
-      duration: animation.effect?.getComputedTiming().duration,
-      orbitAnimation: getComputedStyle(firstOrbit).animationName,
-      orbitalTransform: String(earliest.transform),
-      background: getComputedStyle(element).backgroundColor,
-    };
-  });
-
-  expect(choreography.duration).toBe(3850);
-  expect(choreography.orbitAnimation).toBe('home-orbit-one-arrive');
-  const initialY = Number(
-    choreography.orbitalTransform.match(/translate3d\([^,]+,\s*(-?[\d.]+)px/)?.[1],
+  await expect(flight.locator('.home-field-particle')).toHaveCount(16);
+  await expect(flight.locator('ellipse, .home-atom-burst')).toHaveCount(0);
+  const paths = await flight.locator('.home-field-particle').evaluateAll((particles) =>
+    particles.map((particle) => {
+      const animation = particle.getAnimations()[0];
+      const frames = (animation.effect as KeyframeEffect).getKeyframes();
+      const point = (frame: ComputedKeyframe) =>
+        String(frame.transform)
+          .match(/translate3d\(([-\d.]+)px,\s*([-\d.]+)px/)!
+          .slice(1)
+          .map(Number);
+      return {
+        start: point(frames[0]),
+        end: point(frames[frames.length - 1]),
+        peak: Math.max(...frames.map((frame) => Number(frame.opacity))),
+      };
+    }),
   );
-  expect(initialY).toBeLessThan(-300);
-  expect(choreography.orbitalTransform).toContain('rotate(-140deg)');
-  expect(choreography.background).toBe('rgba(0, 0, 0, 0)');
-
+  expect(paths.some(({ start: [x] }) => x < 0)).toBe(true);
+  expect(paths.some(({ start: [x] }) => x > 1440)).toBe(true);
+  expect(paths.some(({ start: [, y] }) => y < 0)).toBe(true);
+  expect(paths.some(({ start: [, y] }) => y > 900)).toBe(true);
+  const bounds = await graph.boundingBox();
+  expect(
+    paths.every(
+      ({ end: [x, y], peak }) =>
+        Math.abs(x - (bounds!.x + bounds!.width / 2)) <= 5 &&
+        Math.abs(y - (bounds!.y + bounds!.height / 2)) <= 7 &&
+        peak <= 0.4,
+    ),
+  ).toBe(true);
+  await expect(flight).toHaveCSS('pointer-events', 'none');
   await expect(graph).toHaveClass(/is-settled/, { timeout: 10000 });
   await expect(flight).toHaveCount(0);
   await expect(graph.locator('.home-network-node')).toHaveCount(4);
@@ -78,7 +78,7 @@ test('no celular o grafo permanece legível, sem corte ou rolagem lateral', asyn
   const duration = await flight.evaluate(
     (element) => element.getAnimations()[0]?.effect?.getComputedTiming().duration,
   );
-  expect(duration).toBe(3150);
+  expect(duration).toBe(3800);
 
   const graph = page.getByTestId('home-foton-network');
   await expect(graph).toHaveClass(/is-settled/, { timeout: 9000 });
@@ -108,4 +108,14 @@ test('movimento reduzido mostra imediatamente o grafo acessível sem orbitais', 
   await expect(graph).toHaveCSS('opacity', '1');
   await expect(graph.locator('.home-network-node')).toHaveCount(4);
   await expect(graph).toHaveAttribute('aria-label', /formação de ecossistema/i);
+});
+
+test('rolagem encerra a entrada e revela a rede sem partículas sobre o conteúdo', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await expect(page.getByTestId('home-atom-orbitals')).toBeAttached();
+  await page.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
+  await expect(page.getByTestId('home-atom-orbitals')).toHaveCount(0);
+  await expect(page.getByTestId('home-foton-network')).toHaveClass(/is-settled/);
 });

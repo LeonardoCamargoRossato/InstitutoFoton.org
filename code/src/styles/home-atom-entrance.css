@@ -1,5 +1,4 @@
-/* Orbitais independentes → átomo → pulso luminoso → rede institucional Foton.
-   A chegada não movimenta nenhuma caixa ou imagem de fundo. */
+/* Campo discreto de partículas → formação gradual → rede institucional Foton. */
 @layer components {
   .home-hero .hero-identity--network {
     width: min(100%, 450px);
@@ -149,207 +148,34 @@
 
   .home-atom-flight {
     position: fixed;
-    z-index: 110;
-    visibility: hidden;
+    inset: 0;
+    z-index: 5;
     pointer-events: none;
-    overflow: visible;
+    overflow: hidden;
     margin: 0;
     isolation: isolate;
-    --motion-factor: 1;
-    --orbital-fall: 900px;
   }
-
-  .home-atom-flight-svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-
-  .home-arriving-orbit {
-    fill: none;
-    stroke: rgba(112, 223, 255, 0.84);
-    stroke-width: 1.5;
-    transform-box: view-box;
-    transform-origin: 50% 50%;
+  .home-field-particle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #a3d5e8;
+    opacity: 0;
     will-change: transform, opacity;
   }
-
-  .home-arriving-orbit-one {
-    animation: home-orbit-one-arrive calc(2820ms * var(--motion-factor)) ease-in-out both;
+  .home-field-particle:nth-child(3n) {
+    width: 2px;
+    height: 2px;
   }
-
-  .home-arriving-orbit-two {
-    animation: home-orbit-two-arrive calc(2670ms * var(--motion-factor)) ease-in-out
-      calc(160ms * var(--motion-factor)) both;
-    stroke: rgba(177, 219, 255, 0.8);
-  }
-
-  .home-arriving-orbit-three {
-    animation: home-orbit-three-arrive calc(2440ms * var(--motion-factor)) ease-in-out
-      calc(350ms * var(--motion-factor)) both;
-    stroke: rgba(136, 178, 255, 0.86);
-  }
-
-  .home-orbit-electron {
-    fill: url(#home-atom-electron-glow);
-    stroke: #e2fbff;
-    stroke-width: 0.75;
-    filter: drop-shadow(0 0 5px rgba(118, 234, 255, 0.9));
-  }
-
-  .home-orbit-electron-small {
-    opacity: 0.7;
-  }
-
-  .home-singular-atom {
+  .home-field-seed {
+    position: absolute;
+    width: 58px;
+    height: auto;
+    transform: translate(-50%, -50%);
     opacity: 0;
-    transform-box: view-box;
-    transform-origin: 50% 50%;
-    animation: home-singular-atom-arrive calc(870ms * var(--motion-factor)) ease-out
-      calc(2300ms * var(--motion-factor)) both;
-  }
-
-  .home-singular-halo {
-    fill: rgba(37, 145, 247, 0.25);
-    stroke: rgba(147, 240, 255, 0.8);
-    stroke-width: 1.5;
-  }
-
-  .home-singular-nucleus {
-    fill: #83e4ff;
-    stroke: #fff;
-    stroke-width: 2.5;
-    filter: drop-shadow(0 0 12px rgba(130, 237, 255, 0.95));
-  }
-
-  .home-singular-highlight {
-    fill: #fff;
-  }
-
-  .home-atom-burst {
-    opacity: 0;
-    fill: none;
-    stroke: #b8f9ff;
-    stroke-width: 1.8;
-    transform-box: view-box;
-    transform-origin: 50% 50%;
-    animation: home-atom-burst-expand calc(780ms * var(--motion-factor)) ease-out
-      calc(3030ms * var(--motion-factor)) both;
-  }
-
-  .home-atom-burst-ring-secondary {
-    opacity: 0.5;
-  }
-
-  .home-atom-burst line {
-    stroke: #b9ecff;
-    stroke-width: 2;
-    stroke-linecap: round;
-  }
-
-  @keyframes home-orbit-one-arrive {
-    0% {
-      opacity: 0;
-      transform: translate3d(-95px, calc(0px - var(--orbital-fall)), 0) rotate(-140deg) scale(2.15);
-    }
-    8% {
-      opacity: 0.95;
-    }
-    48% {
-      opacity: 1;
-      transform: translate3d(-30px, -105px, 0) rotate(95deg) scale(1.25);
-    }
-    78% {
-      opacity: 0.92;
-      transform: translate3d(0, -5px, 0) rotate(230deg) scale(0.67);
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(0, 0, 0) rotate(320deg) scale(0.045);
-    }
-  }
-
-  @keyframes home-orbit-two-arrive {
-    0% {
-      opacity: 0;
-      transform: translate3d(105px, calc(0px - var(--orbital-fall)), 0) rotate(115deg) scale(2.25);
-    }
-    8% {
-      opacity: 0.92;
-    }
-    48% {
-      opacity: 1;
-      transform: translate3d(38px, -96px, 0) rotate(-78deg) scale(1.18);
-    }
-    77% {
-      opacity: 0.9;
-      transform: translate3d(0, 4px, 0) rotate(-220deg) scale(0.66);
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(0, 0, 0) rotate(-320deg) scale(0.045);
-    }
-  }
-
-  @keyframes home-orbit-three-arrive {
-    0% {
-      opacity: 0;
-      transform: translate3d(-26px, calc(0px - var(--orbital-fall)), 0) rotate(64deg) scale(2.05);
-    }
-    9% {
-      opacity: 0.9;
-    }
-    48% {
-      opacity: 1;
-      transform: translate3d(-8px, -85px, 0) rotate(-116deg) scale(1.13);
-    }
-    80% {
-      opacity: 0.9;
-      transform: translate3d(0, 0, 0) rotate(-260deg) scale(0.6);
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(0, 0, 0) rotate(-360deg) scale(0.04);
-    }
-  }
-
-  @keyframes home-singular-atom-arrive {
-    0% {
-      opacity: 0;
-      transform: scale(0.3);
-    }
-    35% {
-      opacity: 1;
-      transform: scale(1.22);
-    }
-    70% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0.65;
-      transform: scale(1.35);
-    }
-  }
-
-  @keyframes home-atom-burst-expand {
-    0% {
-      opacity: 0;
-      transform: scale(0.12);
-    }
-    12% {
-      opacity: 1;
-      transform: scale(0.3);
-    }
-    80% {
-      opacity: 0.72;
-      transform: scale(1.35);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1.8);
-    }
   }
 
   @keyframes home-network-reveal {

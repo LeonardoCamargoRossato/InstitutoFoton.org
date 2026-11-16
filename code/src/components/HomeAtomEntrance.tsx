@@ -10,51 +10,20 @@ const fronts = [
   { id: 'startups', label: 'Geração de novas startups', Icon: Rocket },
 ] as const;
 
-function ArrivingOrbitals() {
+function ArrivingParticles() {
   return (
-    <svg className="home-atom-flight-svg" viewBox="0 0 420 420" aria-hidden="true">
-      <defs>
-        <radialGradient id="home-atom-electron-glow">
-          <stop offset="0" stopColor="#fff" />
-          <stop offset=".42" stopColor="#9deeff" />
-          <stop offset="1" stopColor="#269cff" />
-        </radialGradient>
-      </defs>
-      <g className="home-arriving-orbit home-arriving-orbit-one">
-        <ellipse cx="210" cy="210" rx="149" ry="62" />
-        <circle className="home-orbit-electron" cx="359" cy="210" r="6" />
-        <circle className="home-orbit-electron home-orbit-electron-small" cx="62" cy="210" r="3" />
-      </g>
-      <g className="home-arriving-orbit home-arriving-orbit-two">
-        <ellipse cx="210" cy="210" rx="142" ry="58" />
-        <circle className="home-orbit-electron" cx="68" cy="210" r="5.5" />
-      </g>
-      <g className="home-arriving-orbit home-arriving-orbit-three">
-        <ellipse cx="210" cy="210" rx="155" ry="54" />
-        <circle className="home-orbit-electron" cx="210" cy="156" r="5" />
-      </g>
-      <g className="home-singular-atom">
-        <circle className="home-singular-halo" cx="210" cy="210" r="31" />
-        <circle className="home-singular-nucleus" cx="210" cy="210" r="14" />
-        <circle className="home-singular-highlight" cx="206" cy="206" r="4" />
-      </g>
-      <g className="home-atom-burst">
-        <circle cx="210" cy="210" r="34" className="home-atom-burst-ring" />
-        <circle cx="210" cy="210" r="65" className="home-atom-burst-ring-secondary" />
-        {Array.from({ length: 12 }, (_, index) => {
-          const radians = (index * Math.PI) / 6;
-          return (
-            <line
-              key={index}
-              x1={210 + Math.cos(radians) * 28}
-              y1={210 + Math.sin(radians) * 28}
-              x2={210 + Math.cos(radians) * 108}
-              y2={210 + Math.sin(radians) * 108}
-            />
-          );
-        })}
-      </g>
-    </svg>
+    <>
+      {Array.from({ length: 16 }, (_, index) => (
+        <span key={index} className="home-field-particle" />
+      ))}
+      <img
+        className="home-field-seed"
+        src={assetUrl('assets/WebP/branding/Favicon.webp')}
+        width="58"
+        height="66"
+        alt=""
+      />
+    </>
   );
 }
 
@@ -99,11 +68,7 @@ function FotonNetwork({
   );
 }
 
-/**
- * Orbitais individuais chegam do alto sem um card ao redor.
- * Eles convergem em um único núcleo, há um pulso de expansão e só então
- * surge o grafo do Foton. A arte final permanece estática e acessível.
- */
+/** A quiet particle field converges once; the final network remains unchanged. */
 export default function HomeAtomEntrance() {
   const destination = useRef<HTMLDivElement>(null);
   const flight = useRef<HTMLDivElement>(null);
@@ -120,35 +85,75 @@ export default function HomeAtomEntrance() {
     const overlay = flight.current;
     if (!target || !overlay) return;
 
-    const placeOrbitals = () => {
-      const bounds = target.getBoundingClientRect();
-      Object.assign(overlay.style, {
-        left: bounds.left + 'px',
-        top: bounds.top + 'px',
-        width: bounds.width + 'px',
-        height: bounds.height + 'px',
-        visibility: 'visible',
+    const bounds = target.getBoundingClientRect();
+    const center = { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 };
+    const duration = window.innerWidth <= 700 ? 3800 : 4200;
+    const animations: Animation[] = [];
+    const finish = () => setSettled(true);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // Viewport-based origins cover all eight compass directions, twice.
+    const origins = [
+      [-0.05, -0.05],
+      [0.5, -0.05],
+      [1.05, -0.05],
+      [1.05, 0.5],
+      [1.05, 1.05],
+      [0.5, 1.05],
+      [-0.05, 1.05],
+      [-0.05, 0.5],
+    ];
+    overlay.querySelectorAll<HTMLElement>('.home-field-particle').forEach((particle, index) => {
+      const origin = origins[index % origins.length];
+      const x = origin[0] * innerWidth;
+      const y = origin[1] * innerHeight;
+      const drift = (index % 2 === 0 ? 1 : -1) * Math.min(100, innerWidth * 0.12);
+      const control = { x: (x + center.x) / 2 + drift, y: (y + center.y) / 2 - drift * 0.6 };
+      const end = { x: center.x + ((index % 3) - 1) * 4, y: center.y + ((index % 5) - 2) * 3 };
+      const frames = Array.from({ length: 25 }, (_, step) => {
+        const t = step / 24;
+        const u = 1 - t;
+        return {
+          transform: `translate3d(${u * u * x + 2 * u * t * control.x + t * t * end.x}px, ${u * u * y + 2 * u * t * control.y + t * t * end.y}px, 0)`,
+          opacity: t < 0.15 ? t * 2.5 : t > 0.8 ? (1 - t) * 1.9 : 0.38,
+          offset: t,
+        };
       });
-      const fall = bounds.top + bounds.height / 2 + Math.max(260, innerHeight * 0.52);
-      overlay.style.setProperty('--orbital-fall', fall + 'px');
-    };
-
-    placeOrbitals();
-    window.addEventListener('resize', placeOrbitals);
-    const mobile = window.innerWidth <= 700;
-    overlay.style.setProperty('--motion-factor', mobile ? '0.82' : '1');
-
-    // Mantém o ciclo de vida alinhado ao término da explosão (sem polling/timers).
-    const animation = overlay.animate([{ opacity: 1 }, { opacity: 1 }], {
-      duration: mobile ? 3150 : 3850,
-      fill: 'both',
+      animations.push(
+        particle.animate(frames, {
+          duration: duration - 900 + (index % 3) * 140,
+          delay: Math.floor(index / 8) * 180 + (index % 4) * 70,
+          easing: 'cubic-bezier(0.15, 0.65, 0.3, 1)',
+          fill: 'both',
+        }),
+      );
     });
-    animation.onfinish = () => setSettled(true);
-
+    const seed = overlay.querySelector<HTMLElement>('.home-field-seed')!;
+    seed.style.left = center.x + 'px';
+    seed.style.top = center.y - 15 + 'px';
+    animations.push(
+      seed.animate(
+        [
+          { opacity: 0, offset: 0 },
+          { opacity: 0, offset: 0.25 },
+          { opacity: 0.25, offset: 0.6 },
+          { opacity: 0.65, offset: 1 },
+        ],
+        { duration, easing: 'ease-in-out', fill: 'both' },
+      ),
+    );
+    // One completion signal; no frame loop or polling timer.
+    const lifecycle = overlay.animate([{ opacity: 1 }, { opacity: 1 }], { duration });
+    lifecycle.onfinish = finish;
+    animations.push(lifecycle);
+    window.addEventListener('resize', finish);
+    window.addEventListener('scroll', finish, { passive: true, once: true });
+    reducedMotion.addEventListener('change', finish);
     return () => {
-      window.removeEventListener('resize', placeOrbitals);
-      animation.onfinish = null;
-      animation.cancel();
+      window.removeEventListener('resize', finish);
+      window.removeEventListener('scroll', finish);
+      reducedMotion.removeEventListener('change', finish);
+      lifecycle.onfinish = null;
+      animations.forEach((animation) => animation.cancel());
     };
   }, [settled]);
 
@@ -163,7 +168,7 @@ export default function HomeAtomEntrance() {
             data-testid="home-atom-orbitals"
             aria-hidden="true"
           >
-            <ArrivingOrbitals />
+            <ArrivingParticles />
           </div>,
           document.body,
         )}
