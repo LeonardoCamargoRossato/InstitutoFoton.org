@@ -3769,19 +3769,40 @@
     }
   }
   @media (max-width: 540px) {
-    .manifesto-form-stack { min-height: 277px; }
-    .manifesto-form-sheet { min-height: 225px; padding: 20px; }
-    .manifesto-form-sheet-top { margin: -20px -20px 18px; padding-inline: 20px; }
-    .manifesto-form-action { padding: 11px 14px; font-size: 0.76rem; }
-    .manifesto-participation { padding-block: 60px; }
+    .manifesto-form-stack {
+      min-height: 277px;
+    }
+    .manifesto-form-sheet {
+      min-height: 225px;
+      padding: 20px;
+    }
+    .manifesto-form-sheet-top {
+      margin: -20px -20px 18px;
+      padding-inline: 20px;
+    }
+    .manifesto-form-action {
+      padding: 11px 14px;
+      font-size: 0.76rem;
+    }
+    .manifesto-participation {
+      padding-block: 60px;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .manifesto-form-sheet, .manifesto-form-action { transition: none; }
+    .manifesto-form-sheet, .manifesto-form-action {
+      transition: none;
+    }
     .manifesto-form-link:hover .manifesto-form-sheet--front,
-    .manifesto-form-link:focus-visible .manifesto-form-sheet--front { transform: rotate(-5deg); }
+    .manifesto-form-link:focus-visible .manifesto-form-sheet--front {
+      transform: rotate(-5deg);
+    }
     .manifesto-form-link:hover .manifesto-form-sheet--back,
-    .manifesto-form-link:focus-visible .manifesto-form-sheet--back { transform: rotate(7deg); }
+    .manifesto-form-link:focus-visible .manifesto-form-sheet--back {
+      transform: rotate(7deg);
+    }
     .manifesto-form-link:hover .manifesto-form-action,
-    .manifesto-form-link:focus-visible .manifesto-form-action { transform: none; }
+    .manifesto-form-link:focus-visible .manifesto-form-action {
+      transform: none;
+    }
   }
 }
