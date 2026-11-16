@@ -159,7 +159,7 @@ test('quatro novas matérias têm fontes e não inventam fotos', async ({ page }
   for (const story of newStories) {
     const card = page.locator('.publication-card').filter({ hasText: story.title });
     await expect(card).toHaveCount(1);
-    await expect(card.locator('img')).toHaveCount(0);
+    await expect(card.locator('img')).toHaveCount(story.slug === 'foton-mobi-quantum-festival-2026' ? 1 : 0);
     await card.locator('a').click();
     await expect(page).toHaveURL(new RegExp('/noticias/' + story.slug + '$'));
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(story.title);
@@ -199,4 +199,19 @@ test('novas páginas de Notícias mantêm layout sem rolagem horizontal', async 
       expect(overflow, slug + ' ' + width).toBeLessThanOrEqual(1);
     }
   }
+});
+
+test('Mobi Quantum: seis imagens, navegação, ampliação e mobile', async ({ page }) => {
+  await page.goto('./noticias/foton-mobi-quantum-festival-2026');
+  const carousel = page.getByRole('region', { name: 'Carrossel de fotos do Mobi Quantum' });
+  await expect(carousel).toBeVisible();
+  await expect(carousel.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(6);
+  await expect(carousel.getByText('1 de 6')).toBeVisible();
+  await carousel.getByRole('button', { name: 'Próxima foto' }).click();
+  await expect(carousel.getByText('2 de 6')).toBeVisible();
+  await carousel.getByRole('button', { name: 'Ampliar foto 2 do Mobi Quantum' }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: /Fechar/i }).click();
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
