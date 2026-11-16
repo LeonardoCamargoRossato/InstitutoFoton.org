@@ -17,6 +17,10 @@ test('Manifesto hero mantém F de vidro, Brasil e título acessível', async ({ 
       'src',
       /05 - Manifesto\/Imagens do Manifesto\/PNG\/HeroManifestoFGlass\.png$/,
     );
+    await expect(hero.locator('picture > source')).toHaveAttribute(
+      'srcset',
+      /05 - Manifesto\/Imagens do Manifesto\/WebP\/HeroManifestoFGlass\.webp$/,
+    );
     await expect
       .poll(() => glass.evaluate((image) => (image as HTMLImageElement).naturalWidth))
       .toBeGreaterThan(0);
