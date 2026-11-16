@@ -32,7 +32,7 @@ test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', 
   await expect(page.locator('.home-hero img')).toHaveCount(1);
   await expect(page.locator('.home-network-center img')).toHaveAttribute(
     'src',
-    /assets\/WebP\/branding\/favicon\.webp$/,
+    /assets\/WebP\/branding\/Favicon\.webp$/,
   );
   await expect(page.locator('.home-hero .hero-identity')).toBeVisible();
   await expect(page.locator('.institutional-programs .research-card')).toHaveCount(4);
@@ -77,7 +77,7 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
   const third = page.locator('.gallery-track img').nth(2);
   await third.scrollIntoViewIfNeeded();
-  await expect(third).toHaveAttribute('src', /Visitas Técnicas\/WebP\/visita-03\.webp$/);
+  await expect(third).toHaveAttribute('src', /Visitas Técnicas\/WebP\/Visita03\.webp$/);
   await expect
     .poll(() => third.evaluate((img) => (img as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0);
@@ -86,7 +86,7 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /Visitas Técnicas\/PNG\/visita-03\.png$/,
+    /Visitas Técnicas\/PNG\/Visita03\.png$/,
   );
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
   await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
@@ -269,7 +269,7 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   const visitModal = page.getByRole('dialog', { name: 'Visita técnica 20' });
   await expect(visitModal.locator('img')).toHaveAttribute(
     'src',
-    /Visitas Técnicas\/PNG\/visita-20\.png$/,
+    /Visitas Técnicas\/PNG\/Visita20\.png$/,
   );
   await visitModal.getByRole('button', { name: 'Imagem anterior' }).click();
   await expect(page.getByRole('dialog', { name: 'Visita técnica 19' })).toBeVisible();
@@ -285,7 +285,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
     card.href = './contato';
     const preview = document.createElement('img');
     preview.alt = 'Imagem de teste do acervo do Instituto Foton';
-    preview.src = new URL('assets/WebP/visitas-tecnicas/visita-03.webp', document.baseURI).href;
+    preview.src = new URL('assets/WebP/visitas-tecnicas/Visita03.webp', document.baseURI).href;
     preview.width = 320;
     preview.height = 180;
     card.append(preview);
@@ -300,7 +300,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /\/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
+    /\/assets\/PNG\/visitas-tecnicas\/Visita03\.png$/,
   );
   await expect
     .poll(() => dialog.locator('img').evaluate((el) => (el as HTMLImageElement).naturalWidth))
@@ -314,7 +314,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
 test('logomarca carrega WebP e mantém navegação à Home', async ({ page }) => {
   await page.goto('./instituto');
   const logo = page.locator('.site-header .brand img');
-  await expect(logo).toHaveAttribute('src', /\/assets\/WebP\/branding\/foton-logo-light\.webp$/);
+  await expect(logo).toHaveAttribute('src', /\/assets\/WebP\/branding\/FotonLogoLight\.webp$/);
   await page.locator('.site-header .brand').click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();

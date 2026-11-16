@@ -11,8 +11,8 @@ const errors = [],
   duplicatePairs = [];
 const report = [];
 for (const item of inventory.items) {
-  const png = join(root, 'PNG', item.category, item.id + '.png');
-  const webp = join(root, 'WebP', item.category, item.id + '.webp');
+  const png = resolve('public', item.pngPath);
+  const webp = resolve('public', item.webpPath);
   try {
     const content = await readFile(png);
     const hash = createHash('sha256').update(content).digest('hex');

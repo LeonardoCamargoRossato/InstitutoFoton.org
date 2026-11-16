@@ -8,8 +8,8 @@ if (inventory.count !== 34 || inventory.items.length !== 34)
   throw Error('Inventário dos 34 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
 // Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
-expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp');
-expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-02.webp');
+expected.add('assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp');
+expected.add('assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp');
 // Fotografias institucionais autorizadas para o dashboard Nossa Equipe.
 const teamPhotos = [
   'FotoPerfilClaudioDias.webp',
@@ -33,7 +33,7 @@ const teamPhotos = [
 for (const name of teamPhotos) expected.add('assets/img-diretoria/' + name);
 // Nove pares documentais autorizados: capa e carrossel da fundação do Instituto.
 for (let number = 1; number <= 9; number++) {
-  const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
+  const name = 'ImgFundacaoFoton' + String(number).padStart(2, '0');
   expected.add('assets/WebP/instituto/fundacao/' + name + '.webp');
   expected.add('assets/PNG/instituto/fundacao/' + name + '.png');
 }
@@ -98,7 +98,7 @@ for (const media of newsMedia) {
 const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
 const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
   (number) =>
-    `assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/haquantum${number}.png`,
+    `assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum${number}.png`,
 );
 const photoPreviewPaths = photoPaths.map((path) =>
   path.replace('/PNG/', '/WebP/').replace(/\.png$/, '.webp'),
@@ -141,13 +141,13 @@ const teamRoot = instituteRoot + '02B - Nossa Equipe/WebP/';
 const manifestoImagesRoot = 'assets/05 - Manifesto/Imagens da Página/';
 
 for (let number = 1; number <= 2; number++) {
-  const name = 'apresentacao-foton-pagina-' + String(number).padStart(2, '0') + '.webp';
+  const name = 'ApresentacaoFotonPagina' + String(number).padStart(2, '0') + '.webp';
   const original = 'assets/WebP/apresentacao/' + name;
   const copy = 'assets/01 - Início/Apresentação/WebP/' + name;
   approveMirror(original, copy);
 }
 for (let number = 1; number <= 9; number++) {
-  const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
+  const name = 'ImgFundacaoFoton' + String(number).padStart(2, '0');
   for (const [format, ext] of [
     ['PNG', 'png'],
     ['WebP', 'webp'],
@@ -158,7 +158,7 @@ for (let number = 1; number <= 9; number++) {
   }
 }
 for (let number = 1; number <= 20; number++) {
-  const name = 'visita-' + String(number).padStart(2, '0');
+  const name = 'Visita' + String(number).padStart(2, '0');
   for (const [format, ext] of [
     ['PNG', 'png'],
     ['WebP', 'webp'],
@@ -176,8 +176,8 @@ for (const [format, ext] of [
   ['WebP', 'webp'],
 ]) {
   for (const item of inventory.items.filter((item) => item.category === 'manifesto-quantico')) {
-    const original = `assets/${format}/manifesto-quantico/${item.id}.${ext}`;
-    const copy = `${manifestoImagesRoot}${format}/${item.id}.${ext}`;
+    const original = format === 'PNG' ? item.pngPath : item.webpPath;
+    const copy = `${manifestoImagesRoot}${format}/${original.split('/').at(-1)}`;
     approveMirror(original, copy);
   }
 }
@@ -194,14 +194,14 @@ for (const [format, extension] of [
 // Apoie a Ciência: somente as três duplas já catalogadas.
 const supportRoot = 'assets/08 - Apoie a Ciência/Imagens de Apoio/';
 for (const asset of inventory.items.filter((item) => item.category === 'apoie')) {
-  approveMirror(asset.pngPath, supportRoot + 'PNG/' + asset.id + '.png');
-  approveMirror(asset.webpPath, supportRoot + 'WebP/' + asset.id + '.webp');
+  approveMirror(asset.pngPath, supportRoot + 'PNG/' + asset.pngPath.split('/').at(-1));
+  approveMirror(asset.webpPath, supportRoot + 'WebP/' + asset.webpPath.split('/').at(-1));
 }
 // Identidade Visual: marcas raster e a animação SVG efetivamente aprovada.
 const brandRoot = 'assets/09 - Identidade Visual/';
 for (const asset of inventory.items.filter((item) => item.category === 'branding')) {
-  approveMirror(asset.pngPath, brandRoot + 'PNG/' + asset.id + '.png');
-  approveMirror(asset.webpPath, brandRoot + 'WebP/' + asset.id + '.webp');
+  approveMirror(asset.pngPath, brandRoot + 'PNG/' + asset.pngPath.split('/').at(-1));
+  approveMirror(asset.webpPath, brandRoot + 'WebP/' + asset.webpPath.split('/').at(-1));
 }
 expected.add('assets/AnimacaoIdentidadeFoton.svg');
 approveMirror(

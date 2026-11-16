@@ -52,6 +52,8 @@ for (const fmt of ['PNG', 'WebP'])
     await mkdir(p, { recursive: true });
     await writeFile(join(p, '.gitkeep'), '');
   }
+const assetFileStem = (id) =>
+  id.replace(/(?:^|[^A-Za-z0-9])([A-Za-z0-9])/g, (_match, letter) => letter.toUpperCase());
 async function add(id, original, webp, cat, kind) {
   const src = join(source, original),
     preview = join(root, 'public/images/webp', webp);
@@ -59,8 +61,8 @@ async function add(id, original, webp, cat, kind) {
   if (!a.size || !b.size) throw Error('Fonte vazia: ' + original);
   const info = await sharp(src, { failOn: 'error' }).metadata();
   if (!info.width || !info.height) throw Error('Dimensões inválidas: ' + original);
-  const png = join(dest, 'PNG', cat, id + '.png'),
-    wp = join(dest, 'WebP', cat, id + '.webp');
+  const png = join(dest, 'PNG', cat, assetFileStem(id) + '.png'),
+    wp = join(dest, 'WebP', cat, assetFileStem(id) + '.webp');
   const extension = extname(original).toLowerCase();
   if (extension === '.png') await copyFile(src, png);
   else await sharp(src, { failOn: 'error' }).rotate().png({ compressionLevel: 9 }).toFile(png);
@@ -75,8 +77,8 @@ async function add(id, original, webp, cat, kind) {
     width: info.width,
     height: info.height,
     hasAlpha: !!info.hasAlpha,
-    pngPath: 'assets/PNG/' + cat + '/' + id + '.png',
-    webpPath: 'assets/WebP/' + cat + '/' + id + '.webp',
+    pngPath: 'assets/PNG/' + cat + '/' + assetFileStem(id) + '.png',
+    webpPath: 'assets/WebP/' + cat + '/' + assetFileStem(id) + '.webp',
     originalBytes: a.size,
     webpBytes: b.size,
   });

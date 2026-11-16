@@ -180,11 +180,11 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   const cartaNorte = page.locator('.regional-letter').nth(1).locator('.manifesto-image img');
   await expect(cartaNorte).toHaveAttribute(
     'src',
-    /05 - Manifesto\/Imagens da Página\/WebP\/Thumb_CartaNorte\.webp$/,
+    /05 - Manifesto\/Imagens da Página\/WebP\/ThumbCartaNorte\.webp$/,
   );
   await expect(cartaNorte).toHaveAttribute(
     'data-full-image',
-    /05 - Manifesto\/Imagens da Página\/PNG\/Thumb_CartaNorte\.png$/,
+    /05 - Manifesto\/Imagens da Página\/PNG\/ThumbCartaNorte\.png$/,
   );
 
   const alesp = page.getByRole('button', {

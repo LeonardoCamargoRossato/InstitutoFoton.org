@@ -13,24 +13,6 @@ jobs:
         working-directory: code
     steps:
       - uses: actions/checkout@v4
-      - name: Exportar fontes para auditoria LCR Naming
-        uses: actions/upload-artifact@v4
-        with:
-          name: lcr-naming-source
-          path: |
-            code/src/
-            code/scripts/
-            code/tests/
-            code/index.html
-            code/vite.config.ts
-            code/package.json
-            code/package-lock.json
-            code/tsconfig.json
-            code/playwright.config.ts
-            code/public/index.html
-            documentation/
-          retention-days: 1
-          if-no-files-found: warn
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

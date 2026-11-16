@@ -65,6 +65,9 @@ const categoryOf = (id: string) =>
             ? 'pesquisa'
             : 'institucional';
 
+const assetFileStem = (id: string) =>
+  id.replace(/(?:^|[^A-Za-z0-9])([A-Za-z0-9])/g, (_match, letter: string) => letter.toUpperCase());
+
 const illustrativeEntries = Object.entries(PHOTO_LIBRARY).map(([id, entry]) => {
   const category = categoryOf(id);
   const mobileId =
@@ -77,8 +80,8 @@ const illustrativeEntries = Object.entries(PHOTO_LIBRARY).map(([id, entry]) => {
     section: entry.section,
     category,
     sourceType: 'ai-illustration',
-    pngPath: 'assets/PNG/' + category + '/' + id + '.png',
-    webpPath: 'assets/WebP/' + category + '/' + id + '.webp',
+    pngPath: 'assets/PNG/' + category + '/' + assetFileStem(id) + '.png',
+    webpPath: 'assets/WebP/' + category + '/' + assetFileStem(id) + '.webp',
     alt: entry.alt,
     width: entry.width,
     height: entry.height,
@@ -97,8 +100,8 @@ const visits = Array.from({ length: 20 }, (_, i) => {
       section: 'Visitas técnicas',
       category: 'visitas-tecnicas',
       sourceType: 'documentary' as const,
-      pngPath: visitsRoot + 'PNG/' + id + '.png',
-      webpPath: visitsRoot + 'WebP/' + id + '.webp',
+      pngPath: visitsRoot + 'PNG/' + assetFileStem(id) + '.png',
+      webpPath: visitsRoot + 'WebP/' + assetFileStem(id) + '.webp',
       alt: 'Visita técnica ' + String(i + 1).padStart(2, '0') + ' do acervo do Instituto Foton.',
       width: 1920,
       height: 1080,
@@ -126,8 +129,8 @@ const manifestoEntries = manifesto.map(
         section: 'Cartas e metodologia',
         category: 'manifesto-quantico',
         sourceType: 'documentary' as const,
-        pngPath: manifestoRoot + 'PNG/' + id + '.png',
-        webpPath: manifestoRoot + 'WebP/' + id + '.webp',
+        pngPath: manifestoRoot + 'PNG/' + assetFileStem(id) + '.png',
+        webpPath: manifestoRoot + 'WebP/' + assetFileStem(id) + '.webp',
         alt: id.replace(/_/g, ' '),
         width,
         height,
@@ -149,8 +152,8 @@ const branding = brands.map(
         section: 'Identidade visual',
         category: 'branding',
         sourceType: 'brand' as const,
-        pngPath: 'assets/PNG/branding/' + id + '.png',
-        webpPath: 'assets/WebP/branding/' + id + '.webp',
+        pngPath: 'assets/PNG/branding/' + assetFileStem(id) + '.png',
+        webpPath: 'assets/WebP/branding/' + assetFileStem(id) + '.webp',
         alt: 'Marca Instituto Foton',
         width,
         height,
@@ -172,8 +175,8 @@ export const SITE_ASSETS: Record<string, SiteAsset> = Object.fromEntries([
         section: entry.section,
         category,
         sourceType: 'ai-illustration' as const,
-        pngPath: 'assets/PNG/' + category + '/' + id + '.png',
-        webpPath: 'assets/WebP/' + category + '/' + id + '.webp',
+        pngPath: 'assets/PNG/' + category + '/' + assetFileStem(id) + '.png',
+        webpPath: 'assets/WebP/' + category + '/' + assetFileStem(id) + '.webp',
         alt: entry.alt,
         width: entry.width,
         height: entry.height,

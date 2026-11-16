@@ -142,8 +142,8 @@ test('HaQuantum tem registro histórico, WebP no carrossel, PNG no zoom e regula
   const last = gallery.getByRole('button', { name: /^Ampliar foto 8\./ });
   await last.click();
   const dialog = page.getByRole('dialog', { name: 'HaQuantum · Foto 8' });
-  await expect(dialog.getByRole('img')).toHaveAttribute('src', /\/haquantum9\.png$/);
-  await expect.poll(() => pngRequests.some((url) => url.endsWith('/haquantum9.png'))).toBe(true);
+  await expect(dialog.getByRole('img')).toHaveAttribute('src', /\/HaQuantum9\.png$/);
+  await expect.poll(() => pngRequests.some((url) => url.endsWith('/HaQuantum9.png'))).toBe(true);
   await expect(dialog.getByRole('img')).toHaveJSProperty('naturalWidth', 960);
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
   await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
