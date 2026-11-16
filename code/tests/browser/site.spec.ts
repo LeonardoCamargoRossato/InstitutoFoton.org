@@ -291,3 +291,30 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
     }
   }
 });
+
+
+test('manifesto: formulário oficial no início e no fim, acessível em desktop e mobile', async ({
+  page,
+}) => {
+  const url =
+    'https://docs.google.com/forms/d/e/1FAIpQLSeYr2fuajfrVqG4fnEH4Gitja26eao_7hf7ybqRWfB98pgNgg/viewform';
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('./manifesto');
+    const sections = page.locator('.manifesto-participation');
+    await expect(sections).toHaveCount(2);
+    await expect(sections.first().getByRole('heading', { name: /Venha contribuir/i })).toBeVisible();
+    await expect(sections.last().getByRole('heading', { name: /Venha contribuir/i })).toBeVisible();
+    const links = page.getByRole('link', { name: /Responder ao formulário de contribuição/i });
+    await expect(links).toHaveCount(2);
+    for (const link of await links.all()) {
+      await expect(link).toHaveAttribute('href', url);
+      await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', /noopener noreferrer/);
+    }
+    await expect(page.getByText(/5 a 10 minutos \(estimativa\)/)).toHaveCount(2);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await links.first().focus();
+    await expect(links.first()).toBeFocused();
+  }
+});
