@@ -12,15 +12,21 @@ const paths = execFileSync(
 )
   .split('\0')
   .filter(Boolean);
-const forbiddenFiles = paths.filter(
-  (p) => /(^|\/)\.env(?:\.|$)/.test(p) && !p.endsWith('.env.example'),
+const forbiddenFiles = paths.filter((p) =>
+  (/^privado\//i.test(p) ||
+    /^documentation\/private\//i.test(p) ||
+    /^Documentation\//.test(p) ||
+    /(^|\/)\.env(?:\.|$)/.test(p) ||
+    /(^|\/)(?:id_rsa|id_ed25519|credentials\.json|service-account\.json|kubeconfig|\.npmrc|\.pypirc)$/i.test(p) ||
+    /\.(?:pem|p12|pfx|keystore|jks|kdbx|dump|sql\.gz)$/i.test(p)) &&
+  !p.endsWith('.env.example'),
 );
 const hits = [];
 for (const path of paths) {
   if (!/\.(?:[cm]?[jt]sx?|json|md|ya?ml|html|css|sql|example)$/.test(path)) continue;
   const text = await readFile(join(repoRoot, path), 'utf8');
   let suspicious =
-    /\b(?:sb_secret_[A-Za-z0-9_-]{15,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{30,}|sk-[A-Za-z0-9_-]{25,})\b/.test(
+    /\b(?:sb_secret_[A-Za-z0-9_-]{15,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{30,}|sk-[A-Za-z0-9_-]{25,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{30,})\b/.test(
       text,
     ) || /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/.test(text);
   for (const jwt of text.matchAll(/\beyJ[A-Za-z0-9_-]+\.([A-Za-z0-9_-]+)\.[A-Za-z0-9_-]+/g)) {
@@ -34,10 +40,7 @@ for (const path of paths) {
   if (suspicious) hits.push(path);
 }
 if (forbiddenFiles.length || hits.length) {
-  console.error('Revisão necessária; somente nomes de arquivos são exibidos:', [
-    ...forbiddenFiles,
-    ...hits,
-  ]);
+  console.error('Revisão de segurança necessária:', { arquivosRestritos: forbiddenFiles.length, arquivosComCredenciais: hits.length });
   process.exit(1);
 }
 console.log(

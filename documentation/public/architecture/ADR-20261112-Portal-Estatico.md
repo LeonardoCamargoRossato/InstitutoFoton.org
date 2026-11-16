@@ -1,18 +1,17 @@
-# ADR — Suspensão temporária do backend do portal, 12/11/2026
+# ADR — Arquitetura estática do portal institucional
 
-**Status:** proposta implementada em branch; requer Auditor Quality & Security e aprovação humana.
+**Decisão:** 12/11/2026. **Estado:** adotada no portal público (revisão de 16/11/2026).
 
 ## Contexto
-Antes: GitHub Pages + consultas públicas, autenticação e arquivos do Supabase. Desenvolvimento do site institucional prioriza disponibilidade estática, desempenho, integridade editorial e manutenção simples.
+
+O portal institucional precisa apresentar informações verificáveis, com navegação acessível, boa disponibilidade e manutenção rastreável.
 
 ## Decisão
-Renderizar o portal exclusivamente a partir de arquivos e catálogos locais versionados no GitHub Pages. Imagens WebP para preview e PNG para zoom. Manter PDF aprovado em /documents. Desativar temporariamente autenticação, painel e callback operacional. Preservar migrações e seed de banco como legado não utilizado. Nenhum projeto, bucket, conta ou tabela é excluído.
 
-## Consequências
-Notícias e relatórios institucionais cuja publicação só foi registrada no banco não são considerados migrados: catálogo local vazio até exportação e aprovação. Textos oficiais devem vir de fontes verificáveis no repositório; não inventar missão e visão. Estáticos não fornecem atualização editorial automática nem login.
+Manter a experiência pública em **React, TypeScript e Vite**, com arquivos de conteúdo e mídias aprovadas publicados no **GitHub Pages**. O site institucional não exige login de visitantes ou banco de dados em tempo de execução.
 
-## Retorno ao Supabase
-Somente após nova decisão humana, revisão de permissões, inventário completo do Storage e dos documentos, implementação em branch nova, testes RLS/Auth e auditoria independente. Não reutilizar sem revisão chaves antigas. Arquivos administrativos privados devem ficar fora do repositório público.
+## Justificativa e consequências
 
-## Limitações
-Exportação visual de 49 arquivos públicos não equivale a inventário integral de buckets ou documentos. documentation/private é publicamente acessível. Esta ADR não contém segredos ou acesso operacional.
+Uma arquitetura estática simplifica a revisão editorial e permite validação automatizada das alterações antes da publicação. Atualizações exigem revisão de conteúdo, arquivos e novo deploy. Funcionalidades que dependam de dados privados ou processamento dinâmico requerem decisão técnica própria.
+
+O histórico operacional, as validações técnicas detalhadas e os procedimentos de infraestrutura foram preservados integralmente em ambiente privado autorizado, separados deste documento resumido.

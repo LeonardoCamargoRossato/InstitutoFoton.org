@@ -1,10 +1,9 @@
-# Documentação — Instituto Foton
+# Documentação do Instituto Foton
 
-A documentação está organizada por classificação, dentro deste repositório **público**.
+Este repositório contém **somente documentação autorizada para divulgação**. Os documentos públicos podem ser consultados em [documentation/public/](public/README.md).
 
-- [`public/`](public/README.md): materiais institucionais publicáveis.
-- [`private/`](private/README.md): documentos técnicos legados, classificados para acesso interno futuro, **atualmente públicos no GitHub**.
+Documentos operacionais, históricos e registros de auditoria são mantidos **fora do GitHub**, em armazenamento institucional separado com acesso autorizado.
 
-**Atenção:** o nome `private` não restringe acesso ao conteúdo deste repositório. Consulte [os documentos técnicos legados](private/docs/) sabendo que seus arquivos continuam públicos. Confidencialidade real exige um repositório privado ou Google Drive institucional com permissões verificadas.
+O nome de uma pasta não confere sigilo. Materiais internos não devem ser publicados nem temporariamente em branches, comentários, logs ou artefatos.
 
-A aplicação e seus testes estão em `code/`. O antigo diretório `docs/` foi incorporado a `documentation/private/docs/` preservando o conteúdo e os blobs Git, sem alterar o código de produção. A migração segura definitiva continua pendente.
+O [portal do Instituto Foton](https://leonardocamargorossato.github.io/InstitutoFoton.org/) contém as informações institucionais aprovadas.
