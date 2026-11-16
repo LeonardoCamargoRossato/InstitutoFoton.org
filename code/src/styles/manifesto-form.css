@@ -183,7 +183,9 @@
     font-size: 0.86rem;
     font-weight: 700;
     box-shadow: 0 10px 22px rgba(7, 44, 123, 0.22);
-    transition: background 200ms ease, transform 200ms ease;
+    transition:
+      background 200ms ease,
+      transform 200ms ease;
   }
 
   .manifesto-form-caption {
