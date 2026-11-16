@@ -153,6 +153,12 @@
     filter: blur(28px);
   }
 
+  .manifesto-hero-picture {
+    display: grid;
+    place-items: center;
+    width: 100%;
+  }
+
   .manifesto-hero-glass-f {
     display: block;
     width: min(100%, 550px);
