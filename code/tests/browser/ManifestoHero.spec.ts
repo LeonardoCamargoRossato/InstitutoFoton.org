@@ -8,9 +8,7 @@ test('Manifesto hero mantém F de vidro, Brasil e título acessível', async ({ 
     await page.goto('./manifesto');
     const hero = page.locator('.manifesto-hero');
     await expect(hero).toBeVisible();
-    await expect(hero.getByRole('heading', { level: 1 })).toContainText(
-      'Quântico Nacional',
-    );
+    await expect(hero.getByRole('heading', { level: 1 })).toContainText('Quântico Nacional');
     await expect(hero.locator('.manifesto-hero-brazil path').first()).toBeAttached();
     const glass = hero.locator('img.manifesto-hero-glass-f');
     await expect(glass).toHaveAttribute(
