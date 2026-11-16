@@ -4,12 +4,12 @@ import { createHash } from 'node:crypto';
 
 const dist = resolve('dist');
 const inventory = JSON.parse(await readFile('scripts/data/asset-inventory.json', 'utf8'));
-if (inventory.count !== 49 || inventory.items.length !== 49)
-  throw Error('Inventário dos 49 pares ausente');
+if (inventory.count !== 34 || inventory.items.length !== 34)
+  throw Error('Inventário dos 34 pares ausente');
 const expected = new Set(inventory.items.flatMap((i) => [i.pngPath, i.webpPath]));
 // Pré-visualizações autorizadas: primeiras duas páginas do PDF institucional público.
-expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp');
-expected.add('assets/WebP/apresentacao/apresentacao-foton-pagina-02.webp');
+expected.add('assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp');
+expected.add('assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp');
 // Fotografias institucionais autorizadas para o dashboard Nossa Equipe.
 const teamPhotos = [
   'FotoPerfilClaudioDias.webp',
@@ -33,19 +33,16 @@ const teamPhotos = [
 for (const name of teamPhotos) expected.add('assets/img-diretoria/' + name);
 // Nove pares documentais autorizados: capa e carrossel da fundação do Instituto.
 for (let number = 1; number <= 9; number++) {
-  const name = 'Img-Fundacao-Foton-' + String(number).padStart(2, '0');
+  const name = 'ImgFundacaoFoton' + String(number).padStart(2, '0');
   expected.add('assets/WebP/instituto/fundacao/' + name + '.webp');
   expected.add('assets/PNG/instituto/fundacao/' + name + '.png');
 }
 const partnerSnapshot = JSON.parse(await readFile('src/content/partners.json', 'utf8'));
 const logoFilenames = JSON.parse(await readFile('scripts/data/partner-logo-names.json', 'utf8'));
+const partnerAssetRoot = 'assets/03 - Ecossistema de Parceiros/Logos dos Parceiros';
 const svgNames = new Set();
 const groupCounts = new Map();
 if (partnerSnapshot.length !== 31) throw Error('Exatamente 31 parceiros SVG são obrigatórios');
-for (const legacy of Object.values(logoFilenames)) {
-  expected.add('assets/PNG/parceiros/' + legacy + '.png');
-  expected.add('assets/WebP/parceiros/' + legacy + '.webp');
-}
 for (const partner of partnerSnapshot) {
   if (partner.status !== 'publicado' || partner.locale !== 'pt-br')
     throw Error('Parceiro não publicado na seleção pública: ' + partner.id);
@@ -60,8 +57,7 @@ for (const partner of partnerSnapshot) {
       throw Error('Logo SVG diverge do cadastro: ' + partner.id);
     svgNames.add(filename + '.svg');
     groupCounts.set(partner.partner_tier, (groupCounts.get(partner.partner_tier) || 0) + 1);
-    expected.add('assets/img-logos-parceiros-foton/assets-svg/' + filename + '.svg');
-    expected.add('assets/img-logos-parceiros-foton/display-svg/' + filename + '.svg');
+    expected.add(partnerAssetRoot + '/SVG/assets-svg/' + filename + '.svg');
   }
 }
 
@@ -72,57 +68,144 @@ const expectedGroups = [
   ['Empresas Parceiras', 9],
 ];
 if (
-  expected.size !== 98 + 64 + 31 + 31 + 2 + teamPhotos.length + 18 ||
+  expected.size !== inventory.count * 2 + 31 + 2 + teamPhotos.length + 18 ||
   svgNames.size !== 31 ||
   expectedGroups.some(([group, n]) => groupCounts.get(group) !== n) ||
   groupCounts.size !== 4
 )
   throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
-// Derivados precisam corresponder exatamente aos 31 SVGs aprovados.
-const displayReport = JSON.parse(
-  await readFile('scripts/data/partner-svg-display-report.json', 'utf8'),
-);
-const displayFiles = new Set(displayReport.records.map((record) => record.file));
-if (
-  displayReport.count !== 31 ||
-  displayReport.records.length !== 31 ||
-  displayFiles.size !== 31 ||
-  [...svgNames].some((filename) => !displayFiles.has(filename)) ||
-  displayReport.sourceBytes <= displayReport.displayBytes
-) {
-  throw Error('Derivados SVG devem ter exatamente 31 correspondências aprovadas e ser mais leves');
-}
-const slideAsset =
-  'assets/img-logos-parceiros-foton/EcossistemasEParceirosSlideApresentacaoInstitucionalFoton.svg';
-expected.add(slideAsset);
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
-if (newsMedia.length !== 19 || new Set(newsMedia.map((m) => m.original)).size !== 19)
-  throw Error('Inventário de notícias deve conter 19 imagens distintas');
+const newsFolders = {
+  softsul: '01-Foton-SOFTSUL',
+  'assespro-rs': '03-Foton-Assespro-RS',
+  cubotech: '04-Seminario-CUBOTECH',
+};
+if (newsMedia.length !== 4 || new Set(newsMedia.map((m) => m.original)).size !== 4)
+  throw Error('Inventário de notícias deve conter 4 imagens distintas');
 for (const media of newsMedia) {
+  const folder = newsFolders[media.group];
+  const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
   if (
-    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.(jpg|png)$/.test(
-      media.original,
-    ) ||
-    !/^assets\/noticias\/(softsul|assespro-rs|cubotech)\/[A-Za-z0-9]+\.webp$/.test(media.preview) ||
-    media.original.replace(/\.(jpg|png)$/, '.webp') !== media.preview
+    !folder ||
+    !/^[A-Za-z0-9]+\.png$/.test(media.name) ||
+    media.original !== prefix + 'PNG/' + media.name ||
+    media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp')
   )
-    throw Error('Nome de imagem de notícia inválido');
+    throw Error('Caminho de imagem de notícia não padronizado: ' + media.name);
   expected.add(media.original);
   expected.add(media.preview);
 }
 const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
 const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
-  (number) => `assets/img-haquantum/HaQuantum${String(number).padStart(2, '0')}.jpg`,
+  (number) =>
+    `assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum${number}.png`,
+);
+const photoPreviewPaths = photoPaths.map((path) =>
+  path.replace('/PNG/', '/WebP/').replace(/\.png$/, '.webp'),
 );
 if (
   researchMedia.haquantum.map(({ path }) => path).join() !== photoPaths.join() ||
-  researchMedia.pulso.path !== 'assets/img-jornada/EtapaPulsoYouTube.jpg'
+  researchMedia.haquantum.map(({ previewPath }) => previewPath).join() !==
+    photoPreviewPaths.join() ||
+  researchMedia.pulso.path !==
+    'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/EtapaPulsoYouTube.png' ||
+  researchMedia.pulso.previewPath !==
+    'assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/WebP/EtapaPulsoYouTube.webp'
 ) {
   throw Error('Sequência de fotografias do HaQuantum ou miniatura da Etapa Pulso divergente');
 }
-const eventMedia = new Map(
-  [researchMedia.pulso, ...researchMedia.haquantum].map(({ path, sha256 }) => [path, sha256]),
+const eventMedia = new Map([
+  ...[researchMedia.pulso, ...researchMedia.haquantum].map(({ path, sha256 }) => [path, sha256]),
+  ...researchMedia.haquantum.map(({ previewPath, previewSha256 }) => [previewPath, previewSha256]),
+]);
+if (eventMedia.size !== 17 || [...eventMedia.values()].some((hash) => !/^[a-f0-9]{64}$/.test(hash)))
+  throw Error('As oito prévias WebP da galeria devem ter SHA-256 válido');
+for (const path of photoPreviewPaths) expected.add(path);
+const pulsoWebp = researchMedia.pulso.previewPath;
+expected.add(pulsoWebp);
+// Cópias de organização por aba mantidas na branch durante a migração Drive → GitHub.
+// Cada cópia só é permitida se seu arquivo canônico estiver autorizado e tiver bytes idênticos.
+const mirroredAssets = new Map();
+function approveMirror(source, mirror) {
+  if (!expected.has(source) || mirroredAssets.has(mirror)) {
+    throw Error('Espelho de asset não autorizado: ' + mirror);
+  }
+  expected.add(mirror);
+  mirroredAssets.set(mirror, source);
+}
+const instituteRoot = 'assets/02 - O Instituto/';
+const instituteInfo = instituteRoot + '02A - Conheça o Instituto/';
+const foundationRoot = instituteInfo + 'Fundação do Instituto Foton/';
+const visitsRoot = instituteInfo + 'Visitas Técnicas/';
+const teamRoot = instituteRoot + '02B - Nossa Equipe/WebP/';
+const manifestoImagesRoot = 'assets/05 - Manifesto/Imagens da Página/';
+
+for (let number = 1; number <= 2; number++) {
+  const name = 'ApresentacaoFotonPagina' + String(number).padStart(2, '0') + '.webp';
+  const original = 'assets/WebP/apresentacao/' + name;
+  const copy = 'assets/01 - Início/Apresentação/WebP/' + name;
+  approveMirror(original, copy);
+}
+for (let number = 1; number <= 9; number++) {
+  const name = 'ImgFundacaoFoton' + String(number).padStart(2, '0');
+  for (const [format, ext] of [
+    ['PNG', 'png'],
+    ['WebP', 'webp'],
+  ]) {
+    const original = `assets/${format}/instituto/fundacao/${name}.${ext}`;
+    const copy = `${foundationRoot}${format}/${name}.${ext}`;
+    approveMirror(original, copy);
+  }
+}
+for (let number = 1; number <= 20; number++) {
+  const name = 'Visita' + String(number).padStart(2, '0');
+  for (const [format, ext] of [
+    ['PNG', 'png'],
+    ['WebP', 'webp'],
+  ]) {
+    const original = `assets/${format}/visitas-tecnicas/${name}.${ext}`;
+    const copy = `${visitsRoot}${format}/${name}.${ext}`;
+    approveMirror(original, copy);
+  }
+}
+for (const name of teamPhotos) {
+  approveMirror('assets/img-diretoria/' + name, teamRoot + name);
+}
+for (const format of ['PNG', 'WebP']) {
+  for (const item of inventory.items.filter((item) => item.category === 'manifesto-quantico')) {
+    const original = format === 'PNG' ? item.pngPath : item.webpPath;
+    const copy = `${manifestoImagesRoot}${format}/${original.split('/').at(-1)}`;
+    approveMirror(original, copy);
+  }
+}
+// Registro documental da inauguração do Manifesto Quântico Nacional, em PNG e WebP.
+const inaugurationRoot = 'assets/05 - Manifesto/Imagens do Manifesto/';
+for (const [format, extension] of [
+  ['PNG', 'png'],
+  ['WebP', 'webp'],
+]) {
+  expected.add(
+    inaugurationRoot + format + '/InauguracaoManifestoQuanticoFotonSaoPessoas.' + extension,
+  );
+}
+// Apoie a Ciência: somente as três duplas já catalogadas.
+const supportRoot = 'assets/08 - Apoie a Ciência/Imagens de Apoio/';
+for (const asset of inventory.items.filter((item) => item.category === 'apoie')) {
+  approveMirror(asset.pngPath, supportRoot + 'PNG/' + asset.pngPath.split('/').at(-1));
+  approveMirror(asset.webpPath, supportRoot + 'WebP/' + asset.webpPath.split('/').at(-1));
+}
+// Identidade Visual: marcas raster e a animação SVG efetivamente aprovada.
+const brandRoot = 'assets/09 - Identidade Visual/';
+for (const asset of inventory.items.filter((item) => item.category === 'branding')) {
+  approveMirror(asset.pngPath, brandRoot + 'PNG/' + asset.pngPath.split('/').at(-1));
+  approveMirror(asset.webpPath, brandRoot + 'WebP/' + asset.webpPath.split('/').at(-1));
+}
+expected.add('assets/AnimacaoIdentidadeFoton.svg');
+approveMirror(
+  'assets/AnimacaoIdentidadeFoton.svg',
+  'assets/09 - Identidade Visual/SVG/AnimacaoIdentidadeFoton.svg',
 );
+if (mirroredAssets.size !== 106) throw Error('Espelhos de assets esperados: 106');
 const researchLines = JSON.parse(await readFile('src/content/research-lines.json', 'utf8'));
 const routeDirectories = new Set([
   'instituto',
@@ -222,11 +305,16 @@ async function walk(dir, prefix = '') {
       violations.push('image not inventoried ' + rel);
     else if (top === 'assets' && parts[1] === 'noticias' && !expected.has(rel))
       violations.push('noticia sem inventário ' + rel);
-    else if (top === 'assets' && parts[1] === 'img-logos-parceiros-foton' && !expected.has(rel))
+    else if (
+      top === 'assets' &&
+      parts[1] === '03 - Ecossistema de Parceiros' &&
+      parts[3] === 'SVG' &&
+      !expected.has(rel)
+    )
       violations.push('SVG não autorizado ' + rel);
     else if (
       top === 'assets' &&
-      !['PNG', 'WebP', 'img-logos-parceiros-foton', 'noticias'].includes(parts[1]) &&
+      !['PNG', 'WebP', '03 - Ecossistema de Parceiros', 'noticias'].includes(parts[1]) &&
       !expected.has(rel) &&
       !eventMedia.has(rel) &&
       !/^assets\/[^/]+\.(?:js|mjs|css|woff2?|ttf|svg)$/i.test(rel)
@@ -261,6 +349,21 @@ for (const [path, hash] of eventMedia) {
       .digest('hex') !== hash
   )
     violations.push('event image differs from original ' + path);
+}
+if (seen.has(pulsoWebp)) {
+  const header = await readFile(join(dist, pulsoWebp));
+  if (header.toString('ascii', 0, 4) !== 'RIFF' || header.toString('ascii', 8, 12) !== 'WEBP') {
+    violations.push('miniatura da Etapa Pulso não é um WebP válido');
+  }
+}
+for (const [mirror, source] of mirroredAssets) {
+  if (seen.has(mirror) && seen.has(source)) {
+    const [original, copy] = await Promise.all([
+      readFile(join(dist, source)),
+      readFile(join(dist, mirror)),
+    ]);
+    if (!original.equals(copy)) violations.push('mirror differs from canonical asset ' + mirror);
+  }
 }
 if (!seen.has('index.html')) violations.push('missing index');
 for (const a of expected) {

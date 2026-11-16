@@ -86,7 +86,7 @@ function FotonNetwork({
         <circle cx="50" cy="50" r="2.3" />
       </svg>
       <div className="home-network-center">
-        <img src={assetUrl('assets/WebP/branding/favicon.webp')} alt="" width="60" height="68" />
+        <img src={assetUrl('assets/WebP/branding/Favicon.webp')} alt="" width="60" height="68" />
         <strong>Foton</strong>
       </div>
       {fronts.map(({ id, label, Icon }) => (

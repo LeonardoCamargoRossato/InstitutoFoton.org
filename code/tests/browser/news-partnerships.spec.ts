@@ -11,7 +11,7 @@ const stories = [
   {
     slug: 'foton-assespro-rs-termo-cooperacao',
     name: 'Assespro-RS',
-    original: 'ParceriaFotonAssesproRS.jpg',
+    original: 'ParceriaFotonAssesproRS.png',
     preview: 'ParceriaFotonAssesproRS.webp',
     photos: 1,
   },
@@ -44,7 +44,7 @@ test('imagens de notícias usam WebP inicialmente e originais apenas na ampliaç
   for (const story of stories) {
     const originalRequests: string[] = [];
     const onRequest = (request: { url: () => string }) => {
-      if (request.url().includes('/assets/noticias/') && request.url().endsWith(story.original)) {
+      if (request.url().includes('/assets/') && request.url().endsWith(story.original)) {
         originalRequests.push(request.url());
       }
     };
@@ -63,6 +63,55 @@ test('imagens de notícias usam WebP inicialmente e originais apenas na ampliaç
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     page.off('request', onRequest);
+  }
+});
+
+test('quatro imagens de notícias: WebP na página, PNG no zoom', async ({ page }) => {
+  const galleries = [
+    {
+      slug: 'foton-softsul-cooperacao-tecnologias-quanticas',
+      folder: '01-Foton-SOFTSUL',
+      names: ['AcordoFotonSoftsul', 'FotonSoftsulAcervo20250314WA0021'],
+      widths: [1024, 1280],
+    },
+    {
+      slug: 'foton-assespro-rs-termo-cooperacao',
+      folder: '03-Foton-Assespro-RS',
+      names: ['ParceriaFotonAssesproRS'],
+      widths: [1207],
+    },
+    {
+      slug: 'seminario-cubotech-direito-computacao-quantica',
+      folder: '04-Seminario-CUBOTECH',
+      names: ['SeminarioCubotechDireitoComputacaoQuantica'],
+      widths: [3780],
+    },
+  ];
+
+  for (const gallery of galleries) {
+    await page.goto('./noticias/' + gallery.slug);
+    const photos = page.locator('.news-media-photo');
+    await expect(photos).toHaveCount(gallery.names.length);
+    for (const [index, name] of gallery.names.entries()) {
+      const image = photos.nth(index);
+      const root = 'assets/06 - Notícias/Reportagens/' + gallery.folder;
+      const preview = root + '/WebP/' + name + '.webp';
+      const original = root + '/PNG/' + name + '.png';
+      const pngName = new RegExp('/PNG/' + name + '\\.png$');
+
+      expect((await image.getAttribute('src'))?.endsWith(preview)).toBe(true);
+      expect((await image.getAttribute('data-full-image'))?.endsWith(original)).toBe(true);
+      await image.scrollIntoViewIfNeeded();
+      await expect(image).toHaveJSProperty('naturalWidth', gallery.widths[index]);
+
+      await image.click();
+      const dialog = page.getByRole('dialog');
+      const zoomImage = dialog.locator('img');
+      await expect(zoomImage).toHaveAttribute('src', pngName);
+      await expect(zoomImage).toHaveJSProperty('naturalWidth', gallery.widths[index]);
+      await page.keyboard.press('Escape');
+      await expect(dialog).toHaveCount(0);
+    }
   }
 });
 

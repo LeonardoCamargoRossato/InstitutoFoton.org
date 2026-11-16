@@ -9,7 +9,7 @@ const researchLines = JSON.parse(readFileSync('src/content/research-lines.json',
   topics: string[];
 }[];
 const researchMedia = JSON.parse(readFileSync('src/content/research-media.json', 'utf8')) as {
-  haquantum: { path: string; width: number; height: number }[];
+  haquantum: { path: string; previewPath: string; width: number; height: number }[];
 };
 
 const title = 'Pesquisa e Jornada do Cientista Inovador';
@@ -91,7 +91,7 @@ test('Etapa Pulso mostra a miniatura oficial e abre a transmissão no YouTube s�
   await expect(section.locator('time')).toHaveText('28 de março de 2026');
   await expect(section.locator('iframe')).toHaveCount(0);
   expect(playerRequests).toEqual([]);
-  await expect(section.locator('img')).toHaveAttribute('src', /\/EtapaPulsoYouTube\.jpg$/);
+  await expect(section.locator('img')).toHaveAttribute('src', /\/EtapaPulsoYouTube\.webp$/);
   await expect(section.locator('img')).toHaveJSProperty('naturalWidth', 1280);
   await expect(
     section.getByRole('link', { name: /Assistir à transmissão completa/ }),
@@ -105,19 +105,28 @@ test('Etapa Pulso mostra a miniatura oficial e abre a transmissão no YouTube s�
   await video.close();
 });
 
-test('HaQuantum tem registro histórico, oito fotos na ordem e regulamento oficial', async ({
+test('HaQuantum tem registro histórico, WebP no carrossel, PNG no zoom e regulamento oficial', async ({
   page,
 }) => {
+  const pngRequests: string[] = [];
+  page.on('request', (request) => {
+    const url = decodeURIComponent(request.url());
+    if (url.includes('/04C - HaQuantum/Galeria HaQuantum/PNG/') && url.endsWith('.png')) {
+      pngRequests.push(url);
+    }
+  });
   await page.goto('./pesquisa');
   const gallery = page.getByRole('region', { name: 'Galeria do HaQuantum' });
   await gallery.scrollIntoViewIfNeeded();
   await expect(gallery.getByRole('img')).toHaveCount(8);
   for (const [index, photo] of researchMedia.haquantum.entries()) {
     const image = gallery.getByRole('img').nth(index);
-    await expect(image).toHaveAttribute('src', new RegExp(photo.path + '$'));
+    expect((await image.getAttribute('src'))?.endsWith(photo.previewPath)).toBe(true);
     await expect(image).toHaveAttribute('width', String(photo.width));
     await expect(image).toHaveAttribute('height', String(photo.height));
   }
+
+  expect(pngRequests).toEqual([]);
 
   await gallery.getByRole('button', { name: 'Próxima foto' }).click();
   await expect(gallery.getByText('Foto 2 de 8', { exact: true })).toBeVisible();
@@ -133,7 +142,8 @@ test('HaQuantum tem registro histórico, oito fotos na ordem e regulamento ofici
   const last = gallery.getByRole('button', { name: /^Ampliar foto 8\./ });
   await last.click();
   const dialog = page.getByRole('dialog', { name: 'HaQuantum · Foto 8' });
-  await expect(dialog.getByRole('img')).toHaveAttribute('src', /\/HaQuantum09\.jpg$/);
+  await expect(dialog.getByRole('img')).toHaveAttribute('src', /\/HaQuantum9\.png$/);
+  await expect.poll(() => pngRequests.some((url) => url.endsWith('/HaQuantum9.png'))).toBe(true);
   await expect(dialog.getByRole('img')).toHaveJSProperty('naturalWidth', 960);
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
   await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');

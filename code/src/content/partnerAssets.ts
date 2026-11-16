@@ -8,6 +8,8 @@ export function partnerLogoAssets(slug: string | null): PartnerLogo | null {
   const name = logoFilenames[slug as keyof typeof logoFilenames];
   if (!name || !/^Logo[A-Za-z0-9]+$/.test(name) || name === 'LogoRede40') return null;
   return {
-    svg: assetUrl('assets/img-logos-parceiros-foton/assets-svg/' + name + '.svg'),
+    svg: assetUrl(
+      'assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/assets-svg/' + name + '.svg',
+    ),
   };
 }

@@ -1,66 +1,83 @@
 {
   "haquantum": [
     {
-      "path": "assets/img-haquantum/HaQuantum01.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum1.png",
       "width": 960,
       "height": 1280,
       "alt": "Participantes reunidos no espaço do HaQuantum.",
-      "sha256": "21bac81f380f0d2dfc61f9b74ba2b4b344ab666ad573dc0ff0f9f202667321a2"
+      "sha256": "307890f06a6a038d3169080b22cd98278716d8401b8e9841aeaf9b5f43ee6f56",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum1.webp",
+      "previewSha256": "c61b8a18bec8e805fef41486f057fe50cb4ced17e984dbcac426126e7cd9e705"
     },
     {
-      "path": "assets/img-haquantum/HaQuantum02.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum2.png",
       "width": 4160,
       "height": 3120,
       "alt": "Apresentação em sala durante a programação do HaQuantum.",
-      "sha256": "a97019c112804e3e3136b1d7486fda5301bf445e2f4db1a9c603eb176120c7f4"
+      "sha256": "fbf4c3a3616ee46bfd25095bfd8a3af5d475584905f28199cb6e79411a4d0264",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum2.webp",
+      "previewSha256": "d7db34d6a852ebce1b0a45de7cdedb7403b8ded2282b9f6ac7468ca2f83a8183"
     },
     {
-      "path": "assets/img-haquantum/HaQuantum03.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum3.png",
       "width": 960,
       "height": 1280,
       "alt": "Grupo posa para foto com um documento ao lado do painel do evento.",
-      "sha256": "c3f81b8468637e405c73b464dca22aad38c6cd2230e4e14669202381f9120095"
+      "sha256": "68324af4f23440b0384bfe5325535960074765120f7fcbe043dee7c614ce2126",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum3.webp",
+      "previewSha256": "83fadd5d8ba20eadb9cc5721e4ea4d3de3c7db8a5179cdd33fc333fc2d8b3f83"
     },
     {
-      "path": "assets/img-haquantum/HaQuantum04.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum4.png",
       "width": 4160,
       "height": 3120,
       "alt": "Integrantes da banca à mesa durante as apresentações.",
-      "sha256": "2d6c1d94d12439a022f91aaa488e326c1b90a8ec7594be1330e040cfc3b6831b"
+      "sha256": "aa36d64ccd7cf3c6fa3b69edd9a9d8eae8fa22be6138092b8c2b1f1da28fcf56",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum4.webp",
+      "previewSha256": "ee5e1c829c9db6fd9cd9ab1e1fa08909d7ee87d3d71f507f736c9817a1078eb0"
     },
     {
-      "path": "assets/img-haquantum/HaQuantum05.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum5.png",
       "width": 720,
       "height": 1280,
       "alt": "Grupo posa com um documento na sala de apresentações.",
-      "sha256": "51cc16d3986cc266418662fc674dc0aa66cadeb1891b84d0d18098c661e0cd7c"
+      "sha256": "d9f3d9ab77b539ad3663c3634de89e769cb8c9b01f0105552fc8b04d54fb84eb",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum5.webp",
+      "previewSha256": "c5f68e9dc6d165a2fcf06ac368ed9b65dca443a890a773bfe85f58c0b6dc0464"
     },
     {
-      "path": "assets/img-haquantum/HaQuantum06.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum6.png",
       "width": 960,
       "height": 1280,
       "alt": "Três participantes em frente ao slide da equipe Entangled Minds.",
-      "sha256": "3350e3814c875abe6270065e000317a8f8849db570ad32d0c3728e2d44142229"
+      "sha256": "eed9664aa95f85f1af787f76187862dadf7d5dc0d37dc611b09afcbea26d7e81",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum6.webp",
+      "previewSha256": "023b973f36793d5d8dbdc87572737ed041d3bd58e17dfa1a747f22e98e2b5e63"
     },
     {
-      "path": "assets/img-haquantum/HaQuantum08.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum8.png",
       "width": 960,
       "height": 1280,
       "alt": "Três pessoas posam com um documento ao lado da tela do evento.",
-      "sha256": "3bd08ab7eb943d5c6cbd6e02d31335894d294dd139c5e2427847f11122f88c49"
+      "sha256": "0ddd7f8183593ea77b0beaf0b7c5422d02e735678e67a7c7da68c6ddcbfd5d1c",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum8.webp",
+      "previewSha256": "b11126781597a07e8bba43d89f65f42b969a42fb91a774bbd769150a127b2d9f"
     },
     {
-      "path": "assets/img-haquantum/HaQuantum09.jpg",
+      "path": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/PNG/HaQuantum9.png",
       "width": 960,
       "height": 1280,
       "alt": "Grupo posa com um documento após as apresentações.",
-      "sha256": "16370942a8c2d57298d9b03bfaaa0156c4381535865a1ec534491d64d692b17d"
+      "sha256": "e24dced2cc4181db0fe397c9a21a8dff3ab5d32793a9ab03c775c7d9c41543b0",
+      "previewPath": "assets/04 - P&D - Cientista Inovador/04C - HaQuantum/Galeria HaQuantum/WebP/HaQuantum9.webp",
+      "previewSha256": "2e86056bc777f570a4b7045e206b4fd02135eeaf106923fe4ac917c7f6f7d473"
     }
   ],
   "pulso": {
-    "path": "assets/img-jornada/EtapaPulsoYouTube.jpg",
+    "path": "assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/PNG/EtapaPulsoYouTube.png",
     "width": 1280,
     "height": 720,
-    "sha256": "2770356b0042c0377ad32805651161cbe916ed0d1d9132c54c7833ddf1b27c7d"
+    "sha256": "8090c3371e183e7b74dba0c2a2a09b01ad45f488fc7ab71201dbdf8f846b65d9",
+    "previewPath": "assets/04 - P&D - Cientista Inovador/04B - Jornadas do Cientista Inovador/Imagens da Jornada/WebP/EtapaPulsoYouTube.webp"
   }
 }

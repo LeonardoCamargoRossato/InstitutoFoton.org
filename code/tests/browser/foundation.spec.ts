@@ -13,7 +13,7 @@ test('fundação aparece no Instituto e abre a única reportagem canônica', asy
   await expect(teaser).toContainText('30 de janeiro de 2025 · Porto Alegre, RS');
   await expect(teaser.locator('img')).toHaveAttribute(
     'src',
-    /\/assets\/WebP\/instituto\/fundacao\/Img-Fundacao-Foton-01\.webp$/,
+    /\/assets\/WebP\/instituto\/fundacao\/ImgFundacaoFoton01\.webp$/,
   );
   await teaser.getByRole('link', { name: 'Saiba mais sobre nossa fundação' }).click();
   await expect(page).toHaveURL(/\/noticias\/fundacao-instituto-foton$/);
@@ -27,7 +27,7 @@ test('a notícia consta na listagem e o card navega sem abrir o visualizador', a
     .locator('.publication-card')
     .filter({ hasText: 'O dia em que nasceu o Instituto Foton' });
   await expect(card).toHaveCount(1);
-  await expect(card.locator('img')).toHaveAttribute('src', /Img-Fundacao-Foton-01\.webp$/);
+  await expect(card.locator('img')).toHaveAttribute('src', /ImgFundacaoFoton01\.webp$/);
   await card.locator('img').click();
   await expect(page).toHaveURL(/\/noticias\/fundacao-instituto-foton$/);
   await expect(page.getByRole('dialog')).toHaveCount(0);
@@ -38,7 +38,7 @@ test('galeria mantém nove registros na ordem, legenda histórica e PNG somente 
 }) => {
   const pngRequests: string[] = [];
   page.on('request', (request) => {
-    if (/\/assets\/PNG\/instituto\/fundacao\/Img-Fundacao-Foton-\d\d\.png/.test(request.url())) {
+    if (/\/assets\/PNG\/instituto\/fundacao\/ImgFundacaoFoton\d\d\.png/.test(request.url())) {
       pngRequests.push(request.url());
     }
   });
@@ -49,7 +49,7 @@ test('galeria mantém nove registros na ordem, legenda histórica e PNG somente 
   for (let index = 1; index <= 9; index++) {
     await expect(gallery.locator('.foundation-stage-image img')).toHaveAttribute(
       'src',
-      new RegExp(`Img-Fundacao-Foton-${String(index).padStart(2, '0')}\\.webp$`),
+      new RegExp(`ImgFundacaoFoton${String(index).padStart(2, '0')}\\.webp$`),
     );
     if (index < 9) await gallery.getByRole('button', { name: 'Próxima imagem' }).click();
   }
@@ -68,7 +68,7 @@ test('galeria mantém nove registros na ordem, legenda histórica e PNG somente 
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await expect.poll(() => pngRequests.length).toBe(1);
-  await expect(dialog.locator('img')).toHaveAttribute('src', /Img-Fundacao-Foton-03\.png$/);
+  await expect(dialog.locator('img')).toHaveAttribute('src', /ImgFundacaoFoton03\.png$/);
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect(gallery.getByRole('button', { name: /^Ampliar imagem 3 de 9/ })).toBeFocused();

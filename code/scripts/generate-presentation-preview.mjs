@@ -9,7 +9,7 @@ const run = promisify(execFile);
 const source = resolve('public/documents/apresentacao-institucional-2026-09-10.pdf');
 const destination = resolve('public/assets/WebP/apresentacao');
 const temp = await mkdtemp(join(tmpdir(), 'foton-apresentacao-'));
-const outputs = ['apresentacao-foton-pagina-01.webp', 'apresentacao-foton-pagina-02.webp'];
+const outputs = ['ApresentacaoFotonPagina01.webp', 'ApresentacaoFotonPagina02.webp'];
 
 await mkdir(destination, { recursive: true });
 

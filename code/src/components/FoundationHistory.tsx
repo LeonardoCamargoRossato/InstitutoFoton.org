@@ -21,7 +21,7 @@ export const foundationCaption03 =
   'Da esquerda para a direita: Natan Feijó Tristão — Conselho Fiscal; Cláudio Dias — Secretário-Geral; Leonardo Rossato — Presidente; Gabriel Albuquerque — Presidente da LACQ Feynman; Marco Aurélio — Vice-Presidente; Danielli Sanderi — Tesoureira; Rosângela Maraschin — Conselho Fiscal; Luiz Brito — Conselho Fiscal.';
 
 export const foundationCards = titles.map((title, index) => {
-  const name = `Img-Fundacao-Foton-${String(index + 1).padStart(2, '0')}`;
+  const name = `ImgFundacaoFoton${String(index + 1).padStart(2, '0')}`;
   return {
     title,
     number: index + 1,

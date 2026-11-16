@@ -14,37 +14,6 @@ type FotonImage = {
 // conceituais aprovadas. Trocar o caminho, não a estrutura das páginas.
 // Nenhum personagem representa membro ou atividade documentada do Instituto.
 export const PHOTO_LIBRARY = {
-  'home-hero-community': {
-    file: 'home-hero-community.avif',
-    mobile: 'home-hero-community-mobile.avif',
-    width: 1480,
-    height: 343,
-    page: 'Home',
-    section: 'hero',
-    position: 'center',
-    crop: 'wide / mobile 4:3',
-    alt: 'Composição fictícia de cinco pessoas de gerações diferentes conversando sobre ciência.',
-  },
-  'home-science-network': {
-    file: 'home-science-network.avif',
-    width: 1050,
-    height: 457,
-    page: 'Home',
-    section: 'conhecimento compartilhado',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Ilustração fotográfica de pesquisadores fictícios colaborando em uma bancada científica.',
-  },
-  'home-generational-legacy': {
-    file: 'home-generational-legacy.avif',
-    width: 1050,
-    height: 363,
-    page: 'Home',
-    section: 'legado geracional',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Cena fictícia de pesquisadora sênior conversando com pesquisadores mais jovens.',
-  },
   'apoie-hero-scientists': {
     file: 'apoie-hero-scientists.avif',
     mobile: 'apoie-hero-scientists-mobile.avif',
@@ -65,98 +34,6 @@ export const PHOTO_LIBRARY = {
     position: 'center',
     crop: 'horizontal',
     alt: 'Cena ilustrativa de uma pesquisadora fictícia usando um microscópio.',
-  },
-  'jornada-hero-pathways': {
-    file: 'jornada-hero-pathways.avif',
-    mobile: 'jornada-hero-pathways-mobile.avif',
-    width: 1400,
-    height: 396,
-    page: 'Jornada',
-    section: 'hero',
-    position: 'center',
-    crop: 'wide / mobile 4:3',
-    alt: 'Cena fictícia de jovem cientista examinando uma amostra vegetal no laboratório.',
-  },
-  'pesquisa-collaboration': {
-    file: 'pesquisa-collaboration.avif',
-    width: 1060,
-    height: 377,
-    page: 'Pesquisa',
-    section: 'ciência em rede',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Composição ilustrativa de pesquisadores fictícios trabalhando juntos em laboratório.',
-  },
-  'instituto-community': {
-    file: 'instituto-community.avif',
-    mobile: 'instituto-community-mobile.avif',
-    width: 1400,
-    height: 313,
-    page: 'Instituto',
-    section: 'comunidade',
-    position: 'center',
-    crop: 'wide / mobile 4:3',
-    alt: 'Cena ilustrativa intergeracional de pessoas fictícias reunidas para conversar sobre ciência.',
-  },
-  'mosaic-collaborators': {
-    file: 'mosaic-collaborators.avif',
-    width: 720,
-    height: 283,
-    page: 'Home',
-    section: 'colaboradores',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Dois profissionais fictícios trocando ideias em um laboratório.',
-  },
-  'mosaic-society': {
-    file: 'mosaic-society.avif',
-    width: 720,
-    height: 284,
-    page: 'Home',
-    section: 'sociedade',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Cena ilustrativa de conversa entre uma jovem e uma senhora em atividade comunitária.',
-  },
-  'mosaic-students': {
-    file: 'mosaic-students.avif',
-    width: 720,
-    height: 291,
-    page: 'Home',
-    section: 'estudantes',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Grupo fictício de estudantes sorrindo durante uma atividade de aprendizado.',
-  },
-  'mosaic-community': {
-    file: 'mosaic-community.avif',
-    width: 720,
-    height: 304,
-    page: 'Home',
-    section: 'comunidade',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Cena ilustrativa de uma pessoa conversando com crianças em atividade educativa.',
-  },
-  'mosaic-partners': {
-    file: 'mosaic-partners.avif',
-    width: 720,
-    height: 357,
-    page: 'Home',
-    section: 'parceiros',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Cena fictícia de dois profissionais cumprimentando-se.',
-  },
-  'mosaic-training': {
-    file: 'mosaic-training.avif',
-    width: 720,
-    height: 344,
-    page: 'Home',
-    section: 'formação',
-    position: 'center',
-    crop: 'horizontal',
-    alt: 'Cena ilustrativa de pesquisadora fictícia observando uma amostra ao microscópio.',
   },
 } as const satisfies Record<string, FotonImage>;
 
@@ -188,6 +65,9 @@ const categoryOf = (id: string) =>
             ? 'pesquisa'
             : 'institucional';
 
+const assetFileStem = (id: string) =>
+  id.replace(/(?:^|[^A-Za-z0-9])([A-Za-z0-9])/g, (_match, letter: string) => letter.toUpperCase());
+
 const illustrativeEntries = Object.entries(PHOTO_LIBRARY).map(([id, entry]) => {
   const category = categoryOf(id);
   const mobileId =
@@ -200,8 +80,8 @@ const illustrativeEntries = Object.entries(PHOTO_LIBRARY).map(([id, entry]) => {
     section: entry.section,
     category,
     sourceType: 'ai-illustration',
-    pngPath: 'assets/PNG/' + category + '/' + id + '.png',
-    webpPath: 'assets/WebP/' + category + '/' + id + '.webp',
+    pngPath: 'assets/PNG/' + category + '/' + assetFileStem(id) + '.png',
+    webpPath: 'assets/WebP/' + category + '/' + assetFileStem(id) + '.webp',
     alt: entry.alt,
     width: entry.width,
     height: entry.height,
@@ -209,6 +89,7 @@ const illustrativeEntries = Object.entries(PHOTO_LIBRARY).map(([id, entry]) => {
   };
   return [id, asset] as const;
 });
+const visitsRoot = 'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/';
 const visits = Array.from({ length: 20 }, (_, i) => {
   const id = 'visita-' + String(i + 1).padStart(2, '0');
   return [
@@ -219,14 +100,15 @@ const visits = Array.from({ length: 20 }, (_, i) => {
       section: 'Visitas técnicas',
       category: 'visitas-tecnicas',
       sourceType: 'documentary' as const,
-      pngPath: 'assets/PNG/visitas-tecnicas/' + id + '.png',
-      webpPath: 'assets/WebP/visitas-tecnicas/' + id + '.webp',
+      pngPath: visitsRoot + 'PNG/' + assetFileStem(id) + '.png',
+      webpPath: visitsRoot + 'WebP/' + assetFileStem(id) + '.webp',
       alt: 'Visita técnica ' + String(i + 1).padStart(2, '0') + ' do acervo do Instituto Foton.',
       width: 1920,
       height: 1080,
     },
   ] as const;
 });
+const manifestoRoot = 'assets/05 - Manifesto/Imagens da Página/';
 const manifesto = [
   ['Thumb_CartaSudeste', 1080, 603],
   ['Thumb_CartaNorte', 1600, 1200],
@@ -247,8 +129,8 @@ const manifestoEntries = manifesto.map(
         section: 'Cartas e metodologia',
         category: 'manifesto-quantico',
         sourceType: 'documentary' as const,
-        pngPath: 'assets/PNG/manifesto-quantico/' + id + '.png',
-        webpPath: 'assets/WebP/manifesto-quantico/' + id + '.webp',
+        pngPath: manifestoRoot + 'PNG/' + assetFileStem(id) + '.png',
+        webpPath: manifestoRoot + 'WebP/' + assetFileStem(id) + '.webp',
         alt: id.replace(/_/g, ' '),
         width,
         height,
@@ -270,8 +152,8 @@ const branding = brands.map(
         section: 'Identidade visual',
         category: 'branding',
         sourceType: 'brand' as const,
-        pngPath: 'assets/PNG/branding/' + id + '.png',
-        webpPath: 'assets/WebP/branding/' + id + '.webp',
+        pngPath: 'assets/PNG/branding/' + assetFileStem(id) + '.png',
+        webpPath: 'assets/WebP/branding/' + assetFileStem(id) + '.webp',
         alt: 'Marca Instituto Foton',
         width,
         height,
@@ -281,12 +163,7 @@ const branding = brands.map(
 
 export const SITE_ASSETS: Record<string, SiteAsset> = Object.fromEntries([
   ...illustrativeEntries,
-  ...[
-    'apoie-hero-scientists-mobile',
-    'home-hero-community-mobile',
-    'instituto-community-mobile',
-    'jornada-hero-pathways-mobile',
-  ].map((id) => {
+  ...['apoie-hero-scientists-mobile'].map((id) => {
     const category = categoryOf(id);
     const parent = id.replace(/-mobile$/, '');
     const entry = PHOTO_LIBRARY[parent as PhotoId];
@@ -298,8 +175,8 @@ export const SITE_ASSETS: Record<string, SiteAsset> = Object.fromEntries([
         section: entry.section,
         category,
         sourceType: 'ai-illustration' as const,
-        pngPath: 'assets/PNG/' + category + '/' + id + '.png',
-        webpPath: 'assets/WebP/' + category + '/' + id + '.webp',
+        pngPath: 'assets/PNG/' + category + '/' + assetFileStem(id) + '.png',
+        webpPath: 'assets/WebP/' + category + '/' + assetFileStem(id) + '.webp',
         alt: entry.alt,
         width: entry.width,
         height: entry.height,

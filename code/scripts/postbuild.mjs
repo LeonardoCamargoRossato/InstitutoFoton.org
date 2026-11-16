@@ -33,7 +33,7 @@ await writeFile('dist/version.json', JSON.stringify({ version }));
 const publicOrigin = origin ? new URL(origin).origin : '';
 const metadata = `${
   publicOrigin
-    ? `<meta property="og:type" content="website"><meta property="og:title" content="Instituto Foton — Tecnologia através da ciência."><meta property="og:description" content="Ciência, pessoas e possibilidades."><meta property="og:url" content="${publicOrigin}${base}"><meta property="og:image" content="${publicOrigin}${base}assets/PNG/branding/favicon.png">`
+    ? `<meta property="og:type" content="website"><meta property="og:title" content="Instituto Foton — Tecnologia através da ciência."><meta property="og:description" content="Ciência, pessoas e possibilidades."><meta property="og:url" content="${publicOrigin}${base}"><meta property="og:image" content="${publicOrigin}${base}assets/PNG/branding/Favicon.png">`
     : ''
 }<meta name="foton-version" content="${version}">`;
 const finalHtml = html.replace('</head>', `${metadata}</head>`);

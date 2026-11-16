@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import {
   publishedPartners,
   partnerGroups,
@@ -7,30 +7,36 @@ import {
   type PartnerRecord,
 } from '../src/content/partners';
 import { partnerLogoAssets } from '../src/content/partnerAssets';
+import logoFilenames from '../scripts/data/partner-logo-names.json';
 
 describe('catálogo de parceiros publicados', () => {
-  it('preserva os 31 SVGs originais e publica 31 derivados otimizados', () => {
-    const report = JSON.parse(
-      readFileSync('scripts/data/partner-svg-display-report.json', 'utf8'),
-    ) as {
-      count: number;
-      sourceBytes: number;
-      displayBytes: number;
-      records: Array<{ file: string; cropped: boolean }>;
-    };
-    expect(report.count).toBe(31);
-    expect(report.sourceBytes).toBeGreaterThan(20_000_000);
-    expect(report.displayBytes).toBeLessThan(report.sourceBytes);
-    expect(new Set(report.records.map((record) => record.file)).size).toBe(31);
-    for (const { file } of report.records) {
-      expect(existsSync('public/assets/img-logos-parceiros-foton/assets-svg/' + file)).toBe(true);
-      expect(existsSync('public/assets/img-logos-parceiros-foton/display-svg/' + file)).toBe(true);
+  it('preserva somente os 31 SVGs canônicos', () => {
+    for (const partner of publishedPartners()) {
+      const file = partner.logo_filename;
+      expect(file).toMatch(/^Logo[A-Za-z0-9]+\.svg$/);
+      expect(
+        existsSync(
+          'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/SVG/assets-svg/' + file,
+        ),
+      ).toBe(true);
+    }
+  });
+  it('não mantém logotipos PNG/WebP legados nem rasterização canônica de parceiros', () => {
+    for (const directory of [
+      'public/assets/PNG/parceiros',
+      'public/assets/WebP/parceiros',
+      'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/PNG',
+      'public/assets/03 - Ecossistema de Parceiros/Logos dos Parceiros/WebP',
+    ]) {
+      expect(existsSync(directory)).toBe(false);
     }
   });
   it('contém 31 SVGs únicos e os 4 grupos autorizados', () => {
     const entries = publishedPartners();
     expect(entries).toHaveLength(31);
     expect(new Set(entries.map((p) => p.logo_filename)).size).toBe(31);
+    expect(Object.keys(logoFilenames)).toHaveLength(31);
+    expect(logoFilenames).not.toHaveProperty('rede4-0');
     expect(partnerGroups(entries).map((g) => [g.tier, g.items.length])).toEqual([
       ['Ciência e Pesquisa', 8],
       ['Ecossistema e Instituições', 9],
@@ -88,7 +94,9 @@ describe('catálogo de parceiros publicados', () => {
     expect(safePartnerUrl('https://example.org/sobre')).toBe('https://example.org/sobre');
     expect(safePartnerUrl('http://example.org')).toBe('http://example.org/');
     expect(partnerLogoAssets('ihr')).toEqual({
-      svg: expect.stringMatching(/assets\/img-logos-parceiros-foton\/assets-svg\/LogoIHR\.svg$/),
+      svg: expect.stringMatching(
+        /assets\/03 - Ecossistema de Parceiros\/Logos dos Parceiros\/SVG\/assets-svg\/LogoIHR\.svg$/,
+      ),
     });
     expect(partnerLogoAssets('marca-exemplo')).toBeNull();
     expect(partnerLogoAssets('rede4-0')).toBeNull();

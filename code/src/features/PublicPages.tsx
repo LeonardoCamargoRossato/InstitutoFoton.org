@@ -150,7 +150,7 @@ export function Home() {
               <span className="presentation-preview-stack">
                 <img
                   className="presentation-preview-image presentation-preview-back"
-                  src={assetUrl('assets/WebP/apresentacao/apresentacao-foton-pagina-02.webp')}
+                  src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp')}
                   alt="Segunda página da apresentação institucional do Foton"
                   width={1200}
                   height={675}
@@ -159,7 +159,7 @@ export function Home() {
                 />
                 <img
                   className="presentation-preview-image presentation-preview-front"
-                  src={assetUrl('assets/WebP/apresentacao/apresentacao-foton-pagina-01.webp')}
+                  src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp')}
                   alt="Capa oficial da apresentação institucional do Foton"
                   width={1200}
                   height={675}

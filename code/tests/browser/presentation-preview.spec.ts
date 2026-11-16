@@ -22,11 +22,11 @@ test('Home exibe duas páginas WebP oficiais em composição ampla e clicável',
   await expect(images).toHaveCount(2);
   await expect(images.nth(0)).toHaveAttribute(
     'src',
-    /assets\/WebP\/apresentacao\/apresentacao-foton-pagina-02\.webp$/,
+    /assets\/WebP\/apresentacao\/ApresentacaoFotonPagina02\.webp$/,
   );
   await expect(images.nth(1)).toHaveAttribute(
     'src',
-    /assets\/WebP\/apresentacao\/apresentacao-foton-pagina-01\.webp$/,
+    /assets\/WebP\/apresentacao\/ApresentacaoFotonPagina01\.webp$/,
   );
   for (const image of await images.all()) {
     await expect

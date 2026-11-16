@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import { existsSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { safeExternalUrl, dateLabel } from '../src/lib/config';
 import { odqs, cartas, methodology } from '../src/features/manifesto-content';
 import { imageAsset, SITE_ASSETS } from '../src/lib/siteAssets';
@@ -35,15 +37,63 @@ describe('integridade documental', () => {
 });
 
 describe('fontes públicas estáticas sem autenticação', () => {
-  it('possui 49 imagens canônicas e caminhos GitHub Pages relativos', () => {
-    expect(Object.keys(SITE_ASSETS)).toHaveLength(49);
-    expect(imageAsset('visita-03').pngPath).toBe('assets/PNG/visitas-tecnicas/visita-03.png');
-    expect(imageAsset('visita-03').webpPath).toBe('assets/WebP/visitas-tecnicas/visita-03.webp');
-    expect(imageAsset('home-hero-community').sourceType).toBe('ai-illustration');
+  it('possui 34 imagens canônicas e caminhos GitHub Pages relativos', () => {
+    expect(Object.keys(SITE_ASSETS)).toHaveLength(34);
+    expect(imageAsset('visita-03').pngPath).toBe(
+      'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/PNG/Visita03.png',
+    );
+    expect(imageAsset('visita-03').webpPath).toBe(
+      'assets/02 - O Instituto/02A - Conheça o Instituto/Visitas Técnicas/WebP/Visita03.webp',
+    );
+    expect(imageAsset('apoie-hero-scientists').sourceType).toBe('ai-illustration');
+    expect(SITE_ASSETS['pesquisa-collaboration']).toBeUndefined();
+    expect(SITE_ASSETS['jornada-hero-pathways']).toBeUndefined();
+    expect(SITE_ASSETS['jornada-hero-pathways-mobile']).toBeUndefined();
     for (const asset of Object.values(SITE_ASSETS)) {
-      expect(asset.pngPath).toMatch(/^assets\/PNG\/[^/]+\/[^/]+\.png$/);
-      expect(asset.webpPath).toMatch(/^assets\/WebP\/[^/]+\/[^/]+\.webp$/);
+      expect(asset.pngPath).toMatch(/^assets\/(?:PNG\/[^/]+\/[^/]+|.+\/PNG\/[^/]+)\.png$/);
+      expect(asset.webpPath).toMatch(/^assets\/(?:WebP\/[^/]+\/[^/]+|.+\/WebP\/[^/]+)\.webp$/);
     }
+  });
+  it('não mantém imagens instituto-community nas duas hierarquias de assets', () => {
+    for (const kind of ['PNG', 'WebP']) {
+      const extension = kind === 'PNG' ? 'png' : 'webp';
+      for (const name of ['instituto-community', 'instituto-community-mobile']) {
+        expect(
+          existsSync(
+            `public/assets/02 - O Instituto/02A - Conheça o Instituto/${kind}/${name}.${extension}`,
+          ),
+        ).toBe(false);
+        expect(existsSync(`public/assets/${kind}/instituto/${name}.${extension}`)).toBe(false);
+      }
+    }
+    expect(SITE_ASSETS['instituto-community']).toBeUndefined();
+    expect(SITE_ASSETS['instituto-community-mobile']).toBeUndefined();
+  });
+  it('preserva os marcadores PNG e WebP vazios da Pesquisa e a miniatura WebP da Jornada', () => {
+    const root = 'public/assets/04 - P&D - Cientista Inovador/';
+    const research = root + '04A - Linhas temáticas de pesquisa/Imagens de Pesquisa/';
+    const journey = root + '04B - Jornadas do Cientista Inovador/Imagens da Jornada/';
+    expect(existsSync(research + 'PNG/.gitkeep')).toBe(true);
+    expect(existsSync(research + 'WebP/.gitkeep')).toBe(true);
+    expect(existsSync(journey + 'PNG/EtapaPulsoYouTube.png')).toBe(true);
+    expect(existsSync(journey + 'WebP/EtapaPulsoYouTube.webp')).toBe(true);
+  });
+  it('exige PascalCase em todos os nomes de PNG, WebP e SVG públicos', () => {
+    const invalidNames: string[] = [];
+    const inspect = (folder: string) => {
+      for (const entry of readdirSync(folder, { withFileTypes: true })) {
+        const path = join(folder, entry.name);
+        if (entry.isDirectory()) inspect(path);
+        else if (
+          /\.(?:png|webp|svg)$/.test(entry.name) &&
+          !/^[A-Z][A-Za-z0-9]*\.(?:png|webp|svg)$/.test(entry.name)
+        ) {
+          invalidNames.push(path);
+        }
+      }
+    };
+    inspect('public/assets');
+    expect(invalidNames).toEqual([]);
   });
   it('mantém PDF local aprovado e valores oficiais sem inventar mission/visão', async () => {
     const docs = await documents();

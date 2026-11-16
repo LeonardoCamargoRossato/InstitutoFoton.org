@@ -32,7 +32,7 @@ test('Home enxuta apresenta propósito comprovado sem fotografias artificiais', 
   await expect(page.locator('.home-hero img')).toHaveCount(1);
   await expect(page.locator('.home-network-center img')).toHaveAttribute(
     'src',
-    /assets\/WebP\/branding\/favicon\.webp$/,
+    /assets\/WebP\/branding\/Favicon\.webp$/,
   );
   await expect(page.locator('.home-hero .hero-identity')).toBeVisible();
   await expect(page.locator('.institutional-programs .research-card')).toHaveCount(4);
@@ -77,7 +77,7 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
   await expect(page.locator('.gallery-track > button')).toHaveCount(20);
   const third = page.locator('.gallery-track img').nth(2);
   await third.scrollIntoViewIfNeeded();
-  await expect(third).toHaveAttribute('src', /assets\/WebP\/visitas-tecnicas\/visita-03\.webp$/);
+  await expect(third).toHaveAttribute('src', /Visitas Técnicas\/WebP\/Visita03\.webp$/);
   await expect
     .poll(() => third.evaluate((img) => (img as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0);
@@ -86,7 +86,7 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
+    /Visitas Técnicas\/PNG\/Visita03\.png$/,
   );
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
   await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
@@ -225,8 +225,9 @@ test('indicadores datados possuem apresentação discreta e sem ressalvas defens
 test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ page }) => {
   const assetRequests: string[] = [];
   page.on('request', (request) => {
-    if (/\/assets\/(?:PNG|WebP)\/(?:visitas-tecnicas|manifesto-quantico)\//.test(request.url())) {
-      assetRequests.push(request.url());
+    const url = decodeURIComponent(request.url());
+    if (url.includes('/Imagens da Página/') || url.includes('/Visitas Técnicas/')) {
+      assetRequests.push(url);
     }
   });
   await page.goto('./manifesto');
@@ -235,18 +236,18 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   for (let index = 0; index < (await thumbnails.count()); index++) {
     const img = thumbnails.nth(index);
     await img.scrollIntoViewIfNeeded();
-    await expect(img).toHaveAttribute('data-full-image', /\/assets\/PNG\/.+\.png$/);
-    await expect(img).toHaveAttribute('src', /\/assets\/WebP\/.+\.webp$/);
+    await expect(img).toHaveAttribute('data-full-image', /\/PNG\/.+\.png$/);
+    await expect(img).toHaveAttribute('src', /\/WebP\/.+\.webp$/);
     await expect
       .poll(() => img.evaluate((element) => (element as HTMLImageElement).naturalWidth))
       .toBeGreaterThan(0);
   }
-  expect(assetRequests.filter((url) => /\/assets\/PNG\//.test(url))).toEqual([]);
+  expect(assetRequests.filter((url) => /\/PNG\//.test(url))).toEqual([]);
 
   const letter = page.locator('.manifesto-image').first();
   await letter.click();
   const modal = page.getByRole('dialog');
-  await expect(modal.locator('img')).toHaveAttribute('src', /\/assets\/PNG\/.+\.png$/);
+  await expect(modal.locator('img')).toHaveAttribute('src', /\/PNG\/.+\.png$/);
   await expect
     .poll(() => modal.locator('img').evaluate((img) => (img as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0);
@@ -258,7 +259,7 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   const videoPoster = page.locator('.manifesto-video-block').first();
   await videoPoster.getByRole('button', { name: /Ampliar imagem de capa/ }).click();
   const posterModal = page.getByRole('dialog', { name: /Imagem de capa/ });
-  await expect(posterModal.locator('img')).toHaveAttribute('src', /\/assets\/PNG\/.+\.png$/);
+  await expect(posterModal.locator('img')).toHaveAttribute('src', /\/PNG\/.+\.png$/);
   await expect(videoPoster.locator('iframe')).toHaveCount(0);
   await posterModal.getByRole('button', { name: 'Fechar galeria' }).click();
 
@@ -268,7 +269,7 @@ test('todas as imagens do Manifesto carregam WebP, PNG só no zoom', async ({ pa
   const visitModal = page.getByRole('dialog', { name: 'Visita técnica 20' });
   await expect(visitModal.locator('img')).toHaveAttribute(
     'src',
-    /\/assets\/PNG\/visitas-tecnicas\/visita-20\.png$/,
+    /Visitas Técnicas\/PNG\/Visita20\.png$/,
   );
   await visitModal.getByRole('button', { name: 'Imagem anterior' }).click();
   await expect(page.getByRole('dialog', { name: 'Visita técnica 19' })).toBeVisible();
@@ -284,7 +285,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
     card.href = './contato';
     const preview = document.createElement('img');
     preview.alt = 'Imagem de teste do acervo do Instituto Foton';
-    preview.src = new URL('assets/WebP/visitas-tecnicas/visita-03.webp', document.baseURI).href;
+    preview.src = new URL('assets/WebP/visitas-tecnicas/Visita03.webp', document.baseURI).href;
     preview.width = 320;
     preview.height = 180;
     card.append(preview);
@@ -299,7 +300,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
     'src',
-    /\/assets\/PNG\/visitas-tecnicas\/visita-03\.png$/,
+    /\/assets\/PNG\/visitas-tecnicas\/Visita03\.png$/,
   );
   await expect
     .poll(() => dialog.locator('img').evaluate((el) => (el as HTMLImageElement).naturalWidth))
@@ -313,7 +314,7 @@ test('um card com WebP abre o PNG local sem quebrar o link do card', async ({ pa
 test('logomarca carrega WebP e mantém navegação à Home', async ({ page }) => {
   await page.goto('./instituto');
   const logo = page.locator('.site-header .brand img');
-  await expect(logo).toHaveAttribute('src', /\/assets\/WebP\/branding\/foton-logo-light\.webp$/);
+  await expect(logo).toHaveAttribute('src', /\/assets\/WebP\/branding\/FotonLogoLight\.webp$/);
   await page.locator('.site-header .brand').click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
@@ -357,7 +358,7 @@ test('Ecossistema de Parceiros possui rota, menu e fonte estática única', asyn
         const img = page.locator('.partner-card').nth(index).locator('img');
         await expect(img).toHaveAttribute(
           'src',
-          /assets\/img-logos-parceiros-foton\/assets-svg\/Logo[A-Za-z0-9]+\.svg$/,
+          /assets\/03 - Ecossistema de Parceiros\/Logos dos Parceiros\/SVG\/assets-svg\/Logo[A-Za-z0-9]+\.svg$/,
         );
         await expect
           .poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth))

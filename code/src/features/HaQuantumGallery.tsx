@@ -67,7 +67,7 @@ export default function HaQuantumGallery() {
             onClick={() => setExpanded(index)}
           >
             <img
-              src={assetUrl(photo.path)}
+              src={assetUrl(photo.previewPath)}
               width={photo.width}
               height={photo.height}
               alt={photo.alt}
