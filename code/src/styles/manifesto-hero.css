@@ -20,7 +20,7 @@
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.33;
+    opacity: 0.14;
     background-image:
       linear-gradient(rgba(84, 143, 245, 0.21) 1px, transparent 1px),
       linear-gradient(90deg, rgba(84, 143, 245, 0.21) 1px, transparent 1px);
@@ -37,7 +37,7 @@
     height: 360px;
     transform: perspective(600px) rotateX(67deg);
     pointer-events: none;
-    opacity: 0.56;
+    opacity: 0.18;
     background:
       repeating-linear-gradient(90deg, transparent 0 82px, rgba(56, 156, 255, 0.23) 83px 84px),
       repeating-linear-gradient(0deg, transparent 0 60px, rgba(56, 156, 255, 0.19) 61px 62px);
@@ -164,24 +164,29 @@
 
   .manifesto-hero-glass-f {
     display: block;
-    width: min(100%, 550px);
+    width: min(70%, 385px);
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 26px rgba(12, 161, 255, 0.4))
       drop-shadow(0 22px 30px rgba(0, 7, 30, 0.42));
     animation: manifesto-glass-float 7s ease-in-out infinite;
+    margin-left: 64%;
+    margin-top: 22%;
   }
 
   .manifesto-hero-brazil {
     position: absolute;
-    z-index: 1;
+    z-index: -1;
     top: -10%;
     right: 5%;
-    width: min(64vw, 950px);
-    height: 120%;
-    opacity: 0.67;
+    width: 138%;
+    height: 128%;
+    opacity: 1;
     pointer-events: none;
-    filter: drop-shadow(0 0 22px rgba(0, 179, 255, 0.32));
+    filter: none;
+    inset: -14% auto auto -22%;
+    max-width: none;
+    overflow: visible;
   }
 
   .manifesto-hero-orbit {
@@ -215,6 +220,89 @@
     box-shadow: 0 0 24px rgba(43, 176, 252, 0.58);
   }
 
+  .manifesto-map-connections {
+    stroke-width: 1.2;
+  }
+
+  .manifesto-map-regions text {
+    fill: #83bbd7;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .manifesto-map-city text {
+    fill: #d5effa;
+    font-size: 12px;
+    font-weight: 600;
+    paint-order: stroke;
+    stroke: #06152f;
+    stroke-width: 4px;
+    stroke-linejoin: round;
+  }
+
+  .manifesto-map-state {
+    fill: #8abbd4;
+    font-size: 9px;
+  }
+
+  .manifesto-map-pin-ring {
+    fill: #7cddfa;
+    fill-opacity: 0.09;
+    stroke: #80dfff;
+    stroke-opacity: 0.65;
+    stroke-width: 0.8;
+  }
+
+  .manifesto-map-caption {
+    fill: #9cc8dd;
+    font-size: 8px;
+    letter-spacing: 1.6px;
+  }
+
+  .manifesto-hero-pillars {
+    display: flex;
+    gap: 26px;
+    margin-top: 30px;
+    padding-block: 20px;
+    border-block: 1px solid #87c4e329;
+  }
+
+  .manifesto-hero-pillars a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #edf9ff;
+    text-decoration: none;
+  }
+
+  .manifesto-hero-pillars a:hover {
+    color: #8ee5ff;
+  }
+
+  .manifesto-hero-pillars strong {
+    font-size: 2.5rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.06em;
+  }
+
+  .manifesto-hero-pillars span {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .manifesto-hero-pillars small {
+    display: block;
+    max-width: 160px;
+    margin-top: 5px;
+    color: #a5bfd9;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
   @keyframes manifesto-glass-float {
     0%,
     100% {
@@ -228,24 +316,46 @@
 
 @layer responsive {
   @media (max-width: 1020px) {
+    .manifesto-hero-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      padding-block: 60px 35px;
+    }
+    .manifesto-hero-copy {
+      max-width: 700px;
+    }
     .manifesto-hero h1 {
-      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-size: clamp(3rem, 7vw, 5.2rem);
+    }
+    .manifesto-hero-visual {
+      width: min(100%, 600px);
+      aspect-ratio: 1.05;
+      margin-top: 15px;
+      justify-self: center;
     }
     .manifesto-hero-brazil {
-      right: -13%;
-      width: 83vw;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .manifesto-hero-glass-f {
+      width: 56%;
+      margin-left: 60%;
+      margin-top: 22%;
+    }
+    .manifesto-hero-orbit {
+      top: 74%;
+      left: 59%;
+      width: 120vw;
+    }
+    .manifesto-hero-orbit--two {
+      width: 90vw;
     }
   }
-
   @media (max-width: 720px) {
     .manifesto-hero {
       min-height: 0;
       align-items: stretch;
-    }
-    .manifesto-hero-layout {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 8px;
-      padding-block: 70px 42px;
     }
     .manifesto-hero h1 {
       margin-top: 20px;
@@ -257,42 +367,27 @@
     .manifesto-hero-action {
       margin-top: 24px;
     }
+    .manifesto-hero-pillars {
+      gap: 24px;
+    }
+    .manifesto-hero-pillars strong {
+      font-size: 2rem;
+    }
     .manifesto-hero-visual {
-      width: min(80%, 350px);
-      justify-self: center;
+      width: min(100%, 480px);
     }
-    .manifesto-hero-brazil {
-      top: 36%;
-      right: -22%;
-      width: 120vw;
-      height: 67%;
-      opacity: 0.52;
-    }
-    .manifesto-hero-orbit {
-      top: 74%;
-      left: 59%;
-      width: 120vw;
-    }
-    .manifesto-hero-orbit--two {
-      width: 90vw;
+    .manifesto-map-city text {
+      font-size: 14px;
     }
   }
-
   @media (max-width: 390px) {
-    .manifesto-hero-layout {
-      padding-top: 58px;
-    }
     .manifesto-hero-eyebrow {
       font-size: 0.66rem;
     }
     .manifesto-hero h1 {
       font-size: clamp(2.75rem, 11.4vw, 3.6rem);
     }
-    .manifesto-hero-visual {
-      width: 86%;
-    }
   }
-
   @media (prefers-reduced-motion: reduce) {
     .manifesto-hero-glass-f {
       animation: none;
@@ -304,5 +399,22 @@
     .manifesto-hero-action:focus-visible {
       transform: none;
     }
+  }
+}
+@layer components {
+  .manifesto-hero-places {
+    grid-column: 1 / -1;
+    border-top: 1px solid #87c4e329;
+    padding-top: 18px;
+    color: #bdd7e8;
+    font-size: 0.78rem;
+    line-height: 1.8;
+  }
+  .manifesto-hero-places > span {
+    margin-right: 20px;
+    color: #7eb6d2;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
   }
 }

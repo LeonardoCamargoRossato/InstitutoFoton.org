@@ -10,6 +10,26 @@ test('Manifesto hero mantém F de vidro, Brasil e título acessível', async ({ 
     await expect(hero).toBeVisible();
     await expect(hero.getByRole('heading', { level: 1 })).toContainText('Quântico Nacional');
     await expect(hero.locator('.manifesto-hero-brazil path').first()).toBeAttached();
+    await expect(hero.locator('.manifesto-map-city')).toHaveCount(6);
+    await expect(hero.locator('.manifesto-map-regions text')).toHaveText([
+      'Norte',
+      'Nordeste',
+      'Centro-Oeste',
+      'Sudeste',
+      'Sul',
+    ]);
+    await expect(hero.locator('.manifesto-hero-places')).toContainText('Manaus');
+    await expect(hero.locator('.manifesto-hero-places')).toContainText('Porto Alegre');
+    for (const target of ['odqs', 'cartas']) {
+      await expect(hero.locator(`a[href="#${target}"]`)).toBeVisible();
+      await expect(page.locator(`#${target}`)).toHaveCount(1);
+    }
+    const mapBounds = await hero.locator('.manifesto-hero-brazil').boundingBox();
+    if (width <= 1020) {
+      expect(mapBounds!.x).toBeGreaterThanOrEqual(0);
+      expect(mapBounds!.x + mapBounds!.width).toBeLessThanOrEqual(width);
+    }
+
     const glass = hero.locator('img.manifesto-hero-glass-f');
     await expect(glass).toHaveAttribute(
       'src',

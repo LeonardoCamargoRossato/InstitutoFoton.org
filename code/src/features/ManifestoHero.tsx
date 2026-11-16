@@ -1,5 +1,6 @@
 import { ArrowDownRight } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
+import brazilStates from '../assets/brazil-states.svg';
 import '../styles/manifesto-hero.css';
 
 const glassWebp = assetUrl(
@@ -7,60 +8,86 @@ const glassWebp = assetUrl(
 );
 const glassPng = assetUrl('assets/05 - Manifesto/Imagens do Manifesto/PNG/HeroManifestoFGlass.png');
 
-// Silhueta geográfica simplificada do Brasil (Natural Earth, domínio público).
-const brazilOutline =
-  'M 340 611 L 335 602 L 342 595 L 333 585 L 286 557 L 277 558 L 313 524 L 335 510 L 336 498 L 328 489 L 321 492 L 326 467 L 310 466 L 304 442 L 272 438 L 273 418 L 269 410 L 273 407 L 272 398 L 279 380 L 275 371 L 267 367 L 268 353 L 239 352 L 234 335 L 238 335 L 234 315 L 216 311 L 194 298 L 178 296 L 162 283 L 163 256 L 143 259 L 119 275 L 86 274 L 87 252 L 75 261 L 62 260 L 56 252 L 46 252 L 49 245 L 35 223 L 39 214 L 48 210 L 51 190 L 82 175 L 95 175 L 102 128 L 94 115 L 94 104 L 105 103 L 105 97 L 97 96 L 97 86 L 125 87 L 130 82 L 137 95 L 148 101 L 160 100 L 192 79 L 179 75 L 177 56 L 170 52 L 196 56 L 227 45 L 233 39 L 231 35 L 242 38 L 240 44 L 248 53 L 242 71 L 247 85 L 256 92 L 263 93 L 281 83 L 301 85 L 301 75 L 346 80 L 365 50 L 370 50 L 382 84 L 390 86 L 390 96 L 379 109 L 384 113 L 410 115 L 410 130 L 422 120 L 465 135 L 472 143 L 469 152 L 487 147 L 515 155 L 537 154 L 578 183 L 602 188 L 608 193 L 615 220 L 609 245 L 557 305 L 548 376 L 541 401 L 526 421 L 523 436 L 511 442 L 508 451 L 468 457 L 424 479 L 412 494 L 412 513 L 406 535 L 340 611 Z';
+// City coordinates use the same equirectangular projection as brazil-states.svg.
+// Sources: regional letters in manifesto-content.ts and the public foundation record.
+const journeyCities = [
+  { name: 'Manaus', state: 'AM', lon: -60.02, lat: -3.12, dx: -14, dy: -17 },
+  { name: 'João Pessoa', state: 'PB', lon: -34.86, lat: -7.12, dx: 14, dy: -12 },
+  { name: 'Recife', state: 'PE', lon: -34.88, lat: -8.05, dx: 14, dy: 14 },
+  { name: 'Brasília', state: 'DF', lon: -47.88, lat: -15.79, dx: -14, dy: -15 },
+  { name: 'Sorocaba', state: 'SP', lon: -47.46, lat: -23.5, dx: -14, dy: 21 },
+  { name: 'Porto Alegre', state: 'RS', lon: -51.23, lat: -30.03, dx: -14, dy: 20 },
+].map((city) => ({ ...city, x: (city.lon + 74) * 14, y: (6 - city.lat) * 14 }));
+const regions = [
+  { name: 'Norte', x: 216, y: 104 },
+  { name: 'Nordeste', x: 480, y: 155 },
+  { name: 'Centro-Oeste', x: 250, y: 259 },
+  { name: 'Sudeste', x: 342, y: 350 },
+  { name: 'Sul', x: 265, y: 472 },
+];
 
 function BrazilConstellation() {
+  const hub = journeyCities[3];
   return (
     <svg
       className="manifesto-hero-brazil"
-      viewBox="0 0 680 720"
+      viewBox="0 0 680 620"
       aria-hidden="true"
       focusable="false"
     >
       <defs>
-        <linearGradient id="manifesto-brazil-stroke" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#14bbf5" />
-          <stop offset="0.52" stopColor="#3edbff" />
-          <stop offset="1" stopColor="#1b7de6" />
-        </linearGradient>
-        <radialGradient id="manifesto-brazil-fill">
-          <stop offset="0" stopColor="#118cc3" stopOpacity="0.24" />
-          <stop offset="1" stopColor="#083574" stopOpacity="0.08" />
+        <radialGradient id="manifesto-network-glow">
+          <stop stopColor="#27b9e9" stopOpacity=".16" />
+          <stop offset="1" stopColor="#27b9e9" stopOpacity="0" />
         </radialGradient>
-        <clipPath id="manifesto-brazil-mask">
-          <path d={brazilOutline} />
-        </clipPath>
+        <linearGradient id="manifesto-connection" x2="1" y2="1">
+          <stop stopColor="#65dbef" stopOpacity=".2" />
+          <stop offset=".5" stopColor="#a0efff" stopOpacity=".85" />
+          <stop offset="1" stopColor="#65dbef" stopOpacity=".3" />
+        </linearGradient>
       </defs>
-      <path
-        d={brazilOutline}
-        fill="url(#manifesto-brazil-fill)"
-        stroke="url(#manifesto-brazil-stroke)"
-        strokeWidth="2.5"
-        vectorEffect="non-scaling-stroke"
-      />
-      <g clipPath="url(#manifesto-brazil-mask)" stroke="#6ac9ff" strokeOpacity="0.19">
-        {Array.from({ length: 13 }, (_, index) => (
-          <path key={index} d={`M 0 ${100 + index * 43} H 680`} />
-        ))}
-        {Array.from({ length: 13 }, (_, index) => (
-          <path key={index} d={`M ${64 + index * 42} 0 V 720`} />
-        ))}
-        <path d="M 140 225 L 320 171 L 493 259 L 400 407 L 318 485 L 232 328 L 140 225" />
-        <path d="M 320 171 L 232 328 L 493 259 M 232 328 L 400 407" />
+      <circle cx="340" cy="290" r="280" fill="url(#manifesto-network-glow)" />
+      <image href={brazilStates} width="620" height="580" />
+      <g className="manifesto-map-connections" fill="none" stroke="url(#manifesto-connection)">
+        {journeyCities
+          .filter((city) => city !== hub)
+          .map((city) => (
+            <path
+              key={city.name}
+              d={`M${hub.x},${hub.y} Q${(city.x + hub.x) / 2 - 55},${Math.min(city.y, hub.y) - 48} ${city.x},${city.y}`}
+            />
+          ))}
+        <path
+          d={`M${journeyCities[0].x},${journeyCities[0].y} Q365,60 ${journeyCities[1].x},${journeyCities[1].y}`}
+          strokeDasharray="3 6"
+        />
       </g>
-      <g fill="#89e7ff">
-        {[
-          [140, 225],
-          [320, 171],
-          [493, 259],
-          [232, 328],
-          [400, 407],
-          [318, 485],
-        ].map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4" />
+      <g className="manifesto-map-regions">
+        {regions.map((region) => (
+          <text key={region.name} x={region.x} y={region.y}>
+            {region.name}
+          </text>
         ))}
+      </g>
+      {journeyCities.map((city) => (
+        <g key={city.name} className="manifesto-map-city">
+          <circle cx={city.x} cy={city.y} r="10" className="manifesto-map-pin-ring" />
+          <circle cx={city.x} cy={city.y} r="3.5" fill="#e0faff" />
+          <text
+            x={city.x + city.dx}
+            y={city.y + city.dy}
+            textAnchor={city.dx < 0 ? 'end' : 'start'}
+          >
+            {city.name}
+            <tspan className="manifesto-map-state"> · {city.state}</tspan>
+          </text>
+        </g>
+      ))}
+      <g className="manifesto-map-caption">
+        <circle cx="112" cy="567" r="3" fill="#a5e8ff" />
+        <text x="124" y="571">
+          CONEXÕES DO MOVIMENTO NACIONAL
+        </text>
       </g>
     </svg>
   );
@@ -71,7 +98,6 @@ export default function ManifestoHero() {
     <section className="manifesto-hero" aria-labelledby="manifesto-hero-title">
       <div className="manifesto-hero-orbit manifesto-hero-orbit--one" aria-hidden="true" />
       <div className="manifesto-hero-orbit manifesto-hero-orbit--two" aria-hidden="true" />
-      <BrazilConstellation />
       <div className="container manifesto-hero-layout">
         <div className="manifesto-hero-copy">
           <span className="manifesto-hero-eyebrow">
@@ -81,12 +107,34 @@ export default function ManifestoHero() {
             <span>{'Manifesto '}</span>
             <strong>Quântico Nacional</strong>
           </h1>
-          <p>Um chamado para construir, juntos, o futuro das tecnologias quânticas no Brasil.</p>
+          <p>
+            Ciência, cooperação e soberania tecnológica. Um movimento para conectar o Brasil e
+            construir, juntos, o futuro das tecnologias quânticas.
+          </p>
+          <p className="sr-only">
+            O mapa conecta registros de Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF),
+            Sorocaba (SP) e Porto Alegre (RS). As linhas representam a articulação do movimento.
+          </p>
+          <div className="manifesto-hero-pillars" aria-label="Abrangência e objetivos do Manifesto">
+            <a href="#odqs">
+              <strong>11</strong>
+              <span>
+                ODQs<small>Objetivos de Desenvolvimento Quântico</small>
+              </span>
+            </a>
+            <a href="#cartas">
+              <strong>5</strong>
+              <span>
+                macrorregiões<small>Uma construção nacional</small>
+              </span>
+            </a>
+          </div>
           <a className="manifesto-hero-action" href="#contribuir-manifesto">
             Venha contribuir <ArrowDownRight aria-hidden="true" size={21} />
           </a>
         </div>
         <div className="manifesto-hero-visual" aria-hidden="true">
+          <BrazilConstellation />
           <div className="manifesto-hero-glass-halo" />
           <picture className="manifesto-hero-picture">
             <source type="image/webp" srcSet={glassWebp} />
@@ -102,6 +150,10 @@ export default function ManifestoHero() {
             />
           </picture>
         </div>
+        <p className="manifesto-hero-places">
+          <span>Conexões do movimento</span> Manaus · João Pessoa · Recife · Brasília · Sorocaba ·
+          Porto Alegre
+        </p>
       </div>
       <span className="manifesto-hero-bottom-line" aria-hidden="true" />
     </section>
