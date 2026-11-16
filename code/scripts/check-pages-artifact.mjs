@@ -185,7 +185,7 @@ for (const [format, extension] of [
   ['WebP', 'webp'],
 ]) {
   expected.add(
-    inaugurationRoot + format + '/inauguracao_ManifestoQuantico_fotonSaoPessoas.' + extension,
+    inaugurationRoot + format + '/InauguracaoManifestoQuanticoFotonSaoPessoas.' + extension,
   );
 }
 // Apoie a Ciência: somente as três duplas já catalogadas.
