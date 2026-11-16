@@ -92,17 +92,23 @@ const newsFolders = {
   softsul: '01-Foton-SOFTSUL',
   'assespro-rs': '03-Foton-Assespro-RS',
   cubotech: '04-Seminario-CUBOTECH',
+  'mobi-quantum': '07-Mobi-Quantum',
 };
-if (newsMedia.length !== 4 || new Set(newsMedia.map((m) => m.original)).size !== 4)
-  throw Error('Inventário de notícias deve conter 4 imagens distintas');
+if (newsMedia.length !== 10 || new Set(newsMedia.map((m) => m.original)).size !== 10)
+  throw Error('Inventário de notícias deve conter 10 imagens distintas');
 for (const media of newsMedia) {
   const folder = newsFolders[media.group];
   const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
+  const isMobi = media.group === 'mobi-quantum';
   if (
     !folder ||
-    !/^[A-Za-z0-9]+\.png$/.test(media.name) ||
-    media.original !== prefix + 'PNG/' + media.name ||
-    media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp')
+    (isMobi
+      ? !/^MobiQuantumUnisoQuantumDay0[1-6]\.webp$/.test(media.name) ||
+        media.original !== prefix + 'WebP/' + media.name ||
+        media.preview !== media.original
+      : !/^[A-Za-z0-9]+\.png$/.test(media.name) ||
+        media.original !== prefix + 'PNG/' + media.name ||
+        media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp'))
   )
     throw Error('Caminho de imagem de notícia não padronizado: ' + media.name);
   expected.add(media.original);
