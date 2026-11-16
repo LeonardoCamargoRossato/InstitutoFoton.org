@@ -511,12 +511,77 @@ export function Institute() {
   );
 }
 
+const manifestoFormUrl =
+  'https://docs.google.com/forms/d/e/1FAIpQLSeYr2fuajfrVqG4fnEH4Gitja26eao_7hf7ybqRWfB98pgNgg/viewform';
+
+function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) {
+  return (
+    <section
+      className={`section manifesto-participation manifesto-participation--${placement}`}
+      aria-labelledby={`manifesto-participation-${placement}`}
+    >
+      <div className="container manifesto-participation-layout">
+        <div className="manifesto-participation-copy">
+          <span className="eyebrow">Sua voz faz parte dessa construção</span>
+          <h2 id={`manifesto-participation-${placement}`}>Venha contribuir com o Manifesto.</h2>
+          <p>
+            Você também pode participar. Você também pode contribuir com o Manifesto Quântico
+            Nacional. Basta clicar no formulário e compartilhar suas ideias.
+          </p>
+          <p className="manifesto-participation-hint">
+            <span>Consulta pública e gratuita</span>
+            <span aria-hidden="true">·</span>
+            <span>Reserve cerca de 5 a 10 minutos (estimativa)</span>
+          </p>
+          <p className="manifesto-participation-note">
+            O tempo de preenchimento pode variar conforme o conteúdo das suas respostas. O
+            formulário abre em uma nova aba do Google Forms.
+          </p>
+        </div>
+        <a
+          className="manifesto-form-link"
+          href={manifestoFormUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Responder ao formulário de contribuição para o Manifesto Quântico Nacional (abre em nova aba)"
+        >
+          <span className="manifesto-form-stack" aria-hidden="true">
+            <span className="manifesto-form-sheet manifesto-form-sheet--back">
+              <span className="manifesto-form-sheet-top" />
+              <span className="manifesto-form-line" />
+              <span className="manifesto-form-line manifesto-form-line--short" />
+              <span className="manifesto-form-radio" />
+              <span className="manifesto-form-radio manifesto-form-radio--second" />
+            </span>
+            <span className="manifesto-form-sheet manifesto-form-sheet--front">
+              <span className="manifesto-form-sheet-top" />
+              <span className="manifesto-form-icon">✦</span>
+              <span className="manifesto-form-title">Sua contribuição importa.</span>
+              <span className="manifesto-form-caption">Manifesto Quântico Nacional</span>
+              <span className="manifesto-form-line" />
+              <span className="manifesto-form-line manifesto-form-line--short" />
+              <span className="manifesto-form-radio" />
+            </span>
+            <span className="manifesto-form-action">
+              Responder ao formulário <ArrowUpRight size={18} aria-hidden="true" />
+            </span>
+          </span>
+          <span className="manifesto-form-link-caption">
+            Clique no cartão para contribuir pelo Google Forms
+          </span>
+        </a>
+      </div>
+    </section>
+  );
+}
+
 export function Manifesto() {
   return (
     <>
       <Intro eyebrow="Uma construção coletiva" title="Manifesto Quântico Nacional">
         <p>Por um Brasil mais competitivo, conectado e soberano.</p>
       </Intro>
+      <ManifestoParticipation placement="top" />
       <div className="anchor-bar">
         <div className="container">
           <a href="#sobre-manifesto">O movimento</a>
@@ -654,6 +719,7 @@ export function Manifesto() {
           </div>
         </div>
       </section>
+      <ManifestoParticipation placement="bottom" />
     </>
   );
 }

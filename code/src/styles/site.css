@@ -3585,3 +3585,230 @@
     box-shadow: none;
   }
 }
+
+/* Convite para o questionário do Manifesto: dois pontos de entrada, uma mesma identidade. */
+@layer components {
+  .manifesto-participation {
+    background: radial-gradient(ellipse at 90% 20%, rgba(1, 88, 187, 0.07), transparent 52%), #fff;
+    padding-block: clamp(70px, 8vw, 112px);
+  }
+  .manifesto-participation--bottom {
+    background:
+      radial-gradient(ellipse at 8% 65%, rgba(48, 18, 107, 0.07), transparent 55%), #f7f9fd;
+    border-radius: 42px 42px 0 0;
+  }
+  .manifesto-participation-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: clamp(42px, 8vw, 116px);
+  }
+  .manifesto-participation-copy h2 {
+    margin-top: 16px;
+    max-width: 590px;
+  }
+  .manifesto-participation-copy > p {
+    max-width: 590px;
+    margin-top: 20px;
+    line-height: 1.8;
+  }
+  .manifesto-participation-hint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    color: var(--navy);
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+  .manifesto-participation-copy .manifesto-participation-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+  .manifesto-form-link {
+    display: block;
+    color: var(--navy);
+    text-decoration: none;
+    border-radius: 22px;
+    outline-offset: 6px;
+  }
+  .manifesto-form-stack {
+    position: relative;
+    display: block;
+    min-height: 330px;
+    width: 100%;
+    isolation: isolate;
+  }
+  .manifesto-form-sheet {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 76%;
+    min-height: 264px;
+    padding: 23px 26px;
+    border-radius: 19px;
+    border: 1px solid rgba(7, 44, 123, 0.12);
+    background: #fff;
+    box-shadow: 0 18px 42px rgba(7, 44, 123, 0.15);
+    transition:
+      transform 320ms cubic-bezier(0.2, 0.72, 0.2, 1),
+      box-shadow 320ms ease;
+  }
+  .manifesto-form-sheet--back {
+    right: 0;
+    top: 4%;
+    transform: rotate(7deg);
+  }
+  .manifesto-form-sheet--front {
+    left: 4%;
+    top: 13%;
+    z-index: 1;
+    transform: rotate(-5deg);
+  }
+  .manifesto-form-sheet-top {
+    height: 9px;
+    width: 100%;
+    margin: -23px -26px 22px;
+    padding-inline: 26px;
+    border-radius: 19px 19px 0 0;
+    background: linear-gradient(90deg, var(--purple), var(--blue));
+    box-sizing: content-box;
+  }
+  .manifesto-form-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    color: white;
+    background: var(--purple);
+    border-radius: 11px;
+    font-size: 1.5rem;
+  }
+  .manifesto-form-title {
+    margin-top: 13px;
+    font-size: clamp(1.08rem, 2vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .manifesto-form-caption {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+  .manifesto-form-line {
+    display: block;
+    width: 92%;
+    height: 9px;
+    margin-top: 16px;
+    border-radius: 20px;
+    background: #e8edf7;
+  }
+  .manifesto-form-line--short {
+    width: 62%;
+    margin-top: 10px;
+  }
+  .manifesto-form-radio {
+    display: block;
+    width: 17px;
+    height: 17px;
+    margin-top: 18px;
+    border-radius: 50%;
+    border: 2px solid #9aabc9;
+  }
+  .manifesto-form-radio--second {
+    margin-top: 10px;
+  }
+  .manifesto-form-action {
+    position: absolute;
+    right: 0;
+    bottom: 1%;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 13px 18px;
+    border-radius: 999px;
+    color: white;
+    background: var(--navy);
+    box-shadow: 0 10px 26px rgba(7, 44, 123, 0.23);
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.4;
+    transition:
+      transform 320ms ease,
+      background 320ms ease;
+  }
+  .manifesto-form-link-caption {
+    display: block;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 0.86rem;
+    text-align: center;
+  }
+  .manifesto-form-link:hover .manifesto-form-sheet--front,
+  .manifesto-form-link:focus-visible .manifesto-form-sheet--front {
+    transform: rotate(-2deg) translate(-10px, -8px);
+    box-shadow: 0 24px 56px rgba(7, 44, 123, 0.2);
+  }
+  .manifesto-form-link:hover .manifesto-form-sheet--back,
+  .manifesto-form-link:focus-visible .manifesto-form-sheet--back {
+    transform: rotate(4deg) translate(10px, 5px);
+  }
+  .manifesto-form-link:hover .manifesto-form-action,
+  .manifesto-form-link:focus-visible .manifesto-form-action {
+    transform: translateY(-4px);
+    background: var(--blue);
+  }
+}
+@layer responsive {
+  @media (max-width: 850px) {
+    .manifesto-participation-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .manifesto-form-link {
+      width: min(100%, 560px);
+      justify-self: center;
+    }
+  }
+  @media (max-width: 540px) {
+    .manifesto-form-stack {
+      min-height: 277px;
+    }
+    .manifesto-form-sheet {
+      min-height: 225px;
+      padding: 20px;
+    }
+    .manifesto-form-sheet-top {
+      margin: -20px -20px 18px;
+      padding-inline: 20px;
+    }
+    .manifesto-form-action {
+      padding: 11px 14px;
+      font-size: 0.76rem;
+    }
+    .manifesto-participation {
+      padding-block: 60px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .manifesto-form-sheet,
+    .manifesto-form-action {
+      transition: none;
+    }
+    .manifesto-form-link:hover .manifesto-form-sheet--front,
+    .manifesto-form-link:focus-visible .manifesto-form-sheet--front {
+      transform: rotate(-5deg);
+    }
+    .manifesto-form-link:hover .manifesto-form-sheet--back,
+    .manifesto-form-link:focus-visible .manifesto-form-sheet--back {
+      transform: rotate(7deg);
+    }
+    .manifesto-form-link:hover .manifesto-form-action,
+    .manifesto-form-link:focus-visible .manifesto-form-action {
+      transform: none;
+    }
+  }
+}
