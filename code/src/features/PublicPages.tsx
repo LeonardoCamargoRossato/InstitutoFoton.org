@@ -717,9 +717,8 @@ export function Legal({ terms = false }: { terms?: boolean }) {
               </p>
               <h2>Fontes e referências</h2>
               <p>
-                Os documentos institucionais estão disponíveis nas páginas de apresentação e
-                transparência. Conteúdos de terceiros são identificados por suas fontes quando
-                aplicável.
+                A apresentação institucional está disponível para consulta pública. Conteúdos de
+                terceiros são identificados por suas fontes quando aplicável.
               </p>
             </>
           ) : (

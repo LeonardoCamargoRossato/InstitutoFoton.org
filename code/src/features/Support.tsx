@@ -1,5 +1,5 @@
 import { HeartHandshake } from 'lucide-react';
-import { Intro, Heading, Action, TextLink } from '../components/UI';
+import { Intro, Heading, Action } from '../components/UI';
 
 export default function Support() {
   return (
@@ -27,7 +27,6 @@ export default function Support() {
             </p>
             <div className="actions">
               <Action to="/contato">Canais de contato</Action>
-              <TextLink to="/transparencia">Transparência institucional</TextLink>
             </div>
           </div>
         </div>

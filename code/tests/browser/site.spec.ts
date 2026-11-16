@@ -239,14 +239,7 @@ test('admin anônimo nunca mostra o dashboard; rotas desconhecidas têm 404', as
 });
 
 test('WCAG automatizada nas principais páginas e modal', async ({ page }) => {
-  for (const route of [
-    './',
-    './apoie',
-    './manifesto',
-    './noticias',
-    './entrar',
-    './transparencia',
-  ]) {
+  for (const route of ['./', './apoie', './manifesto', './noticias', './entrar']) {
     await page.goto(route);
     await page.getByRole('heading', { level: 1 }).waitFor();
     const result = await new AxeBuilder({ page })
@@ -275,7 +268,6 @@ test('screenshots para revisão desktop e mobile', async ({ page }, testInfo) =>
       ['./contato', 'contato'],
       ['./manifesto', 'manifesto'],
       ['./apresentacao', 'apresentacao'],
-      ['./transparencia', 'transparencia'],
       ['./entrar', 'entrar'],
     ]) {
       await page.goto(path);

@@ -13,7 +13,6 @@ const navigation = [
   ['/pesquisa', researchTitle],
   ['/manifesto', 'Manifesto'],
   ['/noticias', 'Notícias'],
-  ['/transparencia', 'Transparência'],
 ];
 const titles: Record<string, string> = {
   '/': 'Ciências e Tecnologias Quânticas',
@@ -25,7 +24,6 @@ const titles: Record<string, string> = {
   ...Object.fromEntries(researchLines.map(({ slug, title }) => [`/pesquisa/${slug}`, title])),
   '/manifesto': 'Manifesto Quântico Nacional',
   '/noticias': 'Notícias e histórias',
-  '/transparencia': 'Transparência',
   '/apoie': 'Apoie a ciência',
   '/contato': 'Contato',
   '/entrar': 'Acesso institucional',
@@ -275,7 +273,6 @@ export default function Layout() {
               <h2>Participe</h2>
               <Link to="/apoie">Apoie a Ciência</Link>
               <Link to="/noticias">Notícias e histórias</Link>
-              <Link to="/transparencia">Transparência</Link>
               <Link to="/contato">Contato</Link>
             </div>
             <div className="footer-statement">

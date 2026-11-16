@@ -17,7 +17,7 @@ import { Home, Institute, Manifesto, Contact, Legal, NotFound } from './features
 import Support from './features/Support';
 const News = lazy(() => import('./features/Publications').then((m) => ({ default: m.News })));
 const Article = lazy(() => import('./features/Publications').then((m) => ({ default: m.Article })));
-import { Transparency, Presentation } from './features/Documents';
+import { Presentation } from './features/Documents';
 const Access = lazy(() => import('./features/Access'));
 const PartnersPage = lazy(() => import('./features/PartnersPage'));
 const Research = lazy(() =>
@@ -89,7 +89,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="apoie" element={<Support />} />
             <Route path="noticias" element={<News />} />
             <Route path="noticias/:slug" element={<Article />} />
-            <Route path="transparencia" element={<Transparency />} />
             <Route path="apresentacao" element={<Presentation />} />
             <Route path="contato" element={<Contact />} />
             <Route path="entrar" element={<Access />} />
