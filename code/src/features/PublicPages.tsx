@@ -14,6 +14,7 @@ import InstitutePurpose from '../components/InstitutePurpose';
 import { FoundationTeaser } from '../components/FoundationHistory';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
+import ManifestoHero from './ManifestoHero';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
 
 export function Home() {
@@ -518,6 +519,7 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
   return (
     <section
       className={`section manifesto-participation manifesto-participation--${placement}`}
+      id={placement === 'top' ? 'contribuir-manifesto' : undefined}
       aria-labelledby={`manifesto-participation-${placement}`}
     >
       <div className="container manifesto-participation-layout">
@@ -578,9 +580,7 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
 export function Manifesto() {
   return (
     <>
-      <Intro eyebrow="Uma construção coletiva" title="Manifesto Quântico Nacional">
-        <p>Por um Brasil mais competitivo, conectado e soberano.</p>
-      </Intro>
+      <ManifestoHero />
       <ManifestoParticipation placement="top" />
       <div className="anchor-bar">
         <div className="container">
