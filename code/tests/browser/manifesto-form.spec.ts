@@ -37,14 +37,20 @@ test('Cartão responde ao hover e permanece acessível no celular', async ({ pag
   const before = await front.evaluate((el) => getComputedStyle(el).transform);
   await link.hover();
   await expect.poll(() => front.evaluate((el) => getComputedStyle(el).transform)).not.toBe(before);
-  await page.locator('#contribua-manifesto').screenshot({
+  const topSection = page.locator('#contribua-manifesto');
+  await topSection.scrollIntoViewIfNeeded();
+  await expect(topSection).toHaveClass(/is-revealed/);
+  await topSection.screenshot({
     path: 'test-results/manifesto-convite-desktop.png',
     animations: 'disabled',
   });
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.getByRole('link', { name: linkName })).toHaveCount(2);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.locator('#contribua-manifesto-final').screenshot({
+  const finalSection = page.locator('#contribua-manifesto-final');
+  await finalSection.scrollIntoViewIfNeeded();
+  await expect(finalSection).toHaveClass(/is-revealed/);
+  await finalSection.screenshot({
     path: 'test-results/manifesto-convite-mobile.png',
     animations: 'disabled',
   });
