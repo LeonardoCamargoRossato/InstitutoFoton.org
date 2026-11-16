@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import publications from '../src/content/publications.json';
+import newsMedia from '../src/content/news-media.json';
 
 const newSlugs = [
   'lancamento-lacq-pucrs-instituto-foton',
@@ -23,11 +24,27 @@ describe('notícias institucionais verificáveis', () => {
     for (const slug of newSlugs) {
       const item = publications.find((p) => p.slug === slug);
       expect(item).toBeDefined();
-      expect(item?.main_image_path).toBeNull();
+      if (slug === 'foton-mobi-quantum-festival-2026') {
+        expect(item?.main_image_path).toContain('MobiQuantumUnisoQuantumDay01.webp');
+      } else {
+        expect(item?.main_image_path).toBeNull();
+      }
       expect(item?.source_url).toMatch(/^https:\/\//);
       expect(item?.source_name).toBeTruthy();
       expect(item?.body.length).toBeGreaterThan(500);
     }
+  });
+
+  it('mantém seis imagens WebP do carrossel Mobi Quantum', () => {
+    const images = newsMedia.filter((media) => media.group === 'mobi-quantum');
+    expect(images).toHaveLength(6);
+    expect(images.map((media) => media.preview)).toEqual(
+      Array.from(
+        { length: 6 },
+        (_, i) =>
+          `assets/06 - Notícias/Reportagens/07-Mobi-Quantum/WebP/MobiQuantumUnisoQuantumDay${String(i + 1).padStart(2, '0')}.webp`,
+      ),
+    );
   });
 
   it('separa protótipo Leonti, contratação sem repasses e anúncio do Mobi', () => {
