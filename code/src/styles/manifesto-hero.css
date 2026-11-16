@@ -123,7 +123,10 @@
     text-decoration: none;
     box-shadow: 0 10px 32px rgba(1, 17, 64, 0.3);
     backdrop-filter: blur(12px);
-    transition: transform 280ms ease, background 280ms ease, border-color 280ms ease;
+    transition:
+      transform 280ms ease,
+      background 280ms ease,
+      border-color 280ms ease;
   }
 
   .manifesto-hero-action:hover,
@@ -164,8 +167,7 @@
     width: min(100%, 550px);
     height: auto;
     object-fit: contain;
-    filter:
-      drop-shadow(0 0 26px rgba(12, 161, 255, 0.4))
+    filter: drop-shadow(0 0 26px rgba(12, 161, 255, 0.4))
       drop-shadow(0 22px 30px rgba(0, 7, 30, 0.42));
     animation: manifesto-glass-float 7s ease-in-out infinite;
   }
