@@ -61,10 +61,7 @@ export function NewsCarousel({ title, label, images }: Props) {
           </button>
         </div>
       </div>
-      <div
-        className="news-carousel-thumbnails news-mobi-thumbnails"
-        aria-label="Selecionar foto"
-      >
+      <div className="news-carousel-thumbnails news-mobi-thumbnails" aria-label="Selecionar foto">
         {images.map((media, index) => (
           <button
             type="button"
