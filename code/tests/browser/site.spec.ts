@@ -198,7 +198,8 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await expect(
     page.getByRole('dialog').getByText(/Jornada conectou polos de inovação/i),
   ).toBeVisible();
-  await page.keyboard.press('Escape');
+  // O player externo do YouTube pode capturar a tecla Esc; use o controle do modal.
+  await page.getByRole('dialog').getByRole('button', { name: 'Fechar galeria' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
 
   await page.locator('.gallery-track > button').first().click();
