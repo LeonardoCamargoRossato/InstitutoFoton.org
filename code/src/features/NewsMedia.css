@@ -16,7 +16,9 @@
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
   border-radius: 12px;
   border: 1px solid #d9e6ee;
   background: #f5f9fc;
@@ -59,7 +61,10 @@
 }
 .news-mobi-image-button {
   display: block;
+  position: relative;
   width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
   padding: 0;
   border: 0;
   background: transparent;
@@ -67,10 +72,13 @@
 }
 .news-mobi-image-button img {
   display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  max-height: 65vh;
-  object-fit: contain;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
 }
 .news-mobi-controls {
   display: flex;
@@ -109,8 +117,9 @@
 .news-mobi-thumbnails img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  object-position: center;
 }
 .news-mobi-credit {
   color: #52697b;
@@ -139,7 +148,7 @@
   }
 }
 
-/* Fotos documentais em tamanho de leitura, sem cortes e com zoom no PNG original. */
+/* Prévia editorial 16:9 centralizada; zoom preserva o PNG original sem cortes. */
 .news-highlight-photos {
   display: grid;
   gap: 1.75rem;
@@ -155,7 +164,10 @@
 }
 .news-highlight-image-button {
   display: block;
+  position: relative;
   width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
   padding: 0;
   border: 0;
   background: #f5f9fc;
@@ -167,10 +179,13 @@
 }
 .news-highlight-image-button img {
   display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  max-height: 720px;
-  object-fit: contain;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
 }
 .news-highlight-figure figcaption {
   display: grid;
