@@ -410,7 +410,7 @@ test('notícias exibem prévias 16:9 centralizadas e preservam PNG inteiro no zo
         await expect(preview).toHaveAttribute('src', /\\.webp$/);
         await button.click();
         const dialog = page.getByRole('dialog');
-        await expect(dialog.locator('img')).toHaveAttribute('src', /\\.png$/);
+        await expect(dialog.locator('img')).toHaveAttribute('src', /\.png$/);
         await expect(dialog.locator('img')).not.toHaveCSS('object-fit', 'cover');
         await page.getByRole('button', { name: 'Fechar galeria' }).click();
       }
@@ -441,7 +441,7 @@ test('fotografias editoriais e antigas mantêm corte 16:9 na leitura e zoom PNG'
     await expect(photo).toHaveCSS('object-position', '50% 50%');
     await preview.click();
     const dialog = page.getByRole('dialog');
-    await expect(dialog.locator('img')).toHaveAttribute('src', /\\.png$/);
+    await expect(dialog.locator('img')).toHaveAttribute('src', /\.png$/);
     await expect(dialog.locator('img')).not.toHaveCSS('object-fit', 'cover');
     await page.getByRole('button', { name: 'Fechar galeria' }).click();
   }
