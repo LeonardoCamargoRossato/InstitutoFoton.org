@@ -94,26 +94,34 @@ const newsFolders = {
   cubotech: '04-Seminario-CUBOTECH',
   'mobi-quantum': '07-Mobi-Quantum',
 };
-if (newsMedia.length !== 10 || new Set(newsMedia.map((m) => m.original)).size !== 10)
-  throw Error('Inventário de notícias deve conter 10 imagens distintas');
+if (newsMedia.length !== 13 || new Set(newsMedia.map((m) => m.original)).size !== 13)
+  throw Error('Inventário de notícias deve conter 13 imagens distintas');
 for (const media of newsMedia) {
   const folder = newsFolders[media.group];
   const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
   const isMobi = media.group === 'mobi-quantum';
+  const validName = isMobi
+    ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
+    : /^[A-Za-z0-9]+\.png$/.test(media.name);
   if (
     !folder ||
-    (isMobi
-      ? !/^MobiQuantumUnisoQuantumDay0[1-6]\.webp$/.test(media.name) ||
-        media.original !== prefix + 'WebP/' + media.name ||
-        media.preview !== media.original
-      : !/^[A-Za-z0-9]+\.png$/.test(media.name) ||
-        media.original !== prefix + 'PNG/' + media.name ||
-        media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp'))
+    !validName ||
+    media.original !== prefix + 'PNG/' + media.name ||
+    media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp')
   )
     throw Error('Caminho de imagem de notícia não padronizado: ' + media.name);
   expected.add(media.original);
   expected.add(media.preview);
 }
+// Preservação temporária: seis WebP do acervo anterior até classificação curatorial,
+// sem exibí-los como fotos do Mobi Festival.
+for (let number = 1; number <= 6; number++) {
+  const name = 'MobiQuantumUnisoQuantumDay' + String(number).padStart(2, '0') + '.webp';
+  expected.add('assets/06 - Notícias/Reportagens/07-Mobi-Quantum/WebP/' + name);
+}
+const mobi = newsMedia.filter(({ group }) => group === 'mobi-quantum');
+if (mobi.length !== 9 || mobi.some((m, i) => m.name !== `QuantumBusiness${i + 1}.png`))
+  throw Error('Carrossel Mobi Quantum deve usar as nove fotografias QuantumBusiness em ordem');
 const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
 const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
   (number) =>
