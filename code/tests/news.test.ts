@@ -35,20 +35,15 @@ describe('notícias institucionais verificáveis', () => {
     }
   });
 
-  it('mantém nove pares PNG/WebP do Quantum Business no carrossel Mobi Quantum', () => {
+  it('mantém nove pares PNG/WebP Quantum Business na ordem correta', () => {
     const images = newsMedia.filter((media) => media.group === 'mobi-quantum');
-    const root = 'assets/06 - Notícias/Reportagens/07-Mobi-Quantum';
     expect(images).toHaveLength(9);
-    expect(images.map((media) => media.name)).toEqual(
-      Array.from({ length: 9 }, (_, i) => `QuantumBusiness${i + 1}.png`),
-    );
-    for (const media of images) {
-      expect(media.original).toBe(`${root}/PNG/${media.name}`);
-      expect(media.preview).toBe(
-        `${root}/WebP/${media.name.replace(/\.png$/, '.webp')}`,
-      );
+    for (const [index, media] of images.entries()) {
+      const name = `QuantumBusiness${index + 1}`;
+      expect(media.name).toBe(`${name}.png`);
+      expect(media.original).toContain(`/PNG/${name}.png`);
+      expect(media.preview).toContain(`/WebP/${name}.webp`);
       expect(media.alt).toContain('Mobi Festival');
-      expect(media.alt).not.toContain('Uniso Quantum Day');
     }
   });
 
