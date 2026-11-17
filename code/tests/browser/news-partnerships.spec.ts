@@ -407,7 +407,7 @@ test('notícias exibem prévias 16:9 centralizadas e preservam PNG inteiro no zo
         expect(ratio).toBeCloseTo(16 / 9, 1);
         await expect(preview).toHaveCSS('object-fit', 'cover');
         await expect(preview).toHaveCSS('object-position', '50% 50%');
-        await expect(preview).toHaveAttribute('src', /\\.webp$/);
+        await expect(preview).toHaveAttribute('src', /\.webp$/);
         await button.click();
         const dialog = page.getByRole('dialog');
         await expect(dialog.locator('img')).toHaveAttribute('src', /\.png$/);
