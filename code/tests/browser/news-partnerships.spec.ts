@@ -288,8 +288,12 @@ test('Projeto Leonti: capa e duas fotografias no artigo, WebP inicial e PNG no z
     await page.keyboard.press('Escape');
     await expect(dialog).toHaveCount(0);
   }
-  await expect(page.getByRole('region', { name: 'Carrossel de fotos do Quantum Day 1' })).toBeVisible();
-  await expect(page.getByRole('region', { name: 'Carrossel de fotos do Quantum Day 2' })).toBeVisible();
+  await expect(
+    page.getByRole('region', { name: 'Carrossel de fotos do Quantum Day 1' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('region', { name: 'Carrossel de fotos do Quantum Day 2' }),
+  ).toBeVisible();
   for (const width of [390, 768, 1280]) {
     await page.setViewportSize({ width, height: 844 });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
