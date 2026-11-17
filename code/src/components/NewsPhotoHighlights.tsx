@@ -49,13 +49,9 @@ export function NewsPhotoHighlights({ images }: Props) {
           caption={current.credit}
           onClose={() => setActive(null)}
           onPrevious={() =>
-            setActive((index) =>
-              index === null ? 0 : (index - 1 + images.length) % images.length,
-            )
+            setActive((index) => (index === null ? 0 : (index - 1 + images.length) % images.length))
           }
-          onNext={() =>
-            setActive((index) => (index === null ? 0 : (index + 1) % images.length))
-          }
+          onNext={() => setActive((index) => (index === null ? 0 : (index + 1) % images.length))}
         />
       )}
     </section>
