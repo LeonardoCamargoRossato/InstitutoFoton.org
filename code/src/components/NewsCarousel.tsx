@@ -55,7 +55,9 @@ export function NewsCarousel({ title, label, images }: Props) {
           <button type="button" onClick={() => go(-1)} aria-label="Foto anterior">
             <ChevronLeft aria-hidden="true" />
           </button>
-          <span aria-live="polite">{active + 1} de {images.length}</span>
+          <span aria-live="polite">
+            {active + 1} de {images.length}
+          </span>
           <button type="button" onClick={() => go(1)} aria-label="Próxima foto">
             <ChevronRight aria-hidden="true" />
           </button>
