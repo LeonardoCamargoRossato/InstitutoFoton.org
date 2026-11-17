@@ -41,7 +41,9 @@ describe('notícias institucionais verificáveis', () => {
 
   it('publica os 13 pares PNG/WebP da LACQ PUCRS e usa a primeira fotografia como capa', () => {
     const images = newsMedia.filter((media) => media.group === 'lacq-pucrs');
-    const story = publications.find((item) => item.slug === 'lancamento-lacq-pucrs-instituto-foton');
+    const story = publications.find(
+      (item) => item.slug === 'lancamento-lacq-pucrs-instituto-foton',
+    );
     expect(images).toHaveLength(13);
     expect(story?.main_image_path).toBe(images[0].preview);
     images.forEach((photo, index) => {
