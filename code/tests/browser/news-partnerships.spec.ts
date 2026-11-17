@@ -382,3 +382,67 @@ test('todos os títulos de carrossel mantêm folga óptica proporcional à fonte
     expect(Math.max(...visibleGaps) - Math.min(...visibleGaps)).toBeLessThanOrEqual(3);
   }
 });
+
+test('notícias exibem prévias 16:9 centralizadas e preservam PNG inteiro no zoom', async ({
+  page,
+}) => {
+  const groups = [
+    { slug: 'lancamento-lacq-pucrs-instituto-foton', count: 1 },
+    { slug: 'foton-mobi-quantum-festival-2026', count: 1 },
+    { slug: 'uniso-quantum-day-entrega-projeto-leonti', count: 2 },
+  ];
+  for (const width of [390, 1280]) {
+    await page.setViewportSize({ width, height: 840 });
+    for (const { slug, count } of groups) {
+      await page.goto('./noticias/' + slug);
+      const carousels = page.locator('.news-carousel');
+      await expect(carousels).toHaveCount(count);
+      for (const carousel of await carousels.all()) {
+        const button = carousel.locator('.news-carousel-image-button');
+        const preview = button.locator('img');
+        const ratio = await button.evaluate((el) => {
+          const rect = el.getBoundingClientRect();
+          return rect.width / rect.height;
+        });
+        expect(ratio).toBeCloseTo(16 / 9, 1);
+        await expect(preview).toHaveCSS('object-fit', 'cover');
+        await expect(preview).toHaveCSS('object-position', '50% 50%');
+        await expect(preview).toHaveAttribute('src', /\\.webp$/);
+        await button.click();
+        const dialog = page.getByRole('dialog');
+        await expect(dialog.locator('img')).toHaveAttribute('src', /\\.png$/);
+        await expect(dialog.locator('img')).not.toHaveCSS('object-fit', 'cover');
+        await page.getByRole('button', { name: 'Fechar galeria' }).click();
+      }
+    }
+  }
+});
+
+test('fotografias editoriais e antigas mantêm corte 16:9 na leitura e zoom PNG', async ({
+  page,
+}) => {
+  const stories = [
+    { slug: 'uniso-quantum-day-entrega-projeto-leonti', selector: '.news-highlight-image-button' },
+    { slug: 'foton-softsul-cooperacao-tecnologias-quanticas', selector: '.news-media-photo' },
+    { slug: 'foton-assespro-rs-termo-cooperacao', selector: '.news-media-photo' },
+    { slug: 'seminario-cubotech-direito-computacao-quantica', selector: '.news-media-photo' },
+  ];
+  for (const { slug, selector } of stories) {
+    await page.goto('./noticias/' + slug);
+    const preview = page.locator(selector).first();
+    await expect(preview).toBeVisible();
+    const box = await preview.evaluate((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.width / rect.height;
+    });
+    expect(box).toBeCloseTo(16 / 9, 1);
+    const photo = (await preview.getAttribute('src')) ? preview : preview.locator('img');
+    await expect(photo).toHaveCSS('object-fit', 'cover');
+    await expect(photo).toHaveCSS('object-position', '50% 50%');
+    await preview.click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog.locator('img')).toHaveAttribute('src', /\\.png$/);
+    await expect(dialog.locator('img')).not.toHaveCSS('object-fit', 'cover');
+    await page.getByRole('button', { name: 'Fechar galeria' }).click();
+  }
+});
