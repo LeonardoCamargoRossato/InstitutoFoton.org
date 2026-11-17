@@ -241,11 +241,15 @@ test('Quantum Day: dois carrosséis com o mesmo componente e zoom PNG', async ({
     const preview = carousel.locator('.news-carousel-image-button img');
     await expect(preview).toHaveAttribute('src', new RegExp(first + '\\.webp$'));
     await preview.scrollIntoViewIfNeeded();
-    await expect.poll(() => preview.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await expect
+      .poll(() => preview.evaluate((img: HTMLImageElement) => img.naturalWidth))
+      .toBeGreaterThan(0);
     await carousel.getByRole('button', { name: 'Ampliar foto 1 do ' + label }).click();
     const zoom = page.getByRole('dialog').locator('img');
     await expect(zoom).toHaveAttribute('src', new RegExp(first + '\\.png$'));
-    await expect.poll(() => zoom.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await expect
+      .poll(() => zoom.evaluate((img: HTMLImageElement) => img.naturalWidth))
+      .toBeGreaterThan(0);
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await carousel.getByRole('button', { name: 'Próxima foto' }).click();
