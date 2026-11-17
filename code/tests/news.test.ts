@@ -26,6 +26,8 @@ describe('notícias institucionais verificáveis', () => {
       expect(item).toBeDefined();
       if (slug === 'foton-mobi-quantum-festival-2026') {
         expect(item?.main_image_path).toContain('QuantumBusiness1.webp');
+      } else if (slug === 'uniso-quantum-day-entrega-projeto-leonti') {
+        expect(item?.main_image_path).toContain('ProjetoLeonti1.webp');
       } else {
         expect(item?.main_image_path).toBeNull();
       }
@@ -63,6 +65,20 @@ describe('notícias institucionais verificáveis', () => {
         expect(image.preview.endsWith(image.name.replace('.png', '.webp'))).toBe(true);
       }
       expect(new Set(images.map((image) => image.name)).size).toBe(images.length);
+    }
+  });
+
+  it('mantém as duas fotografias do Projeto Leonti e a primeira como capa', () => {
+    const photos = newsMedia.filter((media) => media.group === 'uniso-leonti');
+    const story = publications.find((item) => item.slug === newSlugs[1]);
+    expect(photos).toHaveLength(2);
+    expect(story?.main_image_path).toBe(photos[0].preview);
+    for (const [index, photo] of photos.entries()) {
+      expect(photo.name).toBe(`ProjetoLeonti${index + 1}.png`);
+      expect(photo.original).toContain('/05-Uniso-Quantum-Day/PNG/');
+      expect(photo.preview).toContain('/05-Uniso-Quantum-Day/WebP/');
+      expect(photo.original.endsWith(photo.name)).toBe(true);
+      expect(photo.preview.endsWith(photo.name.replace('.png', '.webp'))).toBe(true);
     }
   });
 
