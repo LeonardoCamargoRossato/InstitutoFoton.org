@@ -52,7 +52,10 @@ describe('notícias institucionais verificáveis', () => {
     const day2 = newsMedia.filter((media) => media.group === 'quantum-day-2');
     expect(day1).toHaveLength(5);
     expect(day2).toHaveLength(10);
-    for (const [group, images] of [['QuantumDay1', day1], ['QuantumDay2', day2]] as const) {
+    for (const [group, images] of [
+      ['QuantumDay1', day1],
+      ['QuantumDay2', day2],
+    ] as const) {
       for (const image of images) {
         expect(image.original).toContain('/PNG/' + group + '/');
         expect(image.preview).toContain('/WebP/' + group + '/');
