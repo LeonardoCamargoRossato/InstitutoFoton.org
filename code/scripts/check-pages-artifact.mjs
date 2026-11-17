@@ -110,7 +110,7 @@ for (const media of newsMedia) {
   const isMobi = media.group === 'mobi-quantum';
   const isDay1 = media.group === 'quantum-day-1';
   const isDay2 = media.group === 'quantum-day-2';
-  const dayTwoName = /^(MobiQuantumUnisoQuantumDay01|QuantumDayDois(?:[1-8]|7-variantB))\.png$/;
+  const dayTwoName = /^(MobiQuantumUnisoQuantumDay01|QuantumDayDois(?:[1-8]|7VariantB))\.png$/;
   const validName = isMobi
     ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
     : isDay1
