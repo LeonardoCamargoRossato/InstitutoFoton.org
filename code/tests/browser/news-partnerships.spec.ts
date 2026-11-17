@@ -211,15 +211,17 @@ test('Mobi Quantum: nove imagens Quantum Business, navegação, PNG no zoom e mo
   await expect(carousel.getByText('1 de 9')).toBeVisible();
   await expect(carousel.locator('.news-mobi-image-button img')).toHaveAttribute(
     'src',
-    /\\/WebP\\/QuantumBusiness1\\.webp$/,
+    /\/WebP\/QuantumBusiness1\.webp$/,
   );
   await carousel.getByRole('button', { name: 'Próxima foto' }).click();
   await expect(carousel.getByText('2 de 9')).toBeVisible();
   await carousel.getByRole('button', { name: 'Ampliar foto 2 do Mobi Quantum' }).click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
-  await expect(dialog.locator('img')).toHaveAttribute('src', /\\/PNG\\/QuantumBusiness2\\.png$/);
-  await expect.poll(() => dialog.locator('img').evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+  await expect(dialog.locator('img')).toHaveAttribute('src', /\/PNG\/QuantumBusiness2\.png$/);
+  await expect
+    .poll(() => dialog.locator('img').evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0);
   await page.getByRole('button', { name: /Fechar/i }).click();
   await carousel.getByRole('button', { name: 'Selecionar foto 9' }).click();
   await expect(carousel.getByText('9 de 9')).toBeVisible();
