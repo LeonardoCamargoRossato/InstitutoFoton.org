@@ -160,9 +160,11 @@ test('quatro novas matérias têm fontes e não inventam fotos', async ({ page }
     const card = page.locator('.publication-card').filter({ hasText: story.title });
     await expect(card).toHaveCount(1);
     await expect(card.locator('img')).toHaveCount(
-      ['foton-mobi-quantum-festival-2026', 'uniso-quantum-day-entrega-projeto-leonti'].includes(
-        story.slug,
-      )
+      [
+        'lancamento-lacq-pucrs-instituto-foton',
+        'foton-mobi-quantum-festival-2026',
+        'uniso-quantum-day-entrega-projeto-leonti',
+      ].includes(story.slug)
         ? 1
         : 0,
     );
