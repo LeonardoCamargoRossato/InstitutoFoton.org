@@ -48,6 +48,8 @@
 }
 .news-mobi-carousel h2 {
   color: #183e5b;
+  /* Respiro consistente entre título e fotos em todos os carrosséis de notícias. */
+  margin: 0 0 1.5rem;
 }
 .news-mobi-stage {
   overflow: hidden;

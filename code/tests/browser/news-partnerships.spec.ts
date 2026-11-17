@@ -342,3 +342,30 @@ test('LACQ PUCRS: 13 fotos WebP com zoom PNG e capa em 16:9', async ({ page }) =
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
+
+test('títulos dos carrosséis têm respiro antes das fotos em desktop e mobile', async ({ page }) => {
+  for (const width of [390, 1280]) {
+    await page.setViewportSize({ width, height: 840 });
+    for (const slug of [
+      'lancamento-lacq-pucrs-instituto-foton',
+      'foton-mobi-quantum-festival-2026',
+    ]) {
+      await page.goto('./noticias/' + slug);
+      const carousel = page.locator('.news-carousel').first();
+      await expect(carousel.locator('h2')).toBeVisible();
+      await expect(carousel.locator('.news-carousel-stage')).toBeVisible();
+
+      const spacing = await carousel.evaluate((section) => {
+        const heading = section.querySelector('h2');
+        const stage = section.querySelector('.news-carousel-stage');
+        if (!heading || !stage) return { margin: 0, gap: 0 };
+        return {
+          margin: parseFloat(getComputedStyle(heading).marginBottom),
+          gap: stage.getBoundingClientRect().top - heading.getBoundingClientRect().bottom,
+        };
+      });
+      expect(spacing.margin).toBeGreaterThanOrEqual(20);
+      expect(spacing.gap).toBeGreaterThanOrEqual(spacing.margin - 1);
+    }
+  }
+});
