@@ -30,7 +30,10 @@ export function NewsCarousel({ title, label, images }: Props) {
     setActive((index) => (index + delta + images.length) % images.length);
 
   return (
-    <section className="news-carousel news-mobi-carousel" aria-label={`Carrossel de fotos do ${label}`}>
+    <section
+      className="news-carousel news-mobi-carousel"
+      aria-label={`Carrossel de fotos do ${label}`}
+    >
       <h2>{title}</h2>
       <div className="news-carousel-stage news-mobi-stage">
         <button
@@ -58,7 +61,10 @@ export function NewsCarousel({ title, label, images }: Props) {
           </button>
         </div>
       </div>
-      <div className="news-carousel-thumbnails news-mobi-thumbnails" aria-label="Selecionar foto">
+      <div
+        className="news-carousel-thumbnails news-mobi-thumbnails"
+        aria-label="Selecionar foto"
+      >
         {images.map((media, index) => (
           <button
             type="button"
