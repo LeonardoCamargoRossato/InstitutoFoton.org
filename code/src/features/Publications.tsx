@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { BookOpen, Copy, ArrowUpRight } from 'lucide-react';
 import { NewsCarousel } from '../components/NewsCarousel';
+import { NewsPhotoHighlights } from '../components/NewsPhotoHighlights';
 import { Intro, Status, Empty, External, TextLink } from '../components/UI';
 import { publications, publication, type Publication } from '../lib/backend';
 import { useResource } from '../lib/useResource';
@@ -69,6 +70,42 @@ export function PublicationCard({ item }: { item: Publication }) {
         <Link to={`/noticias/${item.slug}`}>{body}</Link>
       )}
     </article>
+  );
+}
+
+function ArticleBody({ item }: { item: Publication }) {
+  const isLeonti = item.slug === 'uniso-quantum-day-entrega-projeto-leonti';
+  const heading = '### Uma construção com diferentes competências';
+  const splitAt = isLeonti ? item.body.indexOf(heading) : -1;
+  const introduction = splitAt < 0 ? item.body : item.body.slice(0, splitAt);
+  const continuation = splitAt < 0 ? '' : item.body.slice(splitAt);
+  const renderMarkdown = (content: string) => (
+    <ReactMarkdown
+      skipHtml
+      urlTransform={(url) => (url.startsWith('#') ? url : safeExternalUrl(url) || '')}
+      components={{
+        a: ({ href, children }) =>
+          href?.startsWith('#') ? (
+            <a href={href}>{children}</a>
+          ) : (
+            <External href={href}>{children}</External>
+          ),
+        img: () => null,
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  );
+  return (
+    <div className="markdown">
+      {renderMarkdown(introduction)}
+      {isLeonti && (
+        <NewsPhotoHighlights
+          images={newsMedia.filter((media) => media.group === 'uniso-leonti')}
+        />
+      )}
+      {continuation && renderMarkdown(continuation)}
+    </div>
   );
 }
 
@@ -235,23 +272,7 @@ export function Article() {
                   Ler na fonte · {item.source_name}
                 </External>
               ) : (
-                <div className="markdown">
-                  <ReactMarkdown
-                    skipHtml
-                    urlTransform={(url) => (url.startsWith('#') ? url : safeExternalUrl(url) || '')}
-                    components={{
-                      a: ({ href, children }) =>
-                        href?.startsWith('#') ? (
-                          <a href={href}>{children}</a>
-                        ) : (
-                          <External href={href}>{children}</External>
-                        ),
-                      img: () => null,
-                    }}
-                  >
-                    {item.body}
-                  </ReactMarkdown>
-                </div>
+                <ArticleBody item={item} />
               )}
               {item.slug === 'fundacao-instituto-foton' && <FoundationGallery />}
               {item.slug === 'foton-mobi-quantum-festival-2026' && (
