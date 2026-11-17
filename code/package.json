@@ -22,7 +22,8 @@
     "assets:verify": "node scripts/prepare-webp.mjs",
     "assets:optimize": "node scripts/prepare-webp.mjs --write",
     "audit:prod": "npm audit --omit=dev --audit-level=high",
-    "audit:all": "npm audit --audit-level=high"
+    "audit:all": "npm audit --audit-level=high",
+    "audit:ci": "node --test scripts/audit-dependencies.test.mjs && node scripts/audit-dependencies.mjs"
   },
   "dependencies": {
     "@fontsource/raleway": "^5.3.0",
