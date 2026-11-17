@@ -95,19 +95,19 @@ const newsFolders = {
   'mobi-quantum': '07-Mobi-Quantum',
 };
 if (newsMedia.length !== 13 || new Set(newsMedia.map((m) => m.original)).size !== 13)
-  throw Error('Inventário de notícias deve conter 10 imagens distintas');
+  throw Error('Inventário de notícias deve conter 13 imagens distintas');
 for (const media of newsMedia) {
   const folder = newsFolders[media.group];
   const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
   const isMobi = media.group === 'mobi-quantum';
   const validName = isMobi
-    ? /^QuantumBusiness[1-9]\\.png$/.test(media.name)
-    : /^[A-Za-z0-9]+\\.png$/.test(media.name);
+    ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
+    : /^[A-Za-z0-9]+\.png$/.test(media.name);
   if (
     !folder ||
     !validName ||
     media.original !== prefix + 'PNG/' + media.name ||
-    media.preview !== prefix + 'WebP/' + media.name.replace(/\\.png$/, '.webp')
+    media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp')
   )
     throw Error('Caminho de imagem de notícia não padronizado: ' + media.name);
   expected.add(media.original);
