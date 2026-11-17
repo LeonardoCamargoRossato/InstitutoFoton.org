@@ -40,8 +40,9 @@ describe('Separação documental de Safety & Security', () => {
   it('não reduz verificações de segurança ou deploy', () => {
     for (const workflow of ['ci.yml', 'deploy-pages.yml']) {
       const source = read('.github/workflows/' + workflow);
+      const auditTask = workflow === 'ci.yml' ? 'npm run audit:ci' : 'npm run audit:all';
       for (const task of [
-        'npm run audit:all',
+        auditTask,
         'npm run scan:secrets',
         'npm run docs:check',
         'npm run format:check',
@@ -53,5 +54,13 @@ describe('Separação documental de Safety & Security', () => {
         expect(source, workflow + ' deve executar ' + task).toContain(task);
       }
     }
+
+    // A exceção de desenvolvimento não pode eliminar a auditoria de produção.
+    const audit = read('code/scripts/audit-dependencies.mjs');
+    expect(audit).toContain("'--omit=dev'");
+    expect(audit).toContain('GHSA-fc5q-39xc-vjpf');
+    expect(audit).toContain('2026-12-17T00:00:00Z');
+    expect(audit).toContain("new Set(['high', 'critical'])");
+    expect(read('code/package.json')).toContain('audit:ci');
   });
 });
