@@ -100,9 +100,7 @@ function ArticleBody({ item }: { item: Publication }) {
     <div className="markdown">
       {renderMarkdown(introduction)}
       {isLeonti && (
-        <NewsPhotoHighlights
-          images={newsMedia.filter((media) => media.group === 'uniso-leonti')}
-        />
+        <NewsPhotoHighlights images={newsMedia.filter((media) => media.group === 'uniso-leonti')} />
       )}
       {continuation && renderMarkdown(continuation)}
     </div>
