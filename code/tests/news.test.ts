@@ -45,7 +45,7 @@ describe('notícias institucionais verificáveis', () => {
     for (const media of images) {
       expect(media.original).toBe(`${root}/PNG/${media.name}`);
       expect(media.preview).toBe(
-        `${root}/WebP/${media.name.replace(/\\.png$/, '.webp')}`,
+        `${root}/WebP/${media.name.replace(/\.png$/, '.webp')}`,
       );
       expect(media.alt).toContain('Mobi Festival');
       expect(media.alt).not.toContain('Uniso Quantum Day');
