@@ -120,9 +120,9 @@ for (const media of newsMedia) {
         ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
         : isDay1
           ? /^MobiQuantumUnisoQuantumDay0[2-6]\.png$/.test(media.name)
-      : isDay2
-        ? dayTwoName.test(media.name)
-        : /^[A-Za-z0-9]+\.png$/.test(media.name);
+          : isDay2
+            ? dayTwoName.test(media.name)
+            : /^[A-Za-z0-9]+\.png$/.test(media.name);
   if (
     !folder ||
     !validName ||
