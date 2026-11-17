@@ -72,7 +72,6 @@ export function PublicationCard({ item }: { item: Publication }) {
   );
 }
 
-
 export function News() {
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('');
