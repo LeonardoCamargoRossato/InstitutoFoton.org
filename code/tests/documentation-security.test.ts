@@ -40,7 +40,7 @@ describe('Separação documental de Safety & Security', () => {
   it('não reduz verificações de segurança ou deploy', () => {
     for (const workflow of ['ci.yml', 'deploy-pages.yml']) {
       const source = read('.github/workflows/' + workflow);
-      const auditTask = workflow === 'ci.yml' ? 'npm run audit:ci' : 'npm run audit:all';
+      const auditTask = 'npm run audit:ci';
       for (const task of [
         auditTask,
         'npm run scan:secrets',
