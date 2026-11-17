@@ -122,3 +122,16 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* Carrosséis padronizados: mesma interface para Mobi Quantum e Quantum Day. */
+.news-carousel-thumbnails {
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+}
+.news-carousel-stage img {
+  max-width: 100%;
+}
+@media (max-width: 680px) {
+  .news-carousel-thumbnails {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

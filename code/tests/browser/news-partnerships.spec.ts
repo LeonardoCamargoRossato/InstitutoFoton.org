@@ -226,3 +226,31 @@ test('Mobi Quantum: nove fotos, PNG no zoom e mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
+
+test('Quantum Day: dois carrosséis com o mesmo componente e zoom PNG', async ({ page }) => {
+  await page.goto('./noticias/uniso-quantum-day-entrega-projeto-leonti');
+  const sections = [
+    { label: 'Quantum Day 1', count: 5, first: 'MobiQuantumUnisoQuantumDay02' },
+    { label: 'Quantum Day 2', count: 10, first: 'MobiQuantumUnisoQuantumDay01' },
+  ];
+  for (const { label, count, first } of sections) {
+    const carousel = page.getByRole('region', { name: 'Carrossel de fotos do ' + label });
+    await expect(carousel).toBeVisible();
+    await expect(carousel.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(count);
+    await expect(carousel.getByText('1 de ' + count)).toBeVisible();
+    const preview = carousel.locator('.news-carousel-image-button img');
+    await expect(preview).toHaveAttribute('src', new RegExp(first + '\\.webp$'));
+    await preview.scrollIntoViewIfNeeded();
+    await expect.poll(() => preview.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await carousel.getByRole('button', { name: 'Ampliar foto 1 do ' + label }).click();
+    const zoom = page.getByRole('dialog').locator('img');
+    await expect(zoom).toHaveAttribute('src', new RegExp(first + '\\.png$'));
+    await expect.poll(() => zoom.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await carousel.getByRole('button', { name: 'Próxima foto' }).click();
+    await expect(carousel.getByText('2 de ' + count)).toBeVisible();
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});

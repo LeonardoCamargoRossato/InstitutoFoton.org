@@ -93,21 +93,30 @@ const newsFolders = {
   'assespro-rs': '03-Foton-Assespro-RS',
   cubotech: '04-Seminario-CUBOTECH',
   'mobi-quantum': '07-Mobi-Quantum',
+  'quantum-day-1': '07-Mobi-Quantum',
+  'quantum-day-2': '07-Mobi-Quantum',
 };
-if (newsMedia.length !== 13 || new Set(newsMedia.map((m) => m.original)).size !== 13)
-  throw Error('Inventário de notícias deve conter 13 imagens distintas');
+if (newsMedia.length !== 28 || new Set(newsMedia.map((m) => m.original)).size !== 28)
+  throw Error('Inventário de notícias deve conter 28 imagens distintas');
 for (const media of newsMedia) {
   const folder = newsFolders[media.group];
   const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
+  const subfolder = media.group === 'quantum-day-1' ? 'QuantumDay1/' : media.group === 'quantum-day-2' ? 'QuantumDay2/' : '';
   const isMobi = media.group === 'mobi-quantum';
+  const isDay1 = media.group === 'quantum-day-1';
+  const isDay2 = media.group === 'quantum-day-2';
   const validName = isMobi
     ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
-    : /^[A-Za-z0-9]+\.png$/.test(media.name);
+    : isDay1
+      ? /^MobiQuantumUnisoQuantumDay0[2-6]\.png$/.test(media.name)
+      : isDay2
+        ? /^(MobiQuantumUnisoQuantumDay01|QuantumDayDois(?:[1-8]|7-variantB))\.png$/.test(media.name)
+        : /^[A-Za-z0-9]+\.png$/.test(media.name);
   if (
     !folder ||
     !validName ||
-    media.original !== prefix + 'PNG/' + media.name ||
-    media.preview !== prefix + 'WebP/' + media.name.replace(/\.png$/, '.webp')
+    media.original !== prefix + 'PNG/' + subfolder + media.name ||
+    media.preview !== prefix + 'WebP/' + subfolder + media.name.replace(/\.png$/, '.webp')
   )
     throw Error('Caminho de imagem de notícia não padronizado: ' + media.name);
   expected.add(media.original);
@@ -122,6 +131,10 @@ for (let number = 1; number <= 6; number++) {
 const mobi = newsMedia.filter(({ group }) => group === 'mobi-quantum');
 if (mobi.length !== 9 || mobi.some((m, i) => m.name !== `QuantumBusiness${i + 1}.png`))
   throw Error('Carrossel Mobi Quantum deve usar as nove fotografias QuantumBusiness em ordem');
+const dayOne = newsMedia.filter(({ group }) => group === 'quantum-day-1');
+const dayTwo = newsMedia.filter(({ group }) => group === 'quantum-day-2');
+if (dayOne.length !== 5 || dayTwo.length !== 10)
+  throw Error('Quantum Day exige 5 fotografias do Dia 1 e 10 do Dia 2');
 const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
 const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
   (number) =>

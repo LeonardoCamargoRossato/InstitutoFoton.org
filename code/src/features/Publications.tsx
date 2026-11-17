@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { BookOpen, Copy, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { ImageZoomDialog } from '../components/ImageZoomDialog';
+import { BookOpen, Copy, ArrowUpRight } from 'lucide-react';
+import { NewsCarousel } from '../components/NewsCarousel';
 import { Intro, Status, Empty, External, TextLink } from '../components/UI';
 import { publications, publication, type Publication } from '../lib/backend';
 import { useResource } from '../lib/useResource';
@@ -72,74 +72,6 @@ export function PublicationCard({ item }: { item: Publication }) {
   );
 }
 
-function MobiQuantumCarousel() {
-  const images = newsMedia.filter((media) => media.group === 'mobi-quantum');
-  const [active, setActive] = useState(0);
-  const [zoomOpen, setZoomOpen] = useState(false);
-  if (!images.length) return null;
-  const current = images[active];
-  const go = (delta: number) =>
-    setActive((index) => (index + delta + images.length) % images.length);
-  return (
-    <section className="news-mobi-carousel" aria-label="Carrossel de fotos do Mobi Quantum">
-      <h2>Registros do Mobi Quantum</h2>
-      <div className="news-mobi-stage">
-        <button
-          type="button"
-          className="news-mobi-image-button"
-          onClick={() => setZoomOpen(true)}
-          aria-label={`Ampliar foto ${active + 1} do Mobi Quantum`}
-        >
-          <img
-            src={assetUrl(current.preview)}
-            alt={current.alt}
-            width={current.width}
-            height={current.height}
-            loading="lazy"
-            decoding="async"
-          />
-        </button>
-        <div className="news-mobi-controls">
-          <button type="button" onClick={() => go(-1)} aria-label="Foto anterior">
-            <ChevronLeft aria-hidden="true" />
-          </button>
-          <span aria-live="polite">
-            {active + 1} de {images.length}
-          </span>
-          <button type="button" onClick={() => go(1)} aria-label="Próxima foto">
-            <ChevronRight aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-      <div className="news-mobi-thumbnails" aria-label="Selecionar foto">
-        {images.map((media, index) => (
-          <button
-            type="button"
-            key={media.preview}
-            className={index === active ? 'is-active' : ''}
-            aria-label={`Selecionar foto ${index + 1}`}
-            aria-pressed={index === active}
-            onClick={() => setActive(index)}
-          >
-            <img src={assetUrl(media.preview)} alt="" loading="lazy" decoding="async" />
-          </button>
-        ))}
-      </div>
-      <p className="news-mobi-credit">{current.credit}</p>
-      {zoomOpen && (
-        <ImageZoomDialog
-          key={current.preview}
-          src={assetUrl(current.original)}
-          title={current.alt}
-          caption={current.credit}
-          onClose={() => setZoomOpen(false)}
-          onPrevious={() => go(-1)}
-          onNext={() => go(1)}
-        />
-      )}
-    </section>
-  );
-}
 
 export function News() {
   const [page, setPage] = useState(0);
@@ -323,7 +255,27 @@ export function Article() {
                 </div>
               )}
               {item.slug === 'fundacao-instituto-foton' && <FoundationGallery />}
-              {item.slug === 'foton-mobi-quantum-festival-2026' && <MobiQuantumCarousel />}
+              {item.slug === 'foton-mobi-quantum-festival-2026' && (
+                <NewsCarousel
+                  label="Mobi Quantum"
+                  title="Registros do Mobi Quantum"
+                  images={newsMedia.filter((media) => media.group === 'mobi-quantum')}
+                />
+              )}
+              {item.slug === 'uniso-quantum-day-entrega-projeto-leonti' && (
+                <>
+                  <NewsCarousel
+                    label="Quantum Day 1"
+                    title="Quantum Day — Dia 1"
+                    images={newsMedia.filter((media) => media.group === 'quantum-day-1')}
+                  />
+                  <NewsCarousel
+                    label="Quantum Day 2"
+                    title="Quantum Day — Dia 2"
+                    images={newsMedia.filter((media) => media.group === 'quantum-day-2')}
+                  />
+                </>
+              )}
               {[
                 'foton-softsul-cooperacao-tecnologias-quanticas',
                 'foton-assespro-rs-termo-cooperacao',
