@@ -325,10 +325,14 @@ test('LACQ PUCRS: 13 fotos WebP com zoom PNG e capa em 16:9', async ({ page }) =
   await expect(carousel.getByText('1 de 13')).toBeVisible();
   const preview = carousel.locator('.news-carousel-image-button img');
   await expect(preview).toHaveAttribute('src', /LacqPucrs01\\.webp$/);
-  await carousel.getByRole('button', { name: 'Ampliar foto 1 do lançamento da LACQ PUCRS' }).click();
+  await carousel
+    .getByRole('button', { name: 'Ampliar foto 1 do lançamento da LACQ PUCRS' })
+    .click();
   const zoom = page.getByRole('dialog').locator('img');
   await expect(zoom).toHaveAttribute('src', /LacqPucrs01\\.png$/);
-  await expect.poll(() => zoom.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+  await expect
+    .poll(() => zoom.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0);
   await page.keyboard.press('Escape');
   await carousel.getByRole('button', { name: 'Selecionar foto 13' }).click();
   await expect(carousel.getByText('13 de 13')).toBeVisible();
