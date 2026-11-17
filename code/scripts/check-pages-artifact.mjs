@@ -90,6 +90,7 @@ if (
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
 const newsFolders = {
   softsul: '01-Foton-SOFTSUL',
+  'lacq-pucrs': '02-LACQ-PUCRS',
   'assespro-rs': '03-Foton-Assespro-RS',
   cubotech: '04-Seminario-CUBOTECH',
   'uniso-leonti': '05-Uniso-Quantum-Day',
@@ -97,8 +98,8 @@ const newsFolders = {
   'quantum-day-1': '07-Mobi-Quantum',
   'quantum-day-2': '07-Mobi-Quantum',
 };
-if (newsMedia.length !== 30 || new Set(newsMedia.map((m) => m.original)).size !== 30)
-  throw Error('Inventário de notícias deve conter 28 imagens distintas');
+if (newsMedia.length !== 43 || new Set(newsMedia.map((m) => m.original)).size !== 43)
+  throw Error('Inventário de notícias deve conter 43 imagens distintas');
 for (const media of newsMedia) {
   const folder = newsFolders[media.group];
   const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
@@ -112,7 +113,9 @@ for (const media of newsMedia) {
   const isDay1 = media.group === 'quantum-day-1';
   const isDay2 = media.group === 'quantum-day-2';
   const dayTwoName = /^(MobiQuantumUnisoQuantumDay01|QuantumDayDois(?:[1-8]|7VariantB))\.png$/;
-  const validName = isMobi
+  const validName = media.group === 'lacq-pucrs'
+    ? /^LacqPucrs(?:0[1-9]|1[0-3])\.png$/.test(media.name)
+    : isMobi
     ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
     : isDay1
       ? /^MobiQuantumUnisoQuantumDay0[2-6]\.png$/.test(media.name)

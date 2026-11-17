@@ -24,7 +24,9 @@ describe('notícias institucionais verificáveis', () => {
     for (const slug of newSlugs) {
       const item = publications.find((p) => p.slug === slug);
       expect(item).toBeDefined();
-      if (slug === 'foton-mobi-quantum-festival-2026') {
+      if (slug === 'lancamento-lacq-pucrs-instituto-foton') {
+        expect(item?.main_image_path).toContain('LacqPucrs01.webp');
+      } else if (slug === 'foton-mobi-quantum-festival-2026') {
         expect(item?.main_image_path).toContain('QuantumBusiness1.webp');
       } else if (slug === 'uniso-quantum-day-entrega-projeto-leonti') {
         expect(item?.main_image_path).toContain('ProjetoLeonti1.webp');
@@ -35,6 +37,21 @@ describe('notícias institucionais verificáveis', () => {
       expect(item?.source_name).toBeTruthy();
       expect(item?.body.length).toBeGreaterThan(500);
     }
+  });
+
+  it('publica os 13 pares PNG/WebP da LACQ PUCRS e usa a primeira fotografia como capa', () => {
+    const images = newsMedia.filter((media) => media.group === 'lacq-pucrs');
+    const story = publications.find((item) => item.slug === 'lancamento-lacq-pucrs-instituto-foton');
+    expect(images).toHaveLength(13);
+    expect(story?.main_image_path).toBe(images[0].preview);
+    images.forEach((photo, index) => {
+      const base = `LacqPucrs${String(index + 1).padStart(2, '0')}`;
+      expect(photo.name).toBe(base + '.png');
+      expect(photo.original).toContain('/02-LACQ-PUCRS/PNG/' + base + '.png');
+      expect(photo.preview).toContain('/02-LACQ-PUCRS/WebP/' + base + '.webp');
+      expect(photo.width).toBeGreaterThan(0);
+      expect(photo.height).toBeGreaterThan(0);
+    });
   });
 
   it('mantém nove pares PNG/WebP Quantum Business na ordem correta', () => {
