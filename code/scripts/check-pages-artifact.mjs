@@ -101,16 +101,22 @@ if (newsMedia.length !== 28 || new Set(newsMedia.map((m) => m.original)).size !=
 for (const media of newsMedia) {
   const folder = newsFolders[media.group];
   const prefix = 'assets/06 - Notícias/Reportagens/' + folder + '/';
-  const subfolder = media.group === 'quantum-day-1' ? 'QuantumDay1/' : media.group === 'quantum-day-2' ? 'QuantumDay2/' : '';
+  const subfolder =
+    media.group === 'quantum-day-1'
+      ? 'QuantumDay1/'
+      : media.group === 'quantum-day-2'
+        ? 'QuantumDay2/'
+        : '';
   const isMobi = media.group === 'mobi-quantum';
   const isDay1 = media.group === 'quantum-day-1';
   const isDay2 = media.group === 'quantum-day-2';
+  const dayTwoName = /^(MobiQuantumUnisoQuantumDay01|QuantumDayDois(?:[1-8]|7-variantB))\.png$/;
   const validName = isMobi
     ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
     : isDay1
       ? /^MobiQuantumUnisoQuantumDay0[2-6]\.png$/.test(media.name)
       : isDay2
-        ? /^(MobiQuantumUnisoQuantumDay01|QuantumDayDois(?:[1-8]|7-variantB))\.png$/.test(media.name)
+        ? dayTwoName.test(media.name)
         : /^[A-Za-z0-9]+\.png$/.test(media.name);
   if (
     !folder ||
