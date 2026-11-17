@@ -25,7 +25,7 @@ describe('notícias institucionais verificáveis', () => {
       const item = publications.find((p) => p.slug === slug);
       expect(item).toBeDefined();
       if (slug === 'foton-mobi-quantum-festival-2026') {
-        expect(item?.main_image_path).toContain('MobiQuantumUnisoQuantumDay01.webp');
+        expect(item?.main_image_path).toContain('QuantumBusiness1.webp');
       } else {
         expect(item?.main_image_path).toBeNull();
       }
@@ -35,16 +35,21 @@ describe('notícias institucionais verificáveis', () => {
     }
   });
 
-  it('mantém seis imagens WebP do carrossel Mobi Quantum', () => {
+  it('mantém nove pares PNG/WebP do Quantum Business no carrossel Mobi Quantum', () => {
     const images = newsMedia.filter((media) => media.group === 'mobi-quantum');
-    expect(images).toHaveLength(6);
-    expect(images.map((media) => media.preview)).toEqual(
-      Array.from(
-        { length: 6 },
-        (_, i) =>
-          `assets/06 - Notícias/Reportagens/07-Mobi-Quantum/WebP/MobiQuantumUnisoQuantumDay${String(i + 1).padStart(2, '0')}.webp`,
-      ),
+    const root = 'assets/06 - Notícias/Reportagens/07-Mobi-Quantum';
+    expect(images).toHaveLength(9);
+    expect(images.map((media) => media.name)).toEqual(
+      Array.from({ length: 9 }, (_, i) => `QuantumBusiness${i + 1}.png`),
     );
+    for (const media of images) {
+      expect(media.original).toBe(`${root}/PNG/${media.name}`);
+      expect(media.preview).toBe(
+        `${root}/WebP/${media.name.replace(/\\.png$/, '.webp')}`,
+      );
+      expect(media.alt).toContain('Mobi Festival');
+      expect(media.alt).not.toContain('Uniso Quantum Day');
+    }
   });
 
   it('separa protótipo Leonti, contratação sem repasses e anúncio do Mobi', () => {

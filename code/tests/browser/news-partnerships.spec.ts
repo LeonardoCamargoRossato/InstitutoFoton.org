@@ -203,17 +203,26 @@ test('novas páginas de Notícias mantêm layout sem rolagem horizontal', async 
   }
 });
 
-test('Mobi Quantum: seis imagens, navegação, ampliação e mobile', async ({ page }) => {
+test('Mobi Quantum: nove imagens Quantum Business, navegação, PNG no zoom e mobile', async ({ page }) => {
   await page.goto('./noticias/foton-mobi-quantum-festival-2026');
   const carousel = page.getByRole('region', { name: 'Carrossel de fotos do Mobi Quantum' });
   await expect(carousel).toBeVisible();
-  await expect(carousel.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(6);
-  await expect(carousel.getByText('1 de 6')).toBeVisible();
+  await expect(carousel.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(9);
+  await expect(carousel.getByText('1 de 9')).toBeVisible();
+  await expect(carousel.locator('.news-mobi-image-button img')).toHaveAttribute(
+    'src',
+    /\\/WebP\\/QuantumBusiness1\\.webp$/,
+  );
   await carousel.getByRole('button', { name: 'Próxima foto' }).click();
-  await expect(carousel.getByText('2 de 6')).toBeVisible();
+  await expect(carousel.getByText('2 de 9')).toBeVisible();
   await carousel.getByRole('button', { name: 'Ampliar foto 2 do Mobi Quantum' }).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator('img')).toHaveAttribute('src', /\\/PNG\\/QuantumBusiness2\\.png$/);
+  await expect.poll(() => dialog.locator('img').evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
   await page.getByRole('button', { name: /Fechar/i }).click();
+  await carousel.getByRole('button', { name: 'Selecionar foto 9' }).click();
+  await expect(carousel.getByText('9 de 9')).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
