@@ -113,12 +113,13 @@ for (const media of newsMedia) {
   const isDay1 = media.group === 'quantum-day-1';
   const isDay2 = media.group === 'quantum-day-2';
   const dayTwoName = /^(MobiQuantumUnisoQuantumDay01|QuantumDayDois(?:[1-8]|7VariantB))\.png$/;
-  const validName = media.group === 'lacq-pucrs'
-    ? /^LacqPucrs(?:0[1-9]|1[0-3])\.png$/.test(media.name)
-    : isMobi
-    ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
-    : isDay1
-      ? /^MobiQuantumUnisoQuantumDay0[2-6]\.png$/.test(media.name)
+  const validName =
+    media.group === 'lacq-pucrs'
+      ? /^LacqPucrs(?:0[1-9]|1[0-3])\.png$/.test(media.name)
+      : isMobi
+        ? /^QuantumBusiness[1-9]\.png$/.test(media.name)
+        : isDay1
+          ? /^MobiQuantumUnisoQuantumDay0[2-6]\.png$/.test(media.name)
       : isDay2
         ? dayTwoName.test(media.name)
         : /^[A-Za-z0-9]+\.png$/.test(media.name);
