@@ -160,7 +160,11 @@ test('quatro novas matérias têm fontes e não inventam fotos', async ({ page }
     const card = page.locator('.publication-card').filter({ hasText: story.title });
     await expect(card).toHaveCount(1);
     await expect(card.locator('img')).toHaveCount(
-      story.slug === 'foton-mobi-quantum-festival-2026' ? 1 : 0,
+      ['foton-mobi-quantum-festival-2026', 'uniso-quantum-day-entrega-projeto-leonti'].includes(
+        story.slug,
+      )
+        ? 1
+        : 0,
     );
     await card.locator('a').click();
     await expect(page).toHaveURL(new RegExp('/noticias/' + story.slug + '$'));
@@ -257,4 +261,42 @@ test('Quantum Day: dois carrosséis com o mesmo componente e zoom PNG', async ({
   }
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('Projeto Leonti: capa e duas fotografias no artigo, WebP inicial e PNG no zoom', async ({
+  page,
+}) => {
+  await page.goto('./noticias');
+  const card = page.locator('.publication-card').filter({ hasText: 'Uniso Quantum Day' });
+  await expect(card.locator('img')).toHaveAttribute('src', /ProjetoLeonti1\.webp$/);
+
+  await page.goto('./noticias/uniso-quantum-day-entrega-projeto-leonti');
+  const gallery = page.getByRole('region', { name: 'Fotografias do Projeto Leonti' });
+  const photos = gallery.locator('.news-highlight-figure');
+  await expect(photos).toHaveCount(2);
+  for (const [index, width] of [1024, 800].entries()) {
+    const name = `ProjetoLeonti${index + 1}`;
+    const photo = photos.nth(index);
+    const preview = photo.locator('img');
+    await expect(preview).toHaveAttribute('src', new RegExp(name + '\\.webp$'));
+    await preview.scrollIntoViewIfNeeded();
+    await expect(preview).toHaveJSProperty('naturalWidth', width);
+    await photo.getByRole('button', { name: `Ampliar Projeto Leonti ${index + 1}` }).click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog.locator('img')).toHaveAttribute('src', new RegExp(name + '\\.png$'));
+    await expect(dialog.locator('img')).toHaveJSProperty('naturalWidth', width);
+    await page.keyboard.press('Escape');
+    await expect(dialog).toHaveCount(0);
+  }
+  await expect(
+    page.getByRole('region', { name: 'Carrossel de fotos do Quantum Day 1' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('region', { name: 'Carrossel de fotos do Quantum Day 2' }),
+  ).toBeVisible();
+  for (const width of [390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 844 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  }
 });

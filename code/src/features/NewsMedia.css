@@ -135,3 +135,50 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* Fotos documentais em tamanho de leitura, sem cortes e com zoom no PNG original. */
+.news-highlight-photos {
+  display: grid;
+  gap: 1.75rem;
+  margin: 2rem 0 2.5rem;
+}
+.news-highlight-figure {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #d9e6ee;
+  border-radius: 16px;
+  background: #fff;
+}
+.news-highlight-image-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #f5f9fc;
+  cursor: zoom-in;
+}
+.news-highlight-image-button:focus-visible {
+  outline: 3px solid #13a6ce;
+  outline-offset: -3px;
+}
+.news-highlight-image-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 720px;
+  object-fit: contain;
+}
+.news-highlight-figure figcaption {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 1.25rem 1.2rem;
+  color: #52697b;
+  line-height: 1.5;
+}
+.news-highlight-figure figcaption strong {
+  color: #183e5b;
+}
+.news-highlight-figure figcaption small {
+  font-size: 0.8rem;
+}

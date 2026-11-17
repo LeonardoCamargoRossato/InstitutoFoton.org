@@ -92,11 +92,12 @@ const newsFolders = {
   softsul: '01-Foton-SOFTSUL',
   'assespro-rs': '03-Foton-Assespro-RS',
   cubotech: '04-Seminario-CUBOTECH',
+  'uniso-leonti': '05-Uniso-Quantum-Day',
   'mobi-quantum': '07-Mobi-Quantum',
   'quantum-day-1': '07-Mobi-Quantum',
   'quantum-day-2': '07-Mobi-Quantum',
 };
-if (newsMedia.length !== 28 || new Set(newsMedia.map((m) => m.original)).size !== 28)
+if (newsMedia.length !== 30 || new Set(newsMedia.map((m) => m.original)).size !== 30)
   throw Error('Inventário de notícias deve conter 28 imagens distintas');
 for (const media of newsMedia) {
   const folder = newsFolders[media.group];
@@ -141,6 +142,12 @@ const dayOne = newsMedia.filter(({ group }) => group === 'quantum-day-1');
 const dayTwo = newsMedia.filter(({ group }) => group === 'quantum-day-2');
 if (dayOne.length !== 5 || dayTwo.length !== 10)
   throw Error('Quantum Day exige 5 fotografias do Dia 1 e 10 do Dia 2');
+const leontiPhotos = newsMedia.filter(({ group }) => group === 'uniso-leonti');
+if (
+  leontiPhotos.length !== 2 ||
+  leontiPhotos.some((media, index) => media.name !== `ProjetoLeonti${index + 1}.png`)
+)
+  throw Error('Projeto Leonti exige duas fotos em destaque com pares PNG/WebP');
 const researchMedia = JSON.parse(await readFile('src/content/research-media.json', 'utf8'));
 const photoPaths = [1, 2, 3, 4, 5, 6, 8, 9].map(
   (number) =>
