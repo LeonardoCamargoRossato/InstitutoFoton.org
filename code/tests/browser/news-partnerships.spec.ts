@@ -343,29 +343,42 @@ test('LACQ PUCRS: 13 fotos WebP com zoom PNG e capa em 16:9', async ({ page }) =
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
-test('títulos dos carrosséis têm respiro antes das fotos em desktop e mobile', async ({ page }) => {
-  for (const width of [390, 1280]) {
+test('todos os títulos de carrossel mantêm folga óptica proporcional à fonte', async ({ page }) => {
+  const news = [
+    { slug: 'lancamento-lacq-pucrs-instituto-foton', count: 1 },
+    { slug: 'foton-mobi-quantum-festival-2026', count: 1 },
+    { slug: 'uniso-quantum-day-entrega-projeto-leonti', count: 2 },
+  ];
+  for (const width of [390, 768, 1280]) {
     await page.setViewportSize({ width, height: 840 });
-    for (const slug of [
-      'lancamento-lacq-pucrs-instituto-foton',
-      'foton-mobi-quantum-festival-2026',
-    ]) {
+    const visibleGaps: number[] = [];
+    for (const { slug, count } of news) {
       await page.goto('./noticias/' + slug);
-      const carousel = page.locator('.news-carousel').first();
-      await expect(carousel.locator('h2')).toBeVisible();
-      await expect(carousel.locator('.news-carousel-stage')).toBeVisible();
-
-      const spacing = await carousel.evaluate((section) => {
-        const heading = section.querySelector('h2');
-        const stage = section.querySelector('.news-carousel-stage');
-        if (!heading || !stage) return { margin: 0, gap: 0 };
-        return {
-          margin: parseFloat(getComputedStyle(heading).marginBottom),
-          gap: stage.getBoundingClientRect().top - heading.getBoundingClientRect().bottom,
-        };
-      });
-      expect(spacing.margin).toBeGreaterThanOrEqual(20);
-      expect(spacing.gap).toBeGreaterThanOrEqual(spacing.margin - 1);
+      const carousels = page.locator('.news-carousel');
+      await expect(carousels).toHaveCount(count);
+      for (const carousel of await carousels.all()) {
+        await expect(carousel.locator('h2')).toBeVisible();
+        await expect(carousel.locator('.news-carousel-stage')).toBeVisible();
+        const metrics = await carousel.evaluate((section) => {
+          const heading = section.querySelector('h2');
+          const stage = section.querySelector('.news-carousel-stage');
+          if (!heading || !stage) throw new Error('Título ou palco ausente');
+          const style = getComputedStyle(heading);
+          const range = document.createRange();
+          range.selectNodeContents(heading);
+          return {
+            fontSize: parseFloat(style.fontSize),
+            paddingBottom: parseFloat(style.paddingBottom),
+            visibleGap: stage.getBoundingClientRect().top - range.getBoundingClientRect().bottom,
+          };
+        });
+        // O recuo acompanha o tamanho da fonte e deve ser visível até o início das fotos.
+        expect(metrics.paddingBottom).toBeCloseTo(metrics.fontSize * 0.8, 0);
+        expect(metrics.visibleGap).toBeGreaterThanOrEqual(metrics.fontSize * 0.45);
+        visibleGaps.push(metrics.visibleGap);
+      }
     }
+    // Mesmo componente e mesma distância entre os quatro carrosséis em cada viewport.
+    expect(Math.max(...visibleGaps) - Math.min(...visibleGaps)).toBeLessThanOrEqual(3);
   }
 });
