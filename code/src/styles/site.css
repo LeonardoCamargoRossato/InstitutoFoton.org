@@ -2179,7 +2179,8 @@
     display: none;
   }
   .publication-art {
-    aspect-ratio: 1.8;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
     background: var(--snow);
     display: flex;
     flex-direction: column;
@@ -2187,6 +2188,18 @@
     justify-content: center;
     gap: 15px;
     color: var(--navy);
+  }
+  .publication-art--photo {
+    position: relative;
+  }
+  .publication-art--photo > img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
   .publication-art > span {
     font-size: 0.65rem;

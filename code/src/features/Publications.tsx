@@ -29,8 +29,8 @@ export function PublicationCard({ item }: { item: Publication }) {
         {item.main_image_path ? (
           <img
             src={assetUrl(item.main_image_path)}
-            width={1080}
-            height={1350}
+            width={1600}
+            height={900}
             loading="lazy"
             alt={
               item.slug === foundationRoute.split('/').at(-1)
@@ -273,6 +273,13 @@ export function Article() {
                 <ArticleBody item={item} />
               )}
               {item.slug === 'fundacao-instituto-foton' && <FoundationGallery />}
+              {item.slug === 'lancamento-lacq-pucrs-instituto-foton' && (
+                <NewsCarousel
+                  label="lançamento da LACQ PUCRS"
+                  title="Registros do lançamento da LACQ PUCRS"
+                  images={newsMedia.filter((media) => media.group === 'lacq-pucrs')}
+                />
+              )}
               {item.slug === 'foton-mobi-quantum-festival-2026' && (
                 <NewsCarousel
                   label="Mobi Quantum"

@@ -159,9 +159,9 @@
   }
 }
 
-/* Capa da notícia: preserva os textos do card original sem recorte ou distorção. */
+/* Capas das notícias: enquadramento uniforme 16:9; originais preservados. */
 .publication-art--photo {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #edf4f8;
 }
@@ -170,5 +170,6 @@
   width: 100%;
   height: 100%;
   max-width: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
 }

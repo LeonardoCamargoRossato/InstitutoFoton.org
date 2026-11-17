@@ -160,9 +160,11 @@ test('quatro novas matérias têm fontes e não inventam fotos', async ({ page }
     const card = page.locator('.publication-card').filter({ hasText: story.title });
     await expect(card).toHaveCount(1);
     await expect(card.locator('img')).toHaveCount(
-      ['foton-mobi-quantum-festival-2026', 'uniso-quantum-day-entrega-projeto-leonti'].includes(
-        story.slug,
-      )
+      [
+        'lancamento-lacq-pucrs-instituto-foton',
+        'foton-mobi-quantum-festival-2026',
+        'uniso-quantum-day-entrega-projeto-leonti',
+      ].includes(story.slug)
         ? 1
         : 0,
     );
@@ -299,4 +301,44 @@ test('Projeto Leonti: capa e duas fotografias no artigo, WebP inicial e PNG no z
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
   }
+});
+
+test('LACQ PUCRS: 13 fotos WebP com zoom PNG e capa em 16:9', async ({ page }) => {
+  await page.goto('./noticias');
+  const cards = page.locator('.publication-card');
+  await expect(cards).toHaveCount(8);
+  for (const card of await cards.all()) {
+    const cover = card.locator('.publication-art');
+    const ratio = await cover.evaluate((node) => {
+      const bounds = node.getBoundingClientRect();
+      return bounds.width / bounds.height;
+    });
+    expect(ratio).toBeCloseTo(16 / 9, 1);
+  }
+  const lacqCard = cards.filter({ hasText: 'LACQ PUCRS' });
+  await expect(lacqCard.locator('img')).toHaveAttribute('src', /LacqPucrs01\.webp$/);
+
+  await page.goto('./noticias/lancamento-lacq-pucrs-instituto-foton');
+  const carousel = page.getByRole('region', {
+    name: 'Carrossel de fotos do lançamento da LACQ PUCRS',
+  });
+  await expect(carousel).toBeVisible();
+  await expect(carousel.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(13);
+  await expect(carousel.getByText('1 de 13')).toBeVisible();
+  const preview = carousel.locator('.news-carousel-image-button img');
+  await expect(preview).toHaveAttribute('src', /LacqPucrs01\.webp$/);
+  await carousel
+    .getByRole('button', { name: 'Ampliar foto 1 do lançamento da LACQ PUCRS' })
+    .click();
+  const zoom = page.getByRole('dialog').locator('img');
+  await expect(zoom).toHaveAttribute('src', /LacqPucrs01\.png$/);
+  await expect
+    .poll(() => zoom.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0);
+  await page.keyboard.press('Escape');
+  await carousel.getByRole('button', { name: 'Selecionar foto 13' }).click();
+  await expect(carousel.getByText('13 de 13')).toBeVisible();
+  await expect(preview).toHaveAttribute('src', /LacqPucrs13\.webp$/);
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
