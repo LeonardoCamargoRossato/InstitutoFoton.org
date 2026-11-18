@@ -4,8 +4,8 @@ import { assetUrl } from '../lib/siteAssets';
 
 const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
 
-const phoneWebp = 'assets/06 - Notícias/Redes Sociais/Instagram/WebP/InstagramPhoneHand.webp';
-const phonePng = 'assets/06 - Notícias/Redes Sociais/Instagram/PNG/InstagramPhoneHand.png';
+// SVG integral aprovado: sem rasterização, legendas falsas ou sobreposição na tela.
+const phoneSvg = 'assets/06 - Notícias/Redes Sociais/Instagram/SVG/InstagramPhoneHand.svg';
 
 export default function InstagramHighlight() {
   const [showEmbed, setShowEmbed] = useState(false);
@@ -69,28 +69,16 @@ export default function InstagramHighlight() {
             )}
           </div>
         </div>
-        <div
-          className="social-instagram-highlight__visual"
-          aria-label="Mão segurando um celular com identificação do Instagram do Instituto Foton"
-        >
-          <div className="social-instagram-highlight__phone">
-            <img
-              src={assetUrl(phoneWebp)}
-              onError={(event) => {
-                event.currentTarget.onerror = null;
-                event.currentTarget.src = assetUrl(phonePng);
-              }}
-              alt="Mão segurando um celular, símbolo da presença do Instituto Foton no Instagram"
-              width="810"
-              height="1440"
-              loading="lazy"
-            />
-            <div className="social-instagram-highlight__phone-mark" aria-hidden="true">
-              <Camera size={42} strokeWidth={1.5} />
-              <span>INSTAGRAM</span>
-              <strong>@institutofoton</strong>
-            </div>
-          </div>
+        <div className="social-instagram-highlight__visual">
+          <img
+            className="social-instagram-highlight__phone"
+            src={assetUrl(phoneSvg)}
+            alt="Imagem original de uma mão segurando um celular com tela preta"
+            width="1080"
+            height="1920"
+            decoding="async"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>

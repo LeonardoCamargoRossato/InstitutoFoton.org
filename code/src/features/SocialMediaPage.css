@@ -1,6 +1,7 @@
 .social-media-page {
   color: #183e5b;
   background: #fff;
+  overflow-x: clip;
 }
 .social-intro {
   position: relative;
@@ -414,25 +415,18 @@
   line-height: 1.6;
 }
 
-/* Destaque Instagram: conteúdo à esquerda, mockup original chegando pela direita. */
+/* Destaque Instagram: SVG original isolado à direita, sem card nem arte sobreposta. */
 .social-instagram-highlight {
-  position: relative;
-  isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  min-height: 660px;
-  overflow: hidden;
-  border: 1px solid #dce9f5;
-  border-radius: 42px 42px 86px 42px;
-  background:
-    radial-gradient(ellipse at 95% 25%, rgba(84, 166, 239, 0.16), transparent 57%),
-    linear-gradient(125deg, #ffffff 20%, #f0f7ff 100%);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+  min-height: 650px;
+  padding-block: clamp(24px, 4vw, 60px);
 }
 .social-instagram-highlight__content {
   position: relative;
-  z-index: 2;
-  align-self: center;
-  padding: clamp(28px, 4vw, 65px);
+  z-index: 1;
   min-width: 0;
 }
 .social-instagram-highlight__content h2 {
@@ -477,97 +471,44 @@
   color: #536b81;
 }
 .social-instagram-highlight__visual {
-  position: relative;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   min-width: 0;
-  min-height: 660px;
-  pointer-events: none;
+  min-height: 650px;
 }
 .social-instagram-highlight__phone {
-  position: absolute;
-  top: 0;
-  right: -25%;
-  width: clamp(460px, 48vw, 680px);
-  aspect-ratio: 810 / 1440;
-}
-.social-instagram-highlight__phone img {
   display: block;
-  width: 100%;
-  height: auto;
+  width: clamp(300px, 34vw, 430px);
   max-width: none;
-}
-.social-instagram-highlight__phone-mark {
-  position: absolute;
-  top: 25%;
-  left: 18%;
-  width: 43%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 13px;
-  text-align: center;
-  color: #fff;
-  transform: rotate(4deg);
-  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.2);
-}
-.social-instagram-highlight__phone-mark span {
-  font-size: clamp(0.62rem, 0.9vw, 0.82rem);
-  letter-spacing: 0.23em;
-  font-weight: 750;
-}
-.social-instagram-highlight__phone-mark strong {
-  font-size: clamp(0.8rem, 1.1vw, 1.08rem);
-  font-weight: 700;
+  height: auto;
+  flex: 0 0 auto;
+  transform: translateX(clamp(25px, 7vw, 110px));
 }
 @media (max-width: 880px) {
   .social-instagram-highlight {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-  .social-instagram-highlight__content {
-    padding: clamp(25px, 6vw, 48px);
-  }
-  .social-instagram-highlight__content h2 {
-    max-width: 680px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    min-height: 0;
+    padding-block: 0;
   }
   .social-instagram-highlight__visual {
-    min-height: clamp(510px, 120vw, 700px);
+    min-height: 0;
+    justify-content: center;
+    padding-top: 26px;
   }
   .social-instagram-highlight__phone {
-    top: -12px;
-    right: -8%;
-    width: min(100%, 520px);
-  }
-  .social-instagram-highlight__phone-mark span {
-    font-size: 0.72rem;
-  }
-  .social-instagram-highlight__phone-mark strong {
-    font-size: 0.95rem;
+    width: min(100%, 430px);
+    transform: translateX(10%);
   }
 }
 @media (max-width: 550px) {
-  .social-instagram-highlight {
-    border-radius: 26px 26px 58px 26px;
-  }
-  .social-instagram-highlight__content {
-    padding: 28px 23px 0;
-  }
   .social-instagram-highlight__content h2 {
     font-size: clamp(2rem, 9vw, 2.6rem);
   }
-  .social-instagram-highlight__content .social-profile-link {
-    justify-content: center;
-  }
-  .social-instagram-highlight__visual {
-    min-height: clamp(485px, 155vw, 680px);
-  }
   .social-instagram-highlight__phone {
-    right: -14%;
-    width: 108%;
-    max-width: 500px;
-  }
-  .social-instagram-highlight__phone-mark {
-    top: 25%;
+    width: min(112%, 420px);
+    transform: translateX(12%);
   }
 }
 
