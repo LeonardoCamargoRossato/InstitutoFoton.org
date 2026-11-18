@@ -24,6 +24,7 @@ const titles: Record<string, string> = {
   ...Object.fromEntries(researchLines.map(({ slug, title }) => [`/pesquisa/${slug}`, title])),
   '/manifesto': 'Manifesto Quântico Nacional',
   '/noticias': 'Notícias e histórias',
+  '/redes-sociais': 'Acompanhe o Foton nas redes sociais',
   '/apoie': 'Apoie a ciência',
   '/contato': 'Contato',
   '/entrar': 'Acesso institucional',
@@ -37,6 +38,10 @@ export default function Layout() {
   const menuOpen = menuAt === location.pathname;
   useEffect(() => {
     document.title = `${titles[location.pathname] || 'Instituto Foton'} — Instituto Foton`;
+    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    if (description) description.content = location.pathname === '/redes-sociais'
+      ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+      : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');
@@ -169,7 +174,7 @@ export default function Layout() {
             }}
           >
             {navigation.map(([path, label]) =>
-              path === '/instituto' || path === '/pesquisa' ? (
+              path === '/instituto' || path === '/pesquisa' || path === '/noticias' ? (
                 <details
                   className="nav-dropdown"
                   key={path}
@@ -186,7 +191,7 @@ export default function Layout() {
                   }}
                 >
                   <summary>
-                    {path === '/instituto' ? 'O Instituto' : 'P&D - Cientista Inovador'}
+                    {path === '/instituto' ? 'O Instituto' : path === '/pesquisa' ? 'P&D - Cientista Inovador' : 'Notícias'}
                   </summary>
                   <div
                     className="nav-dropdown-links"
@@ -200,11 +205,16 @@ export default function Layout() {
                         <Link to="/instituto">Conheça o Instituto</Link>
                         <Link to="/instituto#equipe">Nossa Equipe</Link>
                       </>
-                    ) : (
+                    ) : path === '/pesquisa' ? (
                       <>
                         <Link to="/pesquisa#areas-de-pesquisa">Linhas temáticas de pesquisa</Link>
                         <Link to="/pesquisa/jornada">Jornadas do Cientista Inovador</Link>
                         <Link to="/pesquisa/haquantum">Hack Quantum</Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/noticias">Notícias</Link>
+                        <Link to="/redes-sociais">Redes sociais</Link>
                       </>
                     )}
                   </div>
@@ -273,6 +283,7 @@ export default function Layout() {
               <h2>Participe</h2>
               <Link to="/apoie">Apoie a Ciência</Link>
               <Link to="/noticias">Notícias e histórias</Link>
+              <Link to="/redes-sociais">Redes sociais</Link>
               <Link to="/contato">Contato</Link>
             </div>
             <div className="footer-statement">
