@@ -100,8 +100,9 @@ if (
   instagramMockup.webp.path !== instagramAssetRoot + 'WebP/InstagramPhoneHand.webp'
 )
   throw Error('Inventário do mockup Instagram não corresponde aos caminhos aprovados');
+const instagramAssetVersions = [instagramMockup.svg, instagramMockup.png, instagramMockup.webp];
 const instagramAssetHashes = new Map(
-  [instagramMockup.svg, instagramMockup.png, instagramMockup.webp].map(({ path, sha256 }) => [path, sha256]),
+  instagramAssetVersions.map(({ path, sha256 }) => [path, sha256]),
 );
 for (const [path, hash] of instagramAssetHashes) {
   if (!/^[a-f0-9]{64}$/.test(hash)) throw Error('SHA-256 do mockup Instagram inválido: ' + path);
