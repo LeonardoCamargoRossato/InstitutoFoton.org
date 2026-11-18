@@ -117,7 +117,6 @@ if (
 )
   throw Error('SVG original do Instagram divergente ou com referência remota não autorizada');
 
-
 const linkedinMockup = JSON.parse(await readFile('src/content/linkedin-mockup-assets.json', 'utf8'));
 const linkedinAssetRoot = 'assets/06 - Notícias/Redes Sociais/LinkedIn/';
 if (
@@ -142,14 +141,12 @@ for (const [path, hash] of linkedinAssetHashes) {
   expected.add(path);
 }
 const originalLinkedinPng = await readFile(linkedinMockup.origin.path);
-if (
-  createHash('sha256').update(originalLinkedinPng).digest('hex') !==
-  linkedinMockup.origin.sha256
-)
+if (createHash('sha256').update(originalLinkedinPng).digest('hex') !== linkedinMockup.origin.sha256)
   throw Error('PNG original do LinkedIn divergente do inventário');
-const linkedinSvgSource = (
-  await readFile(join('public', linkedinMockup.svg.path), 'utf8')
-).replace(/xmlns(?::xlink)?="[^"]*"/g, '');
+const linkedinSvgSource = (await readFile(join('public', linkedinMockup.svg.path), 'utf8')).replace(
+  /xmlns(?::xlink)?="[^"]*"/g,
+  '',
+);
 if (
   /<script\b|<foreignObject\b|onload\s*=|href="https?:/i.test(linkedinSvgSource) ||
   !linkedinSvgSource.includes('href="data:image/png;base64,')
