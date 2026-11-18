@@ -4,16 +4,17 @@ import { assetUrl } from '../lib/siteAssets';
 
 const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
 
-const phoneWebp =
-  'assets/06 - Notícias/Redes Sociais/Instagram/WebP/InstagramPhoneHand.webp';
-const phonePng =
-  'assets/06 - Notícias/Redes Sociais/Instagram/PNG/InstagramPhoneHand.png';
+const phoneWebp = 'assets/06 - Notícias/Redes Sociais/Instagram/WebP/InstagramPhoneHand.webp';
+const phonePng = 'assets/06 - Notícias/Redes Sociais/Instagram/PNG/InstagramPhoneHand.png';
 
 export default function InstagramHighlight() {
   const [showEmbed, setShowEmbed] = useState(false);
 
   return (
-    <section className="social-network social-network--instagram" aria-labelledby="social-instagram-title">
+    <section
+      className="social-network social-network--instagram"
+      aria-labelledby="social-instagram-title"
+    >
       <div className="social-instagram-highlight">
         <div className="social-instagram-highlight__content">
           <p className="social-network-kicker">Instagram • Canal oficial</p>
@@ -23,8 +24,8 @@ export default function InstagramHighlight() {
             <span>@institutofoton</span>
           </p>
           <p className="social-instagram-highlight__description">
-            Um olhar mais próximo sobre a ciência que fazemos juntos. Acompanhe nossos
-            encontros, pesquisas, eventos e histórias nas redes.
+            Um olhar mais próximo sobre a ciência que fazemos juntos. Acompanhe nossos encontros,
+            pesquisas, eventos e histórias nas redes.
           </p>
           <a
             className="social-profile-link"
@@ -47,8 +48,8 @@ export default function InstagramHighlight() {
                   className="social-instagram-profile-frame"
                 />
                 <p>
-                  O Instagram pode limitar o conteúdo incorporado. Utilize o botão
-                  Seguir no Instagram para visualizar as publicações completas.
+                  O Instagram pode limitar o conteúdo incorporado. Utilize o botão Seguir no
+                  Instagram para visualizar as publicações completas.
                 </p>
               </div>
             ) : (
@@ -68,7 +69,10 @@ export default function InstagramHighlight() {
             )}
           </div>
         </div>
-        <div className="social-instagram-highlight__visual" aria-label="Mão segurando um celular com identificação do Instagram do Instituto Foton">
+        <div
+          className="social-instagram-highlight__visual"
+          aria-label="Mão segurando um celular com identificação do Instagram do Instituto Foton"
+        >
           <div className="social-instagram-highlight__phone">
             <img
               src={assetUrl(phoneWebp)}
