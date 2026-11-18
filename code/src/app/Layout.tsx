@@ -39,9 +39,11 @@ export default function Layout() {
   useEffect(() => {
     document.title = `${titles[location.pathname] || 'Instituto Foton'} — Instituto Foton`;
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    if (description) description.content = location.pathname === '/redes-sociais'
-      ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
-      : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
+    if (description)
+      description.content =
+        location.pathname === '/redes-sociais'
+          ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+          : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');
@@ -191,7 +193,11 @@ export default function Layout() {
                   }}
                 >
                   <summary>
-                    {path === '/instituto' ? 'O Instituto' : path === '/pesquisa' ? 'P&D - Cientista Inovador' : 'Notícias'}
+                    {path === '/instituto'
+                      ? 'O Instituto'
+                      : path === '/pesquisa'
+                        ? 'P&D - Cientista Inovador'
+                        : 'Notícias'}
                   </summary>
                   <div
                     className="nav-dropdown-links"
