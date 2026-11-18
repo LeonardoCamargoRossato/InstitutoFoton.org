@@ -1,11 +1,18 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Instagram, Linkedin, ExternalLink, Image as ImageIcon } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Camera,
+  Briefcase,
+  ExternalLink,
+  Image as ImageIcon,
+} from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
 import postsCatalog from '../content/social-posts.json';
 import './SocialMediaPage.css';
 
-const INSTAGRAM_PROFILE =
-  'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
+const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
 const LINKEDIN_PROFILE = 'https://www.linkedin.com/company/fotonictq/';
 
 type SocialMediaAsset = {
@@ -43,11 +50,13 @@ function NetworkGallery({
   profile: string;
   buttonText: string;
 }) {
-  const entries = catalog.filter((post) => post.platform === platform && post.review === 'link-publico-verificado');
+  const entries = catalog.filter(
+    (post) => post.platform === platform && post.review === 'link-publico-verificado',
+  );
   const [active, setActive] = useState(0);
   const [showEmbed, setShowEmbed] = useState(false);
   const post = entries[active];
-  const Icon = platform === 'instagram' ? Instagram : Linkedin;
+  const Icon = platform === 'instagram' ? Camera : Briefcase;
 
   function select(index: number) {
     setActive(index);
@@ -55,10 +64,15 @@ function NetworkGallery({
   }
 
   return (
-    <section className={`social-network social-network--${platform}`} aria-labelledby={`social-${platform}-title`}>
+    <section
+      className={`social-network social-network--${platform}`}
+      aria-labelledby={`social-${platform}-title`}
+    >
       <div className="social-network-header">
         <div className="social-network-identity">
-          <span className="social-network-icon" aria-hidden="true"><Icon size={31} strokeWidth={1.65} /></span>
+          <span className="social-network-icon" aria-hidden="true">
+            <Icon size={31} strokeWidth={1.65} />
+          </span>
           <div>
             <p className="social-network-kicker">Canal institucional</p>
             <h2 id={`social-${platform}-title`}>{heading}</h2>
@@ -74,14 +88,16 @@ function NetworkGallery({
 
       {entries.length === 0 ? (
         <div className="social-gallery-unavailable" role="status">
-          <span className="social-gallery-unavailable-icon"><ImageIcon size={34} aria-hidden="true" /></span>
+          <span className="social-gallery-unavailable-icon">
+            <ImageIcon size={34} aria-hidden="true" />
+          </span>
           <div>
             <h3>Publicações do Instagram em preparação</h3>
             <p>
-              Ainda não há links de postagens individuais e imagens aprovadas neste catálogo.
-              Para não apresentar conteúdo fictício ou reproduzir publicações sem autorização,
-              a galeria será ativada quando as publicações oficiais forem selecionadas.
-              Enquanto isso, conheça as atualizações no perfil oficial.
+              Ainda não há links de postagens individuais e imagens aprovadas neste catálogo. Para
+              não apresentar conteúdo fictício ou reproduzir publicações sem autorização, a galeria
+              será ativada quando as publicações oficiais forem selecionadas. Enquanto isso, conheça
+              as atualizações no perfil oficial.
             </p>
           </div>
         </div>
@@ -90,7 +106,12 @@ function NetworkGallery({
           <div className="social-featured">
             <div className="social-preview-surface">
               {post.media?.approval === 'approved' ? (
-                <a href={post.url} target="_blank" rel="noopener noreferrer" aria-label={`Abrir publicação: ${post.title}`}>
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Abrir publicação: ${post.title}`}
+                >
                   <img
                     className="social-post-image"
                     src={assetUrl(post.media.webp)}
@@ -109,33 +130,57 @@ function NetworkGallery({
                 />
               ) : (
                 <div className="social-embed-consent">
-                  <span className="social-embed-symbol" aria-hidden="true"><Icon size={48} strokeWidth={1.25} /></span>
+                  <span className="social-embed-symbol" aria-hidden="true">
+                    <Icon size={48} strokeWidth={1.25} />
+                  </span>
                   <p>Publicação original do Instituto Foton</p>
                   <strong>{post.title}</strong>
                   {platform === 'linkedin' && (
                     <>
-                      <button type="button" className="social-embed-trigger" onClick={() => setShowEmbed(true)}>
+                      <button
+                        type="button"
+                        className="social-embed-trigger"
+                        onClick={() => setShowEmbed(true)}
+                      >
                         Visualizar publicação aqui <ExternalLink size={16} aria-hidden="true" />
                       </button>
-                      <small>Ao carregar, o LinkedIn poderá processar dados conforme suas políticas. Se a incorporação estiver indisponível, use o link da publicação original.</small>
+                      <small>
+                        Ao carregar, o LinkedIn poderá processar dados conforme suas políticas. Se a
+                        incorporação estiver indisponível, use o link da publicação original.
+                      </small>
                     </>
                   )}
                 </div>
               )}
             </div>
             <div className="social-featured-detail">
-              <span className="social-post-counter" aria-live="polite">Publicação {active + 1} de {entries.length}</span>
+              <span className="social-post-counter" aria-live="polite">
+                Publicação {active + 1} de {entries.length}
+              </span>
               <h3>{post.title}</h3>
               <p>{post.summary}</p>
-              <a className="social-post-source" href={post.url} target="_blank" rel="noopener noreferrer">
+              <a
+                className="social-post-source"
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Abrir publicação original <ArrowUpRight size={18} aria-hidden="true" />
                 <span className="sr-only"> (abre em nova aba)</span>
               </a>
               <div className="social-gallery-controls">
-                <button type="button" aria-label="Publicação anterior" onClick={() => select((active - 1 + entries.length) % entries.length)}>
+                <button
+                  type="button"
+                  aria-label="Publicação anterior"
+                  onClick={() => select((active - 1 + entries.length) % entries.length)}
+                >
                   <ArrowLeft size={20} aria-hidden="true" />
                 </button>
-                <button type="button" aria-label="Próxima publicação" onClick={() => select((active + 1) % entries.length)}>
+                <button
+                  type="button"
+                  aria-label="Próxima publicação"
+                  onClick={() => select((active + 1) % entries.length)}
+                >
                   <ArrowRight size={20} aria-hidden="true" />
                 </button>
               </div>
@@ -167,15 +212,30 @@ export default function SocialMediaPage() {
     <div className="social-media-page">
       <section className="social-intro">
         <div className="container social-intro-inner">
-          <p className="eyebrow"><span />Conexões que aproximam</p>
+          <p className="eyebrow">
+            <span />
+            Conexões que aproximam
+          </p>
           <h1>Acompanhe o Foton nas redes sociais</h1>
           <div className="social-intro-copy">
-            <p>A ciência também acontece nos encontros, nas conversas e nas conexões que construímos todos os dias.</p>
-            <p>Acompanhe o Instituto Foton nas redes sociais e fique por dentro das nossas iniciativas, pesquisas, eventos e oportunidades de participação.</p>
+            <p>
+              A ciência também acontece nos encontros, nas conversas e nas conexões que construímos
+              todos os dias.
+            </p>
+            <p>
+              Acompanhe o Instituto Foton nas redes sociais e fique por dentro das nossas
+              iniciativas, pesquisas, eventos e oportunidades de participação.
+            </p>
           </div>
           <nav className="social-quick-links" aria-label="Redes nesta página">
-            <a href="#social-instagram-title"><Instagram size={20} aria-hidden="true" />Instagram</a>
-            <a href="#social-linkedin-title"><Linkedin size={20} aria-hidden="true" />LinkedIn</a>
+            <a href="#social-instagram-title">
+              <Instagram size={20} aria-hidden="true" />
+              Instagram
+            </a>
+            <a href="#social-linkedin-title">
+              <Linkedin size={20} aria-hidden="true" />
+              LinkedIn
+            </a>
           </nav>
         </div>
       </section>
