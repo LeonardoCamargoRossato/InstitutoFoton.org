@@ -21,7 +21,10 @@ test('submenu Notícias mantém as rotas de notícias e abre Redes sociais no de
       await dropdown.locator('summary').focus();
       await page.keyboard.press('Enter');
       await expect(dropdown).toHaveAttribute('open', '');
-      await expect(dropdown.locator('.nav-dropdown-links a')).toHaveText(['Notícias', 'Redes sociais']);
+      await expect(dropdown.locator('.nav-dropdown-links a')).toHaveText([
+        'Notícias',
+        'Redes sociais',
+      ]);
       await dropdown.getByRole('link', { name: target.name, exact: true }).click();
       await expect(page).toHaveURL(target.path);
     }
@@ -41,10 +44,12 @@ test('Redes sociais: títulos, links oficiais e catálogo verificado', async ({ 
   const instagram = page.locator('.social-network--instagram');
   const linkedIn = page.locator('.social-network--linkedin');
   await expect(instagram.getByRole('link', { name: /Seguir no Instagram/ })).toHaveAttribute(
-    'href', instagramProfile,
+    'href',
+    instagramProfile,
   );
   await expect(linkedIn.getByRole('link', { name: /Acompanhar no LinkedIn/ })).toHaveAttribute(
-    'href', linkedInProfile,
+    'href',
+    linkedInProfile,
   );
   for (const link of await page.locator('.social-network .social-profile-link').all()) {
     await expect(link).toHaveAttribute('target', '_blank');
@@ -66,7 +71,8 @@ test('LinkedIn: navegar entre publicações reais e carregar embed apenas após 
   await social.getByRole('button', { name: 'Próxima publicação' }).click();
   await expect(social.getByText('Publicação 2 de 3')).toBeVisible();
   await expect(social.getByRole('link', { name: /Abrir publicação original/ })).toHaveAttribute(
-    'href', /linkedin\.com\/posts\/fotonictq_.*activity-7447012732123557889/,
+    'href',
+    /linkedin\.com\/posts\/fotonictq_.*activity-7447012732123557889/,
   );
   await social.getByRole('button', { name: /Selecionar publicação 3/ }).click();
   await expect(social.getByText('Publicação 3 de 3')).toBeVisible();
@@ -77,19 +83,20 @@ test('LinkedIn: navegar entre publicações reais e carregar embed apenas após 
     'https://www.linkedin.com/embed/feed/update/urn:li:activity:7440418796294754306',
   );
   await expect(social.getByRole('link', { name: /Abrir publicação original/ })).toHaveAttribute(
-    'target', '_blank',
+    'target',
+    '_blank',
   );
   await social.getByRole('button', { name: 'Publicação anterior' }).click();
   await expect(social.locator('iframe')).toHaveCount(0);
 });
 
-test('Redes sociais: navegação por teclado, responsividade e acessibilidade', async ({
-  page,
-}) => {
+test('Redes sociais: navegação por teclado, responsividade e acessibilidade', async ({ page }) => {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 850 });
     await page.goto('./redes-sociais');
-    const widthOverflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    const widthOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - innerWidth,
+    );
     expect(widthOverflow).toBeLessThanOrEqual(1);
     const next = page.getByRole('button', { name: 'Próxima publicação' });
     await next.focus();
