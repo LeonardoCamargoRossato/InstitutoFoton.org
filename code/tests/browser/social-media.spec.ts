@@ -86,6 +86,62 @@ test('Instagram: carrega a prévia oficial do perfil só após consentimento do 
   );
 });
 
+test('Instagram: mão e celular entram pela direita no desktop e ficam abaixo do texto no mobile', async ({
+  page,
+}) => {
+  for (const width of [390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('./redes-sociais');
+    const section = page.locator('.social-network--instagram');
+    const copy = section.locator('.social-instagram-highlight__content');
+    const visual = section.locator('.social-instagram-highlight__visual');
+    const image = section.locator('.social-instagram-highlight__phone img');
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute('src', /InstagramPhoneHand\.webp$/);
+    const metrics = await image.evaluate((node) => {
+      const imageElement = node as HTMLImageElement;
+      return {
+        complete: imageElement.complete,
+        width: imageElement.naturalWidth,
+        height: imageElement.naturalHeight,
+      };
+    });
+    expect(metrics.complete).toBe(true);
+    expect(metrics.width).toBe(810);
+    expect(metrics.height).toBe(1440);
+    const copyBox = await copy.boundingBox();
+    const visualBox = await visual.boundingBox();
+    const imageBox = await image.boundingBox();
+    expect(copyBox).not.toBeNull();
+    expect(visualBox).not.toBeNull();
+    expect(imageBox).not.toBeNull();
+    if (width <= 880) {
+      expect(copyBox!.y + copyBox!.height).toBeLessThanOrEqual(visualBox!.y + 1);
+    } else {
+      expect(copyBox!.x + copyBox!.width).toBeLessThanOrEqual(visualBox!.x + 1);
+      expect(imageBox!.x + imageBox!.width).toBeGreaterThan(visualBox!.x + visualBox!.width);
+    }
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+    await expect(section.getByText('@institutofoton').first()).toBeVisible();
+  }
+});
+
+test('Instagram: caso WebP falhe, usa PNG íntegro e mantém links oficiais', async ({ page }) => {
+  await page.route('**/*InstagramPhoneHand.webp', async (route) => {
+    await route.abort();
+  });
+  await page.goto('./redes-sociais');
+  const instagram = page.locator('.social-network--instagram');
+  const image = instagram.locator('.social-instagram-highlight__phone img');
+  await expect(image).toHaveAttribute('src', /InstagramPhoneHand\.png$/);
+  await expect(image).toBeVisible();
+  await expect(instagram.getByRole('link', { name: /Seguir no Instagram/ })).toHaveAttribute(
+    'href',
+    instagramProfile,
+  );
+});
+
 test('LinkedIn: navegar entre publicações reais e carregar embed apenas após clicar', async ({
   page,
 }) => {
