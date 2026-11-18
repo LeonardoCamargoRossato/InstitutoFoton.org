@@ -16,6 +16,7 @@ import Layout from './app/Layout';
 import { Home, Institute, Manifesto, Contact, Legal, NotFound } from './features/PublicPages';
 import Support from './features/Support';
 const News = lazy(() => import('./features/Publications').then((m) => ({ default: m.News })));
+const SocialMediaPage = lazy(() => import('./features/SocialMediaPage'));
 const Article = lazy(() => import('./features/Publications').then((m) => ({ default: m.Article })));
 import { Presentation } from './features/Documents';
 const Access = lazy(() => import('./features/Access'));
@@ -88,6 +89,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="manifesto" element={<Manifesto />} />
             <Route path="apoie" element={<Support />} />
             <Route path="noticias" element={<News />} />
+            <Route path="redes-sociais" element={<SocialMediaPage />} />
             <Route path="noticias/:slug" element={<Article />} />
             <Route path="apresentacao" element={<Presentation />} />
             <Route path="contato" element={<Contact />} />
