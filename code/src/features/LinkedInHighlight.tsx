@@ -49,8 +49,7 @@ export default function LinkedInHighlight() {
           <span className="sr-only"> (abre em nova aba)</span>
         </a>
         <p className="social-linkedin-highlight__note">
-          Imagem ilustrativa aprovada, não uma visualização em tempo real. Veja as publicações
-          oficiais abaixo.
+          Imagem ilustrativa aprovada, não uma visualização em tempo real. Acesse o perfil oficial pelo botão acima.
         </p>
       </div>
     </div>
