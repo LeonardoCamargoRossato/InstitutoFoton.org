@@ -117,7 +117,9 @@ if (
 )
   throw Error('SVG original do Instagram divergente ou com referência remota não autorizada');
 
-const linkedinMockup = JSON.parse(await readFile('src/content/linkedin-mockup-assets.json', 'utf8'));
+const linkedinMockup = JSON.parse(
+  await readFile('src/content/linkedin-mockup-assets.json', 'utf8'),
+);
 const linkedinAssetRoot = 'assets/06 - Notícias/Redes Sociais/LinkedIn/';
 if (
   linkedinMockup.id !== 'linkedin-tablet' ||
@@ -146,7 +148,8 @@ const linkedinSvgPath = join('public', linkedinMockup.svg.path);
 const linkedinSvgSource = await readFile(linkedinSvgPath, 'utf8');
 const cleanLinkedinSvg = linkedinSvgSource.replace(/xmlns(?::xlink)?="[^"]*"/g, '');
 const forbiddenLinkedinSvg = /<script\b|<foreignObject\b|onload\s*=|href="https?:/i;
-if (forbiddenLinkedinSvg.test(cleanLinkedinSvg) || !cleanLinkedinSvg.includes('href="data:image/png;base64,'))
+const hasEmbeddedPng = cleanLinkedinSvg.includes('href="data:image/png;base64,');
+if (forbiddenLinkedinSvg.test(cleanLinkedinSvg) || !hasEmbeddedPng)
   throw Error('Contêiner SVG do LinkedIn contém conteúdo não permitido');
 
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
