@@ -283,6 +283,7 @@ const routeDirectories = new Set([
   'jornada',
   'manifesto',
   'noticias',
+  'redes-sociais',
   ...newsRoutes,
   'apresentacao',
   'apoie',
