@@ -87,9 +87,7 @@ if (
   groupCounts.size !== 4
 )
   throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
-const instagramMockup = JSON.parse(
-  await readFile('src/content/social-mockup-assets.json', 'utf8'),
-);
+const instagramMockup = JSON.parse(await readFile('src/content/social-mockup-assets.json', 'utf8'));
 const instagramAssetRoot = 'assets/06 - Notícias/Redes Sociais/Instagram/';
 if (
   instagramMockup.id !== 'instagram-phone-hand' ||
@@ -435,8 +433,7 @@ for (const [path, hash] of instagramAssetHashes) {
   const current = createHash('sha256')
     .update(await readFile(join(dist, path)))
     .digest('hex');
-  if (current !== hash)
-    violations.push('Instagram mockup differs from approved asset ' + path);
+  if (current !== hash) violations.push('Instagram mockup differs from approved asset ' + path);
 }
 for (const [path, hash] of manifestoHeroMedia) {
   if (!seen.has(path)) {
