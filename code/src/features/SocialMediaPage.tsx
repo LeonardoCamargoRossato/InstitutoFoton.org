@@ -87,18 +87,46 @@ function NetworkGallery({
       <p className="social-network-subtitle">{subtitle}</p>
 
       {entries.length === 0 ? (
-        <div className="social-gallery-unavailable" role="status">
+        <div className="social-gallery-unavailable">
           <span className="social-gallery-unavailable-icon">
             <ImageIcon size={34} aria-hidden="true" />
           </span>
-          <div>
-            <h3>Publicações do Instagram em preparação</h3>
+          <div className="social-instagram-profile">
+            <h3>Conheça o perfil oficial do Instagram</h3>
             <p>
-              Ainda não há links de postagens individuais e imagens aprovadas neste catálogo. Para
-              não apresentar conteúdo fictício ou reproduzir publicações sem autorização, a galeria
-              será ativada quando as publicações oficiais forem selecionadas. Enquanto isso, conheça
-              as atualizações no perfil oficial.
+              A prévia abaixo é carregada diretamente do Instagram e pode apresentar publicações
+              reais do perfil @institutofoton. A visualização depende das regras da plataforma.
+              Não há cópias ou postagens fictícias nesta seção.
             </p>
+            {showEmbed ? (
+              <div className="social-instagram-frame-wrap">
+                <iframe
+                  title="Prévia do perfil oficial do Instituto Foton no Instagram"
+                  src="https://www.instagram.com/institutofoton/embed/"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="social-instagram-profile-frame"
+                />
+                <p>
+                  Não apareceu a prévia? O Instagram pode limitar o conteúdo incorporado.
+                  Utilize o botão Seguir no Instagram para visualizar as publicações completas.
+                </p>
+              </div>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className="social-embed-trigger social-instagram-embed-trigger"
+                  onClick={() => setShowEmbed(true)}
+                >
+                  Visualizar prévia do perfil aqui <ExternalLink size={16} aria-hidden="true" />
+                </button>
+                <small>
+                  A prévia é fornecida pelo Instagram. Ao ativá-la, seu navegador poderá
+                  estabelecer conexão com a plataforma e processar dados conforme suas políticas.
+                </small>
+              </>
+            )}
           </div>
         </div>
       ) : (
