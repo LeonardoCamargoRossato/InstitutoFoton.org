@@ -133,6 +133,38 @@ test('Instagram: SVG original sem card nem arte sobreposta, texto à esquerda e 
   }
 });
 
+test('LinkedIn: tablet à esquerda e textos à direita, com WebP e PNG ampliável', async ({
+  page,
+}) => {
+  for (const width of [390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('./redes-sociais');
+    const section = page.locator('.social-network--linkedin');
+    const content = section.locator('.social-linkedin-highlight__content');
+    const visual = section.locator('.social-linkedin-highlight__visual');
+    const image = visual.locator('img.social-linkedin-highlight__tablet');
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect(image).toHaveJSProperty('naturalWidth', 1448);
+    await expect(image).toHaveJSProperty('naturalHeight', 1086);
+    expect(await visual.locator('source').getAttribute('srcset')).toContain('LinkedInTablet.webp');
+    expect(
+      await visual.getByRole('link', { name: /Ampliar imagem ilustrativa/ }).getAttribute('href'),
+    ).toContain('LinkedInTablet.png');
+    const contentBox = await content.boundingBox();
+    const visualBox = await visual.boundingBox();
+    expect(contentBox).not.toBeNull();
+    expect(visualBox).not.toBeNull();
+    if (width > 880) {
+      expect(visualBox!.x + visualBox!.width).toBeLessThanOrEqual(contentBox!.x + 1);
+    } else {
+      expect(contentBox!.y + contentBox!.height).toBeLessThanOrEqual(visualBox!.y + 1);
+    }
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  }
+});
+
 test('LinkedIn: navegar entre publicações reais e carregar embed apenas após clicar', async ({
   page,
 }) => {

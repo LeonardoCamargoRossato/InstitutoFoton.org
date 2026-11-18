@@ -11,6 +11,7 @@ import {
 import { assetUrl } from '../lib/siteAssets';
 import postsCatalog from '../content/social-posts.json';
 import InstagramHighlight from './InstagramHighlight';
+import LinkedInHighlight from './LinkedInHighlight';
 import './SocialMediaPage.css';
 
 const LINKEDIN_PROFILE = 'https://www.linkedin.com/company/fotonictq/';
@@ -68,22 +69,31 @@ function NetworkGallery({
       className={`social-network social-network--${platform}`}
       aria-labelledby={`social-${platform}-title`}
     >
-      <div className="social-network-header">
-        <div className="social-network-identity">
-          <span className="social-network-icon" aria-hidden="true">
-            <Icon size={31} strokeWidth={1.65} />
-          </span>
-          <div>
-            <p className="social-network-kicker">Canal institucional</p>
-            <h2 id={`social-${platform}-title`}>{heading}</h2>
-            <p className="social-network-handle">{handle}</p>
+      {platform === 'linkedin' ? (
+        <LinkedInHighlight />
+      ) : (
+        <div className="social-network-header">
+          <div className="social-network-identity">
+            <span className="social-network-icon" aria-hidden="true">
+              <Icon size={31} strokeWidth={1.65} />
+            </span>
+            <div>
+              <p className="social-network-kicker">Canal institucional</p>
+              <h2 id={`social-${platform}-title`}>{heading}</h2>
+              <p className="social-network-handle">{handle}</p>
+            </div>
           </div>
+          <a
+            className="social-profile-link"
+            href={profile}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {buttonText} <ArrowUpRight size={18} aria-hidden="true" />
+            <span className="sr-only"> (abre em nova aba)</span>
+          </a>
         </div>
-        <a className="social-profile-link" href={profile} target="_blank" rel="noopener noreferrer">
-          {buttonText} <ArrowUpRight size={18} aria-hidden="true" />
-          <span className="sr-only"> (abre em nova aba)</span>
-        </a>
-      </div>
+      )}
       <p className="social-network-subtitle">{subtitle}</p>
 
       {entries.length === 0 ? (

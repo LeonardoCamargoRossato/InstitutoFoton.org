@@ -1,0 +1,36 @@
+{
+  "id": "linkedin-tablet",
+  "platform": "linkedin",
+  "context": "Página Redes sociais — destaque LinkedIn",
+  "origin": {
+    "filename": "LinkedInTabletSource.png",
+    "path": "assets-source/redes-sociais/linkedin/LinkedInTabletSource.png",
+    "sha256": "3346c6ad67b8d2b47949b432bf87265722c979dd2ace564ec6a753f27bb34438",
+    "description": "Imagem ilustrativa gerada em conversa e aprovada pelo responsável em 18/11/2026",
+    "rights": "Imagem gerada para uso institucional; representação ilustrativa, não é captura em tempo real."
+  },
+  "png": {
+    "path": "assets/06 - Notícias/Redes Sociais/LinkedIn/PNG/LinkedInTablet.png",
+    "sha256": "3346c6ad67b8d2b47949b432bf87265722c979dd2ace564ec6a753f27bb34438",
+    "width": 1448,
+    "height": 1086,
+    "hasTransparency": true
+  },
+  "webp": {
+    "path": "assets/06 - Notícias/Redes Sociais/LinkedIn/WebP/LinkedInTablet.webp",
+    "sha256": "6fa0faa2e17da2938ebaf42155d95e101618e2c8150d0ae51d9b514ccf280500",
+    "width": 1448,
+    "height": 1086,
+    "hasTransparency": true,
+    "render": "primeira carga"
+  },
+  "svg": {
+    "path": "assets/06 - Notícias/Redes Sociais/LinkedIn/SVG/LinkedInTablet.svg",
+    "sha256": "559bb5bf7157524ed6e3d0f3a1c05a884ff9d555846b935c23a353cf432f36f1",
+    "width": 1448,
+    "height": 1086,
+    "format": "svg",
+    "note": "Contêiner SVG com PNG embutido; não é vetor nativo."
+  },
+  "processing": "PNG original transparente preservado na fonte; WebP otimizado usado na visualização, PNG aberto por clique; SVG autocontido preservado para download e rastreabilidade."
+}

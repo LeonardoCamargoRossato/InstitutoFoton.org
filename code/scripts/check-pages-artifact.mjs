@@ -117,6 +117,40 @@ if (
 )
   throw Error('SVG original do Instagram divergente ou com referência remota não autorizada');
 
+const linkedinMockup = JSON.parse(
+  await readFile('src/content/linkedin-mockup-assets.json', 'utf8'),
+);
+const linkedinAssetRoot = 'assets/06 - Notícias/Redes Sociais/LinkedIn/';
+if (
+  linkedinMockup.id !== 'linkedin-tablet' ||
+  linkedinMockup.platform !== 'linkedin' ||
+  linkedinMockup.origin.path !== 'assets-source/redes-sociais/linkedin/LinkedInTabletSource.png' ||
+  linkedinMockup.svg.path !== linkedinAssetRoot + 'SVG/LinkedInTablet.svg' ||
+  linkedinMockup.png.path !== linkedinAssetRoot + 'PNG/LinkedInTablet.png' ||
+  linkedinMockup.webp.path !== linkedinAssetRoot + 'WebP/LinkedInTablet.webp' ||
+  linkedinMockup.png.sha256 !== linkedinMockup.origin.sha256
+)
+  throw Error('Inventário do tablet LinkedIn não corresponde aos caminhos aprovados');
+const linkedinAssetHashes = new Map();
+for (const kind of ['svg', 'png', 'webp']) {
+  const asset = linkedinMockup[kind];
+  if (!/^[a-f0-9]{64}$/.test(asset.sha256))
+    throw Error('SHA-256 do LinkedIn inválido: ' + asset.path);
+  linkedinAssetHashes.set(asset.path, asset.sha256);
+  expected.add(asset.path);
+}
+const originalLinkedinPng = await readFile(linkedinMockup.origin.path);
+const originalLinkedinHash = createHash('sha256').update(originalLinkedinPng).digest('hex');
+if (originalLinkedinHash !== linkedinMockup.origin.sha256)
+  throw Error('PNG original do LinkedIn divergente do inventário');
+const linkedinSvgPath = join('public', linkedinMockup.svg.path);
+const linkedinSvgSource = await readFile(linkedinSvgPath, 'utf8');
+const cleanLinkedinSvg = linkedinSvgSource.replace(/xmlns(?::xlink)?="[^"]*"/g, '');
+const forbiddenLinkedinSvg = /<script\b|<foreignObject\b|onload\s*=|href="https?:/i;
+const hasEmbeddedPng = cleanLinkedinSvg.includes('href="data:image/png;base64,');
+if (forbiddenLinkedinSvg.test(cleanLinkedinSvg) || !hasEmbeddedPng)
+  throw Error('Contêiner SVG do LinkedIn contém conteúdo não permitido');
+
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
 const newsFolders = {
   softsul: '01-Foton-SOFTSUL',
@@ -437,6 +471,16 @@ for (const [path, hash] of instagramAssetHashes) {
     .update(await readFile(join(dist, path)))
     .digest('hex');
   if (current !== hash) violations.push('Instagram mockup differs from approved asset ' + path);
+}
+for (const [path, hash] of linkedinAssetHashes) {
+  if (!seen.has(path)) {
+    violations.push('missing LinkedIn mockup asset ' + path);
+    continue;
+  }
+  const current = createHash('sha256')
+    .update(await readFile(join(dist, path)))
+    .digest('hex');
+  if (current !== hash) violations.push('LinkedIn mockup differs from approved asset ' + path);
 }
 for (const [path, hash] of manifestoHeroMedia) {
   if (!seen.has(path)) {
