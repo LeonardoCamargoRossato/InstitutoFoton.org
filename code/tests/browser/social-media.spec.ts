@@ -55,12 +55,35 @@ test('Redes sociais: títulos, links oficiais e catálogo verificado', async ({ 
     await expect(link).toHaveAttribute('target', '_blank');
     await expect(link).toHaveAttribute('rel', /noopener noreferrer/);
   }
-  await expect(instagram.getByText('Publicações do Instagram em preparação')).toBeVisible();
-  await expect(instagram.locator('img, iframe')).toHaveCount(0);
+  await expect(
+    instagram.getByRole('heading', { name: 'Conheça o perfil oficial do Instagram' }),
+  ).toBeVisible();
+  await expect(
+    instagram.getByRole('button', { name: /Visualizar prévia do perfil aqui/ }),
+  ).toBeVisible();
+  await expect(instagram.locator('iframe')).toHaveCount(0);
   await expect(linkedIn.locator('.social-post-tile')).toHaveCount(3);
   await expect(linkedIn.getByText('Publicação 1 de 3')).toBeVisible();
   expect(externalRequests).toEqual([]);
   await expect(page).toHaveTitle(/Acompanhe o Foton nas redes sociais/);
+});
+
+test('Instagram: carrega a prévia oficial do perfil só após consentimento do visitante', async ({
+  page,
+}) => {
+  await page.goto('./redes-sociais');
+  const section = page.locator('.social-network--instagram');
+  await expect(section.locator('iframe')).toHaveCount(0);
+  await section.getByRole('button', { name: /Visualizar prévia do perfil aqui/ }).click();
+  await expect(section.locator('iframe')).toHaveAttribute(
+    'src',
+    'https://www.instagram.com/institutofoton/embed/',
+  );
+  await expect(section.getByText(/O Instagram pode limitar o conteúdo incorporado/)).toBeVisible();
+  await expect(section.getByRole('link', { name: /Seguir no Instagram/ })).toHaveAttribute(
+    'href',
+    instagramProfile,
+  );
 });
 
 test('LinkedIn: navegar entre publicações reais e carregar embed apenas após clicar', async ({
