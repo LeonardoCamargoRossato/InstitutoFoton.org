@@ -83,7 +83,12 @@ function NetworkGallery({
               <p className="social-network-handle">{handle}</p>
             </div>
           </div>
-          <a className="social-profile-link" href={profile} target="_blank" rel="noopener noreferrer">
+          <a
+            className="social-profile-link"
+            href={profile}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {buttonText} <ArrowUpRight size={18} aria-hidden="true" />
             <span className="sr-only"> (abre em nova aba)</span>
           </a>
