@@ -130,27 +130,23 @@ if (
   linkedinMockup.png.sha256 !== linkedinMockup.origin.sha256
 )
   throw Error('Inventário do tablet LinkedIn não corresponde aos caminhos aprovados');
-const linkedinAssetHashes = new Map(
-  [linkedinMockup.svg, linkedinMockup.png, linkedinMockup.webp].map(({ path, sha256 }) => [
-    path,
-    sha256,
-  ]),
-);
-for (const [path, hash] of linkedinAssetHashes) {
-  if (!/^[a-f0-9]{64}$/.test(hash)) throw Error('SHA-256 do LinkedIn inválido: ' + path);
-  expected.add(path);
+const linkedinAssetHashes = new Map();
+for (const kind of ['svg', 'png', 'webp']) {
+  const asset = linkedinMockup[kind];
+  if (!/^[a-f0-9]{64}$/.test(asset.sha256))
+    throw Error('SHA-256 do LinkedIn inválido: ' + asset.path);
+  linkedinAssetHashes.set(asset.path, asset.sha256);
+  expected.add(asset.path);
 }
 const originalLinkedinPng = await readFile(linkedinMockup.origin.path);
-if (createHash('sha256').update(originalLinkedinPng).digest('hex') !== linkedinMockup.origin.sha256)
+const originalLinkedinHash = createHash('sha256').update(originalLinkedinPng).digest('hex');
+if (originalLinkedinHash !== linkedinMockup.origin.sha256)
   throw Error('PNG original do LinkedIn divergente do inventário');
-const linkedinSvgSource = (await readFile(join('public', linkedinMockup.svg.path), 'utf8')).replace(
-  /xmlns(?::xlink)?="[^"]*"/g,
-  '',
-);
-if (
-  /<script\b|<foreignObject\b|onload\s*=|href="https?:/i.test(linkedinSvgSource) ||
-  !linkedinSvgSource.includes('href="data:image/png;base64,')
-)
+const linkedinSvgPath = join('public', linkedinMockup.svg.path);
+const linkedinSvgSource = await readFile(linkedinSvgPath, 'utf8');
+const cleanLinkedinSvg = linkedinSvgSource.replace(/xmlns(?::xlink)?="[^"]*"/g, '');
+const forbiddenLinkedinSvg = /<script\b|<foreignObject\b|onload\s*=|href="https?:/i;
+if (forbiddenLinkedinSvg.test(cleanLinkedinSvg) || !cleanLinkedinSvg.includes('href="data:image/png;base64,'))
   throw Error('Contêiner SVG do LinkedIn contém conteúdo não permitido');
 
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
