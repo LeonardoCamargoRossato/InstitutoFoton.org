@@ -25,6 +25,7 @@ const pages = [
   'jornada',
   'manifesto',
   'noticias',
+  'redes-sociais',
   ...newsRoutes,
   'apresentacao',
   'apoie',
