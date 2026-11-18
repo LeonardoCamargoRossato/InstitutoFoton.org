@@ -10,9 +10,9 @@ import {
 } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
 import postsCatalog from '../content/social-posts.json';
+import InstagramHighlight from './InstagramHighlight';
 import './SocialMediaPage.css';
 
-const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
 const LINKEDIN_PROFILE = 'https://www.linkedin.com/company/fotonictq/';
 
 type SocialMediaAsset = {
@@ -268,14 +268,7 @@ export default function SocialMediaPage() {
         </div>
       </section>
       <div className="container social-network-list">
-        <NetworkGallery
-          platform="instagram"
-          heading="Instagram"
-          subtitle="Acompanhe histórias, encontros e registros do Instituto Foton."
-          handle="@institutofoton"
-          profile={INSTAGRAM_PROFILE}
-          buttonText="Seguir no Instagram"
-        />
+        <InstagramHighlight />
         <NetworkGallery
           platform="linkedin"
           heading="LinkedIn"
