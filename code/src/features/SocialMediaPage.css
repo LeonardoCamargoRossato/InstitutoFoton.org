@@ -366,6 +366,54 @@
   background: #eff7ff;
   border-color: #4385c9;
 }
+.social-instagram-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+}
+
+.social-instagram-profile h3 {
+  margin-bottom: 0;
+}
+
+.social-instagram-profile > p {
+  max-width: 780px;
+}
+
+.social-instagram-embed-trigger {
+  align-self: flex-start;
+}
+
+.social-instagram-profile small {
+  max-width: 690px;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: #536b81;
+}
+
+.social-instagram-frame-wrap {
+  display: grid;
+  gap: 15px;
+  margin-top: 4px;
+  max-width: 540px;
+}
+
+.social-instagram-profile-frame {
+  width: 100%;
+  height: 510px;
+  min-height: 390px;
+  border: 1px solid #d7e5f4;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.social-instagram-frame-wrap > p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
 @media (max-width: 880px) {
   .social-featured {
     grid-template-columns: minmax(0, 1fr);
