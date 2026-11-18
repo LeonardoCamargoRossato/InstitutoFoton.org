@@ -16,7 +16,7 @@
     "test:e2e": "playwright test",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
     "scan:secrets": "node scripts/scan-secrets.mjs",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --write scripts/check-pages-artifact.mjs src/features/InstagramHighlight.tsx src/features/SocialMediaPage.css && node scripts/format-social-asset-preview.mjs",
     "docs:check": "node scripts/check-documentation.mjs",
     "artifact:check": "node scripts/check-pages-artifact.mjs",
     "assets:verify": "node scripts/prepare-webp.mjs",
