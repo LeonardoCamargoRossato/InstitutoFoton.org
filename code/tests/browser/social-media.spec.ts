@@ -16,7 +16,7 @@ test('submenu Notícias mantém as rotas de notícias e abre Redes sociais no de
       await page.goto('./');
       if (width < 1000) await page.getByRole('button', { name: 'Abrir menu' }).click();
       const nav = page.getByRole('navigation', { name: 'Navegação principal' });
-      const dropdown = nav.locator('details.nav-dropdown').filter({ has: nav.locator('summary').filter({ hasText: /^Notícias$/ }) });
+      const dropdown = nav.locator('details.nav-dropdown').filter({ hasText: 'Redes sociais' });
       await expect(dropdown.locator('summary')).toHaveText('Notícias');
       await dropdown.locator('summary').focus();
       await page.keyboard.press('Enter');
