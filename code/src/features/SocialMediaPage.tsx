@@ -95,8 +95,8 @@ function NetworkGallery({
             <h3>Conheça o perfil oficial do Instagram</h3>
             <p>
               A prévia abaixo é carregada diretamente do Instagram e pode apresentar publicações
-              reais do perfil @institutofoton. A visualização depende das regras da plataforma.
-              Não há cópias ou postagens fictícias nesta seção.
+              reais do perfil @institutofoton. A visualização depende das regras da plataforma. Não
+              há cópias ou postagens fictícias nesta seção.
             </p>
             {showEmbed ? (
               <div className="social-instagram-frame-wrap">
@@ -108,8 +108,8 @@ function NetworkGallery({
                   className="social-instagram-profile-frame"
                 />
                 <p>
-                  Não apareceu a prévia? O Instagram pode limitar o conteúdo incorporado.
-                  Utilize o botão Seguir no Instagram para visualizar as publicações completas.
+                  Não apareceu a prévia? O Instagram pode limitar o conteúdo incorporado. Utilize o
+                  botão Seguir no Instagram para visualizar as publicações completas.
                 </p>
               </div>
             ) : (
@@ -122,8 +122,8 @@ function NetworkGallery({
                   Visualizar prévia do perfil aqui <ExternalLink size={16} aria-hidden="true" />
                 </button>
                 <small>
-                  A prévia é fornecida pelo Instagram. Ao ativá-la, seu navegador poderá
-                  estabelecer conexão com a plataforma e processar dados conforme suas políticas.
+                  A prévia é fornecida pelo Instagram. Ao ativá-la, seu navegador poderá estabelecer
+                  conexão com a plataforma e processar dados conforme suas políticas.
                 </small>
               </>
             )}
