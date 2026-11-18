@@ -229,11 +229,11 @@ export default function SocialMediaPage() {
           </div>
           <nav className="social-quick-links" aria-label="Redes nesta página">
             <a href="#social-instagram-title">
-              <Instagram size={20} aria-hidden="true" />
+              <Camera size={20} aria-hidden="true" />
               Instagram
             </a>
             <a href="#social-linkedin-title">
-              <Linkedin size={20} aria-hidden="true" />
+              <Briefcase size={20} aria-hidden="true" />
               LinkedIn
             </a>
           </nav>
