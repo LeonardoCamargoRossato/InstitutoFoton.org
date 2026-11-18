@@ -86,18 +86,22 @@ test('Instagram: carrega a prévia oficial do perfil só após consentimento do 
   );
 });
 
-test('Instagram: mão e celular entram pela direita no desktop e ficam abaixo do texto no mobile', async ({
+test('Instagram: SVG original sem card nem arte sobreposta, texto à esquerda e mão à direita', async ({
   page,
 }) => {
   for (const width of [390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('./redes-sociais');
     const section = page.locator('.social-network--instagram');
+    const layout = section.locator('.social-instagram-highlight');
     const copy = section.locator('.social-instagram-highlight__content');
     const visual = section.locator('.social-instagram-highlight__visual');
-    const image = section.locator('.social-instagram-highlight__phone img');
+    const image = section.locator('img.social-instagram-highlight__phone');
     await expect(image).toBeVisible();
-    await expect(image).toHaveAttribute('src', /InstagramPhoneHand\.webp$/);
+    await expect(image).toHaveAttribute('src', /InstagramPhoneHand\.svg$/);
+    await expect(layout).toHaveCSS('border-top-width', '0px');
+    await expect(layout).toHaveCSS('background-image', 'none');
+    await expect(section.locator('.social-instagram-highlight__phone-mark')).toHaveCount(0);
     const metrics = await image.evaluate((node) => {
       const imageElement = node as HTMLImageElement;
       return {
@@ -107,8 +111,8 @@ test('Instagram: mão e celular entram pela direita no desktop e ficam abaixo do
       };
     });
     expect(metrics.complete).toBe(true);
-    expect(metrics.width).toBe(810);
-    expect(metrics.height).toBe(1440);
+    expect(metrics.width).toBe(1080);
+    expect(metrics.height).toBe(1920);
     const copyBox = await copy.boundingBox();
     const visualBox = await visual.boundingBox();
     const imageBox = await image.boundingBox();
@@ -125,21 +129,6 @@ test('Instagram: mão e celular entram pela direita no desktop e ficam abaixo do
     expect(overflow).toBeLessThanOrEqual(1);
     await expect(section.getByText('@institutofoton').first()).toBeVisible();
   }
-});
-
-test('Instagram: caso WebP falhe, usa PNG íntegro e mantém links oficiais', async ({ page }) => {
-  await page.route('**/*InstagramPhoneHand.webp', async (route) => {
-    await route.abort();
-  });
-  await page.goto('./redes-sociais');
-  const instagram = page.locator('.social-network--instagram');
-  const image = instagram.locator('.social-instagram-highlight__phone img');
-  await expect(image).toHaveAttribute('src', /InstagramPhoneHand\.png$/);
-  await expect(image).toBeVisible();
-  await expect(instagram.getByRole('link', { name: /Seguir no Instagram/ })).toHaveAttribute(
-    'href',
-    instagramProfile,
-  );
 });
 
 test('LinkedIn: navegar entre publicações reais e carregar embed apenas após clicar', async ({

@@ -22,5 +22,13 @@
     "height": 1440,
     "quality": 82
   },
-  "processing": "SVG original preservado fora de public; PNG rasterizado e transparência externa ajustada; WebP otimizado para exibição em 1a carga. Não representa uma publicação real."
+  "processing": "O SVG original é exibido diretamente como <img> à direita, sem alterações, sobreposição ou card; as versões PNG/WebP legadas permanecem preservadas para rastreabilidade e recuperação.",
+  "svg": {
+    "path": "assets/06 - Notícias/Redes Sociais/Instagram/SVG/InstagramPhoneHand.svg",
+    "sha256": "7b41e3b33f3d0f6a30d4df54528af8788c1a6179ab40ee982d58c292286892bd",
+    "width": 1080,
+    "height": 1920,
+    "format": "svg",
+    "render": "original no site, sem sobreposição"
+  }
 }

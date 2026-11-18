@@ -94,12 +94,14 @@ if (
   instagramMockup.platform !== 'instagram' ||
   instagramMockup.origin.path !==
     'assets-source/redes-sociais/instagram/InstagramPhoneHandSource.svg' ||
+  instagramMockup.svg.path !== instagramAssetRoot + 'SVG/InstagramPhoneHand.svg' ||
+  instagramMockup.svg.sha256 !== instagramMockup.origin.sha256 ||
   instagramMockup.png.path !== instagramAssetRoot + 'PNG/InstagramPhoneHand.png' ||
   instagramMockup.webp.path !== instagramAssetRoot + 'WebP/InstagramPhoneHand.webp'
 )
   throw Error('Inventário do mockup Instagram não corresponde aos caminhos aprovados');
 const instagramAssetHashes = new Map(
-  [instagramMockup.png, instagramMockup.webp].map(({ path, sha256 }) => [path, sha256]),
+  [instagramMockup.svg, instagramMockup.png, instagramMockup.webp].map(({ path, sha256 }) => [path, sha256]),
 );
 for (const [path, hash] of instagramAssetHashes) {
   if (!/^[a-f0-9]{64}$/.test(hash)) throw Error('SHA-256 do mockup Instagram inválido: ' + path);
