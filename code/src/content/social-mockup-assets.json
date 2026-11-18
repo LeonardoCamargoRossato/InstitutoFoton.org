@@ -1,0 +1,26 @@
+{
+  "id": "instagram-phone-hand",
+  "platform": "instagram",
+  "context": "Página Redes sociais — destaque Instagram",
+  "origin": {
+    "filename": "Mockup Insta Foton.zip",
+    "entry": "1.svg",
+    "unselectedEntry": "2.svg (vetor vazio, não utilizado)",
+    "path": "assets-source/redes-sociais/instagram/InstagramPhoneHandSource.svg",
+    "sha256": "7b41e3b33f3d0f6a30d4df54528af8788c1a6179ab40ee982d58c292286892bd"
+  },
+  "png": {
+    "path": "assets/06 - Notícias/Redes Sociais/Instagram/PNG/InstagramPhoneHand.png",
+    "sha256": "06e95c9ba1e5b37481136c531001af799609c515eb066dd39bd02720dd02ae41",
+    "width": 810,
+    "height": 1440
+  },
+  "webp": {
+    "path": "assets/06 - Notícias/Redes Sociais/Instagram/WebP/InstagramPhoneHand.webp",
+    "sha256": "844e53eed8dbe4c1adb6f6753d22eb8d4b1611d2e559d46b0310bf6d9799843f",
+    "width": 810,
+    "height": 1440,
+    "quality": 82
+  },
+  "processing": "SVG original preservado fora de public; PNG rasterizado e transparência externa ajustada; WebP otimizado para exibição em 1a carga. Não representa uma publicação real."
+}
