@@ -87,6 +87,35 @@ if (
   groupCounts.size !== 4
 )
   throw Error('A seleção SVG deve ter quatro grupos 8/9/5/9 sem duplicados');
+const instagramMockup = JSON.parse(
+  await readFile('src/content/social-mockup-assets.json', 'utf8'),
+);
+const instagramAssetRoot = 'assets/06 - Notícias/Redes Sociais/Instagram/';
+if (
+  instagramMockup.id !== 'instagram-phone-hand' ||
+  instagramMockup.platform !== 'instagram' ||
+  instagramMockup.origin.path !==
+    'assets-source/redes-sociais/instagram/InstagramPhoneHandSource.svg' ||
+  instagramMockup.png.path !== instagramAssetRoot + 'PNG/InstagramPhoneHand.png' ||
+  instagramMockup.webp.path !== instagramAssetRoot + 'WebP/InstagramPhoneHand.webp'
+)
+  throw Error('Inventário do mockup Instagram não corresponde aos caminhos aprovados');
+const instagramAssetHashes = new Map(
+  [instagramMockup.png, instagramMockup.webp].map(({ path, sha256 }) => [path, sha256]),
+);
+for (const [path, hash] of instagramAssetHashes) {
+  if (!/^[a-f0-9]{64}$/.test(hash)) throw Error('SHA-256 do mockup Instagram inválido: ' + path);
+  expected.add(path);
+}
+const originalSvg = await readFile(instagramMockup.origin.path);
+if (
+  createHash('sha256').update(originalSvg).digest('hex') !== instagramMockup.origin.sha256 ||
+  /<script\b|onload\s*=|https?:\/\//i.test(
+    originalSvg.toString('utf8').replace(/xmlns(?::xlink)?="[^"]*"/g, ''),
+  )
+)
+  throw Error('SVG original do Instagram divergente ou com referência remota não autorizada');
+
 const newsMedia = JSON.parse(await readFile('src/content/news-media.json', 'utf8'));
 const newsFolders = {
   softsul: '01-Foton-SOFTSUL',
@@ -397,6 +426,17 @@ async function walk(dir, prefix = '') {
 await walk(dist);
 for (const a of expected) {
   if (!seen.has(a)) violations.push('missing asset ' + a);
+}
+for (const [path, hash] of instagramAssetHashes) {
+  if (!seen.has(path)) {
+    violations.push('missing Instagram mockup asset ' + path);
+    continue;
+  }
+  const current = createHash('sha256')
+    .update(await readFile(join(dist, path)))
+    .digest('hex');
+  if (current !== hash)
+    violations.push('Instagram mockup differs from approved asset ' + path);
 }
 for (const [path, hash] of manifestoHeroMedia) {
   if (!seen.has(path)) {
