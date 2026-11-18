@@ -99,6 +99,8 @@ test('Instagram: SVG original sem card nem arte sobreposta, texto à esquerda e 
     const image = section.locator('img.social-instagram-highlight__phone');
     await expect(image).toBeVisible();
     await expect(image).toHaveAttribute('src', /InstagramPhoneHand\.svg$/);
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toHaveJSProperty('naturalWidth', 1080, { timeout: 15000 });
     await expect(layout).toHaveCSS('border-top-width', '0px');
     await expect(layout).toHaveCSS('background-image', 'none');
     await expect(section.locator('.social-instagram-highlight__phone-mark')).toHaveCount(0);
