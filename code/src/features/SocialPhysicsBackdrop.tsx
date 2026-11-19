@@ -1,137 +1,153 @@
+import { createElement, type ReactNode } from 'react';
+
+type MathTagName = 'math' | 'mi' | 'mn' | 'mo' | 'mfrac' | 'mrow' | 'msub' | 'msup';
+
+function M({
+  tag,
+  children,
+  mathvariant,
+}: {
+  tag: MathTagName;
+  children?: ReactNode;
+  mathvariant?: string;
+}) {
+  return createElement(tag, mathvariant ? { mathvariant } : null, children);
+}
+
 type SocialPhysicsRegion = 'intro' | 'linkedin' | 'youtube';
 
 // MathML conserva índices, expoentes, frações e somatórios de forma semântica.
 // Equações decorativas: o contexto visível do site já explica a área científica.
 function SchrodingerEquation() {
   return (
-    <math>
-      <mi>i</mi>
-      <mi>ℏ</mi>
-      <mfrac>
-        <mrow>
-          <mo>∂</mo>
-          <mi>ψ</mi>
-        </mrow>
-        <mrow>
-          <mo>∂</mo>
-          <mi>t</mi>
-        </mrow>
-      </mfrac>
-      <mo>=</mo>
-      <mi>Ĥ</mi>
-      <mi>ψ</mi>
-    </math>
+    <M tag="math">
+      <M tag="mi">i</M>
+      <M tag="mi">ℏ</M>
+      <M tag="mfrac">
+        <M tag="mrow">
+          <M tag="mo">∂</M>
+          <M tag="mi">ψ</M>
+        </M>
+        <M tag="mrow">
+          <M tag="mo">∂</M>
+          <M tag="mi">t</M>
+        </M>
+      </M>
+      <M tag="mo">=</M>
+      <M tag="mi">Ĥ</M>
+      <M tag="mi">ψ</M>
+    </M>
   );
 }
 
 function HamiltonianEquation() {
   return (
-    <math>
-      <mi>Ĥ</mi>
-      <mo>=</mo>
-      <mo>−</mo>
-      <mfrac>
-        <msup>
-          <mi>ℏ</mi>
-          <mn>2</mn>
-        </msup>
-        <mrow>
-          <mn>2</mn>
-          <mi>m</mi>
-        </mrow>
-      </mfrac>
-      <msup>
-        <mo>∇</mo>
-        <mn>2</mn>
-      </msup>
-      <mo>+</mo>
-      <mi>V</mi>
-      <mo>(</mo>
-      <mi>r</mi>
-      <mo>)</mo>
-    </math>
+    <M tag="math">
+      <M tag="mi">Ĥ</M>
+      <M tag="mo">=</M>
+      <M tag="mo">−</M>
+      <M tag="mfrac">
+        <M tag="msup">
+          <M tag="mi">ℏ</M>
+          <M tag="mn">2</M>
+        </M>
+        <M tag="mrow">
+          <M tag="mn">2</M>
+          <M tag="mi">m</M>
+        </M>
+      </M>
+      <M tag="msup">
+        <M tag="mo">∇</M>
+        <M tag="mn">2</M>
+      </M>
+      <M tag="mo">+</M>
+      <M tag="mi">V</M>
+      <M tag="mo">(</M>
+      <M tag="mi">r</M>
+      <M tag="mo">)</M>
+    </M>
   );
 }
 
 function IsingEquation() {
   return (
-    <math>
-      <mi>H</mi>
-      <mo>=</mo>
-      <mo>−</mo>
-      <mi>J</mi>
-      <msub>
-        <mo>∑</mo>
-        <mrow>
-          <mo>⟨</mo>
-          <mi>i</mi>
-          <mo>,</mo>
-          <mi>j</mi>
-          <mo>⟩</mo>
-        </mrow>
-      </msub>
-      <msub>
-        <mi>s</mi>
-        <mi>i</mi>
-      </msub>
-      <msub>
-        <mi>s</mi>
-        <mi>j</mi>
-      </msub>
-      <mo>−</mo>
-      <mi>h</mi>
-      <msub>
-        <mo>∑</mo>
-        <mi>i</mi>
-      </msub>
-      <msub>
-        <mi>s</mi>
-        <mi>i</mi>
-      </msub>
-    </math>
+    <M tag="math">
+      <M tag="mi">H</M>
+      <M tag="mo">=</M>
+      <M tag="mo">−</M>
+      <M tag="mi">J</M>
+      <M tag="msub">
+        <M tag="mo">∑</M>
+        <M tag="mrow">
+          <M tag="mo">⟨</M>
+          <M tag="mi">i</M>
+          <M tag="mo">,</M>
+          <M tag="mi">j</M>
+          <M tag="mo">⟩</M>
+        </M>
+      </M>
+      <M tag="msub">
+        <M tag="mi">s</M>
+        <M tag="mi">i</M>
+      </M>
+      <M tag="msub">
+        <M tag="mi">s</M>
+        <M tag="mi">j</M>
+      </M>
+      <M tag="mo">−</M>
+      <M tag="mi">h</M>
+      <M tag="msub">
+        <M tag="mo">∑</M>
+        <M tag="mi">i</M>
+      </M>
+      <M tag="msub">
+        <M tag="mi">s</M>
+        <M tag="mi">i</M>
+      </M>
+    </M>
   );
 }
 
 function PartitionEquation() {
   return (
-    <math>
-      <mi>Z</mi>
-      <mo>=</mo>
-      <mi mathvariant="normal">Tr</mi>
-      <mo>(</mo>
-      <msup>
-        <mi>e</mi>
-        <mrow>
-          <mo>−</mo>
-          <mi>β</mi>
-          <mi>Ĥ</mi>
-        </mrow>
-      </msup>
-      <mo>)</mo>
-    </math>
+    <M tag="math">
+      <M tag="mi">Z</M>
+      <M tag="mo">=</M>
+      <M tag="mi" mathvariant="normal">Tr</M>
+      <M tag="mo">(</M>
+      <M tag="msup">
+        <M tag="mi">e</M>
+        <M tag="mrow">
+          <M tag="mo">−</M>
+          <M tag="mi">β</M>
+          <M tag="mi">Ĥ</M>
+        </M>
+      </M>
+      <M tag="mo">)</M>
+    </M>
   );
 }
 
 function ActionEquation() {
   return (
-    <math>
-      <mi>S</mi>
-      <mo>[</mo>
-      <mi>q</mi>
-      <mo>]</mo>
-      <mo>=</mo>
-      <mo>∫</mo>
-      <mi>L</mi>
-      <mo>(</mo>
-      <mi>q</mi>
-      <mo>,</mo>
-      <mi>q̇</mi>
-      <mo>,</mo>
-      <mi>t</mi>
-      <mo>)</mo>
-      <mi>d</mi>
-      <mi>t</mi>
-    </math>
+    <M tag="math">
+      <M tag="mi">S</M>
+      <M tag="mo">[</M>
+      <M tag="mi">q</M>
+      <M tag="mo">]</M>
+      <M tag="mo">=</M>
+      <M tag="mo">∫</M>
+      <M tag="mi">L</M>
+      <M tag="mo">(</M>
+      <M tag="mi">q</M>
+      <M tag="mo">,</M>
+      <M tag="mi">q̇</M>
+      <M tag="mo">,</M>
+      <M tag="mi">t</M>
+      <M tag="mo">)</M>
+      <M tag="mi">d</M>
+      <M tag="mi">t</M>
+    </M>
   );
 }
 
