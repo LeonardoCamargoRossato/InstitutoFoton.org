@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import SocialPhysicsBackdrop from './SocialPhysicsBackdrop';
 import './YouTubeHighlight.css';
 
 const YOUTUBE_CHANNEL = 'https://youtube.com/@institutofoton?si=asOgikmknRyM5y7_';
@@ -18,6 +19,7 @@ export default function YouTubeHighlight() {
       className="social-network social-network--youtube"
       aria-labelledby="social-youtube-title"
     >
+      <SocialPhysicsBackdrop region="youtube" />
       <svg
         className="social-youtube-transition-wave"
         viewBox="0 0 660 32"

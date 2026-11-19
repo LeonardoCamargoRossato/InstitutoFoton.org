@@ -2,12 +2,14 @@ import InstagramHighlight from './InstagramHighlight';
 import LinkedInHighlight from './LinkedInHighlight';
 import YouTubeHighlight, { YouTubeBrandIcon } from './YouTubeHighlight';
 import { InstagramBrandIcon, LinkedInBrandIcon } from './SocialPlatformIcons';
+import SocialPhysicsBackdrop from './SocialPhysicsBackdrop';
 import './SocialMediaPage.css';
 
 export default function SocialMediaPage() {
   return (
     <div className="social-media-page">
       <section className="social-intro">
+        <SocialPhysicsBackdrop region="intro" />
         <div className="container social-intro-inner">
           <p className="eyebrow">
             <span />
@@ -46,6 +48,7 @@ export default function SocialMediaPage() {
           className="social-network social-network--linkedin"
           aria-labelledby="social-linkedin-title"
         >
+          <SocialPhysicsBackdrop region="linkedin" />
           <LinkedInHighlight />
         </section>
         <YouTubeHighlight />
