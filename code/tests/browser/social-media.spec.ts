@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const instagramProfile = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
 const linkedInProfile = 'https://www.linkedin.com/company/fotonictq/';
+const youtubeChannel = 'https://youtube.com/@institutofoton?si=asOgikmknRyM5y7_';
 
 test('submenu Notícias mantém as rotas de notícias e abre Redes sociais no desktop e celular', async ({
   page,
@@ -58,6 +59,38 @@ test('Redes sociais: links, imagens e navegação simplificada', async ({ page }
   await expect(anchors.nth(0)).toHaveAttribute('href', '#social-instagram-title');
   await expect(anchors.nth(1)).toHaveAttribute('href', '#social-linkedin-title');
   await expect(anchors.nth(2)).toHaveAttribute('href', '#social-youtube-title');
+});
+
+test('YouTube: capa e botão abrem o canal oficial, inclusive no mobile', async ({ page }) => {
+  for (const width of [320, 390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 850 });
+    await page.goto('./redes-sociais');
+    const section = page.locator('.social-network--youtube');
+    const content = section.locator('.social-youtube-highlight__content');
+    const cover = section.getByRole('link', { name: /Abrir canal oficial do Instituto Foton/ });
+    const button = section.getByRole('link', { name: /Acessar canal no YouTube/ });
+    await expect(cover).toBeVisible();
+    await expect(button).toBeVisible();
+    for (const link of [cover, button]) {
+      await expect(link).toHaveAttribute('href', youtubeChannel);
+      await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', /noopener noreferrer/);
+    }
+    await expect(section.locator('iframe')).toHaveCount(0);
+    const contentBox = await content.boundingBox();
+    const coverBox = await cover.boundingBox();
+    expect(contentBox).not.toBeNull();
+    expect(coverBox).not.toBeNull();
+    if (width <= 880) {
+      expect(contentBox!.y + contentBox!.height).toBeLessThanOrEqual(coverBox!.y + 1);
+    } else {
+      expect(contentBox!.x + contentBox!.width).toBeLessThanOrEqual(coverBox!.x + 1);
+    }
+    await cover.focus();
+    await expect(cover).toBeFocused();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  }
 });
 
 test('Instagram: SVG original sem card nem arte sobreposta, texto à esquerda e mão à direita', async ({

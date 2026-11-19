@@ -1,5 +1,6 @@
 import InstagramHighlight from './InstagramHighlight';
 import LinkedInHighlight from './LinkedInHighlight';
+import YouTubeHighlight, { YouTubeBrandIcon } from './YouTubeHighlight';
 import './SocialMediaPage.css';
 
 function InstagramBrandIcon() {
@@ -48,15 +49,6 @@ function LinkedInBrandIcon() {
   );
 }
 
-function YouTubeBrandIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="23" height="23" aria-hidden="true">
-      <rect x="1" y="4.2" width="22" height="15.6" rx="4.5" fill="#ff0033" />
-      <path d="m10 8 6.1 4-6.1 4z" fill="#fff" />
-    </svg>
-  );
-}
-
 export default function SocialMediaPage() {
   return (
     <div className="social-media-page">
@@ -101,24 +93,7 @@ export default function SocialMediaPage() {
         >
           <LinkedInHighlight />
         </section>
-        <section
-          className="social-network social-network--youtube"
-          aria-labelledby="social-youtube-title"
-        >
-          <div className="social-youtube-section">
-            <span className="social-youtube-icon" aria-hidden="true">
-              <YouTubeBrandIcon />
-            </span>
-            <div>
-              <p className="social-network-kicker">YouTube • Canal institucional</p>
-              <h2 id="social-youtube-title">Instituto Foton no YouTube</h2>
-              <p>
-                Em breve, vídeos sobre pesquisas, encontros, eventos e iniciativas do Instituto
-                Foton.
-              </p>
-            </div>
-          </div>
-        </section>
+        <YouTubeHighlight />
       </div>
     </div>
   );

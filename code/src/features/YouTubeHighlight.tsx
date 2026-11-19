@@ -1,0 +1,71 @@
+import { ArrowUpRight } from 'lucide-react';
+import './YouTubeHighlight.css';
+
+const YOUTUBE_CHANNEL = 'https://youtube.com/@institutofoton?si=asOgikmknRyM5y7_';
+
+export function YouTubeBrandIcon({ size = 24 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
+      <rect x="1" y="4.2" width="22" height="15.6" rx="4.5" fill="#ff0033" />
+      <path d="m10 8 6.1 4-6.1 4z" fill="#fff" />
+    </svg>
+  );
+}
+
+export default function YouTubeHighlight() {
+  return (
+    <section
+      className="social-network social-network--youtube"
+      aria-labelledby="social-youtube-title"
+    >
+      <div className="social-youtube-highlight">
+        <div className="social-youtube-highlight__content">
+          <p className="social-network-kicker">YouTube • Canal oficial</p>
+          <h2 id="social-youtube-title">Acompanhe o Instituto Foton no YouTube</h2>
+          <p className="social-youtube-highlight__handle">
+            <YouTubeBrandIcon size={28} />
+            <span>@institutofoton</span>
+          </p>
+          <p className="social-youtube-highlight__description">
+            Ciência, tecnologia e inovação em vídeo. Acompanhe conteúdos, encontros e iniciativas
+            que conectam pessoas e conhecimento.
+          </p>
+          <a
+            className="social-profile-link social-profile-link--youtube"
+            href={YOUTUBE_CHANNEL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Acessar canal no YouTube <ArrowUpRight size={18} aria-hidden="true" />
+            <span className="sr-only"> (abre em nova aba)</span>
+          </a>
+        </div>
+
+        <a
+          className="social-youtube-highlight__cover"
+          href={YOUTUBE_CHANNEL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Abrir canal oficial do Instituto Foton no YouTube (abre em nova aba)"
+        >
+          <span className="social-youtube-highlight__cover-header" aria-hidden="true">
+            <span>CANAL OFICIAL</span>
+            <YouTubeBrandIcon size={31} />
+          </span>
+          <span className="social-youtube-highlight__play" aria-hidden="true">
+            <span className="social-youtube-highlight__play-triangle" />
+          </span>
+          <span className="social-youtube-highlight__cover-bottom" aria-hidden="true">
+            <span className="social-youtube-highlight__cover-name">
+              INSTITUTO FOTON
+              <small>@institutofoton</small>
+            </span>
+            <span className="social-youtube-highlight__cover-cta">
+              Assistir <ArrowUpRight size={20} />
+            </span>
+          </span>
+        </a>
+      </div>
+    </section>
+  );
+}
