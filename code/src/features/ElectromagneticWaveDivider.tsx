@@ -1,12 +1,10 @@
-// Onda eletromagnética plana: E e B oscilam em fase e em direções transversais.
-// Projeção axonométrica original baseada nos eixos e vetores das referências.
+// Onda eletromagnética: E e B em fase, transversais à direção de propagação x.
+// A geometria é calculada uma vez; SVG decorativo sem dependências externas.
 type Point = { x: number; y: number };
 
 const ORIGIN: Point = { x: 110, y: 87 };
 const END: Point = { x: 604, y: 102 };
 const PERIODS = 2.45;
-const WAVE_SAMPLES = Array.from({ length: 161 }, (_, index) => index / 160);
-const VECTOR_SAMPLES = Array.from({ length: 49 }, (_, i) => (i + 1) / 50);
 
 function axisPoint(t: number): Point {
   return {
@@ -17,31 +15,42 @@ function axisPoint(t: number): Point {
 
 function electricPoint(t: number): Point {
   const axis = axisPoint(t);
-  const oscillation = Math.sin(2 * Math.PI * PERIODS * t);
-
-  return { x: axis.x, y: axis.y - 48 * oscillation };
+  const wave = Math.sin(2 * Math.PI * PERIODS * t);
+  return { x: axis.x, y: axis.y - 48 * wave };
 }
 
 function magneticPoint(t: number): Point {
   const axis = axisPoint(t);
-  const oscillation = Math.sin(2 * Math.PI * PERIODS * t);
-
-  return {
-    x: axis.x - 41 * oscillation,
-    y: axis.y + 30 * oscillation,
-  };
+  const wave = Math.sin(2 * Math.PI * PERIODS * t);
+  return { x: axis.x - 41 * wave, y: axis.y + 30 * wave };
 }
 
-function makePath(pointAt: (t: number) => Point) {
-  return WAVE_SAMPLES.map((t, index) => {
-    const point = pointAt(t);
+function vertex(point: Point) {
+  return `${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+}
+
+function wavePath(field: (t: number) => Point) {
+  const points: string[] = [];
+  for (let index = 0; index <= 160; index += 1) {
     const command = index === 0 ? 'M' : 'L';
-    return `${command}${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
-  }).join(' ');
+    points.push(command + vertex(field(index / 160)));
+  }
+  return points.join(' ');
 }
 
-const ELECTRIC_PATH = makePath(electricPoint);
-const MAGNETIC_PATH = makePath(magneticPoint);
+function vectorPath(field: (t: number) => Point) {
+  const vectors: string[] = [];
+  for (let index = 1; index <= 49; index += 1) {
+    const t = index / 50;
+    vectors.push(`M${vertex(axisPoint(t))} L${vertex(field(t))}`);
+  }
+  return vectors.join(' ');
+}
+
+const ELECTRIC_WAVE = wavePath(electricPoint);
+const MAGNETIC_WAVE = wavePath(magneticPoint);
+const ELECTRIC_VECTORS = vectorPath(electricPoint);
+const MAGNETIC_VECTORS = vectorPath(magneticPoint);
 
 export default function ElectromagneticWaveDivider() {
   return (
@@ -91,34 +100,22 @@ export default function ElectromagneticWaveDivider() {
       </defs>
 
       <g className="social-em-axes">
-        <line x1={ORIGIN.x} y1={ORIGIN.y} x2="649" y2="104" />
-        <line x1={ORIGIN.x} y1={ORIGIN.y} x2={ORIGIN.x} y2="10" />
-        <line x1={ORIGIN.x} y1={ORIGIN.y} x2="40" y2="160" />
+        <line x1="110" y1="87" x2="649" y2="104" />
+        <line x1="110" y1="87" x2="110" y2="10" />
+        <line x1="110" y1="87" x2="40" y2="160" />
         <text x="651" y="113">+x</text>
         <text x="119" y="16">+y</text>
         <text x="12" y="164">+z</text>
       </g>
 
       <g className="social-em-magnetic-vectors">
-        {VECTOR_SAMPLES.map((t) => {
-          const from = axisPoint(t);
-          const to = magneticPoint(t);
-          return (
-            <line key={t} x1={from.x} y1={from.y} x2={to.x} y2={to.y} />
-          );
-        })}
+        <path d={MAGNETIC_VECTORS} />
       </g>
       <g className="social-em-electric-vectors">
-        {VECTOR_SAMPLES.map((t) => {
-          const from = axisPoint(t);
-          const to = electricPoint(t);
-          return (
-            <line key={t} x1={from.x} y1={from.y} x2={to.x} y2={to.y} />
-          );
-        })}
+        <path d={ELECTRIC_VECTORS} />
       </g>
-      <path className="social-em-magnetic-wave" d={MAGNETIC_PATH} />
-      <path className="social-em-electric-wave" d={ELECTRIC_PATH} />
+      <path className="social-em-magnetic-wave" d={MAGNETIC_WAVE} />
+      <path className="social-em-electric-wave" d={ELECTRIC_WAVE} />
       <text className="social-em-label social-em-label--electric" x="277" y="28">
         E
       </text>
