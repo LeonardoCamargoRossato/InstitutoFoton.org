@@ -549,9 +549,36 @@
   height: auto;
 }
 .social-linkedin-highlight__content h2 {
-  margin: 0 0 26px;
+  margin: 0 0 18px;
   font-size: clamp(2rem, 3.3vw, 3.35rem);
   line-height: 1.13;
+}
+.social-linkedin-highlight__handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: clamp(1.02rem, 1.25vw, 1.22rem);
+  font-weight: 750;
+  color: #0757b7;
+}
+/* No desktop, o CTA termina alinhado à parte inferior do tablet. */
+@media (min-width: 881px) {
+  .social-linkedin-highlight__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: clamp(300px, 24vw, 335px);
+  }
+  .social-linkedin-highlight__visual {
+    /* Corrige a sobra gerada pelo deslocamento visual do mockup. */
+    margin-bottom: -110px;
+  }
+  .social-linkedin-highlight__content .social-profile-link {
+    margin-top: auto;
+    width: min(100%, 420px);
+    justify-content: center;
+  }
 }
 @media (max-width: 880px) {
   .social-linkedin-highlight {
@@ -563,7 +590,11 @@
   }
   .social-linkedin-highlight__visual {
     justify-content: center;
+    margin-bottom: 0;
     transform: none;
+  }
+  .social-linkedin-highlight__handle {
+    margin-bottom: 24px;
   }
 }
 @media (max-width: 550px) {

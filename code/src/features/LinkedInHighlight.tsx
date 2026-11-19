@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import { LinkedInBrandIcon } from './SocialPlatformIcons';
 import { assetUrl } from '../lib/siteAssets';
 import mockup from '../content/linkedin-mockup-assets.json';
 
@@ -30,6 +31,10 @@ export default function LinkedInHighlight() {
       </div>
       <div className="social-linkedin-highlight__content">
         <h2 id="social-linkedin-title">Acompanhe o Instituto Foton no LinkedIn</h2>
+        <p className="social-linkedin-highlight__handle">
+          <LinkedInBrandIcon size={22} />
+          <span>Instituto Foton</span>
+        </p>
         <a
           className="social-profile-link"
           href={LINKEDIN_PROFILE}
