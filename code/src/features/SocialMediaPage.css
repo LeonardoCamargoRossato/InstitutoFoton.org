@@ -866,7 +866,7 @@
   position: absolute;
   display: block;
   max-width: 90%;
-  color: rgba(8, 39, 99, 0.36);
+  color: rgba(8, 39, 99, 0.46);
   font-family: 'Cambria Math', 'STIX Two Math', 'DejaVu Serif', Georgia, serif;
   font-size: clamp(0.92rem, 1.42vw, 1.32rem);
   font-weight: 500;
@@ -938,7 +938,7 @@
 @media (max-width: 880px) {
   .social-physics-symbols > span {
     font-size: 0.82rem;
-    color: rgba(8, 39, 99, 0.24);
+    color: rgba(8, 39, 99, 0.31);
   }
 
   .social-physics-symbols > span:nth-child(3) {
