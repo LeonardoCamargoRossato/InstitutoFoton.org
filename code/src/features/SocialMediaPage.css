@@ -6,12 +6,12 @@
 .social-intro {
   position: relative;
   isolation: isolate;
-  padding: clamp(84px, 10vw, 150px) 0 clamp(70px, 9vw, 120px);
+  padding: clamp(70px, 7vw, 104px) 0 clamp(58px, 6vw, 86px);
   background:
     radial-gradient(ellipse at 88% 8%, rgba(22, 132, 212, 0.1), transparent 43%),
     linear-gradient(180deg, #f7fbff 0%, #fff 100%);
-  border-radius: 0 0 10% 4% / 0 0 10% 7%;
-  overflow: hidden;
+  border-radius: 0 0 7% 3% / 0 0 7% 4%;
+  overflow: visible;
 }
 .social-intro::after {
   content: '';
@@ -29,12 +29,12 @@
 }
 .social-intro h1 {
   margin: 22px 0 28px;
-  max-width: 950px;
+  max-width: 750px;
   font-size: clamp(2.75rem, 5.1vw, 5.3rem);
   line-height: 1.09;
 }
 .social-intro-copy {
-  max-width: 750px;
+  max-width: 650px;
   display: grid;
   gap: 16px;
 }
@@ -71,8 +71,8 @@
 }
 .social-network-list {
   display: grid;
-  gap: clamp(65px, 9vw, 130px);
-  padding-block: clamp(70px, 8vw, 125px);
+  gap: 0;
+  padding-block: 0;
 }
 .social-network {
   min-width: 0;
@@ -421,8 +421,8 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(24px, 5vw, 72px);
-  min-height: 650px;
-  padding-block: clamp(24px, 4vw, 60px);
+  min-height: 555px;
+  padding-block: clamp(32px, 4vw, 55px);
 }
 .social-instagram-highlight__content {
   position: relative;
@@ -475,15 +475,15 @@
   align-items: center;
   justify-content: flex-end;
   min-width: 0;
-  min-height: 650px;
+  min-height: 550px;
 }
 .social-instagram-highlight__phone {
   display: block;
-  width: clamp(300px, 34vw, 430px);
+  width: clamp(370px, 37vw, 510px);
   max-width: none;
   height: auto;
   flex: 0 0 auto;
-  transform: translateX(clamp(25px, 7vw, 110px));
+  transform: translate(clamp(30px, 6vw, 100px), -190px);
 }
 @media (max-width: 880px) {
   .social-instagram-highlight {
@@ -519,7 +519,7 @@
   align-items: center;
   gap: clamp(24px, 4vw, 66px);
   min-width: 0;
-  padding-block: clamp(20px, 4vw, 60px);
+  padding-block: clamp(38px, 5vw, 76px);
 }
 .social-linkedin-highlight__visual,
 .social-linkedin-highlight__content {
@@ -676,4 +676,73 @@
     padding: 10px 12px;
     font-size: 0.84rem;
   }
+}
+
+/* LCR: seções contínuas, com espectro visível nas transições.
+   Os fundos são full-bleed sem modificar os assets originais. */
+.social-intro { z-index: 1; }
+.social-intro::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 9px;
+  background: linear-gradient(90deg, #ed496e 0%, #f3a646 18%, #eed96e 35%, #56bd9b 54%, #39a8e2 73%, #9561ce 90%, #ed496e 100%);
+  clip-path: ellipse(75% 100% at 50% 100%);
+  opacity: .85;
+}
+.social-intro-inner { position: relative; z-index: 1; }
+.social-network-list > .social-network,
+.social-network-list > .social-youtube-highlight { position: relative; isolation: isolate; }
+.social-network--instagram::before,
+.social-network--linkedin::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
+  pointer-events: none;
+}
+.social-network--instagram::before {
+  background: linear-gradient(160deg, #f1f7ff 0%, #f8f4fd 58%, #fff 100%);
+}
+.social-network--linkedin::before {
+  background: linear-gradient(145deg, #fff 0%, #f0f8ff 55%, #eaf3fc 100%);
+}
+.social-network--linkedin::after {
+  content: '';
+  position: absolute;
+  inset: -4px calc(50% - 50vw) auto;
+  height: 7px;
+  background: linear-gradient(90deg, #eb5983, #f6ba58, #e5d777, #5bc3af, #48b6ec, #8d7ad5);
+  opacity: .72;
+  border-radius: 50% 50% 0 0;
+  pointer-events: none;
+}
+.social-network--instagram { z-index: 2; }
+.social-instagram-highlight__visual { position: relative; z-index: 2; }
+.social-instagram-highlight__phone { pointer-events: none; }
+.social-network--linkedin { padding-block: 10px; }
+@media (min-width: 881px) {
+  .social-intro h1,
+  .social-intro-copy { max-width: min(66%, 750px); }
+  .social-quick-links { max-width: 65%; }
+  .social-instagram-highlight__visual { height: 560px; }
+}
+@media (max-width: 880px) {
+  .social-intro { padding-bottom: 46px; overflow: hidden; }
+  .social-intro h1, .social-intro-copy, .social-quick-links { max-width: 100%; }
+  .social-network--instagram { padding-top: 35px; }
+  .social-instagram-highlight__visual { height: auto; }
+  .social-instagram-highlight__phone { transform: translateX(10%); }
+  .social-network--linkedin { padding-block: 35px; }
+}
+@media (max-width: 550px) {
+  .social-intro { padding-top: 64px; padding-bottom: 38px; }
+  .social-intro h1 { margin-bottom: 22px; }
+  .social-quick-links { margin-top: 24px; }
+  .social-network--instagram { padding-top: 28px; }
+  .social-instagram-highlight__phone { transform: translateX(12%); }
 }
