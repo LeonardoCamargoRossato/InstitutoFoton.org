@@ -1,4 +1,20 @@
 /* Capa de entrada do canal oficial: composição CSS, sem embed nem mídia externa. */
+/* Onda sutil no início da seção, limitada à metade esquerda da página. */
+.social-network--youtube {
+  z-index: 4;
+}
+
+.social-youtube-transition-wave {
+  position: absolute;
+  top: -16px;
+  left: calc(50% - 50vw);
+  z-index: 1;
+  width: min(50vw, 660px);
+  height: 32px;
+  overflow: visible;
+  pointer-events: none;
+}
+
 .social-youtube-highlight {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -21,7 +37,7 @@
 }
 
 .social-youtube-highlight__content h2 {
-  margin: 20px 0 18px;
+  margin: 0 0 18px;
   font-size: clamp(2rem, 3.3vw, 3.35rem);
   line-height: 1.13;
 }
