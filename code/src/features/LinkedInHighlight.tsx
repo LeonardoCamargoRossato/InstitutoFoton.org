@@ -1,4 +1,5 @@
-import { ArrowUpRight, Briefcase } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { LinkedInBrandIcon } from './SocialPlatformIcons';
 import { assetUrl } from '../lib/siteAssets';
 import mockup from '../content/linkedin-mockup-assets.json';
 
@@ -32,7 +33,7 @@ export default function LinkedInHighlight() {
         <p className="social-network-kicker">LinkedIn • Canal oficial</p>
         <h2 id="social-linkedin-title">Acompanhe o Instituto Foton no LinkedIn</h2>
         <p className="social-linkedin-highlight__handle">
-          <Briefcase size={20} aria-hidden="true" />
+          <LinkedInBrandIcon size={22} />
           <span>Instituto Foton</span>
         </p>
         <p className="social-linkedin-highlight__description">
