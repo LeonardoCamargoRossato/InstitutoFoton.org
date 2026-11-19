@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { InstagramBrandIcon } from './SocialPlatformIcons';
+import SocialPhysicsBackdrop from './SocialPhysicsBackdrop';
 import { assetUrl } from '../lib/siteAssets';
 
 const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
@@ -13,6 +14,7 @@ export default function InstagramHighlight() {
       className="social-network social-network--instagram"
       aria-labelledby="social-instagram-title"
     >
+      <SocialPhysicsBackdrop region="instagram" />
       <div className="social-instagram-highlight">
         <div className="social-instagram-highlight__content">
           <h2 id="social-instagram-title">Acompanhe o Instituto Foton no Instagram</h2>
