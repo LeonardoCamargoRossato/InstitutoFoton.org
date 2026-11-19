@@ -3,6 +3,8 @@
    Desenho vetorial, estático, não bloqueia links e limita-se à metade esquerda. */
 .social-network--youtube {
   z-index: 4;
+  /* Distância de aproximadamente um botão e meio entre o tablet e o diagrama. */
+  margin-top: clamp(72px, 6vw, 96px);
 }
 
 .social-youtube-transition-wave {
@@ -255,6 +257,10 @@
 }
 
 @media (max-width: 880px) {
+  .social-network--youtube {
+    margin-top: 48px;
+  }
+
   .social-youtube-highlight {
     grid-template-columns: minmax(0, 1fr);
   }
