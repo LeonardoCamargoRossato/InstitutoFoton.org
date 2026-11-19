@@ -1,18 +1,54 @@
 /* Capa de entrada do canal oficial: composição CSS, sem embed nem mídia externa. */
-/* Onda sutil no início da seção, limitada à metade esquerda da página. */
+/* Gráfico de Fourier, eixo e vetores cromáticos na metade esquerda da transição. */
 .social-network--youtube {
   z-index: 4;
 }
 
 .social-youtube-transition-wave {
   position: absolute;
-  top: -16px;
+  top: -42px;
   left: calc(50% - 50vw);
   z-index: 1;
   width: min(50vw, 660px);
-  height: 32px;
+  height: 84px;
   overflow: visible;
   pointer-events: none;
+}
+
+.social-fourier-axis {
+  stroke: #16427c;
+  stroke-width: 1.2;
+  stroke-dasharray: 5 7;
+  opacity: 0.27;
+}
+
+.social-fourier-harmonic {
+  fill: none;
+  stroke: #0e4a95;
+  stroke-width: 1.5;
+  opacity: 0.2;
+}
+
+.social-fourier-vector {
+  stroke: #104b96;
+  stroke-width: 1.2;
+  fill: #134c96;
+  opacity: 0.58;
+}
+
+.social-fourier-resultant-glow {
+  fill: none;
+  stroke: url(#social-fourier-light-spectrum);
+  stroke-width: 10;
+  opacity: 0.12;
+}
+
+.social-fourier-resultant {
+  fill: none;
+  stroke: url(#social-fourier-light-spectrum);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .social-youtube-highlight {
@@ -34,8 +70,8 @@
 
 .social-youtube-highlight__content {
   min-width: 0;
-  /* Uma distância próxima à altura de um botão entre a onda e o título. */
-  padding-top: clamp(20px, 2vw, 28px);
+  /* Distância equivalente a um botão entre o gráfico Fourier e o título. */
+  padding-top: clamp(58px, 5.6vw, 76px);
 }
 
 .social-youtube-highlight__content h2 {
@@ -206,6 +242,16 @@
 }
 
 @media (max-width: 550px) {
+  .social-youtube-transition-wave {
+    top: -29px;
+    width: min(70vw, 420px);
+    height: 58px;
+  }
+
+  .social-youtube-highlight__content {
+    padding-top: 54px;
+  }
+
   .social-youtube-highlight__content h2 {
     font-size: clamp(2rem, 9vw, 2.6rem);
   }
