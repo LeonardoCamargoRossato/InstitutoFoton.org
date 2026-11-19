@@ -3,16 +3,8 @@ type SocialPhysicsRegion = 'intro' | 'instagram' | 'linkedin' | 'youtube';
 // Fórmulas clássicas e quânticas verificáveis; decoração sem bibliotecas, animações ou imagens.
 // A camada é ignorada por tecnologias assistivas e não interfere com os links da página.
 const equationsByRegion: Record<SocialPhysicsRegion, readonly string[]> = {
-  intro: [
-    'iℏ ∂ψ/∂t = Ĥψ',
-    'Ĥ = −(ℏ²/2m)∇² + V(r)',
-    '⟨ψ|Ĥ|ψ⟩ = E',
-  ],
-  instagram: [
-    '∫ ψ*(r) Ĥψ(r) d³r',
-    '∂²ψ/∂x² + k²ψ = 0',
-    'ℏω = E₂ − E₁',
-  ],
+  intro: ['iℏ ∂ψ/∂t = Ĥψ', 'Ĥ = −(ℏ²/2m)∇² + V(r)', '⟨ψ|Ĥ|ψ⟩ = E'],
+  instagram: ['∫ ψ*(r) Ĥψ(r) d³r', '∂²ψ/∂x² + k²ψ = 0', 'ℏω = E₂ − E₁'],
   linkedin: [
     'H = −J∑⟨i,j⟩ sᵢsⱼ − h∑ᵢ sᵢ',
     'dqᵢ/dt = ∂H/∂pᵢ',
