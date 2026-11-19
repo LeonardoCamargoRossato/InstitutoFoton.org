@@ -52,11 +52,12 @@ test('Redes sociais: links, imagens e navegação simplificada', async ({ page }
   await expect(linkedIn.locator('.social-gallery')).toHaveCount(0);
   await expect(linkedIn.locator('iframe')).toHaveCount(0);
   await expect(youtube.getByRole('heading', { name: 'Instituto Foton no YouTube' })).toBeVisible();
-  for (const platform of ['instagram', 'linkedin', 'youtube']) {
-    await expect(page.locator('.social-quick-links').locator('a').filter({
-      hasText: new RegExp(platform, 'i'),
-    })).toHaveAttribute('href', '#social-' + platform + '-title');
-  }
+  const anchors = page.locator('.social-quick-links a');
+  await expect(anchors).toHaveCount(3);
+  await expect(anchors).toHaveText(['Instagram', 'LinkedIn', 'YouTube']);
+  await expect(anchors.nth(0)).toHaveAttribute('href', '#social-instagram-title');
+  await expect(anchors.nth(1)).toHaveAttribute('href', '#social-linkedin-title');
+  await expect(anchors.nth(2)).toHaveAttribute('href', '#social-youtube-title');
 });
 
 test('Instagram: SVG original sem card nem arte sobreposta, texto à esquerda e mão à direita', async ({
