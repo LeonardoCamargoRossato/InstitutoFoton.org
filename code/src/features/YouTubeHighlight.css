@@ -8,6 +8,14 @@
   padding-block: clamp(20px, 4vw, 60px);
 }
 
+/* No desktop, a seção começa logo após a mão do tablet LinkedIn. */
+@media (min-width: 881px) {
+  .social-youtube-highlight {
+    align-items: start;
+    padding-top: clamp(0px, 1vw, 12px);
+  }
+}
+
 .social-youtube-highlight__content {
   min-width: 0;
 }
