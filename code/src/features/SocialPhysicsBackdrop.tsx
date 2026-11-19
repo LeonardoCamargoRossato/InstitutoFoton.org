@@ -113,7 +113,9 @@ function PartitionEquation() {
     <M tag="math">
       <M tag="mi">Z</M>
       <M tag="mo">=</M>
-      <M tag="mi" mathvariant="normal">Tr</M>
+      <M tag="mi" mathvariant="normal">
+        Tr
+      </M>
       <M tag="mo">(</M>
       <M tag="msup">
         <M tag="mi">e</M>
