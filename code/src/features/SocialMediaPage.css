@@ -862,7 +862,7 @@
   user-select: none;
 }
 
-.social-physics-symbol {
+.social-physics-symbols > span {
   position: absolute;
   display: block;
   max-width: 90%;
@@ -875,54 +875,54 @@
   white-space: nowrap;
 }
 
-.social-physics-symbols--intro .social-physics-symbol--1 {
+.social-physics-symbols--intro > span:nth-child(1) {
   top: 14%;
   right: 4%;
 }
-.social-physics-symbols--intro .social-physics-symbol--2 {
+.social-physics-symbols--intro > span:nth-child(2) {
   top: 49%;
   right: 8%;
 }
-.social-physics-symbols--intro .social-physics-symbol--3 {
+.social-physics-symbols--intro > span:nth-child(3) {
   bottom: 8%;
   left: 64%;
 }
 
-.social-physics-symbols--instagram .social-physics-symbol--1 {
+.social-physics-symbols--instagram > span:nth-child(1) {
   top: 9%;
   right: 6%;
 }
-.social-physics-symbols--instagram .social-physics-symbol--2 {
+.social-physics-symbols--instagram > span:nth-child(2) {
   bottom: 13%;
   left: 4%;
 }
-.social-physics-symbols--instagram .social-physics-symbol--3 {
+.social-physics-symbols--instagram > span:nth-child(3) {
   bottom: 32%;
   right: 25%;
 }
 
-.social-physics-symbols--linkedin .social-physics-symbol--1 {
+.social-physics-symbols--linkedin > span:nth-child(1) {
   bottom: 7%;
   right: 5%;
 }
-.social-physics-symbols--linkedin .social-physics-symbol--2 {
+.social-physics-symbols--linkedin > span:nth-child(2) {
   top: 52%;
   right: 22%;
 }
-.social-physics-symbols--linkedin .social-physics-symbol--3 {
+.social-physics-symbols--linkedin > span:nth-child(3) {
   top: 12%;
   left: 5%;
 }
 
-.social-physics-symbols--youtube .social-physics-symbol--1 {
+.social-physics-symbols--youtube > span:nth-child(1) {
   top: 9%;
   right: 3%;
 }
-.social-physics-symbols--youtube .social-physics-symbol--2 {
+.social-physics-symbols--youtube > span:nth-child(2) {
   bottom: 9%;
   left: 4%;
 }
-.social-physics-symbols--youtube .social-physics-symbol--3 {
+.social-physics-symbols--youtube > span:nth-child(3) {
   bottom: 16%;
   right: 31%;
 }
@@ -936,23 +936,23 @@
 }
 
 @media (max-width: 880px) {
-  .social-physics-symbol {
+  .social-physics-symbols > span {
     font-size: 0.82rem;
     color: rgba(30, 91, 134, 0.12);
   }
 
-  .social-physics-symbol--3 {
+  .social-physics-symbols > span:nth-child(3) {
     display: none;
   }
 
-  .social-physics-symbols--linkedin .social-physics-symbol--2 {
+  .social-physics-symbols--linkedin > span:nth-child(2) {
     top: 45%;
     right: 5%;
   }
 }
 
 @media (max-width: 550px) {
-  .social-physics-symbol--2 {
+  .social-physics-symbols > span:nth-child(2) {
     display: none;
   }
 }
