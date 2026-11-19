@@ -20,7 +20,6 @@ export default function YouTubeHighlight() {
       className="social-network social-network--youtube"
       aria-labelledby="social-youtube-title"
     >
-      <SocialPhysicsBackdrop region="youtube" />
       <ElectromagneticWaveDivider />
       <div className="social-youtube-highlight">
         <div className="social-youtube-highlight__content">
@@ -69,6 +68,7 @@ export default function YouTubeHighlight() {
           </span>
         </a>
       </div>
+      <SocialPhysicsBackdrop region="youtube" />
     </section>
   );
 }

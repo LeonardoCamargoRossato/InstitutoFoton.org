@@ -956,3 +956,69 @@
     display: none;
   }
 }
+
+/* LCR: manter fórmulas legíveis fora das áreas ocupadas por imagens e textos.
+   A introdução e o Instagram usam mockups sobrepostos: sem fórmulas nessas zonas.
+   LinkedIn conserva uma expressão na margem inferior; YouTube usa uma faixa própria. */
+.social-physics-symbols > span {
+  color: #103e82;
+  font-weight: 650;
+  opacity: 1;
+}
+
+.social-physics-symbols--intro,
+.social-physics-symbols--instagram {
+  display: none;
+}
+
+.social-physics-symbols--linkedin > span:nth-child(2),
+.social-physics-symbols--linkedin > span:nth-child(3) {
+  display: none;
+}
+
+.social-physics-symbols--linkedin > span:nth-child(1) {
+  top: auto;
+  right: 4%;
+  bottom: 6%;
+}
+
+/* Ao fim do YouTube, as expressões ocupam sua própria linha, sem cobrir a capa. */
+.social-physics-symbols--youtube {
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(14px, 2vw, 28px);
+  margin: clamp(18px, 2.5vw, 32px) 0 clamp(26px, 3vw, 44px);
+}
+
+.social-physics-symbols--youtube > span {
+  position: static;
+  display: block;
+  flex: 1 1 240px;
+  max-width: none;
+  text-align: center;
+  white-space: normal;
+}
+
+@media (max-width: 880px) {
+  /* Evita fórmulas sobre o tablet ao empilhar o layout. */
+  .social-physics-symbols--linkedin {
+    display: none;
+  }
+
+  .social-physics-symbols--youtube {
+    justify-content: center;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 550px) {
+  .social-physics-symbols--youtube > span:nth-child(2),
+  .social-physics-symbols--youtube > span:nth-child(3) {
+    display: none;
+  }
+}
