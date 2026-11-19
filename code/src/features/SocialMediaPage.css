@@ -419,10 +419,10 @@
 .social-instagram-highlight {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   gap: clamp(24px, 5vw, 72px);
   min-height: 555px;
-  padding-block: clamp(32px, 4vw, 55px);
+  padding: clamp(72px, 6vw, 96px) 0 clamp(52px, 6vw, 85px);
 }
 .social-instagram-highlight__content {
   position: relative;
@@ -430,7 +430,7 @@
   min-width: 0;
 }
 .social-instagram-highlight__content h2 {
-  margin: 20px 0 18px;
+  margin: 0 0 18px;
   font-size: clamp(2rem, 3.4vw, 3.45rem);
   line-height: 1.13;
   max-width: 590px;
@@ -526,9 +526,12 @@
   min-width: 0;
 }
 .social-linkedin-highlight__visual {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  transform: translateY(-120px);
 }
 .social-linkedin-highlight__visual a {
   display: block;
@@ -578,6 +581,7 @@
   }
   .social-linkedin-highlight__visual {
     justify-content: center;
+    transform: none;
   }
 }
 @media (max-width: 550px) {
@@ -723,7 +727,8 @@
   pointer-events: none;
 }
 .social-network--instagram::before {
-  background: linear-gradient(160deg, #f1f7ff 0%, #f8f4fd 58%, #fff 100%);
+  /* Cinza neutro para separar visualmente a introdução do LinkedIn. */
+  background: linear-gradient(160deg, #e8eaee 0%, #eff0f2 60%, #e7ebef 100%);
 }
 .social-network--linkedin::before {
   background: linear-gradient(145deg, #fff 0%, #f0f8ff 55%, #eaf3fc 100%);
@@ -741,6 +746,23 @@
 .social-network--instagram {
   z-index: 2;
 }
+
+.social-network--instagram .social-profile-link {
+  background: linear-gradient(110deg, #f58529 0%, #dd2a7b 48%, #8134af 100%);
+  box-shadow: 0 10px 22px rgba(183, 42, 128, 0.14);
+}
+
+.social-network--instagram .social-profile-link:hover {
+  background: linear-gradient(110deg, #e66a18 0%, #c51e6e 48%, #6f279c 100%);
+}
+
+.social-network--linkedin .social-profile-link {
+  background: #0a66c2;
+}
+
+.social-network--linkedin .social-profile-link:hover {
+  background: #004b91;
+}
 .social-instagram-highlight__visual {
   position: relative;
   z-index: 2;
@@ -749,6 +771,7 @@
   pointer-events: none;
 }
 .social-network--linkedin {
+  z-index: 3;
   padding-block: 10px;
 }
 @media (min-width: 881px) {
