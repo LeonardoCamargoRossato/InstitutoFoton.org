@@ -34,6 +34,8 @@
 
 .social-youtube-highlight__content {
   min-width: 0;
+  /* Uma distância próxima à altura de um botão entre a onda e o título. */
+  padding-top: clamp(20px, 2vw, 28px);
 }
 
 .social-youtube-highlight__content h2 {
