@@ -70,12 +70,7 @@ export default function ElectromagneticWaveDivider() {
           refY="3"
           orient="auto"
         >
-          <path
-            d="M0 0 L6 3 L0 6"
-            fill="none"
-            stroke="#173965"
-            strokeWidth="1.2"
-          />
+          <path d="M0 0 L6 3 L0 6" fill="none" stroke="#173965" strokeWidth="1.2" />
         </marker>
         <marker
           id="social-em-electric-arrow"
@@ -103,9 +98,15 @@ export default function ElectromagneticWaveDivider() {
         <line x1="110" y1="87" x2="649" y2="104" />
         <line x1="110" y1="87" x2="110" y2="10" />
         <line x1="110" y1="87" x2="40" y2="160" />
-        <text x="651" y="113">+x</text>
-        <text x="119" y="16">+y</text>
-        <text x="12" y="164">+z</text>
+        <text x="651" y="113">
+          +x
+        </text>
+        <text x="119" y="16">
+          +y
+        </text>
+        <text x="12" y="164">
+          +z
+        </text>
       </g>
 
       <g className="social-em-magnetic-vectors">
