@@ -30,14 +30,14 @@
   font-weight: 650;
 }
 
-.social-em-electric-vectors line {
+.social-em-electric-vectors path {
   stroke: #e33b50;
   stroke-width: 1.2;
   opacity: 0.75;
   marker-end: url(#social-em-electric-arrow);
 }
 
-.social-em-magnetic-vectors line {
+.social-em-magnetic-vectors path {
   stroke: #195bcc;
   stroke-width: 1.2;
   opacity: 0.74;
