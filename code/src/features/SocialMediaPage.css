@@ -851,174 +851,100 @@
   }
 }
 
-/* Fórmulas decorativas de física: sem interferência na leitura, navegação ou mídia.
-   As expressões são renderizadas em texto (sem fontes ou bibliotecas externas). */
+/* Fórmulas científicas em MathML: índices e frações reais, sem caracteres
+   achatados ou sobreposição com imagens. O topo recebe as expressões principais. */
 .social-physics-symbols {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
+  color: #365b87;
+  font-family: 'Cambria Math', 'STIX Two Math', 'DejaVu Serif', Georgia, serif;
   pointer-events: none;
   user-select: none;
 }
 
 .social-physics-symbols > span {
-  position: absolute;
-  display: block;
-  max-width: 90%;
-  color: rgba(8, 39, 99, 0.46);
-  font-family: 'Cambria Math', 'STIX Two Math', 'DejaVu Serif', Georgia, serif;
-  font-size: clamp(0.92rem, 1.42vw, 1.32rem);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  font-size: clamp(0.86rem, 1.1vw, 1.05rem);
+  font-weight: 450;
+  line-height: 1.65;
 }
 
-.social-physics-symbols--intro > span:nth-child(1) {
-  top: 14%;
-  right: 4%;
-}
-.social-physics-symbols--intro > span:nth-child(2) {
-  top: 49%;
-  right: 8%;
-}
-.social-physics-symbols--intro > span:nth-child(3) {
-  bottom: 8%;
-  left: 64%;
+.social-physics-symbols math {
+  font-size: inherit;
+  color: inherit;
 }
 
-.social-physics-symbols--instagram > span:nth-child(1) {
-  top: 9%;
-  right: 6%;
-}
-.social-physics-symbols--instagram > span:nth-child(2) {
-  bottom: 13%;
-  left: 4%;
-}
-.social-physics-symbols--instagram > span:nth-child(3) {
-  bottom: 32%;
-  right: 25%;
-}
-
-.social-physics-symbols--linkedin > span:nth-child(1) {
-  bottom: 7%;
-  right: 5%;
-}
-.social-physics-symbols--linkedin > span:nth-child(2) {
-  top: 52%;
-  right: 22%;
-}
-.social-physics-symbols--linkedin > span:nth-child(3) {
-  top: 12%;
-  left: 5%;
-}
-
-.social-physics-symbols--youtube > span:nth-child(1) {
-  top: 9%;
-  right: 3%;
-}
-.social-physics-symbols--youtube > span:nth-child(2) {
-  bottom: 9%;
-  left: 4%;
-}
-.social-physics-symbols--youtube > span:nth-child(3) {
-  bottom: 16%;
-  right: 31%;
-}
-
-/* Conteúdo e mockups permanecem sobre a decoração, inclusive no cruzamento de seções. */
-.social-instagram-highlight,
-.social-linkedin-highlight,
-.social-youtube-highlight {
+.social-physics-symbols--intro {
   position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 880px) {
-  .social-physics-symbols > span {
-    font-size: 0.82rem;
-    color: rgba(8, 39, 99, 0.31);
-  }
-
-  .social-physics-symbols > span:nth-child(3) {
-    display: none;
-  }
-
-  .social-physics-symbols--linkedin > span:nth-child(2) {
-    top: 45%;
-    right: 5%;
-  }
-}
-
-@media (max-width: 550px) {
-  .social-physics-symbols > span:nth-child(2) {
-    display: none;
-  }
-}
-
-/* LCR: manter fórmulas legíveis fora das áreas ocupadas por imagens e textos.
-   A introdução e o Instagram usam mockups sobrepostos: sem fórmulas nessas zonas.
-   LinkedIn conserva uma expressão na margem inferior; YouTube usa uma faixa própria. */
-.social-physics-symbols > span {
-  color: #103e82;
-  font-weight: 650;
-  opacity: 1;
-}
-
-.social-physics-symbols--intro,
-.social-physics-symbols--instagram {
-  display: none;
-}
-
-.social-physics-symbols--linkedin > span:nth-child(2),
-.social-physics-symbols--linkedin > span:nth-child(3) {
-  display: none;
-}
-
-.social-physics-symbols--linkedin > span:nth-child(1) {
-  top: auto;
-  right: 4%;
-  bottom: 6%;
-}
-
-/* Ao fim do YouTube, as expressões ocupam sua própria linha, sem cobrir a capa. */
-.social-physics-symbols--youtube {
-  position: relative;
-  inset: auto;
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: clamp(14px, 2vw, 28px);
-  margin: clamp(18px, 2.5vw, 32px) 0 clamp(26px, 3vw, 44px);
+  gap: 12px clamp(20px, 3vw, 40px);
+  width: min(64%, 710px);
+  margin-top: clamp(24px, 3vw, 38px);
+}
+
+.social-physics-symbols--intro > span {
+  color: #315780;
+}
+
+/* A expressão de Ising fica na margem livre, abaixo do CTA do LinkedIn. */
+.social-physics-symbols--linkedin {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.social-physics-symbols--linkedin > span {
+  position: absolute;
+  right: 4%;
+  bottom: 5%;
+  max-width: 46%;
+  color: #47709b;
+  font-size: clamp(0.8rem, 1vw, 0.98rem);
+}
+
+/* Expressões secundárias após a capa: nada é desenhado sobre imagens ou links. */
+.social-physics-symbols--youtube {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 16px 28px;
+  margin: clamp(18px, 2vw, 28px) 0 clamp(24px, 3vw, 40px);
 }
 
 .social-physics-symbols--youtube > span {
-  position: static;
-  display: block;
-  flex: 1 1 240px;
-  max-width: none;
+  flex: 0 1 auto;
   text-align: center;
-  white-space: normal;
+  color: #55779e;
+  font-size: clamp(0.82rem, 1vw, 0.96rem);
 }
 
 @media (max-width: 880px) {
-  /* Evita fórmulas sobre o tablet ao empilhar o layout. */
-  .social-physics-symbols--linkedin {
-    display: none;
+  .social-physics-symbols--intro {
+    width: min(100%, 670px);
   }
 
-  .social-physics-symbols--youtube {
-    justify-content: center;
-    gap: 18px;
+  .social-physics-symbols--linkedin {
+    display: none;
   }
 }
 
 @media (max-width: 550px) {
-  .social-physics-symbols--youtube > span:nth-child(2),
-  .social-physics-symbols--youtube > span:nth-child(3) {
+  .social-physics-symbols--intro {
+    gap: 10px 16px;
+  }
+
+  .social-physics-symbols--intro > span {
+    font-size: 0.83rem;
+  }
+
+  .social-physics-symbols--youtube > span:nth-child(2) {
     display: none;
   }
 }
