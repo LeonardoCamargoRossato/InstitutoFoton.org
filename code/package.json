@@ -16,7 +16,7 @@
     "test:e2e": "playwright test",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
     "scan:secrets": "node scripts/scan-secrets.mjs",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --write src/features/ElectromagneticWaveDivider.tsx && git diff -- src/features/ElectromagneticWaveDivider.tsx && exit 1",
     "docs:check": "node scripts/check-documentation.mjs",
     "artifact:check": "node scripts/check-pages-artifact.mjs",
     "assets:verify": "node scripts/prepare-webp.mjs",
