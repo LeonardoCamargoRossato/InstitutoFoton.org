@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ArrowUpRight, Camera, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Camera } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
 
 const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
@@ -8,8 +7,6 @@ const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3R
 const phoneSvg = 'assets/06 - Notícias/Redes Sociais/Instagram/SVG/InstagramPhoneHand.svg';
 
 export default function InstagramHighlight() {
-  const [showEmbed, setShowEmbed] = useState(false);
-
   return (
     <section
       className="social-network social-network--instagram"
@@ -36,38 +33,6 @@ export default function InstagramHighlight() {
             Seguir no Instagram <ArrowUpRight size={18} aria-hidden="true" />
             <span className="sr-only"> (abre em nova aba)</span>
           </a>
-          <div className="social-instagram-highlight__embed">
-            <h3>Conheça o perfil oficial do Instagram</h3>
-            {showEmbed ? (
-              <div className="social-instagram-frame-wrap">
-                <iframe
-                  title="Prévia do perfil oficial do Instituto Foton no Instagram"
-                  src="https://www.instagram.com/institutofoton/embed/"
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  className="social-instagram-profile-frame"
-                />
-                <p>
-                  O Instagram pode limitar o conteúdo incorporado. Utilize o botão Seguir no
-                  Instagram para visualizar as publicações completas.
-                </p>
-              </div>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  className="social-embed-trigger"
-                  onClick={() => setShowEmbed(true)}
-                >
-                  Visualizar prévia do perfil aqui <ExternalLink size={16} aria-hidden="true" />
-                </button>
-                <small>
-                  A incorporação depende do Instagram. Ao ativá-la, seu navegador poderá
-                  compartilhar dados com a plataforma.
-                </small>
-              </>
-            )}
-          </div>
         </div>
         <div className="social-instagram-highlight__visual">
           <img

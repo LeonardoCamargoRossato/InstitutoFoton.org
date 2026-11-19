@@ -31,18 +31,14 @@ test('submenu Notícias mantém as rotas de notícias e abre Redes sociais no de
   }
 });
 
-test('Redes sociais: títulos, links oficiais e catálogo verificado', async ({ page }) => {
-  const externalRequests: string[] = [];
-  page.on('request', (request) => {
-    if (/instagram\.com|linkedin\.com/.test(request.url())) externalRequests.push(request.url());
-  });
+test('Redes sociais: links, imagens e navegação simplificada', async ({ page }) => {
   await page.goto('./redes-sociais');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Acompanhe o Foton nas redes sociais',
   );
-  await expect(page.getByText(/A ciência também acontece nos encontros/)).toBeVisible();
   const instagram = page.locator('.social-network--instagram');
   const linkedIn = page.locator('.social-network--linkedin');
+  const youtube = page.locator('.social-network--youtube');
   await expect(instagram.getByRole('link', { name: /Seguir no Instagram/ })).toHaveAttribute(
     'href',
     instagramProfile,
@@ -51,39 +47,17 @@ test('Redes sociais: títulos, links oficiais e catálogo verificado', async ({ 
     'href',
     linkedInProfile,
   );
-  for (const link of await page.locator('.social-network .social-profile-link').all()) {
-    await expect(link).toHaveAttribute('target', '_blank');
-    await expect(link).toHaveAttribute('rel', /noopener noreferrer/);
-  }
-  await expect(
-    instagram.getByRole('heading', { name: 'Conheça o perfil oficial do Instagram' }),
-  ).toBeVisible();
-  await expect(
-    instagram.getByRole('button', { name: /Visualizar prévia do perfil aqui/ }),
-  ).toBeVisible();
+  await expect(instagram.getByRole('button', { name: /Visualizar prévia/ })).toHaveCount(0);
   await expect(instagram.locator('iframe')).toHaveCount(0);
-  await expect(linkedIn.locator('.social-post-tile')).toHaveCount(3);
-  await expect(linkedIn.getByText('Publicação 1 de 3')).toBeVisible();
-  expect(externalRequests).toEqual([]);
-  await expect(page).toHaveTitle(/Acompanhe o Foton nas redes sociais/);
-});
-
-test('Instagram: carrega a prévia oficial do perfil só após consentimento do visitante', async ({
-  page,
-}) => {
-  await page.goto('./redes-sociais');
-  const section = page.locator('.social-network--instagram');
-  await expect(section.locator('iframe')).toHaveCount(0);
-  await section.getByRole('button', { name: /Visualizar prévia do perfil aqui/ }).click();
-  await expect(section.locator('iframe')).toHaveAttribute(
-    'src',
-    'https://www.instagram.com/institutofoton/embed/',
-  );
-  await expect(section.getByText(/O Instagram pode limitar o conteúdo incorporado/)).toBeVisible();
-  await expect(section.getByRole('link', { name: /Seguir no Instagram/ })).toHaveAttribute(
-    'href',
-    instagramProfile,
-  );
+  await expect(linkedIn.locator('.social-gallery')).toHaveCount(0);
+  await expect(linkedIn.locator('iframe')).toHaveCount(0);
+  await expect(youtube.getByRole('heading', { name: 'Instituto Foton no YouTube' })).toBeVisible();
+  const anchors = page.locator('.social-quick-links a');
+  await expect(anchors).toHaveCount(3);
+  await expect(anchors).toHaveText(['Instagram', 'LinkedIn', 'YouTube']);
+  await expect(anchors.nth(0)).toHaveAttribute('href', '#social-instagram-title');
+  await expect(anchors.nth(1)).toHaveAttribute('href', '#social-linkedin-title');
+  await expect(anchors.nth(2)).toHaveAttribute('href', '#social-youtube-title');
 });
 
 test('Instagram: SVG original sem card nem arte sobreposta, texto à esquerda e mão à direita', async ({
@@ -165,46 +139,12 @@ test('LinkedIn: tablet à esquerda e textos à direita, com WebP e PNG ampliáve
   }
 });
 
-test('LinkedIn: navegar entre publicações reais e carregar embed apenas após clicar', async ({
-  page,
-}) => {
-  await page.goto('./redes-sociais');
-  const social = page.locator('.social-network--linkedin');
-  await social.getByRole('button', { name: 'Próxima publicação' }).click();
-  await expect(social.getByText('Publicação 2 de 3')).toBeVisible();
-  await expect(social.getByRole('link', { name: /Abrir publicação original/ })).toHaveAttribute(
-    'href',
-    /linkedin\.com\/posts\/fotonictq_.*activity-7447012732123557889/,
-  );
-  await social.getByRole('button', { name: /Selecionar publicação 3/ }).click();
-  await expect(social.getByText('Publicação 3 de 3')).toBeVisible();
-  await expect(social.locator('iframe')).toHaveCount(0);
-  await social.getByRole('button', { name: 'Visualizar publicação aqui' }).click();
-  await expect(social.locator('iframe')).toHaveAttribute(
-    'src',
-    'https://www.linkedin.com/embed/feed/update/urn:li:activity:7440418796294754306',
-  );
-  await expect(social.getByRole('link', { name: /Abrir publicação original/ })).toHaveAttribute(
-    'target',
-    '_blank',
-  );
-  await social.getByRole('button', { name: 'Publicação anterior' }).click();
-  await expect(social.locator('iframe')).toHaveCount(0);
-});
-
-test('Redes sociais: navegação por teclado, responsividade e acessibilidade', async ({ page }) => {
+test('Redes sociais: responsividade e acessibilidade', async ({ page }) => {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 850 });
     await page.goto('./redes-sociais');
-    const widthOverflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - innerWidth,
-    );
-    expect(widthOverflow).toBeLessThanOrEqual(1);
-    const next = page.getByRole('button', { name: 'Próxima publicação' });
-    await next.focus();
-    await expect(next).toBeFocused();
-    await page.keyboard.press('Enter');
-    await expect(page.getByText('Publicação 2 de 3')).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
     const result = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
