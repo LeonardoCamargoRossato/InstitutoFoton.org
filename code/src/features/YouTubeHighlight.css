@@ -1,54 +1,77 @@
 /* Capa de entrada do canal oficial: composição CSS, sem embed nem mídia externa. */
-/* Gráfico de Fourier, eixo e vetores cromáticos na metade esquerda da transição. */
+/* Projeção axonométrica de onda EM: eixo x e campos E/B transversais.
+   Desenho vetorial, estático, não bloqueia links e limita-se à metade esquerda. */
 .social-network--youtube {
   z-index: 4;
 }
 
 .social-youtube-transition-wave {
   position: absolute;
-  top: -42px;
+  top: -80px;
   left: calc(50% - 50vw);
   z-index: 1;
-  width: min(50vw, 660px);
-  height: 84px;
+  width: min(51vw, 700px);
+  height: 172px;
   overflow: visible;
   pointer-events: none;
 }
 
-.social-fourier-axis {
-  stroke: #16427c;
+.social-em-axes line {
+  stroke: #173965;
+  stroke-width: 1.45;
+  opacity: 0.8;
+  marker-end: url(#social-em-axis-arrow);
+}
+
+.social-em-axes text {
+  fill: #173965;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.social-em-electric-vectors path {
+  stroke: #e33b50;
   stroke-width: 1.2;
-  stroke-dasharray: 5 7;
-  opacity: 0.27;
+  opacity: 0.75;
+  marker-end: url(#social-em-electric-arrow);
 }
 
-.social-fourier-harmonic {
-  fill: none;
-  stroke: #0e4a95;
-  stroke-width: 1.5;
-  opacity: 0.2;
-}
-
-.social-fourier-vector {
-  stroke: #104b96;
+.social-em-magnetic-vectors path {
+  stroke: #195bcc;
   stroke-width: 1.2;
-  fill: #134c96;
-  opacity: 0.58;
+  opacity: 0.74;
+  marker-end: url(#social-em-magnetic-arrow);
 }
 
-.social-fourier-resultant-glow {
+.social-em-electric-wave {
   fill: none;
-  stroke: url(#social-fourier-light-spectrum);
-  stroke-width: 10;
-  opacity: 0.12;
-}
-
-.social-fourier-resultant {
-  fill: none;
-  stroke: url(#social-fourier-light-spectrum);
-  stroke-width: 4;
+  stroke: #e33b50;
+  stroke-width: 3.1;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.social-em-magnetic-wave {
+  fill: none;
+  stroke: #195bcc;
+  stroke-width: 3.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social-em-label {
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.social-em-label--electric {
+  fill: #d82a41;
+}
+
+.social-em-label--magnetic {
+  fill: #164fb8;
 }
 
 .social-youtube-highlight {
@@ -70,8 +93,8 @@
 
 .social-youtube-highlight__content {
   min-width: 0;
-  /* Distância equivalente a um botão entre o gráfico Fourier e o título. */
-  padding-top: clamp(58px, 5.6vw, 76px);
+  /* Respiro após o gráfico tridimensional, sem sobrepor os textos. */
+  padding-top: clamp(112px, 10vw, 132px);
 }
 
 .social-youtube-highlight__content h2 {
@@ -243,13 +266,13 @@
 
 @media (max-width: 550px) {
   .social-youtube-transition-wave {
-    top: -29px;
-    width: min(70vw, 420px);
-    height: 58px;
+    top: -44px;
+    width: min(79vw, 440px);
+    height: 100px;
   }
 
   .social-youtube-highlight__content {
-    padding-top: 54px;
+    padding-top: 72px;
   }
 
   .social-youtube-highlight__content h2 {

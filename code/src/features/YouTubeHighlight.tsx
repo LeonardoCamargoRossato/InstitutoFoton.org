@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import SocialPhysicsBackdrop from './SocialPhysicsBackdrop';
-import FourierSpectrumDivider from './FourierSpectrumDivider';
+import ElectromagneticWaveDivider from './ElectromagneticWaveDivider';
 import './YouTubeHighlight.css';
 
 const YOUTUBE_CHANNEL = 'https://youtube.com/@institutofoton?si=asOgikmknRyM5y7_';
@@ -21,7 +21,7 @@ export default function YouTubeHighlight() {
       aria-labelledby="social-youtube-title"
     >
       <SocialPhysicsBackdrop region="youtube" />
-      <FourierSpectrumDivider />
+      <ElectromagneticWaveDivider />
       <div className="social-youtube-highlight">
         <div className="social-youtube-highlight__content">
           <h2 id="social-youtube-title">Acompanhe o Instituto Foton no YouTube</h2>
