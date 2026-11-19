@@ -48,9 +48,6 @@ export default function LinkedInHighlight() {
           Acompanhar no LinkedIn <ArrowUpRight size={18} aria-hidden="true" />
           <span className="sr-only"> (abre em nova aba)</span>
         </a>
-        <p className="social-linkedin-highlight__note">
-          Imagem ilustrativa aprovada, não uma visualização em tempo real. Acesse o perfil oficial pelo\n          botão acima.
-        </p>
       </div>
     </div>
   );
