@@ -1,4 +1,5 @@
-import { ArrowUpRight, Camera } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { InstagramBrandIcon } from './SocialPlatformIcons';
 import { assetUrl } from '../lib/siteAssets';
 
 const INSTAGRAM_PROFILE = 'https://www.instagram.com/institutofoton?bqrl=MW54N3RiZjU1a3hncA==';
@@ -14,10 +15,9 @@ export default function InstagramHighlight() {
     >
       <div className="social-instagram-highlight">
         <div className="social-instagram-highlight__content">
-          <p className="social-network-kicker">Instagram • Canal oficial</p>
           <h2 id="social-instagram-title">Acompanhe o Instituto Foton no Instagram</h2>
           <p className="social-instagram-highlight__handle">
-            <Camera size={20} aria-hidden="true" />
+            <InstagramBrandIcon size={22} />
             <span>@institutofoton</span>
           </p>
           <p className="social-instagram-highlight__description">
