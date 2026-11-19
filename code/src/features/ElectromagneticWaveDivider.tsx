@@ -6,7 +6,7 @@ const ORIGIN: Point = { x: 110, y: 87 };
 const END: Point = { x: 604, y: 102 };
 const PERIODS = 2.45;
 const WAVE_SAMPLES = Array.from({ length: 161 }, (_, index) => index / 160);
-const VECTOR_SAMPLES = Array.from({ length: 49 }, (_, index) => (index + 1) / 50);
+const VECTOR_SAMPLES = Array.from({ length: 49 }, (_, i) => (i + 1) / 50);
 
 function axisPoint(t: number): Point {
   return {
@@ -61,7 +61,12 @@ export default function ElectromagneticWaveDivider() {
           refY="3"
           orient="auto"
         >
-          <path d="M0 0 L6 3 L0 6" fill="none" stroke="#173965" strokeWidth="1.2" />
+          <path
+            d="M0 0 L6 3 L0 6"
+            fill="none"
+            stroke="#173965"
+            strokeWidth="1.2"
+          />
         </marker>
         <marker
           id="social-em-electric-arrow"
@@ -99,13 +104,7 @@ export default function ElectromagneticWaveDivider() {
           const from = axisPoint(t);
           const to = magneticPoint(t);
           return (
-            <line
-              key={t}
-              x1={from.x}
-              y1={from.y}
-              x2={to.x}
-              y2={to.y}
-            />
+            <line key={t} x1={from.x} y1={from.y} x2={to.x} y2={to.y} />
           );
         })}
       </g>
@@ -114,20 +113,18 @@ export default function ElectromagneticWaveDivider() {
           const from = axisPoint(t);
           const to = electricPoint(t);
           return (
-            <line
-              key={t}
-              x1={from.x}
-              y1={from.y}
-              x2={to.x}
-              y2={to.y}
-            />
+            <line key={t} x1={from.x} y1={from.y} x2={to.x} y2={to.y} />
           );
         })}
       </g>
       <path className="social-em-magnetic-wave" d={MAGNETIC_PATH} />
       <path className="social-em-electric-wave" d={ELECTRIC_PATH} />
-      <text className="social-em-label social-em-label--electric" x="277" y="28">E</text>
-      <text className="social-em-label social-em-label--magnetic" x="407" y="156">B</text>
+      <text className="social-em-label social-em-label--electric" x="277" y="28">
+        E
+      </text>
+      <text className="social-em-label social-em-label--magnetic" x="407" y="156">
+        B
+      </text>
     </svg>
   );
 }
