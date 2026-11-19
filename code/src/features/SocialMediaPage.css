@@ -562,6 +562,13 @@
   font-weight: 750;
   color: #0757b7;
 }
+.social-linkedin-highlight__description {
+  max-width: 455px;
+  margin: 16px 0 22px;
+  color: #45617c;
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
 /* No desktop, o CTA termina alinhado à parte inferior do tablet. */
 @media (min-width: 881px) {
   .social-linkedin-highlight__content {
@@ -594,7 +601,10 @@
     transform: none;
   }
   .social-linkedin-highlight__handle {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
+  }
+  .social-linkedin-highlight__description {
+    margin-top: 0;
   }
 }
 @media (max-width: 550px) {
