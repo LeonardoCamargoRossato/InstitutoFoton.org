@@ -850,3 +850,109 @@
     transform: translateX(12%);
   }
 }
+
+/* Fórmulas decorativas de física: sem interferência na leitura, navegação ou mídia.
+   As expressões são renderizadas em texto (sem fontes ou bibliotecas externas). */
+.social-physics-symbols {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.social-physics-symbol {
+  position: absolute;
+  display: block;
+  max-width: 90%;
+  color: rgba(30, 91, 134, 0.18);
+  font-family: 'Cambria Math', 'STIX Two Math', 'DejaVu Serif', Georgia, serif;
+  font-size: clamp(0.92rem, 1.42vw, 1.32rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.social-physics-symbols--intro .social-physics-symbol--1 {
+  top: 14%;
+  right: 4%;
+}
+.social-physics-symbols--intro .social-physics-symbol--2 {
+  top: 49%;
+  right: 8%;
+}
+.social-physics-symbols--intro .social-physics-symbol--3 {
+  bottom: 8%;
+  left: 64%;
+}
+
+.social-physics-symbols--instagram .social-physics-symbol--1 {
+  top: 9%;
+  right: 6%;
+}
+.social-physics-symbols--instagram .social-physics-symbol--2 {
+  bottom: 13%;
+  left: 4%;
+}
+.social-physics-symbols--instagram .social-physics-symbol--3 {
+  bottom: 32%;
+  right: 25%;
+}
+
+.social-physics-symbols--linkedin .social-physics-symbol--1 {
+  bottom: 7%;
+  right: 5%;
+}
+.social-physics-symbols--linkedin .social-physics-symbol--2 {
+  top: 52%;
+  right: 22%;
+}
+.social-physics-symbols--linkedin .social-physics-symbol--3 {
+  top: 12%;
+  left: 5%;
+}
+
+.social-physics-symbols--youtube .social-physics-symbol--1 {
+  top: 9%;
+  right: 3%;
+}
+.social-physics-symbols--youtube .social-physics-symbol--2 {
+  bottom: 9%;
+  left: 4%;
+}
+.social-physics-symbols--youtube .social-physics-symbol--3 {
+  bottom: 16%;
+  right: 31%;
+}
+
+/* Conteúdo e mockups permanecem sobre a decoração, inclusive no cruzamento de seções. */
+.social-instagram-highlight,
+.social-linkedin-highlight,
+.social-youtube-highlight {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 880px) {
+  .social-physics-symbol {
+    font-size: 0.82rem;
+    color: rgba(30, 91, 134, 0.12);
+  }
+
+  .social-physics-symbol--3 {
+    display: none;
+  }
+
+  .social-physics-symbols--linkedin .social-physics-symbol--2 {
+    top: 45%;
+    right: 5%;
+  }
+}
+
+@media (max-width: 550px) {
+  .social-physics-symbol--2 {
+    display: none;
+  }
+}
