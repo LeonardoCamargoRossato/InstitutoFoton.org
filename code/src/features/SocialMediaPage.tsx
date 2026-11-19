@@ -9,7 +9,6 @@ export default function SocialMediaPage() {
   return (
     <div className="social-media-page">
       <section className="social-intro">
-        <SocialPhysicsBackdrop region="intro" />
         <div className="container social-intro-inner">
           <p className="eyebrow">
             <span />
@@ -40,6 +39,7 @@ export default function SocialMediaPage() {
               YouTube
             </a>
           </nav>
+          <SocialPhysicsBackdrop region="intro" />
         </div>
       </section>
       <div className="container social-network-list">
