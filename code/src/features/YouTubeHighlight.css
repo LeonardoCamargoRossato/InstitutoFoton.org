@@ -1,0 +1,204 @@
+/* Capa de entrada do canal oficial: composição CSS, sem embed nem mídia externa. */
+.social-youtube-highlight {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(28px, 4.5vw, 72px);
+  min-width: 0;
+  padding-block: clamp(20px, 4vw, 60px);
+}
+
+.social-youtube-highlight__content {
+  min-width: 0;
+}
+
+.social-youtube-highlight__content h2 {
+  margin: 20px 0 18px;
+  font-size: clamp(2rem, 3.3vw, 3.35rem);
+  line-height: 1.13;
+}
+
+.social-youtube-highlight__handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(1.06rem, 1.4vw, 1.3rem);
+  font-weight: 750;
+  color: #a82137;
+}
+
+.social-youtube-highlight__description {
+  max-width: 520px;
+  margin: 22px 0 28px;
+  color: #45617c;
+  font-size: 0.96rem;
+  line-height: 1.8;
+}
+
+.social-profile-link--youtube {
+  background: #bb1830;
+}
+
+.social-profile-link--youtube:hover {
+  background: #97152a;
+}
+
+.social-youtube-highlight__cover {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  min-height: 320px;
+  padding: clamp(23px, 3vw, 38px);
+  overflow: hidden;
+  border: 1px solid rgba(24, 49, 90, 0.18);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 52% 45%, rgba(225, 26, 53, 0.35), transparent 30%),
+    radial-gradient(circle at 94% 5%, rgba(40, 96, 158, 0.54), transparent 52%),
+    linear-gradient(135deg, #071e3c 14%, #11294b 66%, #44132e);
+  color: #fff;
+  box-shadow: 0 26px 64px rgba(15, 36, 74, 0.19);
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.social-youtube-highlight__cover::before,
+.social-youtube-highlight__cover::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 85%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(165, 202, 245, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.social-youtube-highlight__cover::before {
+  top: -57%;
+  right: -29%;
+  transform: rotate(-25deg) scaleX(1.35);
+}
+
+.social-youtube-highlight__cover::after {
+  bottom: -79%;
+  left: -38%;
+  transform: rotate(25deg) scaleX(1.25);
+}
+
+.social-youtube-highlight__cover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 72px rgba(15, 36, 74, 0.28);
+}
+
+.social-youtube-highlight__cover:focus-visible,
+.social-profile-link--youtube:focus-visible {
+  outline: 3px solid #d42d48;
+  outline-offset: 4px;
+}
+
+.social-youtube-highlight__cover-header,
+.social-youtube-highlight__cover-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.social-youtube-highlight__cover-header {
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.17em;
+}
+
+.social-youtube-highlight__play {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  width: 94px;
+  height: 70px;
+  place-items: center;
+  border-radius: 22px;
+  background: #ee1737;
+  box-shadow: 0 18px 50px rgba(5, 12, 35, 0.32);
+  transform: translate(-50%, -50%);
+}
+
+.social-youtube-highlight__play-triangle {
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 25px solid #fff;
+}
+
+.social-youtube-highlight__cover-name {
+  display: grid;
+  gap: 5px;
+  font-size: clamp(1.05rem, 2vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+.social-youtube-highlight__cover-name small {
+  color: #e9eef7;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.social-youtube-highlight__cover-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+@media (max-width: 880px) {
+  .social-youtube-highlight {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .social-youtube-highlight__cover {
+    min-height: 310px;
+  }
+}
+
+@media (max-width: 550px) {
+  .social-youtube-highlight__content h2 {
+    font-size: clamp(2rem, 9vw, 2.6rem);
+  }
+
+  .social-youtube-highlight__cover {
+    min-height: 270px;
+    border-radius: 24px;
+  }
+
+  .social-youtube-highlight__cover-name {
+    font-size: 1.04rem;
+  }
+
+  .social-youtube-highlight__cover-cta {
+    font-size: 0.8rem;
+  }
+
+  .social-youtube-highlight__play {
+    width: 76px;
+    height: 58px;
+  }
+}
