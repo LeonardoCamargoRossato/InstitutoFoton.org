@@ -9,11 +9,11 @@
 
 .social-youtube-transition-wave {
   position: absolute;
-  top: -80px;
+  top: -64px;
   left: calc(50% - 50vw);
   z-index: 1;
-  width: min(51vw, 700px);
-  height: 172px;
+  width: min(42vw, 570px);
+  height: 142px;
   overflow: visible;
   pointer-events: none;
 }
@@ -95,8 +95,8 @@
 
 .social-youtube-highlight__content {
   min-width: 0;
-  /* Respiro após o gráfico tridimensional, sem sobrepor os textos. */
-  padding-top: clamp(112px, 10vw, 132px);
+  /* Respiro proporcional ao gráfico E/B, agora cerca de 18% menor. */
+  padding-top: clamp(94px, 8vw, 110px);
 }
 
 .social-youtube-highlight__content h2 {
@@ -272,13 +272,13 @@
 
 @media (max-width: 550px) {
   .social-youtube-transition-wave {
-    top: -44px;
-    width: min(79vw, 440px);
-    height: 100px;
+    top: -35px;
+    width: min(68vw, 380px);
+    height: 84px;
   }
 
   .social-youtube-highlight__content {
-    padding-top: 72px;
+    padding-top: 66px;
   }
 
   .social-youtube-highlight__content h2 {
