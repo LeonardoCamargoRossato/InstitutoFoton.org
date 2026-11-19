@@ -10,7 +10,8 @@ const HARMONICS = [
 
 function harmonicValue(x: number, index: number) {
   const harmonic = HARMONICS[index];
-  return harmonic.amplitude * Math.sin((2 * Math.PI * harmonic.frequency * x) / 275 + harmonic.phase);
+  const angle = (2 * Math.PI * harmonic.frequency * x) / 275 + harmonic.phase;
+  return harmonic.amplitude * Math.sin(angle);
 }
 
 function waveHeight(x: number) {
