@@ -35,6 +35,10 @@ export default function LinkedInHighlight() {
           <LinkedInBrandIcon size={22} />
           <span>Instituto Foton</span>
         </p>
+        <p className="social-linkedin-highlight__description">
+          Conheça nossas iniciativas, pesquisas, eventos e oportunidades de colaboração com quem
+          constrói o ecossistema de ciência e inovação.
+        </p>
         <a
           className="social-profile-link"
           href={LINKEDIN_PROFILE}

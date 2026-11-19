@@ -18,9 +18,32 @@ export default function YouTubeHighlight() {
       className="social-network social-network--youtube"
       aria-labelledby="social-youtube-title"
     >
+      <svg
+        className="social-youtube-transition-wave"
+        viewBox="0 0 660 32"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <linearGradient id="social-youtube-wave-gradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#e96481" />
+            <stop offset="26%" stopColor="#f5b560" />
+            <stop offset="53%" stopColor="#7cc9a3" />
+            <stop offset="77%" stopColor="#55b8df" />
+            <stop offset="100%" stopColor="#9d7de3" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0 16 C80 0 134 0 210 16 S348 32 425 16 S560 0 660 16"
+          stroke="url(#social-youtube-wave-gradient)"
+          strokeWidth="6"
+          strokeLinecap="round"
+          fill="none"
+        />
+      </svg>
       <div className="social-youtube-highlight">
         <div className="social-youtube-highlight__content">
-          <p className="social-network-kicker">YouTube • Canal oficial</p>
           <h2 id="social-youtube-title">Acompanhe o Instituto Foton no YouTube</h2>
           <p className="social-youtube-highlight__handle">
             <YouTubeBrandIcon size={28} />
