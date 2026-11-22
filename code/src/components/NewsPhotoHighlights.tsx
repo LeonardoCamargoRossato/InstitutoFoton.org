@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ImageZoomDialog } from './ImageZoomDialog';
+import { ImageCard } from './cards';
 import type { NewsCarouselImage } from './NewsCarousel';
 import { assetUrl } from '../lib/siteAssets';
 import '../features/NewsMedia.css';
@@ -18,21 +19,24 @@ export function NewsPhotoHighlights({ images }: Props) {
     <section className="news-highlight-photos" aria-label="Fotografias do Projeto Leonti">
       {images.map((image, index) => (
         <figure className="news-highlight-figure" key={image.original}>
-          <button
-            type="button"
+          <ImageCard
             className="news-highlight-image-button"
-            aria-label={`Ampliar Projeto Leonti ${index + 1}`}
-            onClick={() => setActive(index)}
-          >
-            <img
-              src={assetUrl(image.preview)}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading="lazy"
-              decoding="async"
-            />
-          </button>
+            label={`Ampliar Projeto Leonti ${index + 1}`}
+            onOpen={() => setActive(index)}
+            imagem={{
+              src: assetUrl(image.preview),
+              alt: image.alt,
+              width: image.width,
+              height: image.height,
+            }}
+            estiloGrafico={{
+              tema: 'claro',
+              borda: 'nenhuma',
+              raio: 'md',
+              sombra: 'nenhuma',
+              hover: 'image-zoom',
+            }}
+          />
           <figcaption>
             <strong>Projeto Leonti {index + 1}</strong>
             <span>{image.alt}</span>
