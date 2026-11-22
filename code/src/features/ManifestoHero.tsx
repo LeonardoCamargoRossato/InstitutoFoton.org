@@ -1,14 +1,14 @@
 import { ArrowDownRight } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
-import brazilStates from '../assets/brazil-states.svg';
 import '../styles/manifesto-hero.css';
 
+const brazilStates = assetUrl('assets/05 - Manifesto/Imagens da Página/SVG/BrazilStates.svg');
 const glassWebp = assetUrl(
   'assets/05 - Manifesto/Imagens do Manifesto/WebP/HeroManifestoFGlass.webp',
 );
 const glassPng = assetUrl('assets/05 - Manifesto/Imagens do Manifesto/PNG/HeroManifestoFGlass.png');
 
-// City coordinates use the same equirectangular projection as brazil-states.svg.
+// City coordinates use the same equirectangular projection as BrazilStates.svg.
 // Sources: regional letters in manifesto-content.ts and the public foundation record.
 const journeyCities = [
   { name: 'Manaus', state: 'AM', lon: -60.02, lat: -3.12, dx: -14, dy: -17 },
