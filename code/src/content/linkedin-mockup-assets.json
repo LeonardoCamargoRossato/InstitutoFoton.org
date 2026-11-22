@@ -4,7 +4,7 @@
   "context": "Página Redes sociais — destaque LinkedIn",
   "origin": {
     "filename": "LinkedInTabletSource.png",
-    "path": "assets-source/redes-sociais/linkedin/LinkedInTabletSource.png",
+    "path": "public/assets/06 - Notícias/Redes Sociais/LinkedIn/PNG/LinkedInTablet.png",
     "sha256": "3346c6ad67b8d2b47949b432bf87265722c979dd2ace564ec6a753f27bb34438",
     "description": "Imagem ilustrativa gerada em conversa e aprovada pelo responsável em 18/11/2026",
     "rights": "Imagem gerada para uso institucional; representação ilustrativa, não é captura em tempo real."
@@ -32,5 +32,5 @@
     "format": "svg",
     "note": "Contêiner SVG com PNG embutido; não é vetor nativo."
   },
-  "processing": "PNG original transparente preservado na fonte; WebP otimizado usado na visualização, PNG aberto por clique; SVG autocontido preservado para download e rastreabilidade."
+  "processing": "PNG original transparente preservado no diretório público canônico; WebP otimizado usado na visualização, PNG aberto por clique; SVG autocontido preservado para download e rastreabilidade."
 }
