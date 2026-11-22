@@ -1,4 +1,5 @@
 import { Compass, Globe2, Target } from 'lucide-react';
+import { InfoCard } from './cards';
 import './InstitutePurpose.css';
 
 const pillars = [
@@ -42,7 +43,7 @@ export default function InstitutePurpose() {
         </div>
         <div className="institute-purpose-grid">
           {pillars.map(({ key, number, icon: Icon, title, subtitle, text }) => (
-            <article className={`institute-purpose-card institute-purpose-card--${key}`} key={key}>
+            <InfoCard className={`institute-purpose-card institute-purpose-card--${key}`} key={key} estiloGrafico={{ tema: "institucional", borda: "suave", raio: "md", sombra: "leve", hover: "none", espacamento: "amplo" }}>
               <header className="institute-purpose-card-header">
                 <span className="institute-purpose-icon" aria-hidden="true">
                   <Icon size={25} strokeWidth={1.6} />
@@ -54,7 +55,7 @@ export default function InstitutePurpose() {
               <h3>{title}</h3>
               <p className="institute-purpose-text">{text}</p>
               <p className="institute-purpose-subtitle">{subtitle}</p>
-            </article>
+            </InfoCard>
           ))}
         </div>
       </div>
