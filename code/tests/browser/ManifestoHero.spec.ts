@@ -12,7 +12,7 @@ test('Manifesto hero mantém F de vidro, Brasil e título acessível', async ({ 
     await expect(hero.locator('.manifesto-hero-brazil path').first()).toBeAttached();
     const map = hero.locator('.manifesto-hero-brazil image');
     const mapUrl = await map.getAttribute('href');
-    expect(mapUrl).toContain('assets/05 - Manifesto/Imagens da Página/SVG/brazil-states.svg');
+    expect(mapUrl).toContain('assets/05 - Manifesto/Imagens da Página/SVG/BrazilStates.svg');
     const mapLoaded = await page.evaluate(
       async (url) => (url ? (await fetch(url)).ok : false),
       mapUrl,
