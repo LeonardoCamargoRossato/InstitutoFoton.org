@@ -93,7 +93,7 @@ if (
   instagramMockup.id !== 'instagram-phone-hand' ||
   instagramMockup.platform !== 'instagram' ||
   instagramMockup.origin.path !==
-    'assets-source/redes-sociais/instagram/InstagramPhoneHandSource.svg' ||
+    'public/' + instagramAssetRoot + 'SVG/InstagramPhoneHand.svg' ||
   instagramMockup.svg.path !== instagramAssetRoot + 'SVG/InstagramPhoneHand.svg' ||
   instagramMockup.svg.sha256 !== instagramMockup.origin.sha256 ||
   instagramMockup.png.path !== instagramAssetRoot + 'PNG/InstagramPhoneHand.png' ||
@@ -124,7 +124,7 @@ const linkedinAssetRoot = 'assets/06 - Notícias/Redes Sociais/LinkedIn/';
 if (
   linkedinMockup.id !== 'linkedin-tablet' ||
   linkedinMockup.platform !== 'linkedin' ||
-  linkedinMockup.origin.path !== 'assets-source/redes-sociais/linkedin/LinkedInTabletSource.png' ||
+  linkedinMockup.origin.path !== 'public/' + linkedinAssetRoot + 'PNG/LinkedInTablet.png' ||
   linkedinMockup.svg.path !== linkedinAssetRoot + 'SVG/LinkedInTablet.svg' ||
   linkedinMockup.png.path !== linkedinAssetRoot + 'PNG/LinkedInTablet.png' ||
   linkedinMockup.webp.path !== linkedinAssetRoot + 'WebP/LinkedInTablet.webp' ||
