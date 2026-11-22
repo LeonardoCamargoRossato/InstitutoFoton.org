@@ -1838,6 +1838,7 @@
     line-height: 1.8;
   }
   .visits-section {
+    padding-bottom: clamp(2rem, 4.5vw, 3.5rem);
     color: white;
     background:
       radial-gradient(circle at 88% 18%, rgba(111, 54, 255, 0.32), transparent 25%),

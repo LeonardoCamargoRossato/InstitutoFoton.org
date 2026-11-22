@@ -198,12 +198,12 @@ export default function ManifestoMedia({
             src: optimized(image.src),
             alt: image.title,
             title: image.title,
-            caption: image.caption,
           }))}
           listaPNG={visitImages.map((image) => ({
             id: image.title,
             src: image.src,
             downloadName: image.src.split('/').at(-1),
+            attribution: image.caption,
           }))}
           estiloGrafico={carouselPresets.visitas}
           classNames={{ root: 'visits-universal-carousel' }}
@@ -212,7 +212,6 @@ export default function ManifestoMedia({
           imageLabel={(index, _count, image) => `Ampliar ${image.title ?? `visita ${index + 1}`}`}
           thumbnailLabel={(index) => `Selecionar visita ${index + 1}`}
         />
-        <p className="visits-carousel-meta">20 registros de conexão com o ecossistema</p>
       </div>
     );
 

@@ -136,3 +136,57 @@ test('Carrosséis migrados: breakpoints sem overflow horizontal', async ({ page 
     }
   }
 });
+
+test('WebP dos quatro carrosséis: vitrine 16:9 com recorte centralizado', async ({ page }) => {
+  for (const route of [news, foundation, haquantum, manifesto]) {
+    await page.goto(route);
+    const gallery = page.locator('.base-carousel').first();
+    const preview = gallery.locator('.base-carousel-primary');
+    await expect(preview).toHaveCSS('aspect-ratio', '16 / 9');
+    await expect(preview.locator('img')).toHaveCSS('object-fit', 'cover');
+    await expect(preview.locator('img')).toHaveCSS('object-position', '50% 50%');
+    await expect(preview.locator('img')).toHaveAttribute('src', /\.webp$/);
+  }
+});
+
+test('HaQuantum: afastamento do título e original PNG sem recorte no modal', async ({ page }) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(haquantum);
+    const heading = page.getByRole('heading', { name: 'Registros do HaQuantum' });
+    const gallery = page.getByRole('region', { name: 'Galeria do HaQuantum' });
+    const titleBox = await heading.boundingBox();
+    const galleryBox = await gallery.boundingBox();
+    expect(titleBox).not.toBeNull();
+    expect(galleryBox).not.toBeNull();
+    expect(galleryBox!.y - (titleBox!.y + titleBox!.height)).toBeGreaterThanOrEqual(20);
+    await gallery.getByRole('button', { name: /Ampliar foto 1/ }).click();
+    const viewer = page.getByRole('dialog');
+    await expect(viewer.locator('.foton-zoom-stage > img')).toHaveAttribute(
+      'src',
+      /HaQuantum1\.png$/,
+    );
+    await expect(viewer.locator('.foton-zoom-stage > img')).toHaveCSS('object-fit', 'contain');
+    await viewer.getByRole('button', { name: 'Fechar galeria' }).click();
+  }
+});
+
+test('Manifesto: sem legendas redundantes e com botões azuis circulares', async ({ page }) => {
+  await page.goto(manifesto);
+  const visits = page.getByRole('region', {
+    name: 'Galeria de Visitas Técnicas do Instituto Foton',
+  });
+  await expect(visits.locator('.base-carousel-caption')).toHaveCount(0);
+  await expect(page.locator('.visits-carousel-meta')).toHaveCount(0);
+  for (const name of ['Visitas anteriores', 'Próximas visitas']) {
+    const button = visits.getByRole('button', { name });
+    await expect(button).toHaveCSS('background-color', 'rgb(18, 105, 183)');
+    await expect(button).toHaveCSS('border-radius', '50%');
+    await expect(button.locator('svg')).toBeVisible();
+  }
+  await visits.getByRole('button', { name: 'Ampliar Visita técnica 01' }).click();
+  await expect(page.getByRole('dialog')).toContainText(
+    'Registro da articulação do Instituto Foton',
+  );
+  await page.getByRole('button', { name: 'Fechar galeria' }).click();
+});

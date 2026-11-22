@@ -239,6 +239,40 @@
   border-radius: 13px;
 }
 
+/* Visitas Técnicas: contraste forte no fundo azul e controles circulares alinhados. */
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-arrow,
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-grid-toggle {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid #81c9fa;
+  border-radius: 50%;
+  background: #1269b7;
+  color: #ffffff;
+  box-shadow: 0 5px 16px rgba(0, 10, 49, 0.2);
+}
+
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-arrow:hover:not(:disabled),
+.visits-carousel
+  .base-carousel
+  .base-carousel-controls
+  .base-carousel-grid-toggle:hover:not(:disabled) {
+  border-color: #aadfff;
+  background: #2189dc;
+}
+
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-arrow > svg,
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-grid-toggle > svg {
+  display: block;
+  margin: auto;
+}
+
+.visits-carousel .base-carousel .base-carousel-controls {
+  margin-bottom: 0;
+}
+
 .base-carousel .base-carousel-thumbnails {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));

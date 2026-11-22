@@ -41,6 +41,18 @@ import { BaseCarousel, carouselPresets } from '../components/carousel';
 
 Os caminhos acima são **exemplo de contrato**, não novos assets publicados. Em páginas reais, usar `assetUrl` e os catálogos existentes.
 
+### Padrão das quatro vitrines (novembro de 2026)
+
+As prévias WebP de **Notícias, Fundação, HaQuantum e Visitas Técnicas** usam uma janela
+horizontal **16:9** com `object-fit: cover` e recorte centralizado. O formato do arquivo
+original não é modificado: ao clicar, o visualizador mostra o **PNG inteiro**, em seu
+aspecto original (vertical, quadrado ou horizontal) com `object-fit: contain`.
+
+O HaQuantum mantém espaço entre o título e o carrossel. Em Visitas Técnicas, o contador,
+as setas e o botão de miniaturas continuam visíveis, mas as legendas repetidas foram
+removidas **somente abaixo do carrossel**. A descrição histórica continua disponível
+no modal de ampliação via `listaPNG[].attribution`.
+
 ## Onde alterar cores, bordas e animação
 
 - `carousel.types.ts`: contratos e propriedades realmente implementadas.

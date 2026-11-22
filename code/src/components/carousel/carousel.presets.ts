@@ -34,9 +34,9 @@ export const carouselPresets = {
     tema: 'claro',
     imagem: {
       apresentacao: 'peek',
-      proporcao: '4:5',
+      proporcao: '16:9',
       proximaImagemVisivel: true,
-      enquadramento: 'contain',
+      enquadramento: 'cover',
     },
     navegacao: { circular: true, contador: true, miniaturas: 'recolhiveis' },
   },
@@ -44,9 +44,9 @@ export const carouselPresets = {
     tema: 'institucional',
     imagem: {
       apresentacao: 'peek',
-      proporcao: 'original',
+      proporcao: '16:9',
       proximaImagemVisivel: true,
-      enquadramento: 'contain',
+      enquadramento: 'cover',
     },
     navegacao: { circular: true, contador: true, miniaturas: 'recolhiveis' },
   },
@@ -54,7 +54,7 @@ export const carouselPresets = {
     tema: 'escuro',
     imagem: {
       apresentacao: 'peek',
-      proporcao: 'original',
+      proporcao: '16:9',
       proximaImagemVisivel: true,
       enquadramento: 'cover',
     },
