@@ -118,26 +118,28 @@ test('HaQuantum tem registro histórico, WebP no carrossel, PNG no zoom e regula
   await page.goto('./pesquisa');
   const gallery = page.getByRole('region', { name: 'Galeria do HaQuantum' });
   await gallery.scrollIntoViewIfNeeded();
-  await expect(gallery.getByRole('img')).toHaveCount(8);
-  for (const [index, photo] of researchMedia.haquantum.entries()) {
-    const image = gallery.getByRole('img').nth(index);
-    expect((await image.getAttribute('src'))?.endsWith(photo.previewPath)).toBe(true);
-    await expect(image).toHaveAttribute('width', String(photo.width));
-    await expect(image).toHaveAttribute('height', String(photo.height));
-  }
+  const primary = gallery.locator('.base-carousel-primary img');
+  await expect(primary).toHaveCount(1);
+  await expect(gallery.locator('.base-carousel-count')).toHaveText('1 / 8');
 
+  // A vitrine carrega apenas a foto ativa; as outras WebP entram por navegação.
+  for (const [index, photo] of researchMedia.haquantum.entries()) {
+    await expect(primary).toHaveAttribute('src', new RegExp(photo.previewPath.split('/').at(-1) + '$'));
+    await expect(primary).toHaveAttribute('width', String(photo.width));
+    await expect(primary).toHaveAttribute('height', String(photo.height));
+    if (index < researchMedia.haquantum.length - 1) {
+      await gallery.getByRole('button', { name: 'Próxima foto' }).click();
+    }
+  }
+  await expect(gallery.locator('.base-carousel-count')).toHaveText('8 / 8');
   expect(pngRequests).toEqual([]);
 
   await gallery.getByRole('button', { name: 'Próxima foto' }).click();
-  await expect(gallery.getByText('Foto 2 de 8', { exact: true })).toBeVisible();
+  await expect(gallery.locator('.base-carousel-count')).toHaveText('1 / 8');
   await gallery.getByRole('button', { name: 'Foto anterior' }).click();
-  await expect(gallery.getByText('Foto 1 de 8', { exact: true })).toBeVisible();
-  const first = gallery.getByRole('button', { name: /^Ampliar foto 1\./ });
-  await first.focus();
-  await first.press('ArrowRight');
-  await expect(gallery.getByRole('button', { name: /^Ampliar foto 2\./ })).toBeFocused();
-  await gallery.getByRole('button', { name: 'Ir para a foto 8' }).click();
-  await expect(gallery.getByText('Foto 8 de 8', { exact: true })).toBeVisible();
+  await expect(gallery.locator('.base-carousel-count')).toHaveText('8 / 8');
+  await gallery.getByRole('button', { name: 'Mostrar miniaturas' }).click();
+  await expect(gallery.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(8);
 
   const last = gallery.getByRole('button', { name: /^Ampliar foto 8\./ });
   await last.click();
@@ -146,7 +148,7 @@ test('HaQuantum tem registro histórico, WebP no carrossel, PNG no zoom e regula
   await expect.poll(() => pngRequests.some((url) => url.endsWith('/HaQuantum9.png'))).toBe(true);
   await expect(dialog.getByRole('img')).toHaveJSProperty('naturalWidth', 960);
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
-  await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
+  await expect(dialog.getByRole('textbox', { name: 'Percentual do zoom' })).toHaveValue('125%');
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect(last).toBeFocused();
