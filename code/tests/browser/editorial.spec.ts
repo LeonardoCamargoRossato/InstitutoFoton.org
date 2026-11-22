@@ -408,12 +408,22 @@ for (const width of [360, 390, 768, 1366]) {
     await expect(page.locator('.partner-card img')).toHaveCount(
       verifiedPartners().filter((partner) => partner.logo_slug).length,
     );
-    for (const image of await page.locator('.partner-card img').all()) {
-      await image.scrollIntoViewIfNeeded();
+    const partnerImages = page.locator('.partner-card img');
+    for (let index = 0; index < (await partnerImages.count()); index++) {
+      const image = partnerImages.nth(index);
       await expect
-        .poll(() => image.evaluate((el) => (el as HTMLImageElement).naturalWidth), {
-          timeout: 15000,
-        })
+        .poll(
+          async () => {
+            try {
+              // O grid pode remontar imagens durante o lazy loading.
+              await image.scrollIntoViewIfNeeded({ timeout: 2000 });
+              return await image.evaluate((el) => (el as HTMLImageElement).naturalWidth);
+            } catch {
+              return 0;
+            }
+          },
+          { timeout: 15000 },
+        )
         .toBeGreaterThan(0);
     }
     await page.evaluate(() => window.scrollTo(0, 0));
