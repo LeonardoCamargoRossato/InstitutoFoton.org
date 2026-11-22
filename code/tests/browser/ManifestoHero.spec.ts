@@ -10,10 +10,14 @@ test('Manifesto hero mantém F de vidro, Brasil e título acessível', async ({ 
     await expect(hero).toBeVisible();
     await expect(hero.getByRole('heading', { level: 1 })).toContainText('Quântico Nacional');
     await expect(hero.locator('.manifesto-hero-brazil path').first()).toBeAttached();
-    await expect(hero.locator('.manifesto-hero-brazil image')).toHaveAttribute(
-      'href',
-      /assets\\/05 - Manifesto\\/Imagens da Página\\/SVG\\/brazil-states\\.svg$/,
+    const map = hero.locator('.manifesto-hero-brazil image');
+    const mapUrl = await map.getAttribute('href');
+    expect(mapUrl).toContain('assets/05 - Manifesto/Imagens da Página/SVG/brazil-states.svg');
+    const mapLoaded = await page.evaluate(
+      async (url) => (url ? (await fetch(url)).ok : false),
+      mapUrl,
     );
+    expect(mapLoaded).toBe(true);
     await expect(hero.locator('.manifesto-map-city')).toHaveCount(6);
     await expect(hero.locator('.manifesto-map-regions text')).toHaveText([
       'Norte',
