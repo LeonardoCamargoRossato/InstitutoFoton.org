@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
+import { ProfileCard } from './cards';
 import { instituteTeam, type InstituteMember } from '../content/instituteTeam';
 import './InstituteTeamDashboard.css';
 
@@ -31,11 +32,10 @@ function PersonCard({
   onOpen: (member: InstituteMember) => void;
 }) {
   return (
-    <button
-      type="button"
+    <ProfileCard
       className="team-person"
-      onClick={() => onOpen(member)}
-      aria-label={`Conheça o perfil de ${member.fullName}`}
+      onOpen={() => onOpen(member)}
+      label={`Conheça o perfil de ${member.fullName}`}
     >
       <span className="team-photo-wrap">
         <img
@@ -55,7 +55,7 @@ function PersonCard({
           Conheça o perfil <ArrowUpRight size={16} aria-hidden="true" />
         </span>
       </span>
-    </button>
+    </ProfileCard>
   );
 }
 
