@@ -77,6 +77,22 @@ Atualizar **o catálogo original da página** com o par WebP/PNG e ID estável. 
 | `/instituto` → capa da Fundação                                                      | `FoundationTeaser`                                         | Preservado (visualizador legado)  |
 | Outras imagens de notícias, vídeos e fotos avulsas                                   | `NewsPhotoHighlights`, `SiteImageViewer`, `ManifestoMedia` | Preservados (visualizador legado) |
 
+## Matriz de dependências auditadas
+
+A auditoria considerou imports, consumidores indiretos, CSS, catálogo, visualizador e scripts de publicação. **Risco** indica possibilidade de regressão e não é classificação de segurança do conteúdo.
+
+| Componente | Página/consumidor | Imagens e metadados | CSS | Dependências compartilhadas | Risco |
+|---|---|---|---|---|---|
+| `NewsCarousel` | `Publications`: LACQ PUCRS, Mobi Quantum e Quantum Day (2 carrosséis) | `news-media.json`: `name`, `original`, `preview`, `credit`, dimensões | `NewsMedia.css`, `carousel.styles.css` | `assetUrl`, `ImageZoomDialog`, `SiteImageViewer` | Médio: preservação do enquadramento 16:9, títulos e ordem |
+| `FoundationGallery` | `Publications`: reportagem da fundação | `foundationCards`, 9 PNG/WebP; `foundationCaption03` e nota histórica | `FoundationHistory.css`, `carousel.styles.css` | `ImageZoomDialog`, `SiteImageViewer` | Alto: legenda histórica aprovada não pode ser alterada |
+| `HaQuantumGallery` | `ResearchPages`: página HaQuantum e seção da pesquisa | `research-media.json`: PNG/WebP, dimensões, alt, hashes | `research-journey.css`, `carousel.styles.css` | `assetUrl`, `ImageZoomDialog` | Médio: mobile, teclado e miniaturas |
+| `ManifestoMedia(kind='visits')` | `PublicPages`: `/manifesto#visitas` | 20 visitas resolvidas por `imageAsset`, PNG/WebP | `site.css` | `ImageZoomDialog`, `assetUrl` | Alto: **preservado**, dependente de equivalência visual futura |
+| `FoundationTeaser` | `PublicPages`: `/instituto#fundacao` | primeira imagem e legenda da fundação | `FoundationHistory.css` | `ImageZoomDialog` legado | Médio: capa é CTA distinto do carrossel |
+| `NewsPhotoHighlights` | `Publications`: Projeto Leonti | `news-media.json`: original e preview | `NewsMedia.css` | `ImageZoomDialog` legado | Médio: zoom de fotos editoriais avulsas |
+| `SiteImageViewer` | `Layout`: imagens ampliáveis do site | vários catálogos e `data-full-image` | `image-zoom.css` | `ImageZoomDialog`, listeners globais | Alto: eventos capturados globalmente; exclui `.base-carousel` |
+
+**Publicação:** `postbuild.mjs` cria rotas estáticas do GitHub Pages; `check-pages-artifact.mjs` verifica o build. Não há mudanças em caminhos de assets, documentos, APIs, hospedagem ou código dos cartões.
+
 ## Testes e aprovação
 
 Em `code/`:
