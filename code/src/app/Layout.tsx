@@ -215,7 +215,7 @@ export default function Layout() {
                       <>
                         <Link to="/pesquisa#areas-de-pesquisa">Linhas temáticas de pesquisa</Link>
                         <Link to="/pesquisa/jornada">Jornadas do Cientista Inovador</Link>
-                        <Link to="/pesquisa/haquantum">Hack Quantum</Link>
+                        <Link to="/pesquisa/haquantum">HaQuantum</Link>
                       </>
                     ) : (
                       <>
