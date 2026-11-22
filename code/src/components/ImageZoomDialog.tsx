@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -7,7 +8,17 @@ import {
   type WheelEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronLeft, ChevronRight, Maximize, Minus, Plus, X } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Maximize,
+  Maximize2,
+  Minimize2,
+  Minus,
+  Plus,
+  X,
+} from 'lucide-react';
 
 type Props = {
   src: string;
@@ -18,6 +29,10 @@ type Props = {
   onPrevious?: () => void;
   onNext?: () => void;
   previewUntilLoaded?: boolean;
+  /** Modo padrão preserva a apresentação dos demais consumidores do site. */
+  variant?: 'legacy' | 'carousel';
+  allowFullscreen?: boolean;
+  downloadName?: string;
 };
 
 export function ImageZoomDialog({
@@ -29,43 +44,119 @@ export function ImageZoomDialog({
   onPrevious,
   onNext,
   previewUntilLoaded = false,
+  variant = 'legacy',
+  allowFullscreen = true,
+  downloadName,
 }: Props) {
-  const [currentSrc, setCurrentSrc] = useState(previewUntilLoaded && fallback ? fallback : src);
+  const isCarousel = variant === 'carousel';
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+  const [errorSrc, setErrorSrc] = useState<string | null>(null);
+  const currentSrc =
+    errorSrc === src && fallback
+      ? fallback
+      : previewUntilLoaded && fallback && loadedSrc !== src
+        ? fallback
+        : src;
+  const [zoom, setZoom] = useState(1);
+  const zoomRef = useRef(1);
+  const [zoomDraft, setZoomDraft] = useState('100%');
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [nativeFullscreen, setNativeFullscreen] = useState(false);
+  const [fallbackFullscreen, setFallbackFullscreen] = useState(false);
+  const [toolsVisible, setToolsVisible] = useState(true);
+  const [showFullscreenToast, setShowFullscreenToast] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
+  const fullscreen = nativeFullscreen || fallbackFullscreen;
+
   useEffect(() => {
     if (!previewUntilLoaded || !fallback) return;
     const fullResolution = new Image();
-    fullResolution.onload = () => setCurrentSrc(src);
+    fullResolution.onload = () => setLoadedSrc(src);
+    fullResolution.onerror = () => setErrorSrc(src);
     fullResolution.src = src;
     return () => {
       fullResolution.onload = null;
+      fullResolution.onerror = null;
     };
   }, [src, fallback, previewUntilLoaded]);
-  const [zoom, setZoom] = useState(1);
-  const [pan, setPan] = useState({ x: 0, y: 0 });
-  const closeRef = useRef<HTMLButtonElement>(null);
-  const drag = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
-  const previousFocus = useRef<HTMLElement | null>(null);
 
-  // Establish modal focus before paint, so the first keystroke cannot escape.
+  const setScale = useCallback(
+    (next: number | ((current: number) => number)) => {
+      const value = typeof next === 'function' ? next(zoomRef.current) : next;
+      const clamped = Math.min(6, Math.max(isCarousel ? 0.25 : 1, value));
+      zoomRef.current = clamped;
+      setZoom(clamped);
+      setZoomDraft(Math.round(clamped * 100) + '%');
+      if (clamped <= 1) setPan({ x: 0, y: 0 });
+    },
+    [isCarousel],
+  );
+
   useLayoutEffect(() => {
-    const overflow = document.body.style.overflow;
+    const before = document.body.style.overflow;
+    const root = document.getElementById('root');
+    const wasInert = root?.hasAttribute('inert') ?? false;
     previousFocus.current = document.activeElement as HTMLElement;
     document.body.style.overflow = 'hidden';
     closeRef.current?.focus();
+    root?.setAttribute('inert', '');
     return () => {
-      document.body.style.overflow = overflow;
+      document.body.style.overflow = before;
+      if (!wasInert) root?.removeAttribute('inert');
       previousFocus.current?.focus?.();
     };
   }, []);
 
-  // The dialog is interactive as soon as it becomes visible, including when
-  // moving between keyed gallery images on a fast browser/CI runner.
+  useEffect(() => {
+    function syncFullscreen() {
+      const active = document.fullscreenElement === panelRef.current;
+      setNativeFullscreen(active);
+      setToolsVisible(true);
+      setShowFullscreenToast(active);
+    }
+    document.addEventListener('fullscreenchange', syncFullscreen);
+    return () => document.removeEventListener('fullscreenchange', syncFullscreen);
+  }, []);
+
+  useEffect(() => {
+    if (!fullscreen) return;
+    panelRef.current?.focus();
+    const timer = window.setTimeout(() => setShowFullscreenToast(false), 1500);
+    return () => window.clearTimeout(timer);
+  }, [fullscreen]);
+
+  useEffect(() => {
+    if (!fullscreen || !toolsVisible) return;
+    const timer = window.setTimeout(() => {
+      const focused = document.activeElement;
+      const toolbar = panelRef.current?.querySelector('.foton-zoom-tools');
+      if (!toolbar?.contains(focused)) setToolsVisible(false);
+    }, 2600);
+    return () => window.clearTimeout(timer);
+  }, [fullscreen, toolsVisible]);
+
   useLayoutEffect(() => {
     function key(event: KeyboardEvent) {
+      const target = event.target;
+      const typing = target instanceof HTMLInputElement;
       if (event.key === 'Escape') {
+        if (document.fullscreenElement === panelRef.current) {
+          event.preventDefault();
+          void document.exitFullscreen();
+          return;
+        }
         event.preventDefault();
+        if (fallbackFullscreen) {
+          setFallbackFullscreen(false);
+          return;
+        }
         onClose();
       }
+      if (typing) return;
       if (event.key === 'ArrowLeft' && onPrevious) {
         event.preventDefault();
         onPrevious();
@@ -74,25 +165,26 @@ export function ImageZoomDialog({
         event.preventDefault();
         onNext();
       }
-      if (event.key === '+' || event.key === '=') {
+      if (!event.ctrlKey && !event.metaKey && (event.key === '+' || event.key === '=')) {
         event.preventDefault();
-        setZoom((v) => Math.min(6, v + 0.5));
+        setScale((v) => v + (isCarousel ? 0.25 : 0.5));
       }
-      if (event.key === '-') {
+      if (!event.ctrlKey && !event.metaKey && event.key === '-') {
         event.preventDefault();
-        setZoom((v) => Math.max(1, v - 0.5));
+        setScale((v) => v - (isCarousel ? 0.25 : 0.5));
       }
-      if (event.key === '0') {
+      if (!event.ctrlKey && !event.metaKey && event.key === '0') {
         event.preventDefault();
-        setZoom(1);
-        setPan({ x: 0, y: 0 });
+        setScale(1);
       }
       if (event.key === 'Tab') {
-        const buttons = Array.from(
-          document.querySelectorAll<HTMLButtonElement>('.foton-zoom-dialog button:not(:disabled)'),
-        );
-        const first = buttons[0],
-          last = buttons[buttons.length - 1];
+        const controls = Array.from(
+          dialogRef.current?.querySelectorAll<HTMLElement>(
+            'button:not(:disabled), a[href], input:not(:disabled)',
+          ) ?? [],
+        ).filter((element) => element.getClientRects().length > 0);
+        const first = controls[0];
+        const last = controls[controls.length - 1];
         if (event.shiftKey && document.activeElement === first) {
           event.preventDefault();
           last?.focus();
@@ -104,22 +196,25 @@ export function ImageZoomDialog({
     }
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
-  }, [onClose, onPrevious, onNext]);
+  }, [onClose, onPrevious, onNext, fallbackFullscreen, setScale, isCarousel]);
 
-  function setScale(next: number) {
-    const value = Math.min(6, Math.max(1, next));
-    setZoom(value);
-    if (value === 1) setPan({ x: 0, y: 0 });
+  function commitPercent() {
+    const parsed = Number(zoomDraft.trim().replace('%', '').replace(',', '.'));
+    if (Number.isFinite(parsed)) setScale(parsed / 100);
+    else setZoomDraft(Math.round(zoom * 100) + '%');
   }
+
   function wheel(event: WheelEvent<HTMLDivElement>) {
     event.preventDefault();
-    setScale(zoom + (event.deltaY < 0 ? 0.25 : -0.25));
+    setScale((current) => current + (event.deltaY < 0 ? 0.25 : -0.25));
   }
+
   function down(event: PointerEvent<HTMLImageElement>) {
-    if (zoom === 1) return;
+    if (zoom <= 1) return;
     event.currentTarget.setPointerCapture(event.pointerId);
     drag.current = { x: event.clientX, y: event.clientY, ox: pan.x, oy: pan.y };
   }
+
   function move(event: PointerEvent<HTMLImageElement>) {
     if (!drag.current) return;
     setPan({
@@ -127,95 +222,215 @@ export function ImageZoomDialog({
       y: drag.current.oy + event.clientY - drag.current.y,
     });
   }
+
   function release(event: PointerEvent<HTMLImageElement>) {
     drag.current = null;
-    if (event.currentTarget.hasPointerCapture(event.pointerId))
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
+    }
   }
+
+  async function expand() {
+    if (!allowFullscreen) return;
+    if (!panelRef.current?.requestFullscreen) {
+      setToolsVisible(true);
+      setShowFullscreenToast(true);
+      setFallbackFullscreen(true);
+      return;
+    }
+    try {
+      await panelRef.current.requestFullscreen();
+    } catch {
+      setToolsVisible(true);
+      setShowFullscreenToast(true);
+      setFallbackFullscreen(true);
+    }
+  }
+
+  async function reduce() {
+    if (nativeFullscreen && document.fullscreenElement === panelRef.current) {
+      await document.exitFullscreen();
+    }
+    setFallbackFullscreen(false);
+    setToolsVisible(true);
+  }
+
+  async function closeAll() {
+    if (nativeFullscreen && document.fullscreenElement === panelRef.current) {
+      try {
+        await document.exitFullscreen();
+      } catch {
+        // Em caso de falha, a desmontagem React ainda restaura o site.
+      }
+    }
+    setFallbackFullscreen(false);
+    onClose();
+  }
+
   return createPortal(
-    <div className="foton-zoom-dialog" role="dialog" aria-modal="true" aria-label={title}>
-      <div className="foton-zoom-topbar">
-        <div className="foton-zoom-title">
-          <strong>{title}</strong>
-          <span>{caption}</span>
-        </div>
-        <div className="foton-zoom-tools">
-          <button
-            type="button"
-            onClick={() => setScale(zoom - 0.5)}
-            disabled={zoom <= 1}
-            aria-label="Reduzir imagem"
-          >
-            <Minus size={20} />
-          </button>
-          <span aria-live="polite" className="foton-zoom-level">
-            {Math.round(zoom * 100)}%
-          </span>
-          <button
-            type="button"
-            onClick={() => setScale(zoom + 0.5)}
-            disabled={zoom >= 6}
-            aria-label="Ampliar imagem"
-          >
-            <Plus size={20} />
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setScale(1);
-              setPan({ x: 0, y: 0 });
-            }}
-            aria-label="Ajustar imagem à tela"
-          >
-            <Maximize size={20} />
-          </button>
-          <button ref={closeRef} type="button" onClick={onClose} aria-label="Fechar galeria">
-            <X size={22} />
-          </button>
-        </div>
-      </div>
+    <div
+      ref={dialogRef}
+      className={'foton-zoom-dialog' + (isCarousel ? ' foton-zoom-dialog--carousel' : '')}
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      onMouseDown={(event) => {
+        if (isCarousel && event.target === event.currentTarget) void closeAll();
+      }}
+    >
       <div
-        className="foton-zoom-stage"
-        onWheel={wheel}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) onClose();
+        ref={panelRef}
+        className={
+          'foton-zoom-panel' +
+          (fallbackFullscreen ? ' is-fullscreen-fallback' : '') +
+          (toolsVisible ? ' tools-visible' : '')
+        }
+        tabIndex={-1}
+        onPointerMove={(event) => {
+          if (fullscreen && event.clientY < 130) setToolsVisible(true);
+        }}
+        onTouchStart={() => {
+          if (fullscreen) setToolsVisible(true);
         }}
       >
-        {onPrevious && (
-          <button
-            className="foton-zoom-arrow previous"
-            onClick={onPrevious}
-            aria-label="Imagem anterior"
-          >
-            <ChevronLeft />
-          </button>
-        )}
-        <img
-          src={currentSrc}
-          alt={title}
-          draggable={false}
-          style={{ transform: 'translate(' + pan.x + 'px,' + pan.y + 'px) scale(' + zoom + ')' }}
-          onError={() => {
-            if (fallback && currentSrc !== fallback) setCurrentSrc(fallback);
-          }}
-          onDoubleClick={() => setScale(zoom >= 2 ? 1 : 2)}
-          onPointerDown={down}
-          onPointerMove={move}
-          onPointerUp={release}
-          onPointerCancel={() => {
-            drag.current = null;
-          }}
-          className={zoom > 1 ? 'is-pannable' : ''}
-        />
-        {onNext && (
-          <button className="foton-zoom-arrow next" onClick={onNext} aria-label="Próxima imagem">
-            <ChevronRight />
-          </button>
-        )}
+        <div className="foton-zoom-topbar" onFocusCapture={() => setToolsVisible(true)}>
+          <div className="foton-zoom-title">
+            <strong>{title}</strong>
+            <span>{caption}</span>
+          </div>
+          <div className="foton-zoom-tools">
+            <button
+              type="button"
+              onClick={() => setScale((value) => value + (isCarousel ? 0.25 : 0.5))}
+              disabled={zoom >= 6}
+              aria-label="Ampliar imagem"
+              title="Ampliar imagem"
+            >
+              <Plus size={20} />
+            </button>
+            {isCarousel ? (
+              <input
+                className="foton-zoom-percent"
+                type="text"
+                inputMode="decimal"
+                aria-label="Percentual do zoom"
+                title="Digite o percentual de zoom"
+                value={zoomDraft}
+                onChange={(event) => setZoomDraft(event.target.value)}
+                onBlur={commitPercent}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    commitPercent();
+                    event.currentTarget.blur();
+                  }
+                  event.stopPropagation();
+                }}
+              />
+            ) : (
+              <span aria-live="polite" className="foton-zoom-level">
+                {Math.round(zoom * 100)}%
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={() => setScale((value) => value - (isCarousel ? 0.25 : 0.5))}
+              disabled={zoom <= (isCarousel ? 0.25 : 1)}
+              aria-label="Reduzir imagem"
+              title="Reduzir imagem"
+            >
+              <Minus size={20} />
+            </button>
+            {isCarousel && (
+              <>
+                <a
+                  href={src}
+                  download={downloadName ?? src.split('/').pop() ?? 'fotografia.png'}
+                  aria-label="Baixar PNG original"
+                  title="Baixar PNG original"
+                >
+                  <Download size={20} />
+                </a>
+                {allowFullscreen && (
+                  <button
+                    type="button"
+                    aria-label={
+                      fullscreen
+                        ? 'Reduzir para visualização intermediária'
+                        : 'Expandir para tela cheia'
+                    }
+                    title={
+                      fullscreen
+                        ? 'Reduzir para visualização intermediária'
+                        : 'Expandir para tela cheia'
+                    }
+                    onClick={() => {
+                      if (fullscreen) void reduce();
+                      else void expand();
+                    }}
+                  >
+                    {fullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+                  </button>
+                )}
+              </>
+            )}
+            {!isCarousel && (
+              <button type="button" onClick={() => setScale(1)} aria-label="Ajustar imagem à tela">
+                <Maximize size={20} />
+              </button>
+            )}
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={() => void closeAll()}
+              aria-label="Fechar galeria"
+              title="Fechar galeria"
+            >
+              <X size={22} />
+            </button>
+          </div>
+        </div>
+        <div className="foton-zoom-stage" onWheel={wheel}>
+          {onPrevious && (
+            <button
+              className="foton-zoom-arrow previous"
+              onClick={onPrevious}
+              aria-label="Imagem anterior"
+            >
+              <ChevronLeft />
+            </button>
+          )}
+          <img
+            src={currentSrc}
+            alt={title}
+            draggable={false}
+            style={{ transform: 'translate(' + pan.x + 'px,' + pan.y + 'px) scale(' + zoom + ')' }}
+            onError={() => {
+              if (fallback && currentSrc !== fallback) setErrorSrc(src);
+            }}
+            onDoubleClick={() => setScale(zoom >= 2 ? 1 : 2)}
+            onPointerDown={down}
+            onPointerMove={move}
+            onPointerUp={release}
+            onPointerCancel={() => {
+              drag.current = null;
+            }}
+            className={zoom > 1 ? 'is-pannable' : ''}
+          />
+          {onNext && (
+            <button className="foton-zoom-arrow next" onClick={onNext} aria-label="Próxima imagem">
+              <ChevronRight />
+            </button>
+          )}
+          {showFullscreenToast && fullscreen && (
+            <span className="foton-fullscreen-toast" role="status">
+              Tela cheia
+            </span>
+          )}
+        </div>
+        <p className="foton-zoom-help">
+          Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar
+        </p>
       </div>
-      <p className="foton-zoom-help">
-        Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: fechar
-      </p>
     </div>,
     document.body,
   );
