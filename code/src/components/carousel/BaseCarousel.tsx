@@ -83,8 +83,12 @@ export function BaseCarousel({
 
   return (
     <section
-      className={'base-carousel base-carousel--' + (estiloGrafico.tema ?? 'institucional') + ' ' +
-        (classNames?.root ?? '')}
+      className={
+        'base-carousel base-carousel--' +
+        (estiloGrafico.tema ?? 'institucional') +
+        ' ' +
+        (classNames?.root ?? '')
+      }
       role="region"
       aria-roledescription="carrossel"
       aria-label={label}

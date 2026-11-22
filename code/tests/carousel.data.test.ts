@@ -23,9 +23,7 @@ describe('carrossel universal: identidade e navegação', () => {
 
   it('rejeita IDs ausentes e duplicados e jamais substitui um original por posição', () => {
     expect(() => pairCarouselItems([image('a')], [original('b')])).toThrow(/sem PNG/);
-    expect(() => pairCarouselItems([image('a'), image('a')], [original('a')])).toThrow(
-      /duplicado/,
-    );
+    expect(() => pairCarouselItems([image('a'), image('a')], [original('a')])).toThrow(/duplicado/);
     expect(() => pairCarouselItems([image('a')], [original('a'), original('a')])).toThrow(
       /duplicado/,
     );

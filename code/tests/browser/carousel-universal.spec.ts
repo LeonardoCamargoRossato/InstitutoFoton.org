@@ -7,10 +7,18 @@ const manifesto = './manifesto';
 
 test('Notícias: motor comum, peek, circularidade, grade recolhível e PNG', async ({ page }) => {
   await page.goto(news);
-  const carousel = page.getByRole('region', { name: 'Carrossel de fotos do lançamento da LACQ PUCRS' });
+  const carousel = page.getByRole('region', {
+    name: 'Carrossel de fotos do lançamento da LACQ PUCRS',
+  });
   await expect(carousel).toHaveCount(1);
-  await expect(carousel.locator('.base-carousel-primary img')).toHaveAttribute('src', /LacqPucrs01\.webp$/);
-  await expect(carousel.locator('.base-carousel-peek img')).toHaveAttribute('src', /LacqPucrs02\.webp$/);
+  await expect(carousel.locator('.base-carousel-primary img')).toHaveAttribute(
+    'src',
+    /LacqPucrs01\.webp$/,
+  );
+  await expect(carousel.locator('.base-carousel-peek img')).toHaveAttribute(
+    'src',
+    /LacqPucrs02\.webp$/,
+  );
   await expect(carousel.locator('.base-carousel-count')).toHaveText('1 / 13');
   const thumbnails = carousel.locator('.base-carousel-thumbnails');
   await expect(thumbnails).toBeHidden();
@@ -55,7 +63,9 @@ test('Visualizador: percentual livre, fullscreen real, reduzir, Escape e X', asy
   await expect(percent).toHaveValue('73%');
   await expect(dialog.locator('.foton-zoom-stage > img')).toHaveCSS('transform', /matrix\(0\.73/);
   await dialog.getByRole('button', { name: 'Expandir para tela cheia' }).click();
-  await expect(dialog.getByRole('button', { name: 'Reduzir para visualização intermediária' })).toBeVisible();
+  await expect(
+    dialog.getByRole('button', { name: 'Reduzir para visualização intermediária' }),
+  ).toBeVisible();
   await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(true);
   await dialog.getByRole('button', { name: 'Reduzir para visualização intermediária' }).click();
   await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(false);
@@ -79,13 +89,21 @@ test('Fundação, HaQuantum e Manifesto: preservação de acervo e regressão', 
   await expect(gallery.locator('.foundation-carousel-position')).toHaveText('1 / 9');
   await gallery.getByRole('button', { name: 'Próxima imagem' }).click();
   await gallery.getByRole('button', { name: 'Próxima imagem' }).click();
-  await expect(gallery.locator('.foundation-carousel-caption')).toContainText('Natan Feijó Tristão');
+  await expect(gallery.locator('.foundation-carousel-caption')).toContainText(
+    'Natan Feijó Tristão',
+  );
 
   await page.goto(haquantum);
   const ha = page.getByRole('region', { name: 'Galeria do HaQuantum' });
-  await expect(ha.locator('.base-carousel-primary img')).toHaveAttribute('src', /HaQuantum1\.webp$/);
+  await expect(ha.locator('.base-carousel-primary img')).toHaveAttribute(
+    'src',
+    /HaQuantum1\.webp$/,
+  );
   await ha.getByRole('button', { name: 'Próxima foto' }).click();
-  await expect(ha.locator('.base-carousel-primary img')).toHaveAttribute('src', /HaQuantum2\.webp$/);
+  await expect(ha.locator('.base-carousel-primary img')).toHaveAttribute(
+    'src',
+    /HaQuantum2\.webp$/,
+  );
 
   await page.goto(manifesto);
   const visits = page.locator('.visits-carousel');

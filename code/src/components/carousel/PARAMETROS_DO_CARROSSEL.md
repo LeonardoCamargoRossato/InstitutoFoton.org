@@ -68,14 +68,14 @@ Atualizar **o catálogo original da página** com o par WebP/PNG e ID estável. 
 
 ## Consumidores e rotas
 
-| Página | Componente | Estado |
-|---|---|---|
-| `/noticias/lancamento-lacq-pucrs-instituto-foton` e outras reportagens com carrossel | `NewsCarousel.tsx` | Migrado |
-| `/noticias/fundacao-instituto-foton` | `FoundationHistory.tsx` → `FoundationGallery` | Migrado |
-| `/pesquisa/haquantum` | `HaQuantumGallery.tsx` | Migrado |
-| `/manifesto` → Visitas Técnicas | `ManifestoMedia.tsx` | **Preservado; migração pendente** |
-| `/instituto` → capa da Fundação | `FoundationTeaser` | Preservado (visualizador legado) |
-| Outras imagens de notícias, vídeos e fotos avulsas | `NewsPhotoHighlights`, `SiteImageViewer`, `ManifestoMedia` | Preservados (visualizador legado) |
+| Página                                                                               | Componente                                                 | Estado                            |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------- | --------------------------------- |
+| `/noticias/lancamento-lacq-pucrs-instituto-foton` e outras reportagens com carrossel | `NewsCarousel.tsx`                                         | Migrado                           |
+| `/noticias/fundacao-instituto-foton`                                                 | `FoundationHistory.tsx` → `FoundationGallery`              | Migrado                           |
+| `/pesquisa/haquantum`                                                                | `HaQuantumGallery.tsx`                                     | Migrado                           |
+| `/manifesto` → Visitas Técnicas                                                      | `ManifestoMedia.tsx`                                       | **Preservado; migração pendente** |
+| `/instituto` → capa da Fundação                                                      | `FoundationTeaser`                                         | Preservado (visualizador legado)  |
+| Outras imagens de notícias, vídeos e fotos avulsas                                   | `NewsPhotoHighlights`, `SiteImageViewer`, `ManifestoMedia` | Preservados (visualizador legado) |
 
 ## Testes e aprovação
 

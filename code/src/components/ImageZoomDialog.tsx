@@ -323,14 +323,27 @@ export function ImageZoomDialog({
             </button>
             {isCarousel && (
               <>
-                <a href={src} download={downloadName ?? src.split('/').pop() ?? 'fotografia.png'} aria-label="Baixar PNG original" title="Baixar PNG original">
+                <a
+                  href={src}
+                  download={downloadName ?? src.split('/').pop() ?? 'fotografia.png'}
+                  aria-label="Baixar PNG original"
+                  title="Baixar PNG original"
+                >
                   <Download size={20} />
                 </a>
                 {allowFullscreen && (
                   <button
                     type="button"
-                    aria-label={fullscreen ? 'Reduzir para visualização intermediária' : 'Expandir para tela cheia'}
-                    title={fullscreen ? 'Reduzir para visualização intermediária' : 'Expandir para tela cheia'}
+                    aria-label={
+                      fullscreen
+                        ? 'Reduzir para visualização intermediária'
+                        : 'Expandir para tela cheia'
+                    }
+                    title={
+                      fullscreen
+                        ? 'Reduzir para visualização intermediária'
+                        : 'Expandir para tela cheia'
+                    }
                     onClick={() => {
                       if (fullscreen) void reduce();
                       else void expand();
@@ -346,14 +359,24 @@ export function ImageZoomDialog({
                 <Maximize size={20} />
               </button>
             )}
-            <button ref={closeRef} type="button" onClick={() => void closeAll()} aria-label="Fechar galeria" title="Fechar galeria">
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={() => void closeAll()}
+              aria-label="Fechar galeria"
+              title="Fechar galeria"
+            >
               <X size={22} />
             </button>
           </div>
         </div>
         <div className="foton-zoom-stage" onWheel={wheel}>
           {onPrevious && (
-            <button className="foton-zoom-arrow previous" onClick={onPrevious} aria-label="Imagem anterior">
+            <button
+              className="foton-zoom-arrow previous"
+              onClick={onPrevious}
+              aria-label="Imagem anterior"
+            >
               <ChevronLeft />
             </button>
           )}

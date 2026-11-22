@@ -296,9 +296,7 @@
       transform 200ms ease;
   }
 
-  .foton-zoom-dialog--carousel
-    .foton-zoom-panel:fullscreen:not(.tools-visible)
-    .foton-zoom-topbar,
+  .foton-zoom-dialog--carousel .foton-zoom-panel:fullscreen:not(.tools-visible) .foton-zoom-topbar,
   .foton-zoom-dialog--carousel
     .foton-zoom-panel.is-fullscreen-fallback:not(.tools-visible)
     .foton-zoom-topbar {

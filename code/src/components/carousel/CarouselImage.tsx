@@ -25,17 +25,21 @@ export function CarouselImage({
   imageLabel,
   onOpen,
 }: Props) {
-  const peek = style.imagem?.apresentacao !== 'unica' &&
+  const peek =
+    style.imagem?.apresentacao !== 'unica' &&
     style.imagem?.proximaImagemVisivel !== false &&
     count > 1 &&
     Boolean(next);
   const variables = {
-    '--carousel-hover-scale': style.hover?.habilitado === false ? 1 : style.hover?.escala ?? 1.04,
+    '--carousel-hover-scale': style.hover?.habilitado === false ? 1 : (style.hover?.escala ?? 1.04),
     '--carousel-hover-duration': (style.hover?.duracaoMs ?? 280) + 'ms',
     '--carousel-enter-duration': (style.animacao?.duracaoMs ?? 350) + 'ms',
   } as CSSProperties;
   return (
-    <div className={peek ? 'base-carousel-scene has-peek' : 'base-carousel-scene'} style={variables}>
+    <div
+      className={peek ? 'base-carousel-scene has-peek' : 'base-carousel-scene'}
+      style={variables}
+    >
       <button
         className={'base-carousel-primary ' + (className ?? '')}
         type="button"

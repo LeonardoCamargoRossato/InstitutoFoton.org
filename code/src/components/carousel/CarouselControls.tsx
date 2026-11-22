@@ -34,15 +34,31 @@ export function CarouselControls({
   return (
     <div className={'base-carousel-controls ' + (className ?? '')}>
       <div className="base-carousel-nav">
-        <button className="base-carousel-arrow" type="button" onClick={onPrevious} aria-label={previousLabel} disabled={total < 2}>
+        <button
+          className="base-carousel-arrow"
+          type="button"
+          onClick={onPrevious}
+          aria-label={previousLabel}
+          disabled={total < 2}
+        >
           <ChevronLeft size={23} aria-hidden="true" />
         </button>
         {showCounter && (
-          <span className={'base-carousel-count ' + (positionClassName ?? '')} aria-live="polite" aria-atomic="true">
+          <span
+            className={'base-carousel-count ' + (positionClassName ?? '')}
+            aria-live="polite"
+            aria-atomic="true"
+          >
             {active + 1} / {total}
           </span>
         )}
-        <button className="base-carousel-arrow" type="button" onClick={onNext} aria-label={nextLabel} disabled={total < 2}>
+        <button
+          className="base-carousel-arrow"
+          type="button"
+          onClick={onNext}
+          aria-label={nextLabel}
+          disabled={total < 2}
+        >
           <ChevronRight size={23} aria-hidden="true" />
         </button>
       </div>
