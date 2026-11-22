@@ -23,12 +23,12 @@ jobs:
       - name: Format documented and tested files
         working-directory: code
         run: |
-          npx prettier --write src/components/carousel/PARAMETROS_DO_CARROSSEL.md tests/browser/carousel-visual-evidence.spec.ts
+          npx prettier --write src/components/ImageZoomDialog.tsx tests/browser/ResearchJourney.spec.ts src/components/carousel/PARAMETROS_DO_CARROSSEL.md tests/browser/carousel-visual-evidence.spec.ts
       - name: Commit formatter output
         run: |
           if git diff --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add code/src/components/carousel/PARAMETROS_DO_CARROSSEL.md code/tests/browser/carousel-visual-evidence.spec.ts
+          git add code/src/components/ImageZoomDialog.tsx code/tests/browser/ResearchJourney.spec.ts code/src/components/carousel/PARAMETROS_DO_CARROSSEL.md code/tests/browser/carousel-visual-evidence.spec.ts
           git commit -m "style(carousel): formatar matriz e evidências visuais"
           git push origin HEAD:feat/carrossel-universal-20261122
