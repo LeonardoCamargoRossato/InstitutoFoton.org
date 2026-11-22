@@ -175,7 +175,11 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   const response = await page.goto('./manifesto/');
   expect(response?.status()).toBe(200);
   await expect(page.locator('.regional-letter')).toHaveCount(5);
-  await expect(page.locator('.gallery-track > button')).toHaveCount(20);
+  const gallery = page.getByRole('region', {
+    name: 'Galeria de Visitas Técnicas do Instituto Foton',
+  });
+  await expect(gallery.locator('.base-carousel-count')).toHaveText('1 / 20');
+  await expect(gallery.locator('.base-carousel-thumbnails button')).toHaveCount(20);
   await expect(page.locator('.regional-letter').nth(1).locator('.manifesto-video')).toHaveCount(0);
   const cartaNorte = page.locator('.regional-letter').nth(1).locator('.manifesto-image img');
   await expect(cartaNorte).toHaveAttribute(
@@ -202,7 +206,8 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await page.getByRole('dialog').getByRole('button', { name: 'Fechar galeria' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
 
-  await page.locator('.gallery-track > button').first().click();
+  const first = gallery.getByRole('button', { name: 'Ampliar Visita técnica 01' });
+  await first.click();
   await expect(page.getByRole('dialog', { name: 'Visita técnica 01' })).toBeVisible();
   await page.keyboard.press('ArrowRight');
   await expect(page.getByRole('dialog', { name: 'Visita técnica 02' })).toBeVisible();
@@ -210,7 +215,7 @@ test('manifesto: mídias progressivas, vídeos e galeria navegável', async ({ p
   await expect(page.getByRole('dialog', { name: 'Visita técnica 01' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await expect(page.locator('.gallery-track > button').first()).toBeFocused();
+  await expect(first).toBeFocused();
 });
 
 test('PDF real: sete páginas, navegação, zoom e exportação PNG', async ({ page }) => {
