@@ -10,6 +10,14 @@ export const cardPresets = {
     hover: 'none',
     espacamento: 'padrao',
   },
+  institucionalInformativo: {
+    tema: 'institucional',
+    borda: 'suave',
+    raio: 'md',
+    sombra: 'leve',
+    hover: 'none',
+    espacamento: 'amplo',
+  },
   pesquisa: {
     tema: 'institucional',
     borda: 'suave',
