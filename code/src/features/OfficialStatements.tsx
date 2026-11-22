@@ -1,3 +1,4 @@
+import { InfoCard } from '../components/cards';
 import { officialStatements } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 
@@ -22,10 +23,10 @@ export default function OfficialStatements() {
         <section className="section official-statements">
           <div className="container three-grid">
             {statements.map((block) => (
-              <article className="info-card" key={block.key}>
+              <InfoCard className="info-card" key={block.key}>
                 <h2>{block.title}</h2>
                 <p style={{ whiteSpace: 'pre-line' }}>{block.content}</p>
-              </article>
+              </InfoCard>
             ))}
           </div>
         </section>
