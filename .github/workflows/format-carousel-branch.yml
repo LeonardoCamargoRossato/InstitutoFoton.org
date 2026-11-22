@@ -1,0 +1,37 @@
+name: Format carousel feature branch (temporary)
+on:
+  push:
+    branches: [feat/carrossel-universal-20261122]
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/carrossel-universal-20261122
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: code/package-lock.json
+      - name: Install locked dependencies
+        working-directory: code
+        run: npm ci
+      - name: Apply formatting only to changed carousel files
+        working-directory: code
+        run: |
+          npx prettier --write             src/components/carousel/BaseCarousel.tsx             src/components/carousel/CarouselControls.tsx             src/components/carousel/CarouselImage.tsx             src/components/carousel/PARAMETROS_DO_CARROSSEL.md             src/components/ImageZoomDialog.tsx             src/styles/image-zoom.css             tests/browser/carousel-universal.spec.ts             tests/carousel.data.test.ts
+      - name: Commit formatting to feature branch only
+        run: |
+          if git diff --quiet; then
+            echo "Already formatted"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add code/src/components/carousel/BaseCarousel.tsx             code/src/components/carousel/CarouselControls.tsx             code/src/components/carousel/CarouselImage.tsx             code/src/components/carousel/PARAMETROS_DO_CARROSSEL.md             code/src/components/ImageZoomDialog.tsx             code/src/styles/image-zoom.css             code/tests/browser/carousel-universal.spec.ts             code/tests/carousel.data.test.ts
+          git commit -m "style(carousel): aplicar Prettier conforme CI"
+          git push origin HEAD:feat/carrossel-universal-20261122
