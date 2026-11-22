@@ -176,6 +176,7 @@
   .haquantum-gallery {
     --photo-width: min(76cqw, 31rem);
     container-type: inline-size;
+    margin-top: clamp(1.5rem, 3.5vw, 2.75rem);
   }
   .haquantum-track {
     position: relative;
