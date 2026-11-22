@@ -107,7 +107,7 @@ for (const viewport of [
       await expect(researchDropdown.locator('.nav-dropdown-links a')).toHaveText([
         'Linhas temáticas de pesquisa',
         'Jornadas do Cientista Inovador',
-        'Hack Quantum',
+        'HaQuantum',
       ]);
       await researchDropdown.getByRole('link', { name: 'Linhas temáticas de pesquisa' }).click();
       await expect(page).toHaveURL(/\/pesquisa#areas-de-pesquisa$/);
@@ -128,7 +128,7 @@ test('as três opções do menu P&D - Cientista Inovador navegam em desktop e mo
   const options = [
     { name: 'Linhas temáticas de pesquisa', destination: /\/pesquisa#areas-de-pesquisa$/ },
     { name: 'Jornadas do Cientista Inovador', destination: /\/pesquisa\/jornada$/ },
-    { name: 'Hack Quantum', destination: /\/pesquisa\/haquantum$/ },
+    { name: 'HaQuantum', destination: /\/pesquisa\/haquantum$/ },
   ];
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 900 });
