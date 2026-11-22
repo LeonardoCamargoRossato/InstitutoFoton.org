@@ -144,7 +144,11 @@ export function ImageZoomDialog({
       const target = event.target;
       const typing = target instanceof HTMLInputElement;
       if (event.key === 'Escape') {
-        if (document.fullscreenElement === panelRef.current) return;
+        if (document.fullscreenElement === panelRef.current) {
+          event.preventDefault();
+          void document.exitFullscreen();
+          return;
+        }
         event.preventDefault();
         if (fallbackFullscreen) {
           setFallbackFullscreen(false);
@@ -163,11 +167,11 @@ export function ImageZoomDialog({
       }
       if (!event.ctrlKey && !event.metaKey && (event.key === '+' || event.key === '=')) {
         event.preventDefault();
-        setScale((v) => v + 0.25);
+        setScale((v) => v + (isCarousel ? 0.25 : 0.5));
       }
       if (!event.ctrlKey && !event.metaKey && event.key === '-') {
         event.preventDefault();
-        setScale((v) => v - 0.25);
+        setScale((v) => v - (isCarousel ? 0.25 : 0.5));
       }
       if (!event.ctrlKey && !event.metaKey && event.key === '0') {
         event.preventDefault();
@@ -192,7 +196,7 @@ export function ImageZoomDialog({
     }
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
-  }, [onClose, onPrevious, onNext, fallbackFullscreen, setScale]);
+  }, [onClose, onPrevious, onNext, fallbackFullscreen, setScale, isCarousel]);
 
   function commitPercent() {
     const parsed = Number(zoomDraft.trim().replace('%', '').replace(',', '.'));
@@ -297,7 +301,7 @@ export function ImageZoomDialog({
           <div className="foton-zoom-tools">
             <button
               type="button"
-              onClick={() => setScale((value) => value + 0.25)}
+              onClick={() => setScale((value) => value + (isCarousel ? 0.25 : 0.5))}
               disabled={zoom >= 6}
               aria-label="Ampliar imagem"
               title="Ampliar imagem"
@@ -329,7 +333,7 @@ export function ImageZoomDialog({
             )}
             <button
               type="button"
-              onClick={() => setScale((value) => value - 0.25)}
+              onClick={() => setScale((value) => value - (isCarousel ? 0.25 : 0.5))}
               disabled={zoom <= (isCarousel ? 0.25 : 1)}
               aria-label="Reduzir imagem"
               title="Reduzir imagem"
