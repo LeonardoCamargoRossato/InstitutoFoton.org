@@ -213,13 +213,14 @@ test('Mobi Quantum: nove fotos, PNG no zoom e mobile', async ({ page }) => {
   await page.goto('./noticias/foton-mobi-quantum-festival-2026');
   const carousel = page.getByRole('region', { name: 'Carrossel de fotos do Mobi Quantum' });
   await expect(carousel).toBeVisible();
+  await carousel.getByRole('button', { name: 'Mostrar miniaturas' }).click();
   const photos = carousel.getByRole('button', { name: /Selecionar foto/ });
   await expect(photos).toHaveCount(9);
-  await expect(carousel.getByText('1 de 9')).toBeVisible();
+  await expect(carousel.getByText('1 / 9')).toBeVisible();
   const preview = carousel.locator('.news-mobi-image-button img');
   await expect(preview).toHaveAttribute('src', /QuantumBusiness1\.webp$/);
   await carousel.getByRole('button', { name: 'Próxima foto' }).click();
-  await expect(carousel.getByText('2 de 9')).toBeVisible();
+  await expect(carousel.getByText('2 / 9')).toBeVisible();
   await carousel.getByRole('button', { name: 'Ampliar foto 2 do Mobi Quantum' }).click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
@@ -228,7 +229,7 @@ test('Mobi Quantum: nove fotos, PNG no zoom e mobile', async ({ page }) => {
   await expect(zoomImage).toHaveJSProperty('naturalWidth', 1280);
   await page.getByRole('button', { name: /Fechar/i }).click();
   await carousel.getByRole('button', { name: 'Selecionar foto 9' }).click();
-  await expect(carousel.getByText('9 de 9')).toBeVisible();
+  await expect(carousel.getByText('9 / 9')).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
@@ -242,8 +243,9 @@ test('Quantum Day: dois carrosséis com o mesmo componente e zoom PNG', async ({
   for (const { label, count, first } of sections) {
     const carousel = page.getByRole('region', { name: 'Carrossel de fotos do ' + label });
     await expect(carousel).toBeVisible();
+    await carousel.getByRole('button', { name: 'Mostrar miniaturas' }).click();
     await expect(carousel.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(count);
-    await expect(carousel.getByText('1 de ' + count)).toBeVisible();
+    await expect(carousel.getByText('1 / ' + count)).toBeVisible();
     const preview = carousel.locator('.news-carousel-image-button img');
     await expect(preview).toHaveAttribute('src', new RegExp(first + '\\.webp$'));
     await preview.scrollIntoViewIfNeeded();
@@ -259,7 +261,7 @@ test('Quantum Day: dois carrosséis com o mesmo componente e zoom PNG', async ({
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await carousel.getByRole('button', { name: 'Próxima foto' }).click();
-    await expect(carousel.getByText('2 de ' + count)).toBeVisible();
+    await expect(carousel.getByText('2 / ' + count)).toBeVisible();
   }
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -323,8 +325,9 @@ test('LACQ PUCRS: 13 fotos WebP com zoom PNG e capa em 16:9', async ({ page }) =
     name: 'Carrossel de fotos do lançamento da LACQ PUCRS',
   });
   await expect(carousel).toBeVisible();
+  await carousel.getByRole('button', { name: 'Mostrar miniaturas' }).click();
   await expect(carousel.getByRole('button', { name: /Selecionar foto/ })).toHaveCount(13);
-  await expect(carousel.getByText('1 de 13')).toBeVisible();
+  await expect(carousel.getByText('1 / 13')).toBeVisible();
   const preview = carousel.locator('.news-carousel-image-button img');
   await expect(preview).toHaveAttribute('src', /LacqPucrs01\.webp$/);
   await carousel
@@ -337,7 +340,7 @@ test('LACQ PUCRS: 13 fotos WebP com zoom PNG e capa em 16:9', async ({ page }) =
     .toBeGreaterThan(0);
   await page.keyboard.press('Escape');
   await carousel.getByRole('button', { name: 'Selecionar foto 13' }).click();
-  await expect(carousel.getByText('13 de 13')).toBeVisible();
+  await expect(carousel.getByText('13 / 13')).toBeVisible();
   await expect(preview).toHaveAttribute('src', /LacqPucrs13\.webp$/);
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
