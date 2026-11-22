@@ -1,7 +1,11 @@
 import { expect, test } from '@playwright/test';
 
 const routes = [
-  { key: 'noticias', url: './noticias/lancamento-lacq-pucrs-instituto-foton', selector: '.news-carousel' },
+  {
+    key: 'noticias',
+    url: './noticias/lancamento-lacq-pucrs-instituto-foton',
+    selector: '.news-carousel',
+  },
   { key: 'fundacao', url: './noticias/fundacao-instituto-foton', selector: '.foundation-carousel' },
   { key: 'haquantum', url: './pesquisa/haquantum', selector: '.haquantum-gallery .base-carousel' },
   { key: 'visitas', url: './manifesto#visitas', selector: '.visits-carousel' },
@@ -28,9 +32,11 @@ test('hover aplica zoom discreto ao WebP mantendo o recorte dentro das bordas', 
   const image = button.locator('img');
   await button.scrollIntoViewIfNeeded();
   await button.hover();
-  await expect.poll(async () => {
-    const transform = await image.evaluate((element) => getComputedStyle(element).transform);
-    return Number(transform.match(/matrix\(([^,]+)/)?.[1] ?? 1);
-  }).toBeGreaterThan(1.01);
+  await expect
+    .poll(async () => {
+      const transform = await image.evaluate((element) => getComputedStyle(element).transform);
+      return Number(transform.match(/matrix\(([^,]+)/)?.[1] ?? 1);
+    })
+    .toBeGreaterThan(1.01);
   await expect(button).toHaveCSS('overflow', 'hidden');
 });
