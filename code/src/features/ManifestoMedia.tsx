@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Maximize2, Play } from 'lucide-react';
+import { useState } from 'react';
+import { Maximize2, Play } from 'lucide-react';
 import { ImageZoomDialog } from '../components/ImageZoomDialog';
+import { BaseCarousel, carouselPresets } from '../components/carousel';
 
 import { imageAsset, assetUrl } from '../lib/siteAssets';
 
@@ -147,7 +148,6 @@ export default function ManifestoMedia({
   caption?: string;
 }) {
   const [active, setActive] = useState<number | null>(null);
-  const track = useRef<HTMLDivElement>(null);
 
   if (kind === 'importance')
     return (
@@ -190,54 +190,30 @@ export default function ManifestoMedia({
 
   if (kind === 'visits')
     return (
-      <>
-        <div className="visits-carousel">
-          <div className="gallery-track" ref={track}>
-            {visitImages.map((image, index) => (
-              <button key={image.src} type="button" onClick={() => setActive(index)}>
-                <ProgressiveImage src={image.src} alt={image.title} />
-                <span>{image.title}</span>
-                <Maximize2 aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-          <div className="gallery-controls">
-            <button
-              type="button"
-              onClick={() =>
-                track.current?.scrollBy({
-                  left: -track.current.clientWidth * 0.8,
-                  behavior: 'smooth',
-                })
-              }
-              aria-label="Visitas anteriores"
-            >
-              <ChevronLeft />
-            </button>
-            <span>20 registros de conexão com o ecossistema</span>
-            <button
-              type="button"
-              onClick={() =>
-                track.current?.scrollBy({
-                  left: track.current.clientWidth * 0.8,
-                  behavior: 'smooth',
-                })
-              }
-              aria-label="Próximas visitas"
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        </div>
-        {active !== null && (
-          <Lightbox
-            images={visitImages}
-            active={active}
-            onClose={() => setActive(null)}
-            onChange={setActive}
-          />
-        )}
-      </>
+      <div className="visits-carousel">
+        <BaseCarousel
+          label="Galeria de Visitas Técnicas do Instituto Foton"
+          listaWebP={visitImages.map((image) => ({
+            id: image.title,
+            src: optimized(image.src),
+            alt: image.title,
+            title: image.title,
+            caption: image.caption,
+          }))}
+          listaPNG={visitImages.map((image) => ({
+            id: image.title,
+            src: image.src,
+            downloadName: image.src.split('/').at(-1),
+          }))}
+          estiloGrafico={carouselPresets.visitas}
+          classNames={{ root: 'visits-universal-carousel' }}
+          previousLabel="Visitas anteriores"
+          nextLabel="Próximas visitas"
+          imageLabel={(index, _count, image) => `Ampliar ${image.title ?? `visita ${index + 1}`}`}
+          thumbnailLabel={(index) => `Selecionar visita ${index + 1}`}
+        />
+        <p className="visits-carousel-meta">20 registros de conexão com o ecossistema</p>
+      </div>
     );
 
   const image =
