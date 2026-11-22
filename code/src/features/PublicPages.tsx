@@ -641,7 +641,7 @@ export function Manifesto() {
                 contribuições de especialistas conduzem a criação das Cartas Macrorregionais e
                 orientam os 11 Objetivos de Desenvolvimento Quântico, que guiam a ação do Manifesto.
               </p>
-            </InfoCard>
+            </div>
             <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
               <ManifestoMedia kind="method" />
             </Suspense>
@@ -653,7 +653,7 @@ export function Manifesto() {
                 <div>
                   <h3>{step.title}</h3>
                   <p>{step.desc}</p>
-                </InfoCard>
+                </div>
               </li>
             ))}
           </ol>
@@ -673,7 +673,7 @@ export function Manifesto() {
                   <span className="number">0{index + 1}</span>
                   <h3>{carta.region}</h3>
                   <p>{carta.text}</p>
-                </InfoCard>
+                </div>
                 <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
                   <ManifestoMedia kind="letter" region={carta.region} caption={carta.text} />
                 </Suspense>
