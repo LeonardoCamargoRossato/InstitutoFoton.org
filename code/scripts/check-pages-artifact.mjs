@@ -92,8 +92,7 @@ const instagramAssetRoot = 'assets/06 - Notícias/Redes Sociais/Instagram/';
 if (
   instagramMockup.id !== 'instagram-phone-hand' ||
   instagramMockup.platform !== 'instagram' ||
-  instagramMockup.origin.path !==
-    'public/' + instagramAssetRoot + 'SVG/InstagramPhoneHand.svg' ||
+  instagramMockup.origin.path !== 'public/' + instagramAssetRoot + 'SVG/InstagramPhoneHand.svg' ||
   instagramMockup.svg.path !== instagramAssetRoot + 'SVG/InstagramPhoneHand.svg' ||
   instagramMockup.svg.sha256 !== instagramMockup.origin.sha256 ||
   instagramMockup.png.path !== instagramAssetRoot + 'PNG/InstagramPhoneHand.png' ||
