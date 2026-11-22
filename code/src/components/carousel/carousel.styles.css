@@ -255,7 +255,10 @@
 }
 
 .visits-carousel .base-carousel .base-carousel-controls .base-carousel-arrow:hover:not(:disabled),
-.visits-carousel .base-carousel .base-carousel-controls .base-carousel-grid-toggle:hover:not(:disabled) {
+.visits-carousel
+  .base-carousel
+  .base-carousel-controls
+  .base-carousel-grid-toggle:hover:not(:disabled) {
   border-color: #aadfff;
   background: #2189dc;
 }

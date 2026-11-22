@@ -53,7 +53,6 @@ as setas e o botão de miniaturas continuam visíveis, mas as legendas repetidas
 removidas **somente abaixo do carrossel**. A descrição histórica continua disponível
 no modal de ampliação via `listaPNG[].attribution`.
 
-
 ## Onde alterar cores, bordas e animação
 
 - `carousel.types.ts`: contratos e propriedades realmente implementadas.

@@ -185,6 +185,8 @@ test('Manifesto: sem legendas redundantes e com botões azuis circulares', async
     await expect(button.locator('svg')).toBeVisible();
   }
   await visits.getByRole('button', { name: 'Ampliar Visita técnica 01' }).click();
-  await expect(page.getByRole('dialog')).toContainText('Registro da articulação do Instituto Foton');
+  await expect(page.getByRole('dialog')).toContainText(
+    'Registro da articulação do Instituto Foton',
+  );
   await page.getByRole('button', { name: 'Fechar galeria' }).click();
 });
