@@ -71,16 +71,26 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
   ).toBeVisible();
 });
 
-test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({ page }) => {
+test('Manifesto preserva vinte registros reais no motor universal: WebP e PNG local', async ({ page }) => {
   await page.goto('./manifesto#visitas');
-  await expect(page.locator('.gallery-track > button')).toHaveCount(20);
-  const third = page.locator('.gallery-track img').nth(2);
+  const gallery = page.getByRole('region', {
+    name: 'Galeria de Visitas Técnicas do Instituto Foton',
+  });
+  await expect(gallery.locator('.base-carousel-count')).toHaveText('1 / 20');
+  await expect(gallery.locator('.base-carousel-primary img')).toHaveAttribute(
+    'src',
+    /Visitas Técnicas\/WebP\/Visita01\.webp$/,
+  );
+  await gallery.getByRole('button', { name: 'Mostrar miniaturas' }).click();
+  await expect(gallery.getByRole('button', { name: /Selecionar visita/ })).toHaveCount(20);
+  await gallery.getByRole('button', { name: 'Selecionar visita 3' }).click();
+  const third = gallery.locator('.base-carousel-primary img');
   await third.scrollIntoViewIfNeeded();
   await expect(third).toHaveAttribute('src', /Visitas Técnicas\/WebP\/Visita03\.webp$/);
   await expect
     .poll(() => third.evaluate((img) => (img as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0);
-  await page.locator('.gallery-track > button').nth(2).click();
+  await gallery.getByRole('button', { name: 'Ampliar Visita técnica 03' }).click();
   const dialog = page.getByRole('dialog', { name: 'Visita técnica 03' });
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('img')).toHaveAttribute(
@@ -88,7 +98,7 @@ test('Manifesto preserva vinte registros reais, WebP e zoom PNG local', async ({
     /Visitas Técnicas\/PNG\/Visita03\.png$/,
   );
   await dialog.getByRole('button', { name: 'Ampliar imagem' }).click();
-  await expect(dialog.locator('.foton-zoom-level')).toHaveText('150%');
+  await expect(dialog.getByRole('textbox', { name: 'Percentual do zoom' })).toHaveValue('125%');
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
 });
@@ -229,14 +239,20 @@ for (const start of [0, 7, 14, 21]) {
       }
     });
     await page.goto('./manifesto');
+    const gallery = page.getByRole('region', {
+      name: 'Galeria de Visitas Técnicas do Instituto Foton',
+    });
+    await gallery.getByRole('button', { name: 'Mostrar miniaturas' }).click();
     const thumbnails = page.locator(
-      '.manifesto-image img, .manifesto-video img, .gallery-track img',
+      '.manifesto-image img, .manifesto-video img, .visits-carousel .base-carousel-thumbnails img',
     );
     await expect(thumbnails).toHaveCount(28);
     for (let index = start; index < start + 7; index++) {
       const img = thumbnails.nth(index);
       await img.scrollIntoViewIfNeeded();
-      await expect(img).toHaveAttribute('data-full-image', /\/PNG\/.+\.png$/);
+      if (index < 8) {
+        await expect(img).toHaveAttribute('data-full-image', /\/PNG\/.+\.png$/);
+      }
       await expect(img).toHaveAttribute('src', /\/WebP\/.+\.webp$/);
       await expect
         .poll(() => img.evaluate((element) => (element as HTMLImageElement).naturalWidth))
@@ -255,7 +271,9 @@ test('Manifesto usa PNG somente ao abrir e navegar no zoom', async ({ page }) =>
     }
   });
   await page.goto('./manifesto');
-  const thumbnails = page.locator('.manifesto-image img, .manifesto-video img, .gallery-track img');
+  const thumbnails = page.locator(
+    '.manifesto-image img, .manifesto-video img, .visits-carousel .base-carousel-thumbnails img',
+  );
   await expect(thumbnails).toHaveCount(28); // 4 cartas, 2 imagens explicativas, 2 capas de vídeo e 20 visitas
   expect(assetRequests.filter((url) => /\/PNG\//.test(url))).toEqual([]);
 
@@ -278,9 +296,13 @@ test('Manifesto usa PNG somente ao abrir e navegar no zoom', async ({ page }) =>
   await expect(videoPoster.locator('iframe')).toHaveCount(0);
   await posterModal.getByRole('button', { name: 'Fechar galeria' }).click();
 
-  const gallery = page.locator('.gallery-track');
-  await expect(gallery.locator('img')).toHaveCount(20);
-  await gallery.locator('button').last().click();
+  const gallery = page.getByRole('region', {
+    name: 'Galeria de Visitas Técnicas do Instituto Foton',
+  });
+  await expect(gallery.locator('.base-carousel-thumbnails img')).toHaveCount(20);
+  await gallery.getByRole('button', { name: 'Mostrar miniaturas' }).click();
+  await gallery.getByRole('button', { name: 'Selecionar visita 20' }).click();
+  await gallery.getByRole('button', { name: 'Ampliar Visita técnica 20' }).click();
   const visitModal = page.getByRole('dialog', { name: 'Visita técnica 20' });
   await expect(visitModal.locator('img')).toHaveAttribute(
     'src',
