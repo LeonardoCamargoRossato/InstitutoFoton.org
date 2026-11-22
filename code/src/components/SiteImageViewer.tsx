@@ -14,7 +14,7 @@ export default function SiteImageViewer() {
             ? target.querySelector('img')
             : null;
       if (!(el instanceof HTMLImageElement) || !el.closest('#conteudo')) return null;
-      if (el.closest('.foton-zoom-dialog, .manifesto-image, .gallery-track, .manifesto-video'))
+      if (el.closest('.foton-zoom-dialog, .base-carousel, .manifesto-image, .gallery-track, .manifesto-video'))
         return null;
       // Identidade visual continua sendo link para a Home. Imagens nos cards
       // abrem o PNG correspondente, sem interceptar cliques no texto do card.
