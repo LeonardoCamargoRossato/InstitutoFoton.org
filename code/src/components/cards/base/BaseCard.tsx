@@ -14,7 +14,5 @@ export function BaseCard({
   estiloGrafico = cardPresets.informativo,
   children,
 }: BaseCardProps) {
-  return (
-    <Element {...cardAppearance(className, estiloGrafico, false)}>{children}</Element>
-  );
+  return <Element {...cardAppearance(className, estiloGrafico, false)}>{children}</Element>;
 }

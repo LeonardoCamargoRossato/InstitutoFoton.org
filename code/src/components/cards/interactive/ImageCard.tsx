@@ -18,11 +18,12 @@ export function ImageCard({
   className,
   estiloGrafico = cardPresets.fotografia,
 }: ImageCardProps) {
-  const style = imagemAlternativa && estiloGrafico.hover === 'image-swap'
-    ? estiloGrafico
-    : estiloGrafico.hover === 'image-swap'
-      ? { ...estiloGrafico, hover: 'image-zoom' as const }
-      : estiloGrafico;
+  const style =
+    imagemAlternativa && estiloGrafico.hover === 'image-swap'
+      ? estiloGrafico
+      : estiloGrafico.hover === 'image-swap'
+        ? { ...estiloGrafico, hover: 'image-zoom' as const }
+        : estiloGrafico;
   return (
     <button
       type="button"

@@ -8,7 +8,11 @@ export function cardAppearance(
   // Um card puramente informativo nunca recebe hover com aparência de clique.
   const hover = interactive ? (estiloGrafico.hover ?? 'lift') : 'none';
   return {
-    className: ['foton-card', interactive ? 'foton-card--interactive' : 'foton-card--informative', className]
+    className: [
+      'foton-card',
+      interactive ? 'foton-card--interactive' : 'foton-card--informative',
+      className,
+    ]
       .filter(Boolean)
       .join(' '),
     'data-card-hover': hover,

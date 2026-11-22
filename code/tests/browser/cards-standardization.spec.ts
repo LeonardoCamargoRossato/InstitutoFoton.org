@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('Instituto: cards informativos sem falso clique e perfis com modal acessível', async ({ page }) => {
+test('Instituto: cards informativos sem falso clique e perfis com modal acessível', async ({
+  page,
+}) => {
   await page.goto('./instituto');
   const purpose = page.locator('.institute-purpose .foton-card--informative');
   await expect(purpose).toHaveCount(3);
@@ -55,7 +57,9 @@ test('Layout: cards em cinco breakpoints sem transbordamento horizontal', async 
     for (const path of ['./instituto', './pesquisa']) {
       await page.goto(path);
       await expect(page.locator('.foton-card').first()).toBeVisible();
-      expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth - innerWidth),
+      ).toBeLessThanOrEqual(1);
     }
   }
 });

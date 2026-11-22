@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
-import { InfoCard, ActionCard, ProfileCard, ImageCard, cardAppearance } from '../src/components/cards';
+import {
+  InfoCard,
+  ActionCard,
+  ProfileCard,
+  ImageCard,
+  cardAppearance,
+} from '../src/components/cards';
 import { cardPresets } from '../src/components/cards';
 
 describe('LCR Card Library', () => {
@@ -9,7 +15,9 @@ describe('LCR Card Library', () => {
     const attr = cardAppearance('legacy-card', { hover: 'lift' }, false);
     expect(attr['data-card-hover']).toBe('none');
     const html = renderToStaticMarkup(
-      <InfoCard className="legacy-card"><h3>Missão</h3></InfoCard>,
+      <InfoCard className="legacy-card">
+        <h3>Missão</h3>
+      </InfoCard>,
     );
     expect(html).toContain('<article');
     expect(html).toContain('foton-card--informative');
@@ -31,9 +39,7 @@ describe('LCR Card Library', () => {
   });
 
   it('não cria link externo em endereço não autorizado', () => {
-    const html = renderToStaticMarkup(
-      <ActionCard href="javascript:alert(1)">Fonte</ActionCard>,
-    );
+    const html = renderToStaticMarkup(<ActionCard href="javascript:alert(1)">Fonte</ActionCard>);
     expect(html).not.toContain('<a');
     expect(html).toContain('foton-card--informative');
   });

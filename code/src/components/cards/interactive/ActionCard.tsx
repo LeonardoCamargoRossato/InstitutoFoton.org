@@ -31,7 +31,11 @@ export function ActionCard({
   const url = safeExternalUrl(href);
   if (!url) {
     // URL não permitida não se converte em link quebrado ou clicável falso.
-    return <BaseCard as="div" className={className}>{children}</BaseCard>;
+    return (
+      <BaseCard as="div" className={className}>
+        {children}
+      </BaseCard>
+    );
   }
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" aria-label={label} {...appearance}>

@@ -31,14 +31,14 @@ import { InfoCard, ActionCard, cardPresets } from '../components/cards';
 
 Os componentes aceitam `estiloGrafico` com as propriedades abaixo:
 
-| Campo | Valores válidos | Efeito |
-|---|---|---|
-| `tema` | `claro`, `escuro`, `institucional` | Cor base e contraste do contorno |
-| `borda` | `nenhuma`, `suave`, `destacada`, `organica` | Presença, cor e formato do contorno |
-| `raio` | `sm`, `md`, `lg`, `xl` | Arredondamento; `organica` tem prioridade |
-| `sombra` | `nenhuma`, `leve`, `media` | Profundidade sem deslocar vizinhos |
-| `hover` | `none`, `lift`, `image-zoom`, `border-highlight`, `image-swap` | Interatividade ou ausência dela |
-| `espacamento` | `compacto`, `padrao`, `amplo` | Token CSS `--foton-card-padding` para uso pelo layout do consumidor |
+| Campo         | Valores válidos                                                | Efeito                                                              |
+| ------------- | -------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `tema`        | `claro`, `escuro`, `institucional`                             | Cor base e contraste do contorno                                    |
+| `borda`       | `nenhuma`, `suave`, `destacada`, `organica`                    | Presença, cor e formato do contorno                                 |
+| `raio`        | `sm`, `md`, `lg`, `xl`                                         | Arredondamento; `organica` tem prioridade                           |
+| `sombra`      | `nenhuma`, `leve`, `media`                                     | Profundidade sem deslocar vizinhos                                  |
+| `hover`       | `none`, `lift`, `image-zoom`, `border-highlight`, `image-swap` | Interatividade ou ausência dela                                     |
+| `espacamento` | `compacto`, `padrao`, `amplo`                                  | Token CSS `--foton-card-padding` para uso pelo layout do consumidor |
 
 **Tokens CSS centrais:** `--foton-card-border`, `--foton-card-border-highlight`, `--foton-card-radius-*`, `--foton-card-shadow-*`, `--foton-card-motion`, `--foton-card-padding`. A API não sobrescreve indiscriminadamente padding, tipografia ou imagens das páginas existentes. Para aplicar espaçamento, a classe editorial consome `var(--foton-card-padding)`.
 
@@ -58,7 +58,12 @@ Os componentes aceitam `estiloGrafico` com as propriedades abaixo:
 
 ```tsx
 <ImageCard
-  imagem={{ src: assetUrl(image.preview), alt: image.alt, width: image.width, height: image.height }}
+  imagem={{
+    src: assetUrl(image.preview),
+    alt: image.alt,
+    width: image.width,
+    height: image.height,
+  }}
   label="Ampliar fotografia do projeto"
   onOpen={() => setActive(index)}
 />
