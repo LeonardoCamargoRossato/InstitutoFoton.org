@@ -227,6 +227,12 @@
   white-space: nowrap;
 }
 
+.base-carousel--escuro .base-carousel-count,
+.base-carousel--escuro .base-carousel-caption,
+.base-carousel--escuro .base-carousel-credit {
+  color: #f1f7ff;
+}
+
 .base-carousel .base-carousel-grid-toggle {
   grid-column: 3;
   justify-self: end;
