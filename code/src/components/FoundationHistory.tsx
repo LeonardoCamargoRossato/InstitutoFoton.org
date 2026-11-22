@@ -1,7 +1,8 @@
-import { useState, type TouchEvent } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { ArrowRight, Maximize2 } from 'lucide-react';
 import { ImageZoomDialog } from './ImageZoomDialog';
+import { BaseCarousel, carouselPresets } from './carousel';
 import { assetUrl } from '../lib/siteAssets';
 import './FoundationHistory.css';
 
@@ -89,18 +90,6 @@ export function FoundationTeaser() {
 }
 
 export function FoundationGallery() {
-  const [active, setActive] = useState(0);
-  const [zoom, setZoom] = useState(false);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const slide = foundationCards[active];
-  const show = (delta: number) =>
-    setActive((current) => (current + delta + foundationCards.length) % foundationCards.length);
-  const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    if (touchStart === null) return;
-    const distance = event.changedTouches[0].clientX - touchStart;
-    if (Math.abs(distance) > 50) show(distance < 0 ? 1 : -1);
-    setTouchStart(null);
-  };
   return (
     <section className="foundation-gallery" aria-labelledby="foundation-gallery-heading">
       <div className="foundation-gallery-heading">
@@ -108,84 +97,42 @@ export function FoundationGallery() {
         <h2 id="foundation-gallery-heading">Nove registros do primeiro capítulo</h2>
         <p>Explore os registros aprovados da assembleia. Toque em uma imagem para ampliá-la.</p>
       </div>
-      <div
-        className="foundation-carousel"
-        role="region"
-        aria-roledescription="carrossel"
-        aria-label="Registros históricos da fundação"
-        onTouchStart={(event) => setTouchStart(event.touches[0].clientX)}
-        onTouchEnd={onTouchEnd}
-        onKeyDown={(event) => {
-          if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            show(1);
-          }
-          if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            show(-1);
-          }
+      <BaseCarousel
+        label="Registros históricos da fundação"
+        listaWebP={foundationCards.map((image) => ({
+          id: String(image.number),
+          src: image.webp,
+          alt: image.title,
+          title: image.title,
+          caption: image.caption,
+          width: 1080,
+          height: 1350,
+        }))}
+        listaPNG={foundationCards.map((image) => ({
+          id: String(image.number),
+          src: image.png,
+          downloadName: image.png.split('/').at(-1),
+        }))}
+        estiloGrafico={carouselPresets.fundacao}
+        classNames={{
+          root: 'foundation-carousel',
+          stage: 'foundation-stage',
+          image: 'foundation-stage-image',
+          controls: 'foundation-carousel-controls',
+          position: 'foundation-carousel-position',
+          caption: 'foundation-carousel-caption',
         }}
-      >
-        <div className="foundation-stage">
-          <button
-            className="foundation-stage-image"
-            type="button"
-            aria-label={`Ampliar imagem ${active + 1} de 9: ${slide.title}`}
-            onClick={() => setZoom(true)}
-          >
-            <img
-              src={slide.webp}
-              width={1080}
-              height={1350}
-              alt={slide.title}
-              loading={active === 0 ? 'eager' : 'lazy'}
-            />
-            <span className="foundation-zoom-hint">
-              <Maximize2 size={17} /> Ampliar imagem
-            </span>
-          </button>
-        </div>
-        <div className="foundation-carousel-controls">
-          <button
-            className="foundation-carousel-arrow"
-            type="button"
-            onClick={() => show(-1)}
-            aria-label="Imagem anterior"
-          >
-            <ChevronLeft size={23} />
-          </button>
-          <span className="foundation-carousel-position" aria-live="polite">
-            {active + 1} / {foundationCards.length}
-          </span>
-          <button
-            className="foundation-carousel-arrow"
-            type="button"
-            onClick={() => show(1)}
-            aria-label="Próxima imagem"
-          >
-            <ChevronRight size={23} />
-          </button>
-        </div>
-        <p className="foundation-carousel-caption">{slide.caption}</p>
-      </div>
+        previousLabel="Imagem anterior"
+        nextLabel="Próxima imagem"
+        imageLabel={(index, total, image) =>
+          `Ampliar imagem ${index + 1} de ${total}: ${image.title}`
+        }
+      />
       <p className="foundation-historical-note">
         Gabriel Albuquerque aparece no terceiro registro como presidente da LACQ Feynman,
         instituição irmã, e não integrava a Diretoria estatutária do Instituto Foton. Os cargos
         descritos referem-se à fundação, não à composição atual da equipe.
       </p>
-      {zoom && (
-        <ImageZoomDialog
-          key={slide.number}
-          src={slide.png}
-          fallback={slide.webp}
-          title={slide.title}
-          caption={slide.caption}
-          previewUntilLoaded
-          onClose={() => setZoom(false)}
-          onPrevious={() => show(-1)}
-          onNext={() => show(1)}
-        />
-      )}
     </section>
   );
 }
