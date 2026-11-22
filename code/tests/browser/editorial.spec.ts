@@ -71,7 +71,9 @@ test('páginas internas não exibem imagens de pessoas geradas por IA', async ({
   ).toBeVisible();
 });
 
-test('Manifesto preserva vinte registros reais no motor universal: WebP e PNG local', async ({ page }) => {
+test('Manifesto preserva vinte registros reais no motor universal: WebP e PNG local', async ({
+  page,
+}) => {
   await page.goto('./manifesto#visitas');
   const gallery = page.getByRole('region', {
     name: 'Galeria de Visitas Técnicas do Instituto Foton',

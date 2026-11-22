@@ -119,7 +119,9 @@ test('Fundação, HaQuantum e Manifesto: mesmo motor e preservação de acervo',
   await expect(visits.locator('.base-carousel-count')).toHaveText('1 / 20');
   await visits.getByRole('button', { name: 'Ampliar Visita técnica 01' }).click();
   await expect(page.getByRole('dialog').locator('img')).toHaveAttribute('src', /Visita01\.png$/);
-  await expect(page.getByRole('dialog').getByRole('link', { name: 'Baixar PNG original' })).toHaveAttribute('href', /Visita01\.png$/);
+  await expect(
+    page.getByRole('dialog').getByRole('link', { name: 'Baixar PNG original' }),
+  ).toHaveAttribute('href', /Visita01\.png$/);
   await page.getByRole('button', { name: 'Fechar galeria' }).click();
 });
 
