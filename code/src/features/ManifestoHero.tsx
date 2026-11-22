@@ -1,8 +1,8 @@
 import { ArrowDownRight } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
-import brazilStates from '../assets/brazil-states.svg';
 import '../styles/manifesto-hero.css';
 
+const brazilStates = assetUrl('assets/05 - Manifesto/Imagens da Página/SVG/brazil-states.svg');
 const glassWebp = assetUrl(
   'assets/05 - Manifesto/Imagens do Manifesto/WebP/HeroManifestoFGlass.webp',
 );
