@@ -80,7 +80,7 @@ test('Visualizador: percentual livre, fullscreen real, reduzir, Escape e X', asy
   await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(false);
 });
 
-test('Fundação, HaQuantum e Manifesto: preservação de acervo e regressão', async ({ page }) => {
+test('Fundação, HaQuantum e Manifesto: mesmo motor e preservação de acervo', async ({ page }) => {
   await page.goto(foundation);
   const gallery = page.locator('.foundation-carousel');
   await gallery.getByRole('button', { name: 'Imagem anterior' }).click();
@@ -106,18 +106,27 @@ test('Fundação, HaQuantum e Manifesto: preservação de acervo e regressão', 
   );
 
   await page.goto(manifesto);
-  const visits = page.locator('.visits-carousel');
+  const visits = page.getByRole('region', {
+    name: 'Galeria de Visitas Técnicas do Instituto Foton',
+  });
   await expect(visits).toBeVisible();
-  await expect(visits.locator('.gallery-track > button')).toHaveCount(20);
-  await visits.locator('.gallery-track > button').first().click();
-  await expect(page.getByRole('dialog').locator('img')).toHaveAttribute('src', /\.png$/);
+  await expect(visits.locator('.base-carousel-count')).toHaveText('1 / 20');
+  await visits.getByRole('button', { name: 'Mostrar miniaturas' }).click();
+  await expect(visits.getByRole('button', { name: /Selecionar visita/ })).toHaveCount(20);
+  await visits.getByRole('button', { name: 'Selecionar visita 20' }).click();
+  await expect(visits.locator('.base-carousel-count')).toHaveText('20 / 20');
+  await visits.getByRole('button', { name: 'Próximas visitas' }).click();
+  await expect(visits.locator('.base-carousel-count')).toHaveText('1 / 20');
+  await visits.getByRole('button', { name: 'Ampliar Visita técnica 01' }).click();
+  await expect(page.getByRole('dialog').locator('img')).toHaveAttribute('src', /Visita01\.png$/);
+  await expect(page.getByRole('dialog').getByRole('link', { name: 'Baixar PNG original' })).toHaveAttribute('href', /Visita01\.png$/);
   await page.getByRole('button', { name: 'Fechar galeria' }).click();
 });
 
 test('Carrosséis migrados: breakpoints sem overflow horizontal', async ({ page }) => {
   for (const width of [360, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const url of [news, foundation, haquantum]) {
+    for (const url of [news, foundation, haquantum, manifesto]) {
       await page.goto(url);
       await expect(page.locator('.base-carousel').first()).toBeVisible();
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
