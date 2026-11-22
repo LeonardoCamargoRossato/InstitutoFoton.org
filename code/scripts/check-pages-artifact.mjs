@@ -362,6 +362,14 @@ const rootFiles = new Set([
   'sitemap.xml',
   'version.json',
 ]);
+// Mapa decorativo do Manifesto e atribuição de licença: somente estes dois arquivos.
+// O nome do SVG obedece ao PascalCase exigido para recursos públicos.
+for (const path of [
+  'assets/05 - Manifesto/Imagens da Página/SVG/BrazilStates.svg',
+  'assets/05 - Manifesto/Imagens da Página/SVG/brazil-states.LICENSE.txt',
+]) {
+  expected.add(path);
+}
 const expectedDocuments = new Set(['documents/apresentacao-institucional-2026-09-10.pdf']);
 const prohibited =
   /\b(?:supabase\.co|storage\/v1|auth\/v1|VITE_SUPABASE_URL|VITE_SUPABASE_ANON_KEY|sb_secret_|service_role)\b/i;
