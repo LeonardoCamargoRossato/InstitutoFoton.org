@@ -177,3 +177,187 @@
     outline-offset: 2px;
   }
 }
+
+@layer components {
+  /* Todos os visualizadores compartilham estado, foco e controles React. */
+  .foton-zoom-panel {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* Modo intermediário: site permanece visível e desfocado atrás da fotografia. */
+  .foton-zoom-dialog--carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(10px, 3vw, 32px);
+    background: rgba(3, 16, 40, 0.58);
+    backdrop-filter: blur(6px);
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-panel {
+    flex: 0 1 auto;
+    width: min(90vw, 1300px);
+    height: min(85vh, 860px);
+    overflow: hidden;
+    border: 1px solid rgba(193, 216, 244, 0.3);
+    border-radius: 22px;
+    background: #07152c;
+    box-shadow: 0 28px 90px rgba(0, 8, 25, 0.6);
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-stage > img {
+    max-width: 95%;
+    max-height: 72%;
+    object-fit: contain;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-stage {
+    touch-action: none;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-topbar {
+    gap: 12px;
+    padding: 10px 16px;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-tools {
+    gap: 7px;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-tools input {
+    width: 73px;
+    min-height: 41px;
+    padding: 0 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.09);
+    color: #fff;
+    font-size: 0.88rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-tools input:focus-visible {
+    outline: 2px solid #79d6f9;
+    outline-offset: 2px;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-tools a {
+    display: grid;
+    width: 41px;
+    height: 41px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.23);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-tools a:hover,
+  .foton-zoom-dialog--carousel .foton-zoom-tools a:focus-visible {
+    background: rgba(24, 105, 215, 0.8);
+    outline: 2px solid #79d6f9;
+    outline-offset: 1px;
+  }
+
+  /* O fullscreen é nativo: o painel inteiro entra na Fullscreen API. */
+  .foton-zoom-dialog--carousel .foton-zoom-panel:fullscreen,
+  .foton-zoom-dialog--carousel .foton-zoom-panel.is-fullscreen-fallback {
+    position: fixed;
+    inset: 0;
+    z-index: 20001;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    background: #020916;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-panel:fullscreen .foton-zoom-stage > img,
+  .foton-zoom-dialog--carousel .foton-zoom-panel.is-fullscreen-fallback .foton-zoom-stage > img {
+    max-width: 96vw;
+    max-height: 94vh;
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-panel:fullscreen .foton-zoom-topbar,
+  .foton-zoom-dialog--carousel .foton-zoom-panel.is-fullscreen-fallback .foton-zoom-topbar {
+    position: absolute;
+    z-index: 6;
+    top: 0;
+    right: 0;
+    left: 0;
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease;
+  }
+
+  .foton-zoom-dialog--carousel
+    .foton-zoom-panel:fullscreen:not(.tools-visible)
+    .foton-zoom-topbar,
+  .foton-zoom-dialog--carousel
+    .foton-zoom-panel.is-fullscreen-fallback:not(.tools-visible)
+    .foton-zoom-topbar {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+  }
+
+  .foton-zoom-dialog--carousel .foton-zoom-panel:fullscreen .foton-zoom-help,
+  .foton-zoom-dialog--carousel .foton-zoom-panel.is-fullscreen-fallback .foton-zoom-help {
+    display: none;
+  }
+
+  .foton-fullscreen-toast {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    z-index: 5;
+    padding: 9px 15px;
+    border-radius: 999px;
+    background: rgba(4, 18, 46, 0.85);
+    color: #fff;
+    font-size: 0.9rem;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 700px) {
+    .foton-zoom-dialog--carousel {
+      padding: 8px;
+    }
+
+    .foton-zoom-dialog--carousel .foton-zoom-panel {
+      width: 98vw;
+      height: min(88vh, 900px);
+      border-radius: 13px;
+    }
+
+    .foton-zoom-dialog--carousel .foton-zoom-topbar {
+      gap: 8px;
+      padding: 9px;
+    }
+
+    .foton-zoom-dialog--carousel .foton-zoom-tools a {
+      width: 36px;
+      height: 36px;
+    }
+
+    .foton-zoom-dialog--carousel .foton-zoom-tools input {
+      width: 59px;
+      min-height: 36px;
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .foton-zoom-dialog--carousel .foton-zoom-panel:fullscreen .foton-zoom-topbar,
+    .foton-zoom-dialog--carousel .foton-zoom-panel.is-fullscreen-fallback .foton-zoom-topbar {
+      transition: none;
+    }
+  }
+}
