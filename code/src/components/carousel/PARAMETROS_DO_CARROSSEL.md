@@ -111,4 +111,4 @@ A CI verifica também documentação e credenciais. Tests unitários validam uma
 
 ## Decisão e risco
 
-A apresentação do Manifesto é a referência de hover e parte da imagem seguinte, **não foi substituída**. A inclusão de `variant="carousel"` no visualizador preserva a aparência dos consumidores legados; a migração gradual evita alterar cartas, imagens únicas, PDFs e vídeos sem autorização específica.
+A apresentação do Manifesto serviu como referência de hover e prévia lateral. A galeria de Visitas Técnicas agora usa o mesmo motor, preservando vinte registros e os caminhos originais, enquanto os componentes de cartas, imagens únicas e vídeos do Manifesto continuam no visualizador legado.
