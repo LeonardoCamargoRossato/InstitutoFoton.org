@@ -54,6 +54,10 @@ export function BaseCarousel({
   }
 
   function keyDown(event: KeyboardEvent<HTMLElement>) {
+    // O portal do zoom mantém o bubbling do React: o diálogo controla suas próprias setas.
+    if (event.target instanceof HTMLElement && event.target.closest('.foton-zoom-dialog')) {
+      return;
+    }
     if (event.target instanceof HTMLInputElement) return;
     if (event.key === 'ArrowRight') {
       event.preventDefault();

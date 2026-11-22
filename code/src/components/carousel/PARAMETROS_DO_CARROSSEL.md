@@ -4,7 +4,7 @@
 
 ## Para que serve
 
-Todos os carrosséis migrados usam **um motor** de troca, hover, contador, miniaturas e visualização de PNG. Os componentes originais de Notícias, Fundação e HaQuantum permanecem como **adaptadores editoriais**, sem repetir lógica de navegação. O carrossel de Visitas Técnicas do Manifesto permanece visualmente intacto e será migrado depois de uma validação de equivalência específica.
+Todos os carrosséis migrados usam **um motor** de troca, hover, contador, miniaturas e visualização de PNG. Os componentes originais de Notícias, Fundação, HaQuantum e Visitas Técnicas permanecem como **adaptadores editoriais**, sem repetir lógica de navegação. Os quatro compartilham a mesma biblioteca, enquanto preservam o conteúdo, os metadados e os presets apropriados a cada página.
 
 ## Os três parâmetros, nesta ordem
 
@@ -73,7 +73,7 @@ Atualizar **o catálogo original da página** com o par WebP/PNG e ID estável. 
 | `/noticias/lancamento-lacq-pucrs-instituto-foton` e outras reportagens com carrossel | `NewsCarousel.tsx`                                         | Migrado                           |
 | `/noticias/fundacao-instituto-foton`                                                 | `FoundationHistory.tsx` → `FoundationGallery`              | Migrado                           |
 | `/pesquisa/haquantum`                                                                | `HaQuantumGallery.tsx`                                     | Migrado                           |
-| `/manifesto` → Visitas Técnicas                                                      | `ManifestoMedia.tsx`                                       | **Preservado; migração pendente** |
+| `/manifesto` → Visitas Técnicas                                                      | `ManifestoMedia.tsx`                                       | Migrado                           |
 | `/instituto` → capa da Fundação                                                      | `FoundationTeaser`                                         | Preservado (visualizador legado)  |
 | Outras imagens de notícias, vídeos e fotos avulsas                                   | `NewsPhotoHighlights`, `SiteImageViewer`, `ManifestoMedia` | Preservados (visualizador legado) |
 
@@ -81,15 +81,15 @@ Atualizar **o catálogo original da página** com o par WebP/PNG e ID estável. 
 
 A auditoria considerou imports, consumidores indiretos, CSS, catálogo, visualizador e scripts de publicação. **Risco** indica possibilidade de regressão e não é classificação de segurança do conteúdo.
 
-| Componente                      | Página/consumidor                                                     | Imagens e metadados                                                   | CSS                                            | Dependências compartilhadas                      | Risco                                                          |
-| ------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------- |
-| `NewsCarousel`                  | `Publications`: LACQ PUCRS, Mobi Quantum e Quantum Day (2 carrosséis) | `news-media.json`: `name`, `original`, `preview`, `credit`, dimensões | `NewsMedia.css`, `carousel.styles.css`         | `assetUrl`, `ImageZoomDialog`, `SiteImageViewer` | Médio: preservação do enquadramento 16:9, títulos e ordem      |
-| `FoundationGallery`             | `Publications`: reportagem da fundação                                | `foundationCards`, 9 PNG/WebP; `foundationCaption03` e nota histórica | `FoundationHistory.css`, `carousel.styles.css` | `ImageZoomDialog`, `SiteImageViewer`             | Alto: legenda histórica aprovada não pode ser alterada         |
-| `HaQuantumGallery`              | `ResearchPages`: página HaQuantum e seção da pesquisa                 | `research-media.json`: PNG/WebP, dimensões, alt, hashes               | `research-journey.css`, `carousel.styles.css`  | `assetUrl`, `ImageZoomDialog`                    | Médio: mobile, teclado e miniaturas                            |
-| `ManifestoMedia(kind='visits')` | `PublicPages`: `/manifesto#visitas`                                   | 20 visitas resolvidas por `imageAsset`, PNG/WebP                      | `site.css`                                     | `ImageZoomDialog`, `assetUrl`                    | Alto: **preservado**, dependente de equivalência visual futura |
-| `FoundationTeaser`              | `PublicPages`: `/instituto#fundacao`                                  | primeira imagem e legenda da fundação                                 | `FoundationHistory.css`                        | `ImageZoomDialog` legado                         | Médio: capa é CTA distinto do carrossel                        |
-| `NewsPhotoHighlights`           | `Publications`: Projeto Leonti                                        | `news-media.json`: original e preview                                 | `NewsMedia.css`                                | `ImageZoomDialog` legado                         | Médio: zoom de fotos editoriais avulsas                        |
-| `SiteImageViewer`               | `Layout`: imagens ampliáveis do site                                  | vários catálogos e `data-full-image`                                  | `image-zoom.css`                               | `ImageZoomDialog`, listeners globais             | Alto: eventos capturados globalmente; exclui `.base-carousel`  |
+| Componente                      | Página/consumidor                                                     | Imagens e metadados                                                   | CSS                                            | Dependências compartilhadas                      | Risco                                                         |
+| ------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------- |
+| `NewsCarousel`                  | `Publications`: LACQ PUCRS, Mobi Quantum e Quantum Day (2 carrosséis) | `news-media.json`: `name`, `original`, `preview`, `credit`, dimensões | `NewsMedia.css`, `carousel.styles.css`         | `assetUrl`, `ImageZoomDialog`, `SiteImageViewer` | Médio: preservação do enquadramento 16:9, títulos e ordem     |
+| `FoundationGallery`             | `Publications`: reportagem da fundação                                | `foundationCards`, 9 PNG/WebP; `foundationCaption03` e nota histórica | `FoundationHistory.css`, `carousel.styles.css` | `ImageZoomDialog`, `SiteImageViewer`             | Alto: legenda histórica aprovada não pode ser alterada        |
+| `HaQuantumGallery`              | `ResearchPages`: página HaQuantum e seção da pesquisa                 | `research-media.json`: PNG/WebP, dimensões, alt, hashes               | `research-journey.css`, `carousel.styles.css`  | `assetUrl`, `ImageZoomDialog`                    | Médio: mobile, teclado e miniaturas                           |
+| `ManifestoMedia(kind='visits')` | `PublicPages`: `/manifesto#visitas`                                   | 20 visitas resolvidas por `imageAsset`, PNG/WebP                      | `carousel.styles.css`, `site.css`              | `BaseCarousel`, `ImageZoomDialog`, `assetUrl`    | Alto: 20 imagens originais, ordem e PNG validados nos testes  |
+| `FoundationTeaser`              | `PublicPages`: `/instituto#fundacao`                                  | primeira imagem e legenda da fundação                                 | `FoundationHistory.css`                        | `ImageZoomDialog` legado                         | Médio: capa é CTA distinto do carrossel                       |
+| `NewsPhotoHighlights`           | `Publications`: Projeto Leonti                                        | `news-media.json`: original e preview                                 | `NewsMedia.css`                                | `ImageZoomDialog` legado                         | Médio: zoom de fotos editoriais avulsas                       |
+| `SiteImageViewer`               | `Layout`: imagens ampliáveis do site                                  | vários catálogos e `data-full-image`                                  | `image-zoom.css`                               | `ImageZoomDialog`, listeners globais             | Alto: eventos capturados globalmente; exclui `.base-carousel` |
 
 **Publicação:** `postbuild.mjs` cria rotas estáticas do GitHub Pages; `check-pages-artifact.mjs` verifica o build. Não há mudanças em caminhos de assets, documentos, APIs, hospedagem ou código dos cartões.
 
@@ -111,4 +111,4 @@ A CI verifica também documentação e credenciais. Tests unitários validam uma
 
 ## Decisão e risco
 
-A apresentação do Manifesto é a referência de hover e parte da imagem seguinte, **não foi substituída**. A inclusão de `variant="carousel"` no visualizador preserva a aparência dos consumidores legados; a migração gradual evita alterar cartas, imagens únicas, PDFs e vídeos sem autorização específica.
+A apresentação do Manifesto serviu como referência de hover e prévia lateral. A galeria de Visitas Técnicas agora usa o mesmo motor, preservando vinte registros e os caminhos originais, enquanto os componentes de cartas, imagens únicas e vídeos do Manifesto continuam no visualizador legado.
