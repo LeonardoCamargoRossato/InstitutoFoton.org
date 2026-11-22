@@ -124,7 +124,10 @@ test('HaQuantum tem registro histórico, WebP no carrossel, PNG no zoom e regula
 
   // A vitrine carrega apenas a foto ativa; as outras WebP entram por navegação.
   for (const [index, photo] of researchMedia.haquantum.entries()) {
-    await expect(primary).toHaveAttribute('src', new RegExp(photo.previewPath.split('/').at(-1) + '$'));
+    await expect(primary).toHaveAttribute(
+      'src',
+      new RegExp(photo.previewPath.split('/').at(-1) + '$'),
+    );
     await expect(primary).toHaveAttribute('width', String(photo.width));
     await expect(primary).toHaveAttribute('height', String(photo.height));
     if (index < researchMedia.haquantum.length - 1) {
