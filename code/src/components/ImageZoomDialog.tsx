@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -48,8 +49,16 @@ export function ImageZoomDialog({
   downloadName,
 }: Props) {
   const isCarousel = variant === 'carousel';
-  const [currentSrc, setCurrentSrc] = useState(previewUntilLoaded && fallback ? fallback : src);
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+  const [errorSrc, setErrorSrc] = useState<string | null>(null);
+  const currentSrc =
+    errorSrc === src && fallback
+      ? fallback
+      : previewUntilLoaded && fallback && loadedSrc !== src
+        ? fallback
+        : src;
   const [zoom, setZoom] = useState(1);
+  const zoomRef = useRef(1);
   const [zoomDraft, setZoomDraft] = useState('100%');
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [nativeFullscreen, setNativeFullscreen] = useState(false);
@@ -64,15 +73,28 @@ export function ImageZoomDialog({
   const fullscreen = nativeFullscreen || fallbackFullscreen;
 
   useEffect(() => {
-    setCurrentSrc(previewUntilLoaded && fallback ? fallback : src);
     if (!previewUntilLoaded || !fallback) return;
     const fullResolution = new Image();
-    fullResolution.onload = () => setCurrentSrc(src);
+    fullResolution.onload = () => setLoadedSrc(src);
+    fullResolution.onerror = () => setErrorSrc(src);
     fullResolution.src = src;
     return () => {
       fullResolution.onload = null;
+      fullResolution.onerror = null;
     };
   }, [src, fallback, previewUntilLoaded]);
+
+  const setScale = useCallback(
+    (next: number | ((current: number) => number)) => {
+      const value = typeof next === 'function' ? next(zoomRef.current) : next;
+      const clamped = Math.min(6, Math.max(isCarousel ? 0.25 : 1, value));
+      zoomRef.current = clamped;
+      setZoom(clamped);
+      setZoomDraft(Math.round(clamped * 100) + '%');
+      if (clamped <= 1) setPan({ x: 0, y: 0 });
+    },
+    [isCarousel],
+  );
 
   useLayoutEffect(() => {
     const before = document.body.style.overflow;
@@ -91,18 +113,17 @@ export function ImageZoomDialog({
 
   useEffect(() => {
     function syncFullscreen() {
-      setNativeFullscreen(document.fullscreenElement === panelRef.current);
+      const active = document.fullscreenElement === panelRef.current;
+      setNativeFullscreen(active);
+      setToolsVisible(true);
+      setShowFullscreenToast(active);
     }
     document.addEventListener('fullscreenchange', syncFullscreen);
     return () => document.removeEventListener('fullscreenchange', syncFullscreen);
   }, []);
 
   useEffect(() => {
-    if (!fullscreen) {
-      setToolsVisible(true);
-      return;
-    }
-    setShowFullscreenToast(true);
+    if (!fullscreen) return;
     panelRef.current?.focus();
     const timer = window.setTimeout(() => setShowFullscreenToast(false), 1500);
     return () => window.clearTimeout(timer);
@@ -171,17 +192,7 @@ export function ImageZoomDialog({
     }
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
-  }, [onClose, onPrevious, onNext, fallbackFullscreen, isCarousel]);
-
-  function setScale(next: number | ((current: number) => number)) {
-    setZoom((current) => {
-      const value = typeof next === 'function' ? next(current) : next;
-      const clamped = Math.min(6, Math.max(isCarousel ? 0.25 : 1, value));
-      setZoomDraft(Math.round(clamped * 100) + '%');
-      if (clamped <= 1) setPan({ x: 0, y: 0 });
-      return clamped;
-    });
-  }
+  }, [onClose, onPrevious, onNext, fallbackFullscreen, setScale]);
 
   function commitPercent() {
     const parsed = Number(zoomDraft.trim().replace('%', '').replace(',', '.'));
@@ -218,12 +229,16 @@ export function ImageZoomDialog({
   async function expand() {
     if (!allowFullscreen) return;
     if (!panelRef.current?.requestFullscreen) {
+      setToolsVisible(true);
+      setShowFullscreenToast(true);
       setFallbackFullscreen(true);
       return;
     }
     try {
       await panelRef.current.requestFullscreen();
     } catch {
+      setToolsVisible(true);
+      setShowFullscreenToast(true);
       setFallbackFullscreen(true);
     }
   }
@@ -386,7 +401,7 @@ export function ImageZoomDialog({
             draggable={false}
             style={{ transform: 'translate(' + pan.x + 'px,' + pan.y + 'px) scale(' + zoom + ')' }}
             onError={() => {
-              if (fallback && currentSrc !== fallback) setCurrentSrc(fallback);
+              if (fallback && currentSrc !== fallback) setErrorSrc(src);
             }}
             onDoubleClick={() => setScale(zoom >= 2 ? 1 : 2)}
             onPointerDown={down}
