@@ -3,6 +3,7 @@ import { flushSync } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/UI';
+import { ActionCard, InfoCard } from '../components/cards';
 import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
 import PhotonIdentityAnimation, {
@@ -121,7 +122,7 @@ export function Home() {
           </p>
           <div className="research-grid institutional-programs">
             {programs.map((program, index) => (
-              <Link className="research-card" to={program.to} key={program.title}>
+              <ActionCard className="research-card" to={program.to} key={program.title}>
                 <div className="card-top">
                   <span className="number">{String(index + 1).padStart(2, '0')}</span>
                   <ArrowUpRight size={21} aria-hidden="true" />
@@ -131,7 +132,7 @@ export function Home() {
                 <span className="card-link">
                   Saiba mais <ArrowUpRight size={18} aria-hidden="true" />
                 </span>
-              </Link>
+              </ActionCard>
             ))}
           </div>
         </div>
@@ -488,21 +489,21 @@ export function Institute() {
         <div className="container">
           <Heading eyebrow="Frentes de articulação" title="Ciência, formação e estratégia." />
           <div className="three-grid">
-            <div className="info-card">
+            <InfoCard as="div" className="info-card">
               <BookOpen aria-hidden="true" />
               <h3>Educação e formação</h3>
               <p>Promover a aproximação entre conhecimento científico, formação e sociedade.</p>
-            </div>
-            <div className="info-card">
+            </InfoCard>
+            <InfoCard as="div" className="info-card">
               <Compass aria-hidden="true" />
               <h3>Pesquisa aplicada</h3>
               <p>Articular temas de investigação e colaboração entre diferentes áreas.</p>
-            </div>
-            <div className="info-card">
+            </InfoCard>
+            <InfoCard as="div" className="info-card">
               <Network aria-hidden="true" />
               <h3>Inteligência estratégica</h3>
               <p>Conectar conhecimento e análise a decisões de organizações e sociedade.</p>
-            </div>
+            </InfoCard>
           </div>
         </div>
       </section>

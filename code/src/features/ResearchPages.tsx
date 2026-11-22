@@ -5,6 +5,7 @@ import researchMedia from '../content/research-media.json';
 import { assetUrl } from '../lib/siteAssets';
 import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from './content';
 import HaQuantumGallery from './HaQuantumGallery';
+import { ActionCard } from '../components/cards';
 import { NotFound } from './PublicPages';
 import '../styles/research-journey.css';
 
@@ -109,13 +110,13 @@ export function Research() {
           </p>
           <div className="research-grid full-research">
             {researchLines.map((line) => (
-              <Link className="research-card" to={`/pesquisa/${line.slug}`} key={line.slug}>
+              <ActionCard className="research-card" to={`/pesquisa/${line.slug}`} key={line.slug}>
                 <h3>{line.title}</h3>
                 <p>{line.summary}</p>
                 <span className="card-link">
                   Explorar essa área <ArrowUpRight size={18} aria-hidden="true" />
                 </span>
-              </Link>
+              </ActionCard>
             ))}
           </div>
         </div>
