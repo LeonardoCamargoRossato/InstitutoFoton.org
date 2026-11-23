@@ -44,7 +44,7 @@ Não foram movidos imagens, logotipos, PDFs ou arquivos das animações aprovada
 
 **Identificado** = dependência mapeada; **planejado** = mudança desenhada; **implementado** = commit na branch; **testado** = CI passou; **validado** = auditoria, merge e deploy confirmados; **pendente** = sem autorização ou equivalência insuficiente.
 
-As linhas marcadas “implementado; testes na PR” **não comprovam aprovação** por si mesmas. Atualizar o estado após CI e publicação.
+**Evidência atual:** PR #66 (`abbace3`) e PR #67 (`2caa8db`) integradas à `main`; Quality checks #545 e Deploy #161 concluídos com sucesso. O código publicado está tecnicamente verificado; a inspeção visual manual e eventuais aprovações editoriais são verificações independentes. Não confundir CI verde com revisão visual concluída.
 
 ## Conclusão do lote de padronização
 
