@@ -14,12 +14,10 @@ function PartnerLogo({
   partner,
   eager,
   critical,
-  catalogSection,
 }: {
   partner: PartnerRecord;
   eager: boolean;
   critical: boolean;
-  catalogSection: '1.6' | '3.2';
 }) {
   const [broken, setBroken] = useState(false);
   const logo = partnerLogoAssets(partner.logo_slug);
@@ -48,10 +46,12 @@ function PartnerCard({
   partner,
   eager,
   critical,
+  catalogSection,
 }: {
   partner: PartnerRecord;
   eager: boolean;
   critical: boolean;
+  catalogSection: '1.6' | '3.2';
 }) {
   const url = safePartnerUrl(partner.partner_url);
   const cardClass =
