@@ -22,6 +22,7 @@ export function NewsPhotoHighlights({ images }: Props) {
           <ImageCard
             className="news-highlight-image-button"
             label={`Ampliar Projeto Leonti ${index + 1}`}
+            catalogId={`6.A.3.C${index + 1}`}
             onOpen={() => setActive(index)}
             imagem={{
               src: assetUrl(image.preview),
