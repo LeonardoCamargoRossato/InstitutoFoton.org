@@ -9,7 +9,7 @@ import {
 import { documentUrl, documents, type PublicDocument } from '../lib/backend';
 import { dateLabel } from '../lib/config';
 import { useResource } from '../lib/useResource';
-import { Intro, Status } from '../components/UI';
+import { Intro, Status } from '../components/ui';
 import { InfoCard } from '../components/cards';
 
 type Entry = {

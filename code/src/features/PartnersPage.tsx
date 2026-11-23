@@ -1,4 +1,4 @@
-import { Intro } from '../components/UI';
+import { Intro } from '../components/ui';
 import PartnerEcosystem from './PartnerEcosystem';
 
 export default function PartnersPage() {

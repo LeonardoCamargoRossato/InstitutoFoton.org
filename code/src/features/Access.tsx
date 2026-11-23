@@ -1,5 +1,5 @@
 import { LockKeyhole } from 'lucide-react';
-import { Intro, Action } from '../components/UI';
+import { Intro, Action } from '../components/ui';
 
 export default function Access() {
   return (

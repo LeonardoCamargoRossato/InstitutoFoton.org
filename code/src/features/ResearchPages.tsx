@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { ArrowDown, ArrowRight, ArrowUpRight, Play } from 'lucide-react';
-import { Action, External, Heading, Intro, TextLink } from '../components/UI';
+import { Action, External, Heading, Intro, TextLink } from '../components/ui';
 import researchMedia from '../content/research-media.json';
 import { assetUrl } from '../lib/siteAssets';
 import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from './content';
