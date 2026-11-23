@@ -10,6 +10,7 @@ import { documentUrl, documents, type PublicDocument } from '../lib/backend';
 import { dateLabel } from '../lib/config';
 import { useResource } from '../lib/useResource';
 import { Intro, Status } from '../components/UI';
+import { InfoCard } from '../components/cards';
 
 type Entry = {
   id: string;
@@ -103,7 +104,7 @@ function DocumentCard({ entry }: { entry: Entry }) {
   }
 
   return (
-    <article className="transparency-document">
+    <InfoCard as="article" inheritVisuals className="transparency-document" catalogId={`8.2.C-${entry.id}`}>
       <span className="document-symbol" aria-hidden="true">
         <FileText size={22} />
       </span>
@@ -144,7 +145,7 @@ function DocumentCard({ entry }: { entry: Entry }) {
           Arquivo indisponível para acesso público.
         </p>
       )}
-    </article>
+    </InfoCard>
   );
 }
 
