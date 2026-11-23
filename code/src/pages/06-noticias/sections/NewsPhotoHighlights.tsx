@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ImageZoomDialog } from '../../../components/ImageZoomDialog';
+import { ImageZoomDialog } from '../../../components/viewers';
 import { ImageCard } from '../../../components/cards';
 import type { NewsCarouselImage } from './NewsCarousel';
 import { assetUrl } from '../../../lib/siteAssets';

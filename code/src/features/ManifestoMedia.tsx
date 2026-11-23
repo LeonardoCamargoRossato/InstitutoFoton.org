@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Maximize2, Play } from 'lucide-react';
-import { ImageZoomDialog } from '../components/ImageZoomDialog';
+import { ImageZoomDialog } from '../components/viewers';
 import { BaseCarousel, carouselPresets } from '../components/carousel';
 
 import { imageAsset, assetUrl } from '../lib/siteAssets';

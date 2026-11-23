@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Maximize2 } from 'lucide-react';
-import { ImageZoomDialog } from './ImageZoomDialog';
+import { ImageZoomDialog } from './viewers';
 import { BaseCarousel, carouselPresets } from './carousel';
 import { assetUrl } from '../lib/siteAssets';
 import './FoundationHistory.css';
