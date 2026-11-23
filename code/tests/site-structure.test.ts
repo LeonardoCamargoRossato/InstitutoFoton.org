@@ -2,6 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { siteMenu, siteSections, siteSectionLink } from '../src/content/siteStructure';
 import { siteCards } from '../src/content/siteCards';
 import { auxiliaryRoutes, pageManifests } from '../src/pages/pageManifest';
+import { home1A, home1B, home1C } from '../src/pages/01-home/PAGE';
+import { instituto2A, instituto2B } from '../src/pages/02-instituto/PAGE';
+import { parceiros3A } from '../src/pages/03-parceiros/PAGE';
+import { pesquisa4A, pesquisa4B, pesquisa4C } from '../src/pages/04-pesquisa/PAGE';
+import { manifesto5A } from '../src/pages/05-manifesto/PAGE';
+import { noticias6A, noticias6B } from '../src/pages/06-noticias/PAGE';
+import { apoie7A } from '../src/pages/07-apoie/PAGE';
+import { auxiliares8A } from '../src/pages/08-auxiliares/PAGE';
 
 describe('LCR — mapa de páginas, seções e cards', () => {
   it('mantém o espelho de páginas ligado às seções canônicas', () => {
@@ -14,6 +22,45 @@ describe('LCR — mapa de páginas, seções e cards', () => {
     expect(manifestIds.sort()).toEqual(publishedIds.sort());
     expect(pageManifests.map(({ route }) => route)).toContain('/instituto');
     expect(auxiliaryRoutes).toContain('/privacidade');
+  });
+
+  it('expõe todas as áreas numeradas como arquivos navegáveis', () => {
+    const areas = [
+      home1A,
+      home1B,
+      home1C,
+      instituto2A,
+      instituto2B,
+      parceiros3A,
+      pesquisa4A,
+      pesquisa4B,
+      pesquisa4C,
+      manifesto5A,
+      noticias6A,
+      noticias6B,
+      apoie7A,
+      auxiliares8A,
+    ];
+    const mirroredIds = areas.flatMap(({ sections }) => sections.map(({ id }) => id));
+
+    expect(areas.map(({ code }) => code)).toEqual([
+      '1A',
+      '1B',
+      '1C',
+      '2A',
+      '2B',
+      '3A',
+      '4A',
+      '4B',
+      '4C',
+      '5A',
+      '6A',
+      '6B',
+      '7A',
+      '8A',
+    ]);
+    expect(new Set(mirroredIds).size).toBe(mirroredIds.length);
+    expect(mirroredIds.sort()).toEqual(siteSections.map(({ id }) => id).sort());
   });
   it('mantém a numeração pública do menu de 1 a 7, sem duplicações', () => {
     expect(siteMenu.map((item) => item.id)).toEqual(['1', '2', '3', '4', '5', '6', '7']);
