@@ -1,83 +1,61 @@
-import {
-  Suspense,
-  lazy,
-  useEffect,
-  useRef,
-  useState,
-  type RefObject,
-} from "react";
-import { flushSync } from "react-dom";
-import { Link } from "react-router-dom";
-import {
-  ArrowUpRight,
-  ArrowDown,
-  Network,
-  Compass,
-  BookOpen,
-} from "lucide-react";
-import { Action, TextLink, Intro, Heading, External } from "../components/ui";
-import { ActionCard, InfoCard } from "../components/cards";
-import { assetUrl } from "../lib/siteAssets";
-import PartnerEcosystem from "./PartnerEcosystem";
+import { Suspense, lazy, useEffect, useRef, useState, type RefObject } from 'react';
+import { flushSync } from 'react-dom';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-react';
+import { Action, TextLink, Intro, Heading, External } from '../components/ui';
+import { ActionCard, InfoCard } from '../components/cards';
+import { assetUrl } from '../lib/siteAssets';
+import PartnerEcosystem from './PartnerEcosystem';
 import {
   HomeAtomEntrance,
   PhotonIdentityAnimation,
   type PhotonIdentityPhase,
-} from "../components/animations";
-import InstituteTeamDashboard from "../pages/02-instituto/sections/InstituteTeamDashboard";
-import InstitutePurpose from "../pages/02-instituto/sections/InstitutePurpose";
-import { FoundationTeaser } from "./foundation";
-import { odqs, cartas, methodology } from "./manifesto-content";
-import OfficialStatements from "./OfficialStatements";
-import ManifestoHero from "./ManifestoHero";
-const ManifestoMedia = lazy(() => import("./ManifestoMedia"));
+} from '../components/animations';
+import InstituteTeamDashboard from '../pages/02-instituto/sections/InstituteTeamDashboard';
+import InstitutePurpose from '../pages/02-instituto/sections/InstitutePurpose';
+import { FoundationTeaser } from './foundation';
+import { odqs, cartas, methodology } from './manifesto-content';
+import OfficialStatements from './OfficialStatements';
+import ManifestoHero from './ManifestoHero';
+const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
 
 export function Home() {
   const programs = [
     {
-      title: "Pesquisa, Desenvolvimento e Inovação",
-      description:
-        "Investigação científica e pesquisa aplicada em tecnologias quânticas.",
-      to: "/pesquisa",
+      title: 'Pesquisa, Desenvolvimento e Inovação',
+      description: 'Investigação científica e pesquisa aplicada em tecnologias quânticas.',
+      to: '/pesquisa',
     },
     {
-      title: "Quantum for Business",
-      description:
-        "Diálogo entre conhecimento científico, estratégia e organizações.",
-      to: "/contato",
+      title: 'Quantum for Business',
+      description: 'Diálogo entre conhecimento científico, estratégia e organizações.',
+      to: '/contato',
     },
     {
-      title: "Manifesto Quântico Nacional",
-      description:
-        "Articulação de uma agenda nacional e acesso às cartas e registros públicos.",
-      to: "/manifesto",
+      title: 'Manifesto Quântico Nacional',
+      description: 'Articulação de uma agenda nacional e acesso às cartas e registros públicos.',
+      to: '/manifesto',
     },
     {
-      title: "Jornada do Cientista Inovador",
-      description: "Formação, conexões e aproximação de pessoas com a ciência.",
-      to: "/pesquisa/jornada",
+      title: 'Jornada do Cientista Inovador',
+      description: 'Formação, conexões e aproximação de pessoas com a ciência.',
+      to: '/pesquisa/jornada',
     },
   ];
   return (
     <>
-      <section
-        className="home-hero home-hero-minimal"
-        id="inicio-capa"
-        data-lcr-section-id="1.1"
-      >
+      <section className="home-hero home-hero-minimal" id="inicio-capa" data-lcr-section-id="1.1">
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">
               <span /> Instituto Foton · Ciências e Tecnologias Quânticas
             </p>
             <h1>
-              Transformar ciência de fronteira em{" "}
-              <em>decisões, soluções e oportunidades.</em>
+              Transformar ciência de fronteira em <em>decisões, soluções e oportunidades.</em>
             </h1>
             <p className="hero-description">
-              Tecnologia através da ciência. Articulamos conhecimento, formação
-              e pesquisa para aproximar as tecnologias quânticas de desafios
-              reais da sociedade.
+              Tecnologia através da ciência. Articulamos conhecimento, formação e pesquisa para
+              aproximar as tecnologias quânticas de desafios reais da sociedade.
             </p>
             <div className="actions">
               <Action to="/instituto">Conheça o Foton</Action>
@@ -91,30 +69,20 @@ export function Home() {
         </div>
       </section>
 
-      <section
-        className="section spectral-divider"
-        id="porque-existe"
-        data-lcr-section-id="1.2"
-      >
+      <section className="section spectral-divider" id="porque-existe" data-lcr-section-id="1.2">
         <div className="container split">
-          <Heading
-            eyebrow="Por que o Foton existe?"
-            title="A Era Quântica Já Começou."
-          />
+          <Heading eyebrow="Por que o Foton existe?" title="A Era Quântica Já Começou." />
           <div className="body-copy">
             <blockquote>
-              “Transformar ciência de fronteira em decisões, soluções e
-              oportunidades.”
+              “Transformar ciência de fronteira em decisões, soluções e oportunidades.”
             </blockquote>
             <p>
-              O Foton busca articular inteligência estratégica, educação,
-              pesquisa aplicada e diálogo entre ciência, organizações e
-              sociedade.
+              O Foton busca articular inteligência estratégica, educação, pesquisa aplicada e
+              diálogo entre ciência, organizações e sociedade.
             </p>
             <p>
-              As tecnologias quânticas abrem novas perspectivas para
-              comunicação, segurança, saúde, energia e indústria. O Foton
-              articula conhecimento, pesquisa e diálogo em torno dessas
+              As tecnologias quânticas abrem novas perspectivas para comunicação, segurança, saúde,
+              energia e indústria. O Foton articula conhecimento, pesquisa e diálogo em torno dessas
               transformações.
             </p>
           </div>
@@ -128,16 +96,12 @@ export function Home() {
       >
         <div className="container">
           <div className="heading-row">
-            <Heading
-              eyebrow="Ecossistema Foton"
-              title="Ciência conectada em diferentes regiões."
-            />
+            <Heading eyebrow="Ecossistema Foton" title="Ciência conectada em diferentes regiões." />
             <TextLink to="/instituto">Sobre a rede</TextLink>
           </div>
           <p className="section-description">
-            O Foton reúne trajetórias de diferentes áreas do conhecimento e
-            conecta pessoas, pesquisadores e instituições em diferentes regiões
-            do Brasil.
+            O Foton reúne trajetórias de diferentes áreas do conhecimento e conecta pessoas,
+            pesquisadores e instituições em diferentes regiões do Brasil.
           </p>
           <div className="documentary-metrics institutional-metrics">
             <InfoCard as="div" inheritVisuals catalogId="1.3.C1">
@@ -148,28 +112,18 @@ export function Home() {
               <strong>140+</strong>
               <span>membros registrados</span>
             </InfoCard>
-            <p className="metrics-source">
-              Indicadores institucionais da rede Foton.
-            </p>
+            <p className="metrics-source">Indicadores institucionais da rede Foton.</p>
           </div>
         </div>
       </section>
 
-      <section
-        className="section spectral-divider"
-        id="frentes"
-        data-lcr-section-id="1.4"
-      >
+      <section className="section spectral-divider" id="frentes" data-lcr-section-id="1.4">
         <div className="container">
           <div className="heading-row">
-            <Heading
-              eyebrow="Frentes e programas"
-              title="Do conhecimento à articulação."
-            />
+            <Heading eyebrow="Frentes e programas" title="Do conhecimento à articulação." />
           </div>
           <p className="section-description">
-            Conheça as frentes de pesquisa, formação, inovação e articulação do
-            Foton.
+            Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.
           </p>
           <div className="research-grid institutional-programs">
             {programs.map((program, index) => (
@@ -180,9 +134,7 @@ export function Home() {
                 catalogId={`1.4.C${index + 1}`}
               >
                 <div className="card-top">
-                  <span className="number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  <span className="number">{String(index + 1).padStart(2, '0')}</span>
                   <ArrowUpRight size={21} aria-hidden="true" />
                 </div>
                 <h3>{program.title}</h3>
@@ -203,10 +155,7 @@ export function Home() {
       >
         <div className="container presentation-feature-layout">
           <div className="presentation-feature-copy">
-            <Heading
-              eyebrow="Documento institucional"
-              title="Conheça a apresentação do Foton."
-            />
+            <Heading eyebrow="Documento institucional" title="Conheça a apresentação do Foton." />
           </div>
           <div className="presentation-feature-media">
             <Link
@@ -218,9 +167,7 @@ export function Home() {
               <span className="presentation-preview-stack">
                 <img
                   className="presentation-preview-image presentation-preview-back"
-                  src={assetUrl(
-                    "assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp",
-                  )}
+                  src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp')}
                   alt="Segunda página da apresentação institucional do Foton"
                   width={1200}
                   height={675}
@@ -229,26 +176,20 @@ export function Home() {
                 />
                 <img
                   className="presentation-preview-image presentation-preview-front"
-                  src={assetUrl(
-                    "assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp",
-                  )}
+                  src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp')}
                   alt="Capa oficial da apresentação institucional do Foton"
                   width={1200}
                   height={675}
                   loading="lazy"
                   decoding="async"
                 />
-                <span
-                  className="presentation-preview-action"
-                  aria-hidden="true"
-                >
+                <span className="presentation-preview-action" aria-hidden="true">
                   Visualizar apresentação <ArrowUpRight size={20} />
                 </span>
               </span>
             </Link>
             <p className="presentation-preview-caption">
-              Clique na imagem para acessar o PDF da apresentação institucional
-              do Foton.
+              Clique na imagem para acessar o PDF da apresentação institucional do Foton.
             </p>
           </div>
         </div>
@@ -265,8 +206,8 @@ export function Home() {
           <Heading eyebrow="Contato" title="Converse com o Foton." />
           <div className="body-copy">
             <p>
-              Converse com o Foton sobre ciência, pesquisa, colaboração e novas
-              conexões pelos nossos canais de contato.
+              Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos
+              nossos canais de contato.
             </p>
             <div className="institutional-contact-actions">
               <Action to="/contato">Canais de contato</Action>
@@ -296,22 +237,11 @@ function InstituteLightPath({
     const line = path.current;
     const light = pulse.current;
     const mark = artwork.current;
-    const title = wrapper?.querySelector<HTMLElement>(".page-intro h1");
-    const historyTitle = wrapper?.querySelector<HTMLElement>(
-      ".institute-history h2",
-    );
-    if (
-      !wrapper ||
-      !drawing ||
-      !line ||
-      !light ||
-      !mark ||
-      !title ||
-      !historyTitle
-    )
-      return;
+    const title = wrapper?.querySelector<HTMLElement>('.page-intro h1');
+    const historyTitle = wrapper?.querySelector<HTMLElement>('.institute-history h2');
+    if (!wrapper || !drawing || !line || !light || !mark || !title || !historyTitle) return;
 
-    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
     let needsLayout = true;
     let needsInitialPosition = true;
@@ -338,37 +268,25 @@ function InstituteLightPath({
       };
       const titleAt = relative(title);
       const historyAt = relative(historyTitle);
-      drawing.setAttribute("viewBox", `0 0 ${bounds.width} ${bounds.height}`);
+      drawing.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
 
       // Enquanto carrega, calcula a mesma projeção xMidYMid meet do SVG aprovado.
       const stageBounds = mark.getBoundingClientRect();
-      const scale = Math.min(
-        stageBounds.width / 2512,
-        stageBounds.height / 750,
-      );
-      const artworkToScreen = mark.shadowRoot
-        ?.querySelector("svg")
-        ?.getScreenCTM();
+      const scale = Math.min(stageBounds.width / 2512, stageBounds.height / 750);
+      const artworkToScreen = mark.shadowRoot?.querySelector('svg')?.getScreenCTM();
       const impactOnScreen = artworkToScreen
         ? new DOMPoint(161, 160).matrixTransform(artworkToScreen)
         : new DOMPoint(
-            stageBounds.left +
-              (stageBounds.width - 2512 * scale) / 2 +
-              (161 + 66) * scale,
-            stageBounds.top +
-              (stageBounds.height - 750 * scale) / 2 +
-              (160 + 79) * scale,
+            stageBounds.left + (stageBounds.width - 2512 * scale) / 2 + (161 + 66) * scale,
+            stageBounds.top + (stageBounds.height - 750 * scale) / 2 + (160 + 79) * scale,
           );
       const drawingToScreen = drawing.getScreenCTM();
       if (!drawingToScreen) return;
       const impact = impactOnScreen.matrixTransform(drawingToScreen.inverse());
-      const approachX = Math.max(
-        8,
-        stageBounds.left - bounds.left - bounds.width * 0.18,
-      );
+      const approachX = Math.max(8, stageBounds.left - bounds.left - bounds.width * 0.18);
 
       line.setAttribute(
-        "d",
+        'd',
         `M ${Math.max(26, titleAt.x - title.offsetWidth / 2)} 10
          C ${bounds.width * 0.04} ${titleAt.y * 0.18}, ${bounds.width * 0.98} ${titleAt.y * 0.34}, ${bounds.width * 0.9} ${titleAt.y}
          C ${bounds.width * 1.08} ${historyAt.y * 0.5}, ${bounds.width * 0.08} ${historyAt.y * 0.58}, ${historyAt.x} ${historyAt.y}
@@ -398,21 +316,17 @@ function InstituteLightPath({
         restoreScroll = false;
         if (!location.hash && resumeAtIdentity) {
           // A posição pode ser restaurada antes de a rota React ter altura suficiente.
-          window.scrollTo({ top: saved, behavior: "instant" });
+          window.scrollTo({ top: saved, behavior: 'instant' });
         }
       }
       const scrollTop = scrollY;
-      if (
-        initialPosition &&
-        (location.hash === "#identidade-foton" || resumeAtIdentity)
-      ) {
+      if (initialPosition && (location.hash === '#identidade-foton' || resumeAtIdentity)) {
         arrived = true;
-        onPhaseChange("static");
+        onPhaseChange('static');
       }
       const reachedImpact = scrollTop >= end;
       const impactInView =
-        impactDocumentY >= scrollTop &&
-        impactDocumentY < scrollTop + innerHeight;
+        impactDocumentY >= scrollTop && impactDocumentY < scrollTop + innerHeight;
       const artworkStatus = mark.dataset.artworkStatus;
       const waitingForArtwork =
         !initialPosition &&
@@ -420,38 +334,28 @@ function InstituteLightPath({
         reachedImpact &&
         impactInView &&
         artworkStatus === undefined;
-      const progress = Math.max(
-        0,
-        Math.min(1, (scrollTop - start) / Math.max(end - start, 1)),
-      );
+      const progress = Math.max(0, Math.min(1, (scrollTop - start) / Math.max(end - start, 1)));
       // Mantém o último trecho em espera se o scroll chegar antes dos bytes do SVG.
-      const travelled = waitingForArtwork
-        ? Math.max(0, length - 8)
-        : length * progress;
+      const travelled = waitingForArtwork ? Math.max(0, length - 8) : length * progress;
       line.style.strokeDashoffset = String(1 - travelled / length);
       line.style.opacity = String(Math.min(0.28, 0.05 + progress * 0.24));
       const point = line.getPointAtLength(travelled);
-      light.setAttribute("cx", String(point.x));
-      light.setAttribute("cy", String(point.y));
+      light.setAttribute('cx', String(point.x));
+      light.setAttribute('cy', String(point.y));
 
       const impact = !arrived && travelled === length;
       if (impact || (scrollTop >= restoreFrom && !resumeAtIdentity)) {
         // Guarda a posição deste item de navegação antes de um possível recarregamento.
-        history.replaceState(
-          { ...history.state, instituteIdentityScroll: scrollTop },
-          "",
-        );
+        history.replaceState({ ...history.state, instituteIdentityScroll: scrollTop }, '');
       }
       if (impact) {
         arrived = true;
         const phase =
-          !initialPosition && impactInView && artworkStatus === "ready"
-            ? "playing"
-            : "static";
+          !initialPosition && impactInView && artworkStatus === 'ready' ? 'playing' : 'static';
         // Aplica a fase antes do quadro que esconde a partícula no centro da estrela.
         flushSync(() => onPhaseChange(phase));
       }
-      light.style.opacity = !arrived && progress > 0.015 ? "1" : "0";
+      light.style.opacity = !arrived && progress > 0.015 ? '1' : '0';
     };
 
     const schedule = () => {
@@ -464,7 +368,7 @@ function InstituteLightPath({
     const motionChanged = () => {
       if (motion.matches) {
         arrived = true;
-        onPhaseChange("static");
+        onPhaseChange('static');
       }
       relayout();
     };
@@ -475,34 +379,29 @@ function InstituteLightPath({
     };
     const savePosition = () => {
       if (Number.isFinite(history.state?.instituteIdentityScroll)) {
-        history.replaceState(
-          { ...history.state, instituteIdentityScroll: scrollY },
-          "",
-        );
+        history.replaceState({ ...history.state, instituteIdentityScroll: scrollY }, '');
       }
     };
     const resize = new ResizeObserver(relayout);
-    [wrapper, title, historyTitle, mark].forEach((element) =>
-      resize.observe(element),
-    );
+    [wrapper, title, historyTitle, mark].forEach((element) => resize.observe(element));
     const load = new MutationObserver(relayout);
-    load.observe(mark, { attributeFilter: ["data-artwork-status"] });
-    if (document.readyState === "complete") restoreScroll = true;
+    load.observe(mark, { attributeFilter: ['data-artwork-status'] });
+    if (document.readyState === 'complete') restoreScroll = true;
     schedule();
-    addEventListener("scroll", schedule, { passive: true });
-    addEventListener("resize", relayout);
-    addEventListener("pageshow", restorePosition);
-    addEventListener("pagehide", savePosition);
-    motion.addEventListener("change", motionChanged);
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', relayout);
+    addEventListener('pageshow', restorePosition);
+    addEventListener('pagehide', savePosition);
+    motion.addEventListener('change', motionChanged);
     return () => {
       if (frame) cancelAnimationFrame(frame);
       resize.disconnect();
       load.disconnect();
-      removeEventListener("scroll", schedule);
-      removeEventListener("resize", relayout);
-      removeEventListener("pageshow", restorePosition);
-      removeEventListener("pagehide", savePosition);
-      motion.removeEventListener("change", motionChanged);
+      removeEventListener('scroll', schedule);
+      removeEventListener('resize', relayout);
+      removeEventListener('pageshow', restorePosition);
+      removeEventListener('pagehide', savePosition);
+      motion.removeEventListener('change', motionChanged);
     };
   }, [artwork, onPhaseChange]);
 
@@ -510,13 +409,7 @@ function InstituteLightPath({
     <div ref={root} className="institute-light-path" aria-hidden="true">
       <svg ref={svg} preserveAspectRatio="none" focusable="false">
         <defs>
-          <linearGradient
-            id="institute-light-spectrum"
-            x1="0"
-            y1="0"
-            x2="1"
-            y2="1"
-          >
+          <linearGradient id="institute-light-spectrum" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#ffffff" />
             <stop offset=".24" stopColor="#00c5d8" />
             <stop offset=".52" stopColor="#006cff" />
@@ -534,19 +427,15 @@ function InstituteLightPath({
 export function Institute() {
   const identityArtwork = useRef<HTMLDivElement>(null);
   const [identityPhase, setIdentityPhase] = useState<PhotonIdentityPhase>(() =>
-    matchMedia("(prefers-reduced-motion: reduce)").matches ||
-    location.hash === "#identidade-foton"
-      ? "static"
-      : "approach",
+    matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash === '#identidade-foton'
+      ? 'static'
+      : 'approach',
   );
 
   return (
     <>
       <div className="institute-story">
-        <InstituteLightPath
-          artwork={identityArtwork}
-          onPhaseChange={setIdentityPhase}
-        />
+        <InstituteLightPath artwork={identityArtwork} onPhaseChange={setIdentityPhase} />
         <Intro
           eyebrow="O Instituto"
           title="Ciência que aproxima. Conhecimento que transforma."
@@ -554,8 +443,8 @@ export function Institute() {
           sectionCode="2.A.1"
         >
           <p>
-            Somos uma rede que conecta pessoas, instituições e diferentes áreas
-            do conhecimento em torno da ciência quântica.
+            Somos uma rede que conecta pessoas, instituições e diferentes áreas do conhecimento em
+            torno da ciência quântica.
           </p>
         </Intro>
         <section
@@ -564,38 +453,25 @@ export function Institute() {
           data-lcr-section-id="2.A.2"
         >
           <div className="container split">
-            <Heading
-              eyebrow="Nossa história"
-              title="Uma inquietação que se tornou encontro."
-            />
+            <Heading eyebrow="Nossa história" title="Uma inquietação que se tornou encontro." />
             <div className="body-copy">
               <p>
-                O Instituto de Ciências e Tecnologias Quânticas articula
-                pesquisadores, profissionais e organizações para aproximar
-                ciência de fronteira de decisões, soluções e oportunidades.
+                O Instituto de Ciências e Tecnologias Quânticas articula pesquisadores,
+                profissionais e organizações para aproximar ciência de fronteira de decisões,
+                soluções e oportunidades.
               </p>
               <p>
-                A atuação multidisciplinar do Foton conecta ciência, educação e
-                articulação institucional, aproximando diferentes áreas do
-                conhecimento.
+                A atuação multidisciplinar do Foton conecta ciência, educação e articulação
+                institucional, aproximando diferentes áreas do conhecimento.
               </p>
             </div>
           </div>
         </section>
-        <section
-          className="section section-gray photon-section"
-          data-lcr-section-id="2.A.3"
-        >
+        <section className="section section-gray photon-section" data-lcr-section-id="2.A.3">
           <div className="quantum-signature" aria-hidden="true">
-            <span className="quantum-equation equation-wave">
-              iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩
-            </span>
+            <span className="quantum-equation equation-wave">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</span>
             <span className="quantum-equation equation-photon">E = hν</span>
-            <svg
-              className="spectrum-wave"
-              viewBox="0 0 720 120"
-              preserveAspectRatio="none"
-            >
+            <svg className="spectrum-wave" viewBox="0 0 720 120" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="foton-spectrum" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0" stopColor="#6f36ff" />
@@ -618,18 +494,15 @@ export function Institute() {
             <i className="quantum-particle particle-three" />
           </div>
           <div className="container split">
-            <PhotonIdentityAnimation
-              artwork={identityArtwork}
-              phase={identityPhase}
-            />
+            <PhotonIdentityAnimation artwork={identityArtwork} phase={identityPhase} />
             <div>
               <Heading
                 eyebrow="Por que Foton?"
                 title="Um nome que carrega uma ideia de movimento."
               />
               <p>
-                O fóton é a partícula elementar da luz. Para o Foton, o nome
-                simboliza ciência, conexão e transformação.
+                O fóton é a partícula elementar da luz. Para o Foton, o nome simboliza ciência,
+                conexão e transformação.
               </p>
               <blockquote>
                 “Foton é luz. É ciência em movimento. É tecnologia com direção.”
@@ -640,40 +513,24 @@ export function Institute() {
       </div>
       <FoundationTeaser />
       <InstitutePurpose />
-      <section
-        className="section"
-        id="frentes-articulacao"
-        data-lcr-section-id="2.A.6"
-      >
+      <section className="section" id="frentes-articulacao" data-lcr-section-id="2.A.6">
         <div className="container">
-          <Heading
-            eyebrow="Frentes de articulação"
-            title="Ciência, formação e estratégia."
-          />
+          <Heading eyebrow="Frentes de articulação" title="Ciência, formação e estratégia." />
           <div className="three-grid">
             <InfoCard as="div" className="info-card" catalogId="2.A.6.C1">
               <BookOpen aria-hidden="true" />
               <h3>Educação e formação</h3>
-              <p>
-                Promover a aproximação entre conhecimento científico, formação e
-                sociedade.
-              </p>
+              <p>Promover a aproximação entre conhecimento científico, formação e sociedade.</p>
             </InfoCard>
             <InfoCard as="div" className="info-card" catalogId="2.A.6.C2">
               <Compass aria-hidden="true" />
               <h3>Pesquisa aplicada</h3>
-              <p>
-                Articular temas de investigação e colaboração entre diferentes
-                áreas.
-              </p>
+              <p>Articular temas de investigação e colaboração entre diferentes áreas.</p>
             </InfoCard>
             <InfoCard as="div" className="info-card" catalogId="2.A.6.C3">
               <Network aria-hidden="true" />
               <h3>Inteligência estratégica</h3>
-              <p>
-                Conectar conhecimento e análise a decisões de organizações e
-                sociedade.
-              </p>
+              <p>Conectar conhecimento e análise a decisões de organizações e sociedade.</p>
             </InfoCard>
           </div>
         </div>
@@ -685,34 +542,23 @@ export function Institute() {
 }
 
 const manifestoFormUrl =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeYr2fuajfrVqG4fnEH4Gitja26eao_7hf7ybqRWfB98pgNgg/viewform";
+  'https://docs.google.com/forms/d/e/1FAIpQLSeYr2fuajfrVqG4fnEH4Gitja26eao_7hf7ybqRWfB98pgNgg/viewform';
 
-function ManifestoParticipation({
-  placement,
-}: {
-  placement: "top" | "bottom";
-}) {
+function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) {
   return (
     <section
       className={`section manifesto-participation manifesto-participation--${placement}`}
-      id={
-        placement === "top"
-          ? "contribuir-manifesto"
-          : "contribuir-manifesto-final"
-      }
-      data-lcr-section-id={placement === "top" ? "5.2" : "5.10"}
+      id={placement === 'top' ? 'contribuir-manifesto' : 'contribuir-manifesto-final'}
+      data-lcr-section-id={placement === 'top' ? '5.2' : '5.10'}
       aria-labelledby={`manifesto-participation-${placement}`}
     >
       <div className="container manifesto-participation-layout">
         <div className="manifesto-participation-copy">
           <span className="eyebrow">Sua voz faz parte dessa construção</span>
-          <h2 id={`manifesto-participation-${placement}`}>
-            Venha contribuir com o Manifesto.
-          </h2>
+          <h2 id={`manifesto-participation-${placement}`}>Venha contribuir com o Manifesto.</h2>
           <p>
-            Você também pode participar. Você também pode contribuir com o
-            Manifesto Quântico Nacional. Basta clicar no formulário e
-            compartilhar suas ideias.
+            Você também pode participar. Você também pode contribuir com o Manifesto Quântico
+            Nacional. Basta clicar no formulário e compartilhar suas ideias.
           </p>
           <p className="manifesto-participation-hint">
             <span>Consulta pública e gratuita</span>
@@ -720,13 +566,13 @@ function ManifestoParticipation({
             <span>Reserve cerca de 5 a 10 minutos (estimativa)</span>
           </p>
           <p className="manifesto-participation-note">
-            O tempo de preenchimento pode variar conforme o conteúdo das suas
-            respostas. O formulário abre em uma nova aba do Google Forms.
+            O tempo de preenchimento pode variar conforme o conteúdo das suas respostas. O
+            formulário abre em uma nova aba do Google Forms.
           </p>
         </div>
         <a
           className="manifesto-form-link"
-          data-lcr-card-id={placement === "top" ? "5.2.C1" : "5.10.C1"}
+          data-lcr-card-id={placement === 'top' ? '5.2.C1' : '5.10.C1'}
           href={manifestoFormUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -743,19 +589,14 @@ function ManifestoParticipation({
             <span className="manifesto-form-sheet manifesto-form-sheet--front">
               <span className="manifesto-form-sheet-top" />
               <span className="manifesto-form-icon">✦</span>
-              <span className="manifesto-form-title">
-                Sua contribuição importa.
-              </span>
-              <span className="manifesto-form-caption">
-                Manifesto Quântico Nacional
-              </span>
+              <span className="manifesto-form-title">Sua contribuição importa.</span>
+              <span className="manifesto-form-caption">Manifesto Quântico Nacional</span>
               <span className="manifesto-form-line" />
               <span className="manifesto-form-line manifesto-form-line--short" />
               <span className="manifesto-form-radio" />
             </span>
             <span className="manifesto-form-action">
-              Responder ao formulário{" "}
-              <ArrowUpRight size={18} aria-hidden="true" />
+              Responder ao formulário <ArrowUpRight size={18} aria-hidden="true" />
             </span>
           </span>
           <span className="manifesto-form-link-caption">
@@ -781,11 +622,7 @@ export function Manifesto() {
           <a href="#odqs">11 ODQs</a>
         </div>
       </div>
-      <section
-        className="section"
-        id="sobre-manifesto"
-        data-lcr-section-id="5.4"
-      >
+      <section className="section" id="sobre-manifesto" data-lcr-section-id="5.4">
         <div className="container split manifesto-overview">
           <div className="body-copy">
             <Heading
@@ -793,19 +630,15 @@ export function Manifesto() {
               title="Ciência, governo, empresas e sociedade em diálogo."
             />
             <p>
-              O Manifesto Quântico Nacional é um movimento que une ciência,
-              governo, empresas e sociedade para construir uma agenda
-              estratégica de tecnologias quânticas no Brasil.
+              O Manifesto Quântico Nacional é um movimento que une ciência, governo, empresas e
+              sociedade para construir uma agenda estratégica de tecnologias quânticas no Brasil.
             </p>
             <p>
-              É uma iniciativa colaborativa, conduzida pelo Foton, para
-              transformar conhecimento em direção, impacto e soberania
-              tecnológica.
+              É uma iniciativa colaborativa, conduzida pelo Foton, para transformar conhecimento em
+              direção, impacto e soberania tecnológica.
             </p>
           </div>
-          <Suspense
-            fallback={<div className="media-placeholder" aria-hidden="true" />}
-          >
+          <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
             <ManifestoMedia kind="overview" />
           </Suspense>
         </div>
@@ -816,63 +649,40 @@ export function Manifesto() {
         data-lcr-section-id="5.5"
       >
         <div className="container split">
-          <Suspense
-            fallback={<div className="media-placeholder" aria-hidden="true" />}
-          >
+          <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
             <ManifestoMedia kind="importance" />
           </Suspense>
           <div className="body-copy">
-            <Heading
-              eyebrow="O futuro já começou"
-              title="Por que isso é importante?"
-            />
+            <Heading eyebrow="O futuro já começou" title="Por que isso é importante?" />
             <p>
-              Tecnologias quânticas já moldam segurança, economia e inovação no
-              mundo. O Brasil tem base científica forte, mas falta integrar
-              esforços.
+              Tecnologias quânticas já moldam segurança, economia e inovação no mundo. O Brasil tem
+              base científica forte, mas falta integrar esforços.
             </p>
             <p>
-              O Manifesto organiza essa convergência para que o país lidere, e
-              não apenas acompanhe, a nova era tecnológica.
+              O Manifesto organiza essa convergência para que o país lidere, e não apenas acompanhe,
+              a nova era tecnológica.
             </p>
           </div>
         </div>
       </section>
-      <section
-        className="section section-gray"
-        id="metodologia"
-        data-lcr-section-id="5.6"
-      >
+      <section className="section section-gray" id="metodologia" data-lcr-section-id="5.6">
         <div className="container">
           <div className="split manifesto-method-intro">
             <div>
-              <Heading
-                eyebrow="Como faremos isso"
-                title="Escuta regional. Articulação nacional."
-              />
+              <Heading eyebrow="Como faremos isso" title="Escuta regional. Articulação nacional." />
               <p className="section-description">
-                A construção é coletiva e nacional, com escuta ativa em todas as
-                regiões do país. As contribuições de especialistas conduzem a
-                criação das Cartas Macrorregionais e orientam os 11 Objetivos de
-                Desenvolvimento Quântico, que guiam a ação do Manifesto.
+                A construção é coletiva e nacional, com escuta ativa em todas as regiões do país. As
+                contribuições de especialistas conduzem a criação das Cartas Macrorregionais e
+                orientam os 11 Objetivos de Desenvolvimento Quântico, que guiam a ação do Manifesto.
               </p>
             </div>
-            <Suspense
-              fallback={
-                <div className="media-placeholder" aria-hidden="true" />
-              }
-            >
+            <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
               <ManifestoMedia kind="method" />
             </Suspense>
           </div>
           <ol className="methodology">
             {methodology.map((step, index) => (
-              <InfoCard
-                as="li"
-                inheritVisuals
-                key={step.num}
-                catalogId={`5.6.C${index + 1}`}
-              >
+              <InfoCard as="li" inheritVisuals key={step.num} catalogId={`5.6.C${index + 1}`}>
                 <span className="number">0{step.num}</span>
                 <div>
                   <h3>{step.title}</h3>
@@ -885,13 +695,10 @@ export function Manifesto() {
       </section>
       <section className="section" id="cartas" data-lcr-section-id="5.7">
         <div className="container">
-          <Heading
-            eyebrow="Cinco macrorregiões"
-            title="O Brasil em muitas vozes."
-          />
+          <Heading eyebrow="Cinco macrorregiões" title="O Brasil em muitas vozes." />
           <p className="section-description">
-            As Cartas reúnem perspectivas regionais na construção do Manifesto.
-            Conheça os relatos de cada região.
+            As Cartas reúnem perspectivas regionais na construção do Manifesto. Conheça os relatos
+            de cada região.
           </p>
           <div className="regional-letters">
             {cartas.map((carta, index) => (
@@ -907,16 +714,8 @@ export function Manifesto() {
                   <h3>{carta.region}</h3>
                   <p>{carta.text}</p>
                 </div>
-                <Suspense
-                  fallback={
-                    <div className="media-placeholder" aria-hidden="true" />
-                  }
-                >
-                  <ManifestoMedia
-                    kind="letter"
-                    region={carta.region}
-                    caption={carta.text}
-                  />
+                <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
+                  <ManifestoMedia kind="letter" region={carta.region} caption={carta.text} />
                 </Suspense>
               </InfoCard>
             ))}
@@ -934,21 +733,15 @@ export function Manifesto() {
             title="Visitas técnicas que aproximam o ecossistema."
           />
           <p className="section-description">
-            Registros de encontros com pesquisadores, instituições, empresas e
-            ambientes de inovação em diferentes regiões do país.
+            Registros de encontros com pesquisadores, instituições, empresas e ambientes de inovação
+            em diferentes regiões do país.
           </p>
-          <Suspense
-            fallback={<div className="media-placeholder" aria-hidden="true" />}
-          >
+          <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
             <ManifestoMedia kind="visits" />
           </Suspense>
         </div>
       </section>
-      <section
-        className="section section-gray"
-        id="odqs"
-        data-lcr-section-id="5.9"
-      >
+      <section className="section section-gray" id="odqs" data-lcr-section-id="5.9">
         <div className="container">
           <Heading
             eyebrow="Objetivos de Desenvolvimento Quântico"
@@ -963,12 +756,10 @@ export function Manifesto() {
                 as="article"
                 inheritVisuals
                 catalogId={`5.9.C${odq.id}`}
-                className={`odq-card ${[6, 10].includes(odq.id) ? "odq-highlight" : ""}`}
+                className={`odq-card ${[6, 10].includes(odq.id) ? 'odq-highlight' : ''}`}
                 key={odq.id}
               >
-                <span className="number">
-                  ODQ {String(odq.id).padStart(2, "0")}
-                </span>
+                <span className="number">ODQ {String(odq.id).padStart(2, '0')}</span>
                 <h3>{odq.title}</h3>
                 <p>{odq.desc}</p>
               </InfoCard>
@@ -991,16 +782,16 @@ export function Contact() {
         sectionCode="8.1"
       >
         <p>
-          Pesquisa, educação, apoio à ciência, patrocínio ou imprensa: encontre
-          os canais do Instituto.
+          Pesquisa, educação, apoio à ciência, patrocínio ou imprensa: encontre os canais do
+          Instituto.
         </p>
       </Intro>
       <section className="section">
         <div className="container reading">
           <Heading title="Fale com o Foton" />
           <p>
-            Encontre os canais oficiais para conversar com a equipe sobre
-            pesquisa, educação, colaboração e iniciativas institucionais.
+            Encontre os canais oficiais para conversar com a equipe sobre pesquisa, educação,
+            colaboração e iniciativas institucionais.
           </p>
           <External href="https://institutofoton.com.br/" className="button">
             Acessar canais institucionais
@@ -1014,9 +805,7 @@ export function Contact() {
               <li>Patrocínio empresarial</li>
               <li>Imprensa</li>
             </ul>
-            <p>
-              Escolha o assunto e converse com o Foton pelos canais oficiais.
-            </p>
+            <p>Escolha o assunto e converse com o Foton pelos canais oficiais.</p>
           </div>
         </div>
       </section>
@@ -1028,12 +817,8 @@ export function Legal({ terms = false }: { terms?: boolean }) {
   return (
     <>
       <Intro
-        eyebrow={terms ? "Uso do portal" : "Privacidade"}
-        title={
-          terms
-            ? "Informação com responsabilidade."
-            : "Respeito às pessoas e seus dados."
-        }
+        eyebrow={terms ? 'Uso do portal' : 'Privacidade'}
+        title={terms ? 'Informação com responsabilidade.' : 'Respeito às pessoas e seus dados.'}
       />
       <section className="section">
         <div className="container reading">
@@ -1041,40 +826,37 @@ export function Legal({ terms = false }: { terms?: boolean }) {
             <>
               <h2>Sobre o conteúdo</h2>
               <p>
-                O portal reúne informações institucionais e científicas do
-                Instituto Foton. As informações educativas têm finalidade de
-                divulgação e comunicação científica.
+                O portal reúne informações institucionais e científicas do Instituto Foton. As
+                informações educativas têm finalidade de divulgação e comunicação científica.
               </p>
               <h2>Iniciativas e colaboração</h2>
               <p>
-                Para informações sobre atividades, cooperação e apoio à ciência,
-                utilize os canais oficiais do Instituto.
+                Para informações sobre atividades, cooperação e apoio à ciência, utilize os canais
+                oficiais do Instituto.
               </p>
               <h2>Fontes e referências</h2>
               <p>
-                A apresentação institucional está disponível para consulta
-                pública. Conteúdos de terceiros são identificados por suas
-                fontes quando aplicável.
+                A apresentação institucional está disponível para consulta pública. Conteúdos de
+                terceiros são identificados por suas fontes quando aplicável.
               </p>
             </>
           ) : (
             <>
               <h2>Navegação e informações técnicas</h2>
               <p>
-                O site disponibiliza páginas e documentos institucionais
-                públicos. O serviço de hospedagem pode processar registros
-                técnicos necessários ao funcionamento e à segurança da
-                navegação.
+                O site disponibiliza páginas e documentos institucionais públicos. O serviço de
+                hospedagem pode processar registros técnicos necessários ao funcionamento e à
+                segurança da navegação.
               </p>
               <h2>Contato institucional</h2>
               <p>
-                Questões sobre privacidade e tratamento de informações podem ser
-                encaminhadas pelos canais oficiais do Instituto Foton.
+                Questões sobre privacidade e tratamento de informações podem ser encaminhadas pelos
+                canais oficiais do Instituto Foton.
               </p>
               <h2>Sites e serviços externos</h2>
               <p>
-                Links para serviços externos seguem as políticas de privacidade
-                e os termos próprios de seus responsáveis.
+                Links para serviços externos seguem as políticas de privacidade e os termos próprios
+                de seus responsáveis.
               </p>
               <TextLink to="/contato">Canais institucionais</TextLink>
             </>
@@ -1088,14 +870,8 @@ export function Legal({ terms = false }: { terms?: boolean }) {
 export function NotFound() {
   return (
     <>
-      <Intro
-        eyebrow="Página não encontrada · 404"
-        title="Vamos encontrar outro caminho."
-      >
-        <p>
-          Confira o endereço ou utilize o menu para conhecer as páginas do
-          Instituto.
-        </p>
+      <Intro eyebrow="Página não encontrada · 404" title="Vamos encontrar outro caminho.">
+        <p>Confira o endereço ou utilize o menu para conhecer as páginas do Instituto.</p>
       </Intro>
       <section className="section">
         <div className="container">
