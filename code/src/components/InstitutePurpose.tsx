@@ -33,6 +33,7 @@ export default function InstitutePurpose() {
   return (
     <section
       id="por-que-existimos"
+      data-lcr-section-id="2.A.5"
       className="section institute-purpose"
       aria-labelledby="institute-purpose-title"
     >
