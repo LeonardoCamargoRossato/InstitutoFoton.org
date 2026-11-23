@@ -2,11 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { LogoGallery } from '../components/galleries/logo/LogoGallery';
 import { partnerLogoAssets } from '../content/partnerAssets';
-import {
-  partnerGroups,
-  publishedPartners,
-  safePartnerUrl,
-} from '../content/partners';
+import { partnerGroups, publishedPartners, safePartnerUrl } from '../content/partners';
 
 const approvedGroups = partnerGroups(publishedPartners());
 const logoGroups = approvedGroups.map((group) => ({
