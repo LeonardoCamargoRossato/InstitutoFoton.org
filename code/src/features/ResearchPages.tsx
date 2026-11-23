@@ -5,7 +5,7 @@ import researchMedia from '../content/research-media.json';
 import { assetUrl } from '../lib/siteAssets';
 import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from './content';
 import HaQuantumGallery from './HaQuantumGallery';
-import { ActionCard } from '../components/cards';
+import { ActionCard, InfoCard } from '../components/cards';
 import { NotFound } from './PublicPages';
 import '../styles/research-journey.css';
 
@@ -109,8 +109,13 @@ export function Research() {
             articuladas pelo Foton.
           </p>
           <div className="research-grid full-research">
-            {researchLines.map((line) => (
-              <ActionCard className="research-card" to={`/pesquisa/${line.slug}`} key={line.slug}>
+            {researchLines.map((line, index) => (
+              <ActionCard
+                className="research-card"
+                to={`/pesquisa/${line.slug}`}
+                key={line.slug}
+                catalogId={`4.A.2.C${index + 1}`}
+              >
                 <h3>{line.title}</h3>
                 <p>{line.summary}</p>
                 <span className="card-link">
@@ -277,11 +282,11 @@ export function Journey() {
             responsabilidades podem crescer ao longo da Jornada.
           </Heading>
           <ol className="pathway-steps" aria-label="Etapas do Quantum Pathway">
-            {pathway.map(({ name, summary }) => (
-              <li key={name}>
+            {pathway.map(({ name, summary }, index) => (
+              <InfoCard as="li" className="pathway-step" key={name} catalogId={`4.B.3.C${index + 1}`} inheritVisuals>
                 <h3>{name}</h3>
                 <p>{summary}</p>
-              </li>
+              </InfoCard>
             ))}
           </ol>
         </div>
