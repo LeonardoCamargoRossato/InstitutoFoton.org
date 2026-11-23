@@ -82,7 +82,7 @@ Atualizar **o catálogo original da página** com o par WebP/PNG e ID estável. 
 
 | Página                                                                               | Componente                                                 | Estado                            |
 | ------------------------------------------------------------------------------------ | ---------------------------------------------------------- | --------------------------------- |
-| `/noticias/lancamento-lacq-pucrs-instituto-foton` e outras reportagens com carrossel | `pages/noticias/sections/NewsCarousel.tsx`                 | Migrado                           |
+| `/noticias/lancamento-lacq-pucrs-instituto-foton` e outras reportagens com carrossel | `pages/06-noticias/sections/NewsCarousel.tsx`              | Migrado                           |
 | `/noticias/fundacao-instituto-foton`                                                 | `FoundationHistory.tsx` → `FoundationGallery`              | Migrado                           |
 | `/pesquisa/haquantum`                                                                | `HaQuantumGallery.tsx`                                     | Migrado                           |
 | `/manifesto` → Visitas Técnicas                                                      | `ManifestoMedia.tsx`                                       | Migrado                           |
