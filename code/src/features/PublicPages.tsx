@@ -147,14 +147,6 @@ export function Home() {
               </ActionCard>
             )}
           />
-                <h3>{program.title}</h3>
-                <p>{program.description}</p>
-                <span className="card-link">
-                  Saiba mais <ArrowUpRight size={18} aria-hidden="true" />
-                </span>
-              </ActionCard>
-            ))}
-          </div>
         </div>
       </section>
 
