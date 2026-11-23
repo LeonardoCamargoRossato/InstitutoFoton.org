@@ -21,5 +21,9 @@ export function BaseCard({
   const appearance = inheritVisuals
     ? legacyCardAppearance(className, false, catalogId)
     : { ...cardAppearance(className, estiloGrafico, false), 'data-lcr-card-id': catalogId };
-  return <Element {...appearance} title={title}>{children}</Element>;
+  return (
+    <Element {...appearance} title={title}>
+      {children}
+    </Element>
+  );
 }
