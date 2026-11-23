@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('Valores: animação de entrada permanece, mas o hover não altera cor, sombra ou escala', async ({ page }) => {
   await page.goto('./instituto');
+  await expect(page.locator('#valores')).toBeVisible();
   const values = page.locator('.values-keywords .value-keyword');
   await expect(values).toHaveCount(7);
   const first = values.first();
