@@ -1,3 +1,5 @@
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { siteMenu, siteSections, siteSectionLink } from '../src/content/siteStructure';
 import { siteCards } from '../src/content/siteCards';
@@ -12,6 +14,28 @@ import { apoie7A } from '../src/pages/07-apoie/PAGE';
 import { auxiliares8A } from '../src/pages/08-auxiliares/PAGE';
 
 describe('LCR — mapa de páginas, seções e cards', () => {
+  it('mantém navegáveis todos os links locais dos mapas visuais', () => {
+    const pagesRoot = resolve('src/pages');
+    const readmes = readdirSync(pagesRoot, { recursive: true })
+      .filter((entry) => String(entry).endsWith('README.md'))
+      .map((entry) => join(pagesRoot, String(entry)));
+    const missing: string[] = [];
+
+    for (const readme of readmes) {
+      const markdown = readFileSync(readme, 'utf8');
+      for (const match of markdown.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
+        const href = match[1];
+        if (/^(https?:|#)/.test(href)) continue;
+
+        const target = resolve(dirname(readme), decodeURIComponent(href.split('#')[0]));
+        if (!existsSync(target)) missing.push(`${readme}: ${href}`);
+      }
+    }
+
+    expect(readmes).toHaveLength(9);
+    expect(missing).toEqual([]);
+  });
+
   it('mantém o espelho de páginas ligado às seções canônicas', () => {
     const manifestIds = pageManifests.flatMap(({ sectionIds }) => [...sectionIds]);
     const publishedIds = siteSections
