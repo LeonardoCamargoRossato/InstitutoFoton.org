@@ -2,10 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('O Instituto: IDs LCR e sete valores informativos preservam animação', async ({ page }) => {
   await page.goto('./instituto');
-  const ids = [
-    '2.A.5.C1', '2.A.5.C2', '2.A.5.C3',
-    '2.A.6.C1', '2.A.6.C2', '2.A.6.C3',
-  ];
+  const ids = ['2.A.5.C1', '2.A.5.C2', '2.A.5.C3', '2.A.6.C1', '2.A.6.C2', '2.A.6.C3'];
   for (const id of ids) {
     const card = page.locator('[data-lcr-card-id="' + id + '"]');
     await expect(card).toHaveCount(1);
@@ -69,7 +66,10 @@ test('Notícias: cartão editorial mantém link interno e identidade', async ({ 
   await expect(cards.first()).toBeVisible();
   await expect(cards.first()).toHaveAttribute('data-lcr-card-id', /^6\.A\.2\.C-/);
   await expect(cards.first().locator('a')).toHaveCount(1);
-  await expect(page.locator('#noticias-publicacoes')).toHaveAttribute('data-lcr-section-id', '6.A.2');
+  await expect(page.locator('#noticias-publicacoes')).toHaveAttribute(
+    'data-lcr-section-id',
+    '6.A.2',
+  );
 });
 
 test('Código LCR é invisível no conteúdo do site e permanece presente em HTML', async ({

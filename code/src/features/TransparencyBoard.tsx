@@ -104,7 +104,12 @@ function DocumentCard({ entry }: { entry: Entry }) {
   }
 
   return (
-    <InfoCard as="article" inheritVisuals className="transparency-document" catalogId={`8.2.C-${entry.id}`}>
+    <InfoCard
+      as="article"
+      inheritVisuals
+      className="transparency-document"
+      catalogId={`8.2.C-${entry.id}`}
+    >
       <span className="document-symbol" aria-hidden="true">
         <FileText size={22} />
       </span>
@@ -195,7 +200,12 @@ export default function TransparencyBoard() {
 
   return (
     <>
-      <Intro eyebrow="Transparência" title="Confiança se constrói com clareza." id="transparencia-inicio" sectionCode="8.2">
+      <Intro
+        eyebrow="Transparência"
+        title="Confiança se constrói com clareza."
+        id="transparencia-inicio"
+        sectionCode="8.2"
+      >
         <p>Documentos e informações institucionais para consulta pública, com responsabilidade.</p>
       </Intro>
       <section className="transparency-lead section">
@@ -215,7 +225,11 @@ export default function TransparencyBoard() {
           </div>
         </div>
       </section>
-      <section className="section section-gray transparency-section" id="documentos-publicos" data-lcr-section-id="8.2">
+      <section
+        className="section section-gray transparency-section"
+        id="documentos-publicos"
+        data-lcr-section-id="8.2"
+      >
         <div className="container">
           <div className="transparency-section-heading">
             <div>

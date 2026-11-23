@@ -58,12 +58,7 @@ editorial aprovado sem recriar bordas, padding e sombras:
   <strong>Excelência</strong>
 </InfoCard>;
 
-<ActionCard
-  href={urlAprovada}
-  inheritVisuals
-  className="partner-card"
-  catalogId="3.2.C-123"
->
+<ActionCard href={urlAprovada} inheritVisuals className="partner-card" catalogId="3.2.C-123">
   <img src={logoOficial} alt="Parceiro" />
 </ActionCard>;
 ```

@@ -4,7 +4,12 @@ import { Intro, Heading, Action } from '../components/UI';
 export default function Support() {
   return (
     <>
-      <Intro eyebrow="Apoie a Ciência" title="Apoiar a ciência começa com uma conversa." id="apoie-inicio" sectionCode="7.1">
+      <Intro
+        eyebrow="Apoie a Ciência"
+        title="Apoiar a ciência começa com uma conversa."
+        id="apoie-inicio"
+        sectionCode="7.1"
+      >
         <p>
           O Instituto Foton aproxima ciência, educação e sociedade. Conheça caminhos para dialogar
           com a equipe sobre colaboração institucional.

@@ -38,13 +38,25 @@ export function ActionCard({
   if (!url) {
     // URL não permitida não se converte em link quebrado ou clicável falso.
     return (
-      <BaseCard as="div" className={className} catalogId={catalogId} inheritVisuals={inheritVisuals}>
+      <BaseCard
+        as="div"
+        className={className}
+        catalogId={catalogId}
+        inheritVisuals={inheritVisuals}
+      >
         {children}
       </BaseCard>
     );
   }
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" title={title} aria-label={label} {...appearance}>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={title}
+      aria-label={label}
+      {...appearance}
+    >
       {children}
     </a>
   );

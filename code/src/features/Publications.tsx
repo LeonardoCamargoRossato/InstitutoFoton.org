@@ -64,7 +64,12 @@ export function PublicationCard({ item }: { item: Publication }) {
     </>
   );
   return (
-    <InfoCard as="article" inheritVisuals className="publication-card" catalogId={`6.A.2.C-${item.slug}`}>
+    <InfoCard
+      as="article"
+      inheritVisuals
+      className="publication-card"
+      catalogId={`6.A.2.C-${item.slug}`}
+    >
       {item.type === 'press' ? (
         <External href={item.source_url}>{body}</External>
       ) : (
@@ -129,7 +134,12 @@ export function News() {
   const items = resource.data?.items || [];
   return (
     <>
-      <Intro eyebrow="Notícias e histórias" title="Há sempre mais para descobrir." id="noticias-inicio" sectionCode="6.A.1">
+      <Intro
+        eyebrow="Notícias e histórias"
+        title="Há sempre mais para descobrir."
+        id="noticias-inicio"
+        sectionCode="6.A.1"
+      >
         <p>
           Ciência, comunidade e novas perspectivas. Um espaço para compartilhar o conhecimento e
           acompanhar o Instituto.
@@ -248,7 +258,12 @@ export function Article() {
   if (!resource.loading && !resource.error && !item) return <NotFound />;
   return (
     <>
-      <Intro eyebrow="Publicações" title={item?.title || 'Carregando publicação…'} id="noticia-artigo" sectionCode="6.A.3">
+      <Intro
+        eyebrow="Publicações"
+        title={item?.title || 'Carregando publicação…'}
+        id="noticia-artigo"
+        sectionCode="6.A.3"
+      >
         {item && (
           <>
             <p>{item.summary}</p>

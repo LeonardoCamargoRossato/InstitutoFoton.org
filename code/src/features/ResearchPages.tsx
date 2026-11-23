@@ -83,7 +83,12 @@ function HaQuantumDate() {
 export function Research() {
   return (
     <div className="research-experience">
-      <Intro eyebrow="Instituto Foton" title={researchTitle} id="pesquisa-inicio" sectionCode="4.A.1">
+      <Intro
+        eyebrow="Instituto Foton"
+        title={researchTitle}
+        id="pesquisa-inicio"
+        sectionCode="4.A.1"
+      >
         <p>
           Explore as áreas de pesquisa em tecnologias quânticas do Foton e conheça as iniciativas
           que aproximam pesquisadores, estudantes e profissionais.
@@ -101,7 +106,11 @@ export function Research() {
         </nav>
       </Intro>
 
-      <section className="section research-areas" id="areas-de-pesquisa" data-lcr-section-id="4.A.2">
+      <section
+        className="section research-areas"
+        id="areas-de-pesquisa"
+        data-lcr-section-id="4.A.2"
+      >
         <div className="container">
           <Heading title="Áreas de pesquisa" />
           <p className="section-description">
@@ -127,7 +136,11 @@ export function Research() {
         </div>
       </section>
 
-      <section className="section section-gray research-journey-intro" id="jornada-do-cientista" data-lcr-section-id="4.A.3">
+      <section
+        className="section section-gray research-journey-intro"
+        id="jornada-do-cientista"
+        data-lcr-section-id="4.A.3"
+      >
         <div className="container split">
           <div className="body-copy">
             <Heading title={journeyTitle}>Conectando ciência, pessoas e inovação.</Heading>
@@ -252,7 +265,12 @@ export function ResearchArea() {
 export function Journey() {
   return (
     <div className="research-experience">
-      <Intro eyebrow="Pesquisa e formação" title={journeyTitle} id="jornada-inicio" sectionCode="4.B.1">
+      <Intro
+        eyebrow="Pesquisa e formação"
+        title={journeyTitle}
+        id="jornada-inicio"
+        sectionCode="4.B.1"
+      >
         <p>Conectando ciência, pessoas e inovação.</p>
         <TextLink to="/pesquisa">Pesquisa e Jornada do Cientista Inovador</TextLink>
       </Intro>
@@ -275,7 +293,11 @@ export function Journey() {
         </div>
       </section>
 
-      <section className="section research-pathway" id="quantum-pathway" data-lcr-section-id="4.B.3">
+      <section
+        className="section research-pathway"
+        id="quantum-pathway"
+        data-lcr-section-id="4.B.3"
+      >
         <div className="container">
           <Heading title="Quantum Pathway">
             A trilha avança em ciclos semestrais. As etapas indicam como o envolvimento e as
@@ -283,7 +305,13 @@ export function Journey() {
           </Heading>
           <ol className="pathway-steps" aria-label="Etapas do Quantum Pathway">
             {pathway.map(({ name, summary }, index) => (
-              <InfoCard as="li" className="pathway-step" key={name} catalogId={`4.B.3.C${index + 1}`} inheritVisuals>
+              <InfoCard
+                as="li"
+                className="pathway-step"
+                key={name}
+                catalogId={`4.B.3.C${index + 1}`}
+                inheritVisuals
+              >
                 <h3>{name}</h3>
                 <p>{summary}</p>
               </InfoCard>
@@ -341,7 +369,12 @@ export function Journey() {
 export function HaQuantum() {
   return (
     <div className="research-experience">
-      <Intro eyebrow="Eventos do Instituto Foton" title={haQuantumTitle} id="haquantum-inicio" sectionCode="4.C.1">
+      <Intro
+        eyebrow="Eventos do Instituto Foton"
+        title={haQuantumTitle}
+        id="haquantum-inicio"
+        sectionCode="4.C.1"
+      >
         <HaQuantumDate />
         <p>{haQuantum.partnership}</p>
         <TextLink to="/pesquisa#eventos">Eventos e iniciativas</TextLink>
@@ -398,7 +431,11 @@ export function HaQuantum() {
         </div>
       </section>
 
-      <section className="section research-haquantum" id="haquantum-registros" data-lcr-section-id="4.C.4">
+      <section
+        className="section research-haquantum"
+        id="haquantum-registros"
+        data-lcr-section-id="4.C.4"
+      >
         <div className="container">
           <Heading title="Registros do HaQuantum" />
           <HaQuantumGallery />

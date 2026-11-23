@@ -159,7 +159,12 @@ export default function InstituteTeamDashboard() {
   const grouped = (level: InstituteMember['level']) =>
     instituteTeam.filter((member) => member.level === level);
   return (
-    <section id="equipe" className="section institute-team-section" aria-labelledby="team-heading" data-lcr-section-id="2.B.1">
+    <section
+      id="equipe"
+      className="section institute-team-section"
+      aria-labelledby="team-heading"
+      data-lcr-section-id="2.B.1"
+    >
       <div className="container">
         <div className="team-intro">
           <p className="team-label">Nossa Equipe</p>

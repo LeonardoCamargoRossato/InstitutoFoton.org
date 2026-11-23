@@ -86,19 +86,16 @@ describe('LCR Card Library', () => {
   });
   it('preserva o DOM e os estilos legados de uma etapa informativa', () => {
     const html = renderToStaticMarkup(
-      <InfoCard
-        as="li"
-        inheritVisuals
-        className="value-keyword"
-        catalogId="2.A.8.C1"
-      >
+      <InfoCard as="li" inheritVisuals className="value-keyword" catalogId="2.A.8.C1">
         <strong>Excelência</strong>
       </InfoCard>,
     );
     expect(html).toContain('<li');
     expect(html).toContain('data-lcr-card-id="2.A.8.C1"');
     expect(html).toContain('data-card-hover="none"');
-    expect(html).toContain('class="foton-card foton-card--legacy foton-card--informative value-keyword"');
+    expect(html).toContain(
+      'class="foton-card foton-card--legacy foton-card--informative value-keyword"',
+    );
     expect(html).not.toContain('data-card-radius=');
     expect(html).not.toContain('href=');
   });
@@ -120,7 +117,9 @@ describe('LCR Card Library', () => {
     expect(html).toContain('href="https://example.org/"');
     expect(html).toContain('rel="noopener noreferrer"');
     expect(html).toContain('data-lcr-card-id="3.2.C-123"');
-    expect(html).toContain('class="foton-card foton-card--legacy foton-card--legacy-interactive partner-card"');
+    expect(html).toContain(
+      'class="foton-card foton-card--legacy foton-card--legacy-interactive partner-card"',
+    );
     expect(html).not.toContain('data-card-shadow=');
   });
 
@@ -138,5 +137,4 @@ describe('LCR Card Library', () => {
     expect(html).toContain('<button');
     expect(html).not.toContain('data-card-hover="lift"');
   });
-
 });

@@ -79,7 +79,12 @@ function PartnerCard({
     );
   }
   return (
-    <InfoCard as="div" inheritVisuals catalogId={`${catalogSection}.C-${partner.id}`} className={cardClass}>
+    <InfoCard
+      as="div"
+      inheritVisuals
+      catalogId={`${catalogSection}.C-${partner.id}`}
+      className={cardClass}
+    >
       {contents}
     </InfoCard>
   );
