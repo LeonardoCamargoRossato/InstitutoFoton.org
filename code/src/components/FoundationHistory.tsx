@@ -39,6 +39,7 @@ export function FoundationTeaser() {
     <section
       className="section foundation-teaser"
       id="fundacao"
+      data-lcr-section-id="2.A.4"
       aria-labelledby="foundation-teaser-heading"
     >
       <div className="container foundation-teaser-layout">
