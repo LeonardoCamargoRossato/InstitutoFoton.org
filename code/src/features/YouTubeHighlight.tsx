@@ -17,7 +17,7 @@ export function YouTubeBrandIcon({ size = 24 }: { size?: number }) {
 export default function YouTubeHighlight() {
   return (
     <section
-      className="social-network social-network--youtube"
+      className="social-network social-network--youtube" data-lcr-section-id="6.B.4"
       aria-labelledby="social-youtube-title"
     >
       <ElectromagneticWaveDivider />
