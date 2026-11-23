@@ -11,6 +11,7 @@ export default function LinkedInHighlight() {
       <div className="social-linkedin-highlight__visual">
         <a
           href={assetUrl(mockup.png.path)}
+          data-lcr-card-id="6.B.3.C2"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Ampliar imagem ilustrativa do LinkedIn em PNG"
@@ -41,6 +42,7 @@ export default function LinkedInHighlight() {
         </p>
         <a
           className="social-profile-link"
+          data-lcr-card-id="6.B.3.C1"
           href={LINKEDIN_PROFILE}
           target="_blank"
           rel="noopener noreferrer"
