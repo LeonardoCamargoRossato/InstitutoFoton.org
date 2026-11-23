@@ -180,21 +180,20 @@ export default function InstituteTeamDashboard() {
                       key={line}
                     >
                       <h4>{line}</h4>
-                      <div className="team-grid">
-                        <PeopleGallery
-                          items={members
-                            .filter((m) => m.thematicLine === line)
-                            .map((m) => ({
-                              id: m.id,
-                              name: m.displayName,
-                              role: m.role,
-                              imageSrc: assetUrl(m.photo),
-                              thematicLine: m.thematicLine,
-                              catalogId: `2.B.1.C-${m.id}`,
-                              onOpen: () => setSelected(m),
-                            }))}
-                        />
-                      </div>
+                      <PeopleGallery
+                        className="team-grid"
+                        items={members
+                          .filter((m) => m.thematicLine === line)
+                          .map((m) => ({
+                            id: m.id,
+                            name: m.displayName,
+                            role: m.role,
+                            imageSrc: assetUrl(m.photo),
+                            thematicLine: m.thematicLine,
+                            catalogId: `2.B.1.C-${m.id}`,
+                            onOpen: () => setSelected(m),
+                          }))}
+                      />
                     </div>
                   ))}
                 </div>
