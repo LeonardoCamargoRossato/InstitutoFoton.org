@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-react';
 import { Action, TextLink, Intro, Heading, External } from '../components/ui';
 import { ActionCard, InfoCard } from '../components/cards';
-import { CardGallery } from '../components/galleries/cards/CardGallery';
 import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
 import {
@@ -126,13 +125,12 @@ export function Home() {
           <p className="section-description">
             Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.
           </p>
-          <CardGallery
-            className="research-grid institutional-programs"
-            items={programs}
-            renderItem={(program, index) => (
+          <div className="research-grid institutional-programs">
+            {programs.map((program, index) => (
               <ActionCard
                 className="research-card"
                 to={program.to}
+                key={program.title}
                 catalogId={`1.4.C${index + 1}`}
               >
                 <div className="card-top">
@@ -145,8 +143,8 @@ export function Home() {
                   Saiba mais <ArrowUpRight size={18} aria-hidden="true" />
                 </span>
               </ActionCard>
-            )}
-          />
+            ))}
+          </div>
         </div>
       </section>
 
