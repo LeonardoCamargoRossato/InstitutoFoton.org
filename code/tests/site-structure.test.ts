@@ -65,4 +65,9 @@ describe('LCR — mapa de páginas, seções e cards', () => {
     expect(values).toHaveLength(7);
     expect(values.every((card) => card.kind === 'informativo')).toBe(true);
   });
+
+  it('classifica as cartas regionais como informativas, sem ação no card', () => {
+    const cartas = siteCards.find((card) => card.id === '5.7.C*');
+    expect(cartas?.kind).toBe('informativo');
+  });
 });

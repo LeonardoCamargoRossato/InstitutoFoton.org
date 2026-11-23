@@ -226,7 +226,7 @@ export const siteCards = [
     id: '5.7.C*',
     sectionId: '5.7',
     name: 'Carta macrorregional',
-    kind: 'acao-interna',
+    kind: 'informativo',
     component: 'PublicPages/Manifesto',
     repeated: true,
   },
