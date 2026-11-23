@@ -52,6 +52,8 @@ export type SiteSection = {
   anchor?: string;
   source: string;
   cards?: string;
+  /** Página ainda sem rota pública no React Router. */
+  published?: boolean;
 };
 
 /**
@@ -147,7 +149,7 @@ export const siteSections = [
   {
     id: '2.A.7',
     name: 'Declarações institucionais',
-    path: '/instituto', anchor: 'declaracoes-institucionais',
+    path: '/instituto',
     source: 'OfficialStatements',
     cards: 'Declarações oficiais',
   },
@@ -393,6 +395,7 @@ export const siteSections = [
     id: '8.2',
     name: 'Transparência — documentos públicos',
     path: '/transparencia',
+    published: false,
     anchor: 'documentos-publicos',
     source: 'TransparencyBoard',
     cards: 'Documentos PDF com ações independentes',
