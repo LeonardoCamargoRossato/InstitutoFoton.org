@@ -545,6 +545,7 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
         </div>
         <a
           className="manifesto-form-link"
+          data-lcr-card-id={placement === 'top' ? '5.2.C1' : '5.10.C1'}
           href={manifestoFormUrl}
           target="_blank"
           rel="noopener noreferrer"
