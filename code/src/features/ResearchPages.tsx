@@ -373,27 +373,27 @@ export function HaQuantum() {
         <div className="container">
           <Heading title="Da preparação à apresentação final" />
           <div className="research-event-stages">
-            <div>
+            <InfoCard as="div" inheritVisuals catalogId="4.C.3.C1">
               <h3>Workshops</h3>
               <p>
                 Encontros on-line abordaram computação e otimização quânticas, a plataforma Ket,
                 inovação, negócios e comunicação de soluções.
               </p>
-            </div>
-            <div>
+            </InfoCard>
+            <InfoCard as="div" inheritVisuals catalogId="4.C.3.C2">
               <h3>Desenvolvimento em equipes</h3>
               <p>
                 As equipes elaboraram suas propostas e submeteram os trabalhos a uma avaliação
                 técnica.
               </p>
-            </div>
-            <div>
+            </InfoCard>
+            <InfoCard as="div" inheritVisuals catalogId="4.C.3.C3">
               <h3>Final no MOBI Festival</h3>
               <p>
                 As equipes finalistas apresentaram suas soluções em 11 de junho de 2026, na
                 Universidade de Sorocaba.
               </p>
-            </div>
+            </InfoCard>
           </div>
         </div>
       </section>
