@@ -17,6 +17,7 @@ export function ImageCard({
   onOpen,
   className,
   estiloGrafico = cardPresets.fotografia,
+  catalogId,
 }: ImageCardProps) {
   const style =
     imagemAlternativa && estiloGrafico.hover === 'image-swap'
@@ -28,6 +29,7 @@ export function ImageCard({
     <button
       type="button"
       aria-label={label}
+      data-lcr-card-id={catalogId}
       onClick={onOpen}
       {...cardAppearance(className, style, true)}
     >
