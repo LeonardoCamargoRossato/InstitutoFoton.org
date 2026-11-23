@@ -32,7 +32,7 @@ export default function OfficialStatements() {
         </section>
       )}
       {values && (
-        <section className="values-section" aria-labelledby="values-title">
+        <section className="values-section" id="valores" aria-labelledby="values-title">
           <div className="values-glow values-glow-one" aria-hidden="true" />
           <div className="values-glow values-glow-two" aria-hidden="true" />
           <div className="container values-layout">
