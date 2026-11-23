@@ -1,4 +1,4 @@
-import { ImageZoomDialog } from '../ImageZoomDialog';
+import { ImageZoomDialog } from '../viewers';
 import type { CarouselItem } from './carousel.types';
 
 type Props = {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { siteOrigin, basePath } from '../lib/config';
-import SiteImageViewer from '../components/SiteImageViewer';
+import { SiteImageViewer } from '../components/viewers';
 import { assetUrl, imageAsset } from '../lib/siteAssets';
 import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from '../features/content';
 
