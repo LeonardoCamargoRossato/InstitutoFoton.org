@@ -23,7 +23,7 @@ export default function OfficialStatements() {
         <section className="section official-statements">
           <div className="container three-grid">
             {statements.map((block) => (
-              <InfoCard className="info-card" key={block.key}>
+              <InfoCard className="info-card" key={block.key} catalogId={`2.A.7.C-${block.key}`}>
                 <h2>{block.title}</h2>
                 <p style={{ whiteSpace: 'pre-line' }}>{block.content}</p>
               </InfoCard>
@@ -51,10 +51,16 @@ export default function OfficialStatements() {
                 .map((value: string) => value.trim())
                 .filter(Boolean)
                 .map((value: string, index: number) => (
-                  <li key={value} className={`value-keyword value-keyword-${(index % 4) + 1}`}>
+                  <InfoCard
+                    as="li"
+                    key={value}
+                    className={`value-keyword value-keyword-${(index % 4) + 1}`}
+                    catalogId={`2.A.8.C${index + 1}`}
+                    inheritVisuals
+                  >
                     <span aria-hidden="true">0{index + 1}</span>
                     <strong>{value}</strong>
-                  </li>
+                  </InfoCard>
                 ))}
             </ul>
           </div>
