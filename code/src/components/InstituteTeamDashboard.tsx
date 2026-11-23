@@ -36,6 +36,7 @@ function PersonCard({
       className="team-person"
       onOpen={() => onOpen(member)}
       label={`Conheça o perfil de ${member.fullName}`}
+      catalogId={`2.B.1.C-${member.id}`}
     >
       <span className="team-photo-wrap">
         <img
