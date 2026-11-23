@@ -43,7 +43,7 @@ export function Home() {
   ];
   return (
     <>
-      <section className="home-hero home-hero-minimal">
+      <section className="home-hero home-hero-minimal" id="inicio-capa" data-lcr-section-id="1.1">
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">
@@ -68,7 +68,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section spectral-divider" id="porque-existe">
+      <section className="section spectral-divider" id="porque-existe" data-lcr-section-id="1.2">
         <div className="container split">
           <Heading eyebrow="Por que o Foton existe?" title="A Era Quântica Já Começou." />
           <div className="body-copy">
@@ -88,7 +88,11 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section section-gray spectral-divider" id="ecossistema">
+      <section
+        className="section section-gray spectral-divider"
+        id="ecossistema"
+        data-lcr-section-id="1.3"
+      >
         <div className="container">
           <div className="heading-row">
             <Heading eyebrow="Ecossistema Foton" title="Ciência conectada em diferentes regiões." />
@@ -99,20 +103,20 @@ export function Home() {
             pesquisadores e instituições em diferentes regiões do Brasil.
           </p>
           <div className="documentary-metrics institutional-metrics">
-            <div>
+            <InfoCard as="div" inheritVisuals catalogId="1.3.C1">
               <strong>15</strong>
               <span>estados representados</span>
-            </div>
-            <div>
+            </InfoCard>
+            <InfoCard as="div" inheritVisuals catalogId="1.3.C2">
               <strong>140+</strong>
               <span>membros registrados</span>
-            </div>
+            </InfoCard>
             <p className="metrics-source">Indicadores institucionais da rede Foton.</p>
           </div>
         </div>
       </section>
 
-      <section className="section spectral-divider" id="frentes">
+      <section className="section spectral-divider" id="frentes" data-lcr-section-id="1.4">
         <div className="container">
           <div className="heading-row">
             <Heading eyebrow="Frentes e programas" title="Do conhecimento à articulação." />
@@ -122,7 +126,12 @@ export function Home() {
           </p>
           <div className="research-grid institutional-programs">
             {programs.map((program, index) => (
-              <ActionCard className="research-card" to={program.to} key={program.title}>
+              <ActionCard
+                className="research-card"
+                to={program.to}
+                key={program.title}
+                catalogId={`1.4.C${index + 1}`}
+              >
                 <div className="card-top">
                   <span className="number">{String(index + 1).padStart(2, '0')}</span>
                   <ArrowUpRight size={21} aria-hidden="true" />
@@ -138,7 +147,11 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section section-gray institutional-presentation" id="apresentacao">
+      <section
+        className="section section-gray institutional-presentation"
+        id="apresentacao"
+        data-lcr-section-id="1.5"
+      >
         <div className="container presentation-feature-layout">
           <div className="presentation-feature-copy">
             <Heading eyebrow="Documento institucional" title="Conheça a apresentação do Foton." />
@@ -146,6 +159,7 @@ export function Home() {
           <div className="presentation-feature-media">
             <Link
               to="/apresentacao"
+              data-lcr-card-id="1.5.C1"
               className="presentation-preview-link"
               aria-label="Visualizar o PDF da apresentação institucional do Foton"
             >
@@ -182,7 +196,11 @@ export function Home() {
 
       <PartnerEcosystem home />
 
-      <section className="section institutional-contact">
+      <section
+        className="section institutional-contact"
+        id="contato-foton"
+        data-lcr-section-id="1.7"
+      >
         <div className="container split">
           <Heading eyebrow="Contato" title="Converse com o Foton." />
           <div className="body-copy">
@@ -417,13 +435,22 @@ export function Institute() {
     <>
       <div className="institute-story">
         <InstituteLightPath artwork={identityArtwork} onPhaseChange={setIdentityPhase} />
-        <Intro eyebrow="O Instituto" title="Ciência que aproxima. Conhecimento que transforma.">
+        <Intro
+          eyebrow="O Instituto"
+          title="Ciência que aproxima. Conhecimento que transforma."
+          id="instituto-inicio"
+          sectionCode="2.A.1"
+        >
           <p>
             Somos uma rede que conecta pessoas, instituições e diferentes áreas do conhecimento em
             torno da ciência quântica.
           </p>
         </Intro>
-        <section className="section institute-history">
+        <section
+          className="section institute-history"
+          id="nossa-historia"
+          data-lcr-section-id="2.A.2"
+        >
           <div className="container split">
             <Heading eyebrow="Nossa história" title="Uma inquietação que se tornou encontro." />
             <div className="body-copy">
@@ -439,7 +466,7 @@ export function Institute() {
             </div>
           </div>
         </section>
-        <section className="section section-gray photon-section">
+        <section className="section section-gray photon-section" data-lcr-section-id="2.A.3">
           <div className="quantum-signature" aria-hidden="true">
             <span className="quantum-equation equation-wave">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</span>
             <span className="quantum-equation equation-photon">E = hν</span>
@@ -485,21 +512,21 @@ export function Institute() {
       </div>
       <FoundationTeaser />
       <InstitutePurpose />
-      <section className="section">
+      <section className="section" id="frentes-articulacao" data-lcr-section-id="2.A.6">
         <div className="container">
           <Heading eyebrow="Frentes de articulação" title="Ciência, formação e estratégia." />
           <div className="three-grid">
-            <InfoCard as="div" className="info-card">
+            <InfoCard as="div" className="info-card" catalogId="2.A.6.C1">
               <BookOpen aria-hidden="true" />
               <h3>Educação e formação</h3>
               <p>Promover a aproximação entre conhecimento científico, formação e sociedade.</p>
             </InfoCard>
-            <InfoCard as="div" className="info-card">
+            <InfoCard as="div" className="info-card" catalogId="2.A.6.C2">
               <Compass aria-hidden="true" />
               <h3>Pesquisa aplicada</h3>
               <p>Articular temas de investigação e colaboração entre diferentes áreas.</p>
             </InfoCard>
-            <InfoCard as="div" className="info-card">
+            <InfoCard as="div" className="info-card" catalogId="2.A.6.C3">
               <Network aria-hidden="true" />
               <h3>Inteligência estratégica</h3>
               <p>Conectar conhecimento e análise a decisões de organizações e sociedade.</p>
@@ -520,7 +547,8 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
   return (
     <section
       className={`section manifesto-participation manifesto-participation--${placement}`}
-      id={placement === 'top' ? 'contribuir-manifesto' : undefined}
+      id={placement === 'top' ? 'contribuir-manifesto' : 'contribuir-manifesto-final'}
+      data-lcr-section-id={placement === 'top' ? '5.2' : '5.10'}
       aria-labelledby={`manifesto-participation-${placement}`}
     >
       <div className="container manifesto-participation-layout">
@@ -543,6 +571,7 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
         </div>
         <a
           className="manifesto-form-link"
+          data-lcr-card-id={placement === 'top' ? '5.2.C1' : '5.10.C1'}
           href={manifestoFormUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -592,7 +621,7 @@ export function Manifesto() {
           <a href="#odqs">11 ODQs</a>
         </div>
       </div>
-      <section className="section" id="sobre-manifesto">
+      <section className="section" id="sobre-manifesto" data-lcr-section-id="5.4">
         <div className="container split manifesto-overview">
           <div className="body-copy">
             <Heading
@@ -613,7 +642,11 @@ export function Manifesto() {
           </Suspense>
         </div>
       </section>
-      <section className="section section-gray manifesto-importance spectral-divider">
+      <section
+        className="section section-gray manifesto-importance spectral-divider"
+        id="manifesto-importancia"
+        data-lcr-section-id="5.5"
+      >
         <div className="container split">
           <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
             <ManifestoMedia kind="importance" />
@@ -631,7 +664,7 @@ export function Manifesto() {
           </div>
         </div>
       </section>
-      <section className="section section-gray" id="metodologia">
+      <section className="section section-gray" id="metodologia" data-lcr-section-id="5.6">
         <div className="container">
           <div className="split manifesto-method-intro">
             <div>
@@ -647,19 +680,19 @@ export function Manifesto() {
             </Suspense>
           </div>
           <ol className="methodology">
-            {methodology.map((step) => (
-              <li key={step.num}>
+            {methodology.map((step, index) => (
+              <InfoCard as="li" inheritVisuals key={step.num} catalogId={`5.6.C${index + 1}`}>
                 <span className="number">0{step.num}</span>
                 <div>
                   <h3>{step.title}</h3>
                   <p>{step.desc}</p>
                 </div>
-              </li>
+              </InfoCard>
             ))}
           </ol>
         </div>
       </section>
-      <section className="section" id="cartas">
+      <section className="section" id="cartas" data-lcr-section-id="5.7">
         <div className="container">
           <Heading eyebrow="Cinco macrorregiões" title="O Brasil em muitas vozes." />
           <p className="section-description">
@@ -668,7 +701,13 @@ export function Manifesto() {
           </p>
           <div className="regional-letters">
             {cartas.map((carta, index) => (
-              <article className="regional-letter" key={carta.region}>
+              <InfoCard
+                as="article"
+                inheritVisuals
+                className="regional-letter"
+                key={carta.region}
+                catalogId={`5.7.C${index + 1}`}
+              >
                 <div>
                   <span className="number">0{index + 1}</span>
                   <h3>{carta.region}</h3>
@@ -677,12 +716,16 @@ export function Manifesto() {
                 <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
                   <ManifestoMedia kind="letter" region={carta.region} caption={carta.text} />
                 </Suspense>
-              </article>
+              </InfoCard>
             ))}
           </div>
         </div>
       </section>
-      <section className="section visits-section spectral-divider" id="visitas">
+      <section
+        className="section visits-section spectral-divider"
+        id="visitas"
+        data-lcr-section-id="5.8"
+      >
         <div className="container">
           <Heading
             eyebrow="Conexões em campo"
@@ -697,7 +740,7 @@ export function Manifesto() {
           </Suspense>
         </div>
       </section>
-      <section className="section section-gray" id="odqs">
+      <section className="section section-gray" id="odqs" data-lcr-section-id="5.9">
         <div className="container">
           <Heading
             eyebrow="Objetivos de Desenvolvimento Quântico"
@@ -708,14 +751,17 @@ export function Manifesto() {
           </p>
           <div className="odq-grid">
             {odqs.map((odq) => (
-              <article
+              <InfoCard
+                as="article"
+                inheritVisuals
+                catalogId={`5.9.C${odq.id}`}
                 className={`odq-card ${[6, 10].includes(odq.id) ? 'odq-highlight' : ''}`}
                 key={odq.id}
               >
                 <span className="number">ODQ {String(odq.id).padStart(2, '0')}</span>
                 <h3>{odq.title}</h3>
                 <p>{odq.desc}</p>
-              </article>
+              </InfoCard>
             ))}
           </div>
         </div>
@@ -728,7 +774,12 @@ export function Manifesto() {
 export function Contact() {
   return (
     <>
-      <Intro eyebrow="Contato" title="Boas conexões começam com uma conversa.">
+      <Intro
+        eyebrow="Contato"
+        title="Boas conexões começam com uma conversa."
+        id="contato-intro"
+        sectionCode="8.1"
+      >
         <p>
           Pesquisa, educação, apoio à ciência, patrocínio ou imprensa: encontre os canais do
           Instituto.

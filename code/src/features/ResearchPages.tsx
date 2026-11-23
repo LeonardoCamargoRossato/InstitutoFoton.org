@@ -5,7 +5,7 @@ import researchMedia from '../content/research-media.json';
 import { assetUrl } from '../lib/siteAssets';
 import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from './content';
 import HaQuantumGallery from './HaQuantumGallery';
-import { ActionCard } from '../components/cards';
+import { ActionCard, InfoCard } from '../components/cards';
 import { NotFound } from './PublicPages';
 import '../styles/research-journey.css';
 
@@ -83,7 +83,12 @@ function HaQuantumDate() {
 export function Research() {
   return (
     <div className="research-experience">
-      <Intro eyebrow="Instituto Foton" title={researchTitle}>
+      <Intro
+        eyebrow="Instituto Foton"
+        title={researchTitle}
+        id="pesquisa-inicio"
+        sectionCode="4.A.1"
+      >
         <p>
           Explore as áreas de pesquisa em tecnologias quânticas do Foton e conheça as iniciativas
           que aproximam pesquisadores, estudantes e profissionais.
@@ -101,7 +106,11 @@ export function Research() {
         </nav>
       </Intro>
 
-      <section className="section research-areas" id="areas-de-pesquisa">
+      <section
+        className="section research-areas"
+        id="areas-de-pesquisa"
+        data-lcr-section-id="4.A.2"
+      >
         <div className="container">
           <Heading title="Áreas de pesquisa" />
           <p className="section-description">
@@ -109,8 +118,13 @@ export function Research() {
             articuladas pelo Foton.
           </p>
           <div className="research-grid full-research">
-            {researchLines.map((line) => (
-              <ActionCard className="research-card" to={`/pesquisa/${line.slug}`} key={line.slug}>
+            {researchLines.map((line, index) => (
+              <ActionCard
+                className="research-card"
+                to={`/pesquisa/${line.slug}`}
+                key={line.slug}
+                catalogId={`4.A.2.C${index + 1}`}
+              >
                 <h3>{line.title}</h3>
                 <p>{line.summary}</p>
                 <span className="card-link">
@@ -122,7 +136,11 @@ export function Research() {
         </div>
       </section>
 
-      <section className="section section-gray research-journey-intro" id="jornada-do-cientista">
+      <section
+        className="section section-gray research-journey-intro"
+        id="jornada-do-cientista"
+        data-lcr-section-id="4.A.3"
+      >
         <div className="container split">
           <div className="body-copy">
             <Heading title={journeyTitle}>Conectando ciência, pessoas e inovação.</Heading>
@@ -150,7 +168,7 @@ export function Research() {
         </div>
       </section>
 
-      <section className="section research-events-intro" id="eventos">
+      <section className="section research-events-intro" id="eventos" data-lcr-section-id="4.A.4">
         <div className="container split">
           <Heading
             eyebrow="Nossos eventos e iniciativas"
@@ -163,7 +181,7 @@ export function Research() {
         </div>
       </section>
 
-      <section className="section research-pulso" id="etapa-pulso">
+      <section className="section research-pulso" id="etapa-pulso" data-lcr-section-id="4.A.5">
         <div className="container split">
           <PulsoVideo />
           <div className="body-copy">
@@ -189,7 +207,7 @@ export function Research() {
         </div>
       </section>
 
-      <section className="section research-haquantum" id="haquantum">
+      <section className="section research-haquantum" id="haquantum" data-lcr-section-id="4.A.6">
         <div className="container">
           <div className="split research-haquantum-intro">
             <Heading title={haQuantumTitle} />
@@ -247,12 +265,17 @@ export function ResearchArea() {
 export function Journey() {
   return (
     <div className="research-experience">
-      <Intro eyebrow="Pesquisa e formação" title={journeyTitle}>
+      <Intro
+        eyebrow="Pesquisa e formação"
+        title={journeyTitle}
+        id="jornada-inicio"
+        sectionCode="4.B.1"
+      >
         <p>Conectando ciência, pessoas e inovação.</p>
         <TextLink to="/pesquisa">Pesquisa e Jornada do Cientista Inovador</TextLink>
       </Intro>
 
-      <section className="section">
+      <section className="section" id="jornada-colaboracao" data-lcr-section-id="4.B.2">
         <div className="container split">
           <Heading title="Aprender e pesquisar em colaboração." />
           <div className="body-copy">
@@ -270,24 +293,34 @@ export function Journey() {
         </div>
       </section>
 
-      <section className="section research-pathway" id="quantum-pathway">
+      <section
+        className="section research-pathway"
+        id="quantum-pathway"
+        data-lcr-section-id="4.B.3"
+      >
         <div className="container">
           <Heading title="Quantum Pathway">
             A trilha avança em ciclos semestrais. As etapas indicam como o envolvimento e as
             responsabilidades podem crescer ao longo da Jornada.
           </Heading>
           <ol className="pathway-steps" aria-label="Etapas do Quantum Pathway">
-            {pathway.map(({ name, summary }) => (
-              <li key={name}>
+            {pathway.map(({ name, summary }, index) => (
+              <InfoCard
+                as="li"
+                className="pathway-step"
+                key={name}
+                catalogId={`4.B.3.C${index + 1}`}
+                inheritVisuals
+              >
                 <h3>{name}</h3>
                 <p>{summary}</p>
-              </li>
+              </InfoCard>
             ))}
           </ol>
         </div>
       </section>
 
-      <section className="section research-groups">
+      <section className="section research-groups" id="jornada-grupos" data-lcr-section-id="4.B.4">
         <div className="container split">
           <div className="body-copy">
             <Heading title="Grupos temáticos e atividades" />
@@ -309,7 +342,7 @@ export function Journey() {
         </div>
       </section>
 
-      <section className="section section-gray">
+      <section className="section section-gray" id="jornada-eventos" data-lcr-section-id="4.B.5">
         <div className="container split">
           <Heading title="Eventos e comunicação científica" />
           <div className="body-copy">
@@ -336,13 +369,18 @@ export function Journey() {
 export function HaQuantum() {
   return (
     <div className="research-experience">
-      <Intro eyebrow="Eventos do Instituto Foton" title={haQuantumTitle}>
+      <Intro
+        eyebrow="Eventos do Instituto Foton"
+        title={haQuantumTitle}
+        id="haquantum-inicio"
+        sectionCode="4.C.1"
+      >
         <HaQuantumDate />
         <p>{haQuantum.partnership}</p>
         <TextLink to="/pesquisa#eventos">Eventos e iniciativas</TextLink>
       </Intro>
 
-      <section className="section">
+      <section className="section" id="haquantum-desafios" data-lcr-section-id="4.C.2">
         <div className="container split">
           <Heading title="Da otimização quântica a desafios reais." />
           <div className="body-copy">
@@ -364,36 +402,40 @@ export function HaQuantum() {
         </div>
       </section>
 
-      <section className="section section-gray">
+      <section className="section section-gray" id="haquantum-etapas" data-lcr-section-id="4.C.3">
         <div className="container">
           <Heading title="Da preparação à apresentação final" />
           <div className="research-event-stages">
-            <div>
+            <InfoCard as="div" inheritVisuals catalogId="4.C.3.C1">
               <h3>Workshops</h3>
               <p>
                 Encontros on-line abordaram computação e otimização quânticas, a plataforma Ket,
                 inovação, negócios e comunicação de soluções.
               </p>
-            </div>
-            <div>
+            </InfoCard>
+            <InfoCard as="div" inheritVisuals catalogId="4.C.3.C2">
               <h3>Desenvolvimento em equipes</h3>
               <p>
                 As equipes elaboraram suas propostas e submeteram os trabalhos a uma avaliação
                 técnica.
               </p>
-            </div>
-            <div>
+            </InfoCard>
+            <InfoCard as="div" inheritVisuals catalogId="4.C.3.C3">
               <h3>Final no MOBI Festival</h3>
               <p>
                 As equipes finalistas apresentaram suas soluções em 11 de junho de 2026, na
                 Universidade de Sorocaba.
               </p>
-            </div>
+            </InfoCard>
           </div>
         </div>
       </section>
 
-      <section className="section research-haquantum">
+      <section
+        className="section research-haquantum"
+        id="haquantum-registros"
+        data-lcr-section-id="4.C.4"
+      >
         <div className="container">
           <Heading title="Registros do HaQuantum" />
           <HaQuantumGallery />

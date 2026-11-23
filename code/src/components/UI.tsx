@@ -51,13 +51,17 @@ export function Intro({
   eyebrow,
   title,
   children,
+  id,
+  sectionCode,
 }: {
   eyebrow: string;
   title: string;
   children?: ReactNode;
+  id?: string;
+  sectionCode?: string;
 }) {
   return (
-    <section className="page-intro">
+    <section className="page-intro" id={id} data-lcr-section-id={sectionCode}>
       <div className="container">
         <p className="eyebrow">
           <span />

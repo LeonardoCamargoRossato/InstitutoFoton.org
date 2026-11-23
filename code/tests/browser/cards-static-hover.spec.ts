@@ -12,7 +12,7 @@ test('Valores: animação de entrada permanece, mas o hover não altera cor, som
   await expect(first).toBeVisible();
   await expect(first).toHaveClass(/reveal-item/);
   await expect(first).toHaveClass(/is-revealed/);
-  await expect(first).toHaveCSS('cursor', 'auto');
+  await expect(first).toHaveCSS('cursor', 'default');
   // A entrada mantém uma matriz neutra (não a string "none") ao concluir.
   await expect
     .poll(async () =>

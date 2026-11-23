@@ -33,6 +33,7 @@ export default function InstitutePurpose() {
   return (
     <section
       id="por-que-existimos"
+      data-lcr-section-id="2.A.5"
       className="section institute-purpose"
       aria-labelledby="institute-purpose-title"
     >
@@ -46,6 +47,7 @@ export default function InstitutePurpose() {
             <InfoCard
               className={`institute-purpose-card institute-purpose-card--${key}`}
               key={key}
+              catalogId={`2.A.5.C${Number(number)}`}
               estiloGrafico={cardPresets.institucionalInformativo}
             >
               <header className="institute-purpose-card-header">

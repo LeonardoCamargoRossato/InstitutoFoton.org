@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, ArrowRight } from 'lucide-react';
+import { ActionCard, InfoCard } from '../components/cards';
 import { partnerLogoAssets } from '../content/partnerAssets';
 import {
   partnerGroups,
@@ -45,10 +46,12 @@ function PartnerCard({
   partner,
   eager,
   critical,
+  catalogSection,
 }: {
   partner: PartnerRecord;
   eager: boolean;
   critical: boolean;
+  catalogSection: '1.6' | '3.2';
 }) {
   const url = safePartnerUrl(partner.partner_url);
   const cardClass =
@@ -63,22 +66,28 @@ function PartnerCard({
   );
   if (url) {
     return (
-      <a
+      <ActionCard
         href={url}
-        target="_blank"
-        rel="noopener noreferrer"
+        inheritVisuals
+        catalogId={`${catalogSection}.C-${partner.id}`}
         title={partner.title}
-        aria-label={partner.title + ' — site oficial (abre em nova aba)'}
+        label={partner.title + ' — site oficial (abre em nova aba)'}
         className={cardClass}
       >
         {contents}
-      </a>
+      </ActionCard>
     );
   }
   return (
-    <div className={cardClass} title={partner.title}>
+    <InfoCard
+      as="div"
+      inheritVisuals
+      title={partner.title}
+      catalogId={`${catalogSection}.C-${partner.id}`}
+      className={cardClass}
+    >
       {contents}
-    </div>
+    </InfoCard>
   );
 }
 
@@ -91,6 +100,7 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
         (home ? 'partner-ecosystem-home' : 'partner-ecosystem-page')
       }
       id={home ? 'parceiros' : 'lista-parceiros'}
+      data-lcr-section-id={home ? '1.6' : '3.2'}
       aria-labelledby={home ? 'parceiros-home-title' : 'parceiros-page-title'}
     >
       <div className="container">
@@ -126,6 +136,7 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
                       partner={partner}
                       eager={!home}
                       critical={!home && groupIndex === 0}
+                      catalogSection={home ? '1.6' : '3.2'}
                     />
                   ))}
                 </div>

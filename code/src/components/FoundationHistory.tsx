@@ -39,6 +39,7 @@ export function FoundationTeaser() {
     <section
       className="section foundation-teaser"
       id="fundacao"
+      data-lcr-section-id="2.A.4"
       aria-labelledby="foundation-teaser-heading"
     >
       <div className="container foundation-teaser-layout">
@@ -66,6 +67,7 @@ export function FoundationTeaser() {
         </div>
         <button
           className="foundation-cover-button"
+          data-lcr-card-id="2.A.4.C1"
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Ampliar primeiro registro da fundação do Instituto Foton"

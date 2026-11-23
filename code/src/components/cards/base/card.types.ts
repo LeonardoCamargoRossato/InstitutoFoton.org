@@ -20,4 +20,8 @@ export type CardVisualProps = {
   children: ReactNode;
   className?: string;
   estiloGrafico?: CardGraphicStyle;
+  /** Código único documentado no mapa do menu, invisível na interface. */
+  catalogId?: string;
+  /** Preserva todos os acabamentos CSS já aprovados sem reaplicar tokens. */
+  inheritVisuals?: boolean;
 };

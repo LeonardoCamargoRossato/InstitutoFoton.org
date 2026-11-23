@@ -23,3 +23,24 @@ export function cardAppearance(
     'data-card-spacing': estiloGrafico.espacamento ?? 'padrao',
   };
 }
+
+/** Identidade e semântica unificadas sem substituir CSS editorial validado. */
+export function legacyCardAppearance(
+  className: string | undefined,
+  interactive: boolean,
+  catalogId?: string,
+) {
+  return {
+    className: [
+      'foton-card',
+      'foton-card--legacy',
+      interactive ? 'foton-card--legacy-interactive' : 'foton-card--informative',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' '),
+    'data-card-kind': interactive ? 'link' : 'informativo',
+    'data-card-hover': interactive ? 'legacy' : 'none',
+    'data-lcr-card-id': catalogId,
+  };
+}

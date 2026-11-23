@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { BookOpen, Copy, ArrowUpRight } from 'lucide-react';
 import { NewsCarousel } from '../components/NewsCarousel';
+import { InfoCard } from '../components/cards';
 import { NewsPhotoHighlights } from '../components/NewsPhotoHighlights';
 import { Intro, Status, Empty, External, TextLink } from '../components/UI';
 import { publications, publication, type Publication } from '../lib/backend';
@@ -63,13 +64,18 @@ export function PublicationCard({ item }: { item: Publication }) {
     </>
   );
   return (
-    <article className="publication-card">
+    <InfoCard
+      as="article"
+      inheritVisuals
+      className="publication-card"
+      catalogId={`6.A.2.C-${item.slug}`}
+    >
       {item.type === 'press' ? (
         <External href={item.source_url}>{body}</External>
       ) : (
         <Link to={`/noticias/${item.slug}`}>{body}</Link>
       )}
-    </article>
+    </InfoCard>
   );
 }
 
@@ -128,13 +134,18 @@ export function News() {
   const items = resource.data?.items || [];
   return (
     <>
-      <Intro eyebrow="Notícias e histórias" title="Há sempre mais para descobrir.">
+      <Intro
+        eyebrow="Notícias e histórias"
+        title="Há sempre mais para descobrir."
+        id="noticias-inicio"
+        sectionCode="6.A.1"
+      >
         <p>
           Ciência, comunidade e novas perspectivas. Um espaço para compartilhar o conhecimento e
           acompanhar o Instituto.
         </p>
       </Intro>
-      <section className="section">
+      <section className="section" id="noticias-publicacoes" data-lcr-section-id="6.A.2">
         <div className="container">
           <div className="news-controls">
             <label>
@@ -247,7 +258,12 @@ export function Article() {
   if (!resource.loading && !resource.error && !item) return <NotFound />;
   return (
     <>
-      <Intro eyebrow="Publicações" title={item?.title || 'Carregando publicação…'}>
+      <Intro
+        eyebrow="Publicações"
+        title={item?.title || 'Carregando publicação…'}
+        id="noticia-artigo"
+        sectionCode="6.A.3"
+      >
         {item && (
           <>
             <p>{item.summary}</p>

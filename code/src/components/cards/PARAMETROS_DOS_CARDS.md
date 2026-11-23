@@ -44,6 +44,35 @@ Os componentes aceitam `estiloGrafico` com as propriedades abaixo:
 
 **Presets reais:** `informativo`, `institucionalInformativo`, `pesquisa`, `fotografia`, `perfil`, `parceiroInformativo`. Não criar novos presets para cada página sem demonstrar necessidade.
 
+## Rastreamento e compatibilidade visual
+
+A opção `catalogId="2.A.5.C1"` atribui ao componente um identificador
+`data-lcr-card-id` invisível na interface. Os códigos e nomes são mantidos em
+`src/content/siteStructure.ts`, `siteCards.ts` e `MAPA_SECOES_E_CARDS.md`.
+
+Para cards existentes, use `inheritVisuals` quando for importante manter o CSS
+editorial aprovado sem recriar bordas, padding e sombras:
+
+```tsx
+<InfoCard as="li" inheritVisuals className="value-keyword" catalogId="2.A.8.C1">
+  <strong>Excelência</strong>
+</InfoCard>;
+
+<ActionCard href={urlAprovada} inheritVisuals className="partner-card" catalogId="3.2.C-123">
+  <img src={logoOficial} alt="Parceiro" />
+</ActionCard>;
+```
+
+Um card informativo continua `article`, `div` ou `li`, não ganha cursor de
+clique nem `hover` interativo. Links externos passam por
+`safePartnerUrl` ou `safeExternalUrl` e preservam `noopener noreferrer`.
+Os logos SVG, caminhos WebP/PNG, carrosséis e animações não foram movidos.
+
+A opção `inheritVisuals` não é para novas páginas sem CSS aprovado; nesses
+casos use os `cardPresets`. Capas de destaque, fotos especiais e CTAs que não
+são cards editoriais ficam com o componente original e `data-lcr-card-id`.
+Evite converter tudo em um link único quando houver ações independentes.
+
 ## Hover e teclado
 
 - `none`: obrigatório para cards sem clique, mesmo quando recebido indevidamente `hover='lift'`; sem cursor ou sombra de botão no hover.

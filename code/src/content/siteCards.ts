@@ -3,7 +3,7 @@ export type SiteCardEntry = {
   id: string;
   sectionId: string;
   name: string;
-  kind: 'informativo' | 'link' | 'perfil' | 'imagem' | 'acao-interna';
+  kind: 'informativo' | 'link' | 'perfil' | 'imagem' | 'acao-interna' | 'misto';
   component: string;
   repeated?: boolean;
 };
@@ -42,7 +42,7 @@ export const siteCards = [
     id: '1.6.C*',
     sectionId: '1.6',
     name: 'Logotipos parceiros — prévia',
-    kind: 'link',
+    kind: 'misto',
     component: 'PartnerEcosystem',
     repeated: true,
   },
@@ -166,7 +166,7 @@ export const siteCards = [
     id: '3.2.C*',
     sectionId: '3.2',
     name: 'Parceiro por logotipo — link quando houver site',
-    kind: 'link',
+    kind: 'misto',
     component: 'PartnerEcosystem',
     repeated: true,
   },
@@ -189,21 +189,21 @@ export const siteCards = [
   {
     id: '4.C.3.C1',
     sectionId: '4.C.3',
-    name: 'HaQuantum — preparação',
+    name: 'HaQuantum — Workshops',
     kind: 'informativo',
     component: 'ResearchPages/HaQuantum',
   },
   {
     id: '4.C.3.C2',
     sectionId: '4.C.3',
-    name: 'HaQuantum — dinâmica',
+    name: 'HaQuantum — Desenvolvimento em equipes',
     kind: 'informativo',
     component: 'ResearchPages/HaQuantum',
   },
   {
     id: '4.C.3.C3',
     sectionId: '4.C.3',
-    name: 'HaQuantum — apresentação',
+    name: 'HaQuantum — Final no MOBI Festival',
     kind: 'informativo',
     component: 'ResearchPages/HaQuantum',
   },
@@ -239,6 +239,13 @@ export const siteCards = [
     repeated: true,
   },
   {
+    id: '5.10.C1',
+    sectionId: '5.10',
+    name: 'Convite final para contribuir com o Manifesto',
+    kind: 'link',
+    component: 'ManifestoParticipation',
+  },
+  {
     id: '6.A.2.C*',
     sectionId: '6.A.2',
     name: 'Publicação — notícia ou imprensa',
@@ -264,14 +271,28 @@ export const siteCards = [
   {
     id: '6.B.3.C1',
     sectionId: '6.B.3',
-    name: 'Capa do LinkedIn',
+    name: 'CTA do LinkedIn',
     kind: 'link',
+    component: 'LinkedInHighlight',
+  },
+  {
+    id: '6.B.3.C2',
+    sectionId: '6.B.3',
+    name: 'Imagem ampliável do LinkedIn',
+    kind: 'imagem',
     component: 'LinkedInHighlight',
   },
   {
     id: '6.B.4.C1',
     sectionId: '6.B.4',
     name: 'Capa do YouTube',
+    kind: 'link',
+    component: 'YouTubeHighlight',
+  },
+  {
+    id: '6.B.4.C2',
+    sectionId: '6.B.4',
+    name: 'Botão do canal do YouTube',
     kind: 'link',
     component: 'YouTubeHighlight',
   },

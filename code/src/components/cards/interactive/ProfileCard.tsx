@@ -14,12 +14,14 @@ export function ProfileCard({
   className,
   estiloGrafico = cardPresets.perfil,
   children,
+  catalogId,
 }: ProfileCardProps) {
   return (
     <button
       type="button"
       onClick={onOpen}
       aria-label={label}
+      data-lcr-card-id={catalogId}
       {...cardAppearance(className, estiloGrafico, true)}
     >
       {children}

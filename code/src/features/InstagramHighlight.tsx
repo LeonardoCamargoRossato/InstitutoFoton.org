@@ -11,6 +11,7 @@ export default function InstagramHighlight() {
   return (
     <section
       className="social-network social-network--instagram"
+      data-lcr-section-id="6.B.2"
       aria-labelledby="social-instagram-title"
     >
       <div className="social-instagram-highlight">
@@ -26,6 +27,7 @@ export default function InstagramHighlight() {
           </p>
           <a
             className="social-profile-link"
+            data-lcr-card-id="6.B.2.C1"
             href={INSTAGRAM_PROFILE}
             target="_blank"
             rel="noopener noreferrer"
