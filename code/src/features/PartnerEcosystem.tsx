@@ -82,6 +82,7 @@ function PartnerCard({
     <InfoCard
       as="div"
       inheritVisuals
+      title={partner.title}
       catalogId={`${catalogSection}.C-${partner.id}`}
       className={cardClass}
     >
