@@ -215,7 +215,7 @@ export default function TransparencyBoard() {
           </div>
         </div>
       </section>
-      <section className="section section-gray transparency-section" id="documentos-publicos">
+      <section className="section section-gray transparency-section" id="documentos-publicos" data-lcr-section-id="8.2">
         <div className="container">
           <div className="transparency-section-heading">
             <div>
