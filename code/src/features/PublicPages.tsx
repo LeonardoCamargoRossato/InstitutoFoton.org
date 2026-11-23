@@ -418,7 +418,7 @@ export function Institute() {
     <>
       <div className="institute-story">
         <InstituteLightPath artwork={identityArtwork} onPhaseChange={setIdentityPhase} />
-        <Intro eyebrow="O Instituto" title="Ciência que aproxima. Conhecimento que transforma.">
+        <Intro eyebrow="O Instituto" title="Ciência que aproxima. Conhecimento que transforma." id="instituto-inicio" sectionCode="2.A.1">
           <p>
             Somos uma rede que conecta pessoas, instituições e diferentes áreas do conhecimento em
             torno da ciência quântica.
@@ -440,7 +440,7 @@ export function Institute() {
             </div>
           </div>
         </section>
-        <section className="section section-gray photon-section" id="identidade-foton" data-lcr-section-id="2.A.3">
+        <section className="section section-gray photon-section" data-lcr-section-id="2.A.3">
           <div className="quantum-signature" aria-hidden="true">
             <span className="quantum-equation equation-wave">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</span>
             <span className="quantum-equation equation-photon">E = hν</span>
@@ -521,7 +521,8 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
   return (
     <section
       className={`section manifesto-participation manifesto-participation--${placement}`}
-      id={placement === 'top' ? 'contribuir-manifesto' : undefined}
+      id={placement === 'top' ? 'contribuir-manifesto' : 'contribuir-manifesto-final'}
+      data-lcr-section-id={placement === 'top' ? '5.2' : '5.10'}
       aria-labelledby={`manifesto-participation-${placement}`}
     >
       <div className="container manifesto-participation-layout">
@@ -593,7 +594,7 @@ export function Manifesto() {
           <a href="#odqs">11 ODQs</a>
         </div>
       </div>
-      <section className="section" id="sobre-manifesto">
+      <section className="section" id="sobre-manifesto" data-lcr-section-id="5.4">
         <div className="container split manifesto-overview">
           <div className="body-copy">
             <Heading
@@ -614,7 +615,7 @@ export function Manifesto() {
           </Suspense>
         </div>
       </section>
-      <section className="section section-gray manifesto-importance spectral-divider">
+      <section className="section section-gray manifesto-importance spectral-divider" id="manifesto-importancia" data-lcr-section-id="5.5">
         <div className="container split">
           <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
             <ManifestoMedia kind="importance" />
@@ -632,7 +633,7 @@ export function Manifesto() {
           </div>
         </div>
       </section>
-      <section className="section section-gray" id="metodologia">
+      <section className="section section-gray" id="metodologia" data-lcr-section-id="5.6">
         <div className="container">
           <div className="split manifesto-method-intro">
             <div>
@@ -660,7 +661,7 @@ export function Manifesto() {
           </ol>
         </div>
       </section>
-      <section className="section" id="cartas">
+      <section className="section" id="cartas" data-lcr-section-id="5.7">
         <div className="container">
           <Heading eyebrow="Cinco macrorregiões" title="O Brasil em muitas vozes." />
           <p className="section-description">
@@ -683,7 +684,7 @@ export function Manifesto() {
           </div>
         </div>
       </section>
-      <section className="section visits-section spectral-divider" id="visitas">
+      <section className="section visits-section spectral-divider" id="visitas" data-lcr-section-id="5.8">
         <div className="container">
           <Heading
             eyebrow="Conexões em campo"
@@ -698,7 +699,7 @@ export function Manifesto() {
           </Suspense>
         </div>
       </section>
-      <section className="section section-gray" id="odqs">
+      <section className="section section-gray" id="odqs" data-lcr-section-id="5.9">
         <div className="container">
           <Heading
             eyebrow="Objetivos de Desenvolvimento Quântico"
@@ -732,7 +733,7 @@ export function Manifesto() {
 export function Contact() {
   return (
     <>
-      <Intro eyebrow="Contato" title="Boas conexões começam com uma conversa.">
+      <Intro eyebrow="Contato" title="Boas conexões começam com uma conversa." id="contato-intro" sectionCode="8.1">
         <p>
           Pesquisa, educação, apoio à ciência, patrocínio ou imprensa: encontre os canais do
           Instituto.
