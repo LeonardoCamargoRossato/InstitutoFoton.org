@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import { assetUrl } from '../../../lib/siteAssets';
-import { ProfileCard } from '../../../components/cards';
+import { PeopleGallery } from '../../../components/galleries/people/PeopleGallery';
 import { instituteTeam, type InstituteMember } from '../../../content/instituteTeam';
 import './InstituteTeamDashboard.css';
 
@@ -23,42 +23,6 @@ const levels = [
     subtitle: 'Conhecimento especializado, colaboração interdisciplinar e pesquisa em rede.',
   },
 ] as const;
-
-function PersonCard({
-  member,
-  onOpen,
-}: {
-  member: InstituteMember;
-  onOpen: (member: InstituteMember) => void;
-}) {
-  return (
-    <ProfileCard
-      className="team-person"
-      onOpen={() => onOpen(member)}
-      label={`Conheça o perfil de ${member.fullName}`}
-      catalogId={`2.B.1.C-${member.id}`}
-    >
-      <span className="team-photo-wrap">
-        <img
-          src={assetUrl(member.photo)}
-          alt={`Fotografia de ${member.fullName}`}
-          width={320}
-          height={360}
-          loading="lazy"
-          decoding="async"
-        />
-      </span>
-      <span className="team-person-info">
-        <strong>{member.displayName}</strong>
-        <span>{member.role}</span>
-        {member.thematicLine && <small>{member.thematicLine}</small>}
-        <span className="team-person-action">
-          Conheça o perfil <ArrowUpRight size={16} aria-hidden="true" />
-        </span>
-      </span>
-    </ProfileCard>
-  );
-}
 
 function ProfileDialog({ member, onClose }: { member: InstituteMember; onClose: () => void }) {
   const closeButton = useRef<HTMLButtonElement>(null);
@@ -217,17 +181,25 @@ export default function InstituteTeamDashboard() {
                     >
                       <h4>{line}</h4>
                       <div className="team-grid">
-                        {members
-                          .filter((m) => m.thematicLine === line)
-                          .map((m) => (
-                            <PersonCard key={m.id} member={m} onOpen={setSelected} />
-                          ))}
+                        <PeopleGallery
+                          items={members
+                            .filter((m) => m.thematicLine === line)
+                            .map((m) => ({
+                              id: m.id,
+                              name: m.displayName,
+                              role: m.role,
+                              imageSrc: assetUrl(m.photo),
+                              thematicLine: m.thematicLine,
+                              catalogId: `2.B.1.C-${m.id}`,
+                              onOpen: () => setSelected(m),
+                            }))}
+                        />
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div
+                <PeopleGallery
                   className={
                     key === 'vice-presidencia'
                       ? 'team-grid team-grid--centered team-grid--vice'
@@ -235,11 +207,16 @@ export default function InstituteTeamDashboard() {
                         ? 'team-grid team-grid--centered'
                         : 'team-grid'
                   }
-                >
-                  {members.map((m) => (
-                    <PersonCard key={m.id} member={m} onOpen={setSelected} />
-                  ))}
-                </div>
+                  items={members.map((m) => ({
+                    id: m.id,
+                    name: m.displayName,
+                    role: m.role,
+                    imageSrc: assetUrl(m.photo),
+                    thematicLine: m.thematicLine,
+                    catalogId: `2.B.1.C-${m.id}`,
+                    onOpen: () => setSelected(m),
+                  }))}
+                />
               )}
             </div>
           );
