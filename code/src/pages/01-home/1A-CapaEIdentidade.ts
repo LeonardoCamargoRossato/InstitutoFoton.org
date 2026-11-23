@@ -5,7 +5,10 @@ export const home1A = definePageArea({
   title: 'Capa, identidade e apresentação',
   route: '/',
   sectionIds: ['1.1', '1.2'],
-  implementation: ['features/PublicPages.tsx#Home', 'components/HomeAtomEntrance.tsx'],
+  implementation: [
+    'features/PublicPages.tsx#Home',
+    'components/animations/custom/HomeAtomEntrance.tsx',
+  ],
   contentSources: ['content/siteStructure.ts', 'features/content.ts'],
   assetSources: ['public/assets/WebP/home', 'public/assets/PNG/home'],
 });

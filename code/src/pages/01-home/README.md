@@ -4,10 +4,10 @@
 
 ## 1A — Capa e identidade
 
-| ID  | Seção                            | Ver seção                                                                           | Código                                                                                     | Copy/dados                                  | Assets                                               |
-| --- | -------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------- | ---------------------------------------------------- |
-| 1.1 | Capa — identidade e apresentação | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/#inicio-capa)   | [Home](../../features/PublicPages.tsx) · [animação](../../components/HomeAtomEntrance.tsx) | [conteúdo](../../features/content.ts)       | [Home](../../../public/assets/01%20-%20In%C3%ADcio/) |
-| 1.2 | Por que o Foton existe?          | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/#porque-existe) | [Home](../../features/PublicPages.tsx)                                                     | [estrutura](../../content/siteStructure.ts) | [Home](../../../public/assets/01%20-%20In%C3%ADcio/) |
+| ID  | Seção                            | Ver seção                                                                           | Código                                                                                                       | Copy/dados                                  | Assets                                               |
+| --- | -------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------- | ---------------------------------------------------- |
+| 1.1 | Capa — identidade e apresentação | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/#inicio-capa)   | [Home](../../features/PublicPages.tsx) · [animação](../../components/animations/custom/HomeAtomEntrance.tsx) | [conteúdo](../../features/content.ts)       | [Home](../../../public/assets/01%20-%20In%C3%ADcio/) |
+| 1.2 | Por que o Foton existe?          | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/#porque-existe) | [Home](../../features/PublicPages.tsx)                                                                       | [estrutura](../../content/siteStructure.ts) | [Home](../../../public/assets/01%20-%20In%C3%ADcio/) |
 
 ## 1B — Ecossistema e frentes
 

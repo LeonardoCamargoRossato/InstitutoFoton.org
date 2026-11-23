@@ -9,7 +9,7 @@ export const instituto2A = definePageArea({
     'features/PublicPages.tsx#Institute',
     'sections/InstitutePurpose.tsx',
     'features/foundation/FoundationHistory.tsx',
-    'components/PhotonIdentityAnimation.tsx',
+    'components/animations/custom/PhotonIdentityAnimation.tsx',
   ],
   contentSources: ['content/institutional.ts', 'content/siteCards.ts'],
   assetSources: ['public/assets/WebP/instituto', 'public/assets/PNG/instituto'],
