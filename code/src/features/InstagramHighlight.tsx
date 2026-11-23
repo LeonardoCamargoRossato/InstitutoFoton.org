@@ -10,7 +10,7 @@ const phoneSvg = 'assets/06 - Notícias/Redes Sociais/Instagram/SVG/InstagramPho
 export default function InstagramHighlight() {
   return (
     <section
-      className="social-network social-network--instagram"
+      className="social-network social-network--instagram" data-lcr-section-id="6.B.2"
       aria-labelledby="social-instagram-title"
     >
       <div className="social-instagram-highlight">
