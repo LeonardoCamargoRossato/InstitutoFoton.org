@@ -998,3 +998,110 @@ export function Contact() {
       <section className="section">
         <div className="container reading">
           <Heading title="Fale com o Foton" />
+          <p>
+            Encontre os canais oficiais para conversar com a equipe sobre
+            pesquisa, educação, colaboração e iniciativas institucionais.
+          </p>
+          <External href="https://institutofoton.com.br/" className="button">
+            Acessar canais institucionais
+          </External>
+          <div className="notice">
+            <h2>Como podemos nos conectar?</h2>
+            <ul className="topic-list">
+              <li>Quero conhecer o Instituto</li>
+              <li>Pesquisa e colaboração</li>
+              <li>Apoio à ciência</li>
+              <li>Patrocínio empresarial</li>
+              <li>Imprensa</li>
+            </ul>
+            <p>
+              Escolha o assunto e converse com o Foton pelos canais oficiais.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export function Legal({ terms = false }: { terms?: boolean }) {
+  return (
+    <>
+      <Intro
+        eyebrow={terms ? "Uso do portal" : "Privacidade"}
+        title={
+          terms
+            ? "Informação com responsabilidade."
+            : "Respeito às pessoas e seus dados."
+        }
+      />
+      <section className="section">
+        <div className="container reading">
+          {terms ? (
+            <>
+              <h2>Sobre o conteúdo</h2>
+              <p>
+                O portal reúne informações institucionais e científicas do
+                Instituto Foton. As informações educativas têm finalidade de
+                divulgação e comunicação científica.
+              </p>
+              <h2>Iniciativas e colaboração</h2>
+              <p>
+                Para informações sobre atividades, cooperação e apoio à ciência,
+                utilize os canais oficiais do Instituto.
+              </p>
+              <h2>Fontes e referências</h2>
+              <p>
+                A apresentação institucional está disponível para consulta
+                pública. Conteúdos de terceiros são identificados por suas
+                fontes quando aplicável.
+              </p>
+            </>
+          ) : (
+            <>
+              <h2>Navegação e informações técnicas</h2>
+              <p>
+                O site disponibiliza páginas e documentos institucionais
+                públicos. O serviço de hospedagem pode processar registros
+                técnicos necessários ao funcionamento e à segurança da
+                navegação.
+              </p>
+              <h2>Contato institucional</h2>
+              <p>
+                Questões sobre privacidade e tratamento de informações podem ser
+                encaminhadas pelos canais oficiais do Instituto Foton.
+              </p>
+              <h2>Sites e serviços externos</h2>
+              <p>
+                Links para serviços externos seguem as políticas de privacidade
+                e os termos próprios de seus responsáveis.
+              </p>
+              <TextLink to="/contato">Canais institucionais</TextLink>
+            </>
+          )}
+        </div>
+      </section>
+    </>
+  );
+}
+
+export function NotFound() {
+  return (
+    <>
+      <Intro
+        eyebrow="Página não encontrada · 404"
+        title="Vamos encontrar outro caminho."
+      >
+        <p>
+          Confira o endereço ou utilize o menu para conhecer as páginas do
+          Instituto.
+        </p>
+      </Intro>
+      <section className="section">
+        <div className="container">
+          <Action to="/">Voltar para o início</Action>
+        </div>
+      </section>
+    </>
+  );
+}
