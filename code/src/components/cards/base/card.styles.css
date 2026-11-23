@@ -69,17 +69,6 @@
 .foton-card--informative {
   cursor: default;
 }
-.foton-card--informative:hover {
-  transform: none;
-  box-shadow: var(--foton-card-shadow-light);
-}
-.foton-card--informative[data-card-shadow='nenhuma']:hover {
-  box-shadow: none;
-}
-.foton-card--informative[data-card-shadow='media']:hover {
-  box-shadow: var(--foton-card-shadow-medium);
-}
-
 .foton-card--interactive {
   cursor: pointer;
   transition:
