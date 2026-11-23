@@ -3,7 +3,7 @@ export type SiteCardEntry = {
   id: string;
   sectionId: string;
   name: string;
-  kind: 'informativo' | 'link' | 'perfil' | 'imagem' | 'acao-interna';
+  kind: 'informativo' | 'link' | 'perfil' | 'imagem' | 'acao-interna' | 'misto';
   component: string;
   repeated?: boolean;
 };
@@ -189,21 +189,21 @@ export const siteCards = [
   {
     id: '4.C.3.C1',
     sectionId: '4.C.3',
-    name: 'HaQuantum — preparação',
+    name: 'HaQuantum — Workshops',
     kind: 'informativo',
     component: 'ResearchPages/HaQuantum',
   },
   {
     id: '4.C.3.C2',
     sectionId: '4.C.3',
-    name: 'HaQuantum — dinâmica',
+    name: 'HaQuantum — Desenvolvimento em equipes',
     kind: 'informativo',
     component: 'ResearchPages/HaQuantum',
   },
   {
     id: '4.C.3.C3',
     sectionId: '4.C.3',
-    name: 'HaQuantum — apresentação',
+    name: 'HaQuantum — Final no MOBI Festival',
     kind: 'informativo',
     component: 'ResearchPages/HaQuantum',
   },
