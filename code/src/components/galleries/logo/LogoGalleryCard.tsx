@@ -3,7 +3,11 @@ import { ExternalLink } from 'lucide-react';
 import { ActionCard, InfoCard } from '../../cards';
 import type { LogoGalleryCardProps } from './logo-gallery.types';
 
-function Logo({ item, eager, critical }: Pick<LogoGalleryCardProps, 'item' | 'eager' | 'critical'>) {
+function Logo({
+  item,
+  eager,
+  critical,
+}: Pick<LogoGalleryCardProps, 'item' | 'eager' | 'critical'>) {
   const [broken, setBroken] = useState(false);
   if (!item.logoSrc || broken) return <span className="partner-text-logo">{item.title}</span>;
   return (
