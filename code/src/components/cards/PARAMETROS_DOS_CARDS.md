@@ -47,6 +47,7 @@ Os componentes aceitam `estiloGrafico` com as propriedades abaixo:
 ## Hover e teclado
 
 - `none`: obrigatório para cards sem clique, mesmo quando recebido indevidamente `hover='lift'`; sem cursor ou sombra de botão no hover.
+- O mesmo princípio vale para os sete **Valores do Instituto** (`.value-keyword`): a animação de entrada é mantida; o mouse não altera escala, cor nem sombra.
 - `lift`: sobe 4 px por transform, sem alterar fluxo dos irmãos, com sombra suave.
 - `image-zoom`: escala 1.04 na imagem dentro do recorte, sem ampliar contêiner.
 - `border-highlight`: destaca a borda sem mudar dimensões.
