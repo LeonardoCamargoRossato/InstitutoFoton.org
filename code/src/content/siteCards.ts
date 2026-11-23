@@ -1,0 +1,51 @@
+/** Catálogo canônico dos tipos de cards; sufixos C1, C2... são locais à seção. */
+export type SiteCardEntry = {
+  id: string;
+  sectionId: string;
+  name: string;
+  kind: 'informativo' | 'link' | 'perfil' | 'imagem' | 'acao-interna';
+  component: string;
+  repeated?: boolean;
+};
+
+export const siteCards = [
+  { id: '1.3.C1', sectionId: '1.3', name: 'Indicador — estados representados', kind: 'informativo', component: 'PublicPages/Home' },
+  { id: '1.3.C2', sectionId: '1.3', name: 'Indicador — membros registrados', kind: 'informativo', component: 'PublicPages/Home' },
+  { id: '1.4.C*', sectionId: '1.4', name: 'Frentes e programas — card por programa', kind: 'link', component: 'ActionCard', repeated: true },
+  { id: '1.5.C1', sectionId: '1.5', name: 'Capa da apresentação institucional', kind: 'link', component: 'PublicPages/Home' },
+  { id: '1.6.C*', sectionId: '1.6', name: 'Logotipos parceiros — prévia', kind: 'link', component: 'PartnerEcosystem', repeated: true },
+
+  { id: '2.A.4.C1', sectionId: '2.A.4', name: 'Foto da fundação — ampliação', kind: 'imagem', component: 'FoundationTeaser' },
+  { id: '2.A.5.C1', sectionId: '2.A.5', name: 'Missão', kind: 'informativo', component: 'InstitutePurpose' },
+  { id: '2.A.5.C2', sectionId: '2.A.5', name: 'Visão', kind: 'informativo', component: 'InstitutePurpose' },
+  { id: '2.A.5.C3', sectionId: '2.A.5', name: 'Propósito', kind: 'informativo', component: 'InstitutePurpose' },
+  { id: '2.A.6.C1', sectionId: '2.A.6', name: 'Educação e formação', kind: 'informativo', component: 'PublicPages/Institute' },
+  { id: '2.A.6.C2', sectionId: '2.A.6', name: 'Pesquisa aplicada', kind: 'informativo', component: 'PublicPages/Institute' },
+  { id: '2.A.6.C3', sectionId: '2.A.6', name: 'Inteligência estratégica', kind: 'informativo', component: 'PublicPages/Institute' },
+  { id: '2.B.1.C*', sectionId: '2.B.1', name: 'Nossa Equipe — perfil por integrante', kind: 'perfil', component: 'ProfileCard', repeated: true },
+  { id: '2.A.7.C*', sectionId: '2.A.7', name: 'Declaração institucional por publicação', kind: 'informativo', component: 'OfficialStatements', repeated: true },
+  { id: '2.A.8.C1', sectionId: '2.A.8', name: 'Valor — Excelência', kind: 'informativo', component: 'OfficialStatements' },
+  { id: '2.A.8.C2', sectionId: '2.A.8', name: 'Valor — Protagonismo', kind: 'informativo', component: 'OfficialStatements' },
+  { id: '2.A.8.C3', sectionId: '2.A.8', name: 'Valor — Inovação', kind: 'informativo', component: 'OfficialStatements' },
+  { id: '2.A.8.C4', sectionId: '2.A.8', name: 'Valor — Estratégia', kind: 'informativo', component: 'OfficialStatements' },
+  { id: '2.A.8.C5', sectionId: '2.A.8', name: 'Valor — Valorização de talentos', kind: 'informativo', component: 'OfficialStatements' },
+  { id: '2.A.8.C6', sectionId: '2.A.8', name: 'Valor — Ética', kind: 'informativo', component: 'OfficialStatements' },
+  { id: '2.A.8.C7', sectionId: '2.A.8', name: 'Valor — Colaboração', kind: 'informativo', component: 'OfficialStatements' },
+
+  { id: '3.2.C*', sectionId: '3.2', name: 'Parceiro por logotipo — link quando houver site', kind: 'link', component: 'PartnerEcosystem', repeated: true },
+  { id: '4.A.2.C*', sectionId: '4.A.2', name: 'Linha temática de pesquisa', kind: 'link', component: 'ActionCard', repeated: true },
+  { id: '4.B.3.C*', sectionId: '4.B.3', name: 'Etapa do Quantum Pathway', kind: 'informativo', component: 'ResearchPages/Journey', repeated: true },
+  { id: '4.C.3.C1', sectionId: '4.C.3', name: 'HaQuantum — preparação', kind: 'informativo', component: 'ResearchPages/HaQuantum' },
+  { id: '4.C.3.C2', sectionId: '4.C.3', name: 'HaQuantum — dinâmica', kind: 'informativo', component: 'ResearchPages/HaQuantum' },
+  { id: '4.C.3.C3', sectionId: '4.C.3', name: 'HaQuantum — apresentação', kind: 'informativo', component: 'ResearchPages/HaQuantum' },
+  { id: '5.2.C1', sectionId: '5.2', name: 'Convite para contribuir com o Manifesto', kind: 'link', component: 'ManifestoParticipation' },
+  { id: '5.6.C*', sectionId: '5.6', name: 'Etapa da metodologia', kind: 'informativo', component: 'PublicPages/Manifesto', repeated: true },
+  { id: '5.7.C*', sectionId: '5.7', name: 'Carta macrorregional', kind: 'acao-interna', component: 'PublicPages/Manifesto', repeated: true },
+  { id: '5.9.C*', sectionId: '5.9', name: 'Objetivo de Desenvolvimento Quântico (ODQ)', kind: 'informativo', component: 'PublicPages/Manifesto', repeated: true },
+  { id: '6.A.2.C*', sectionId: '6.A.2', name: 'Publicação — notícia ou imprensa', kind: 'link', component: 'PublicationCard', repeated: true },
+  { id: '6.A.3.C*', sectionId: '6.A.3', name: 'Fotografia editorial WebP/PNG', kind: 'imagem', component: 'NewsPhotoHighlights', repeated: true },
+  { id: '6.B.2.C1', sectionId: '6.B.2', name: 'Capa do Instagram', kind: 'link', component: 'InstagramHighlight' },
+  { id: '6.B.3.C1', sectionId: '6.B.3', name: 'Capa do LinkedIn', kind: 'link', component: 'LinkedInHighlight' },
+  { id: '6.B.4.C1', sectionId: '6.B.4', name: 'Capa do YouTube', kind: 'link', component: 'YouTubeHighlight' },
+  { id: '8.2.C*', sectionId: '8.2', name: 'Documento público — visualizar ou baixar', kind: 'acao-interna', component: 'TransparencyBoard', repeated: true },
+] as const satisfies readonly SiteCardEntry[];
