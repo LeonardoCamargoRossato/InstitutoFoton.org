@@ -1552,17 +1552,7 @@
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.25),
       0 14px 38px rgba(0, 0, 0, 0.13);
-    transition:
-      transform 0.25s ease,
-      background 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-  .value-keyword:hover {
-    transform: translateY(-5px) scale(1.02);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.27), rgba(255, 255, 255, 0.11));
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.4),
-      0 20px 46px rgba(0, 0, 0, 0.2);
+    /* Não clicável: mantém cores e introdução por IntersectionObserver sem hover. */
   }
   .value-keyword > span {
     color: #a8d5ff;
@@ -1590,13 +1580,7 @@
     border-radius: 22px;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(235, 242, 250, 0.76));
     box-shadow: 0 20px 52px rgba(4, 18, 49, 0.08);
-    transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-  .info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 72px rgba(7, 44, 123, 0.13);
+    /* Informativo: o destaque vem na entrada, não quando passa o mouse. */
   }
   .info-card::after {
     content: '';
