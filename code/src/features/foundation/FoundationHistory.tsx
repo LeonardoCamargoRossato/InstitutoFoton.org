@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Maximize2 } from 'lucide-react';
-import { ImageZoomDialog } from './viewers';
-import { BaseCarousel, carouselPresets } from './carousel';
-import { assetUrl } from '../lib/siteAssets';
+import { ImageZoomDialog } from '../../components/viewers';
+import { BaseCarousel, carouselPresets } from '../../components/carousel';
+import { assetUrl } from '../../lib/siteAssets';
 import './FoundationHistory.css';
 
 export const foundationRoute = '/noticias/fundacao-instituto-foton';

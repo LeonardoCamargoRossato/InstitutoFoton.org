@@ -10,11 +10,7 @@ import { publications, publication, type Publication } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 import { dateLabel, safeExternalUrl } from '../lib/config';
 import { NotFound } from './PublicPages';
-import {
-  FoundationGallery,
-  foundationRoute,
-  foundationCards,
-} from '../components/FoundationHistory';
+import { FoundationGallery, foundationRoute, foundationCards } from './foundation';
 import { assetUrl } from '../lib/siteAssets';
 import newsMedia from '../content/news-media.json';
 import './NewsMedia.css';
