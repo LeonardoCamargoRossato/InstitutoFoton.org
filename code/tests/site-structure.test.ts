@@ -53,6 +53,13 @@ describe('LCR — mapa de páginas, seções e cards', () => {
     );
   });
 
+  it('não anuncia como publicada uma página sem rota no React Router', () => {
+    const transparency = siteSections.find((section) => section.id === '8.2');
+    expect(transparency?.published).toBe(false);
+    expect(transparency?.source).toBe('TransparencyBoard');
+    expect(siteMenu.some((item) => item.path === '/transparencia')).toBe(false);
+  });
+
   it('identifica os sete valores como informativos, sem clique', () => {
     const values = siteCards.filter((card) => card.sectionId === '2.A.8');
     expect(values).toHaveLength(7);
