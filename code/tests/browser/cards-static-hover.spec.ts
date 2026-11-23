@@ -27,7 +27,7 @@ test('Valores: animação de entrada permanece, mas o hover não altera cor, som
 
 test('Missão, Visão, Propósito e três frentes não fingem clique no hover', async ({ page }) => {
   await page.goto('./instituto');
-  const cards = page.locator('.institute-purpose-card, .three-grid .info-card');
+  const cards = page.locator('.institute-purpose-card, .section > .container > .three-grid > .info-card');
   await expect(cards).toHaveCount(6);
   for (const card of await cards.all()) {
     await card.scrollIntoViewIfNeeded();
