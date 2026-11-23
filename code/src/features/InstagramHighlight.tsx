@@ -26,6 +26,7 @@ export default function InstagramHighlight() {
           </p>
           <a
             className="social-profile-link"
+            data-lcr-card-id="6.B.2.C1"
             href={INSTAGRAM_PROFILE}
             target="_blank"
             rel="noopener noreferrer"
