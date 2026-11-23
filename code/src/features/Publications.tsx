@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { BookOpen, Copy, ArrowUpRight } from 'lucide-react';
 import { NewsCarousel } from '../components/NewsCarousel';
+import { InfoCard } from '../components/cards';
 import { NewsPhotoHighlights } from '../components/NewsPhotoHighlights';
 import { Intro, Status, Empty, External, TextLink } from '../components/UI';
 import { publications, publication, type Publication } from '../lib/backend';
@@ -63,13 +64,13 @@ export function PublicationCard({ item }: { item: Publication }) {
     </>
   );
   return (
-    <article className="publication-card">
+    <InfoCard as="article" inheritVisuals className="publication-card" catalogId={`6.A.2.C-${item.slug}`}>
       {item.type === 'press' ? (
         <External href={item.source_url}>{body}</External>
       ) : (
         <Link to={`/noticias/${item.slug}`}>{body}</Link>
       )}
-    </article>
+    </InfoCard>
   );
 }
 
