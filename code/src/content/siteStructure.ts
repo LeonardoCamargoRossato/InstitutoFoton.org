@@ -75,7 +75,7 @@ export const siteSections = [
   { id: '2.A.6', name: 'Frentes de articulação', path: '/instituto', source: 'PublicPages/Institute', cards: 'Educação e formação; Pesquisa aplicada; Inteligência estratégica' },
   { id: '2.B.1', name: 'Nossa equipe — pessoas', path: '/instituto', anchor: 'equipe', source: 'InstituteTeamDashboard', cards: 'Perfis individuais (abrem diálogo)' },
   { id: '2.A.7', name: 'Declarações institucionais', path: '/instituto', source: 'OfficialStatements', cards: 'Declarações oficiais' },
-  { id: '2.A.8', name: 'Valores que colocamos em movimento', path: '/instituto', source: 'OfficialStatements', cards: 'Excelência; Protagonismo; Inovação; Estratégia; Valorização de talentos; Ética; Colaboração' },
+  { id: '2.A.8', name: 'Valores que colocamos em movimento', path: '/instituto', anchor: 'valores', source: 'OfficialStatements', cards: 'Excelência; Protagonismo; Inovação; Estratégia; Valorização de talentos; Ética; Colaboração' },
 
   { id: '3.1', name: 'Apresentação do Ecossistema', path: '/parceiros', source: 'PartnersPage' },
   { id: '3.2', name: 'Organizações parceiras por grupo', path: '/parceiros', anchor: 'lista-parceiros', source: 'PartnerEcosystem', cards: '31 logotipos SVG oficiais (links ou informativos)' },
