@@ -59,7 +59,7 @@ export type SiteSection = {
  * o link abre a página, sem inventar IDs na URL.
  */
 export const siteSections = [
-  { id: '1.1', name: 'Capa — identidade e apresentação', path: '/', source: 'PublicPages/Home' },
+  { id: '1.1', name: 'Capa — identidade e apresentação', path: '/', anchor: 'inicio-capa', source: 'PublicPages/Home' },
   {
     id: '1.2',
     name: 'Por que o Foton existe?',
@@ -99,25 +99,25 @@ export const siteSections = [
     source: 'PartnerEcosystem',
     cards: 'Logotipos oficiais',
   },
-  { id: '1.7', name: 'Contato com o Foton', path: '/', source: 'PublicPages/Home' },
+  { id: '1.7', name: 'Contato com o Foton', path: '/', anchor: 'contato-foton', source: 'PublicPages/Home' },
 
   {
     id: '2.A.1',
     name: 'Conheça o Instituto — introdução',
-    path: '/instituto',
+    path: '/instituto', anchor: 'instituto-inicio',
     source: 'PublicPages/Institute',
   },
-  { id: '2.A.2', name: 'Nossa história', path: '/instituto', source: 'PublicPages/Institute' },
+  { id: '2.A.2', name: 'Nossa história', path: '/instituto', anchor: 'nossa-historia', source: 'PublicPages/Institute' },
   {
     id: '2.A.3',
     name: 'Por que Foton? — identidade e animação',
-    path: '/instituto',
+    path: '/instituto', anchor: 'identidade-foton',
     source: 'PhotonIdentityAnimation',
   },
   {
     id: '2.A.4',
     name: 'Fundação — encontro e história',
-    path: '/instituto',
+    path: '/instituto', anchor: 'fundacao',
     source: 'FoundationTeaser',
     cards: 'Fotografia de capa (ampliação)',
   },
@@ -132,7 +132,7 @@ export const siteSections = [
   {
     id: '2.A.6',
     name: 'Frentes de articulação',
-    path: '/instituto',
+    path: '/instituto', anchor: 'frentes-articulacao',
     source: 'PublicPages/Institute',
     cards: 'Educação e formação; Pesquisa aplicada; Inteligência estratégica',
   },
@@ -147,7 +147,7 @@ export const siteSections = [
   {
     id: '2.A.7',
     name: 'Declarações institucionais',
-    path: '/instituto',
+    path: '/instituto', anchor: 'declaracoes-institucionais',
     source: 'OfficialStatements',
     cards: 'Declarações oficiais',
   },
@@ -161,7 +161,7 @@ export const siteSections = [
       'Excelência; Protagonismo; Inovação; Estratégia; Valorização de talentos; Ética; Colaboração',
   },
 
-  { id: '3.1', name: 'Apresentação do Ecossistema', path: '/parceiros', source: 'PartnersPage' },
+  { id: '3.1', name: 'Apresentação do Ecossistema', path: '/parceiros', anchor: 'parceiros-intro', source: 'PartnersPage' },
   {
     id: '3.2',
     name: 'Organizações parceiras por grupo',
@@ -171,7 +171,7 @@ export const siteSections = [
     cards: '31 logotipos SVG oficiais (links ou informativos)',
   },
 
-  { id: '4.A.1', name: 'Capa da Pesquisa', path: '/pesquisa', source: 'ResearchPages/Research' },
+  { id: '4.A.1', name: 'Capa da Pesquisa', path: '/pesquisa', anchor: 'pesquisa-inicio', source: 'ResearchPages/Research' },
   {
     id: '4.A.2',
     name: 'Áreas de pesquisa — linhas temáticas',
@@ -211,13 +211,13 @@ export const siteSections = [
   {
     id: '4.B.1',
     name: 'Jornada — capa',
-    path: '/pesquisa/jornada',
+    path: '/pesquisa/jornada', anchor: 'jornada-inicio',
     source: 'ResearchPages/Journey',
   },
   {
     id: '4.B.2',
     name: 'Aprender e pesquisar em colaboração',
-    path: '/pesquisa/jornada',
+    path: '/pesquisa/jornada', anchor: 'jornada-colaboracao',
     source: 'ResearchPages/Journey',
   },
   {
@@ -231,43 +231,43 @@ export const siteSections = [
   {
     id: '4.B.4',
     name: 'Grupos temáticos e atividades',
-    path: '/pesquisa/jornada',
+    path: '/pesquisa/jornada', anchor: 'jornada-grupos',
     source: 'ResearchPages/Journey',
   },
   {
     id: '4.B.5',
     name: 'Eventos e comunicação científica',
-    path: '/pesquisa/jornada',
+    path: '/pesquisa/jornada', anchor: 'jornada-eventos',
     source: 'ResearchPages/Journey',
   },
   {
     id: '4.C.1',
     name: 'HaQuantum — capa',
-    path: '/pesquisa/haquantum',
+    path: '/pesquisa/haquantum', anchor: 'haquantum-inicio',
     source: 'ResearchPages/HaQuantum',
   },
   {
     id: '4.C.2',
     name: 'Da otimização quântica a desafios reais',
-    path: '/pesquisa/haquantum',
+    path: '/pesquisa/haquantum', anchor: 'haquantum-desafios',
     source: 'ResearchPages/HaQuantum',
   },
   {
     id: '4.C.3',
     name: 'Da preparação à apresentação final',
-    path: '/pesquisa/haquantum',
+    path: '/pesquisa/haquantum', anchor: 'haquantum-etapas',
     source: 'ResearchPages/HaQuantum',
     cards: 'Etapas do evento',
   },
   {
     id: '4.C.4',
     name: 'Registros do HaQuantum',
-    path: '/pesquisa/haquantum',
+    path: '/pesquisa/haquantum', anchor: 'haquantum-registros',
     source: 'HaQuantumGallery',
     cards: 'Carrossel WebP/PNG',
   },
 
-  { id: '5.1', name: 'Manifesto — capa', path: '/manifesto', source: 'ManifestoHero' },
+  { id: '5.1', name: 'Manifesto — capa', path: '/manifesto', anchor: 'manifesto-capa', source: 'ManifestoHero' },
   {
     id: '5.2',
     name: 'Sua voz faz parte dessa construção',
@@ -287,7 +287,7 @@ export const siteSections = [
   {
     id: '5.5',
     name: 'Por que isso é importante?',
-    path: '/manifesto',
+    path: '/manifesto', anchor: 'manifesto-importancia',
     source: 'PublicPages/Manifesto',
   },
   {
@@ -325,20 +325,20 @@ export const siteSections = [
   {
     id: '5.10',
     name: 'Convite para contribuir',
-    path: '/manifesto',
+    path: '/manifesto', anchor: 'contribuir-manifesto-final',
     source: 'ManifestoParticipation',
   },
 
   {
     id: '6.A.1',
     name: 'Notícias — busca e filtros',
-    path: '/noticias',
+    path: '/noticias', anchor: 'noticias-inicio',
     source: 'Publications/News',
   },
   {
     id: '6.A.2',
     name: 'Lista de publicações',
-    path: '/noticias',
+    path: '/noticias', anchor: 'noticias-publicacoes',
     source: 'Publications/News',
     cards: 'Cards de publicações (links internos ou externos)',
   },
@@ -352,7 +352,7 @@ export const siteSections = [
   {
     id: '6.B.1',
     name: 'Redes sociais — introdução',
-    path: '/redes-sociais',
+    path: '/redes-sociais', anchor: 'redes-intro',
     source: 'SocialMediaPage',
   },
   {
@@ -380,13 +380,13 @@ export const siteSections = [
     cards: 'Capa/CTA do canal oficial',
   },
 
-  { id: '7.1', name: 'Apoie a Ciência — apresentação', path: '/apoie', source: 'Support' },
-  { id: '7.2', name: 'Contato para colaboração', path: '/apoie', source: 'Support' },
+  { id: '7.1', name: 'Apoie a Ciência — apresentação', path: '/apoie', anchor: 'apoie-inicio', source: 'Support' },
+  { id: '7.2', name: 'Contato para colaboração', path: '/apoie', anchor: 'apoie-contato', source: 'Support' },
 
   {
     id: '8.1',
     name: 'Contato institucional (página auxiliar)',
-    path: '/contato',
+    path: '/contato', anchor: 'contato-intro',
     source: 'PublicPages/Contact',
   },
   {
