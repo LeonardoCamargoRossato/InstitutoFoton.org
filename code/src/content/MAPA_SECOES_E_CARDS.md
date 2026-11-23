@@ -92,7 +92,7 @@ _A seção de Valores aparece visualmente após a Equipe, mas permanece cataloga
 | 7.1    | Apoie — apresentação     | [Apoie](https://leonardocamargorossato.github.io/InstitutoFoton.org/apoie#apoie-inicio) |
 | 7.2    | Contato para colaboração | [Apoie](https://leonardocamargorossato.github.io/InstitutoFoton.org/apoie#apoie-contato) |
 
-**Páginas auxiliares (8.x):** Contato, Transparência, Apresentação, Privacidade e Termos. Elas são catalogadas sem criar novos itens no menu público.
+**Páginas auxiliares (8.x):** Contato, Apresentação, Privacidade e Termos. O componente de **Transparência** está inventariado em 8.2 como **não publicado**: `TransparencyBoard.tsx` existe, mas `/transparencia` ainda não está declarado em `src/main.tsx`. Não divulgar o caminho como link funcional nem criar uma página nova apenas por padronização. Nenhum novo item foi criado no menu público.
 
 ## Links diretos de identificação
 
