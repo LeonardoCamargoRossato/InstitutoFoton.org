@@ -314,7 +314,7 @@ export function Journey() {
         </div>
       </section>
 
-      <section className="section section-gray">
+      <section className="section section-gray" id="jornada-eventos" data-lcr-section-id="4.B.5">
         <div className="container split">
           <Heading title="Eventos e comunicação científica" />
           <div className="body-copy">
