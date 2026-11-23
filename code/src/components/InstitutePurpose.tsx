@@ -46,6 +46,7 @@ export default function InstitutePurpose() {
             <InfoCard
               className={`institute-purpose-card institute-purpose-card--${key}`}
               key={key}
+              catalogId={`2.A.5.C${Number(number)}`}
               estiloGrafico={cardPresets.institucionalInformativo}
             >
               <header className="institute-purpose-card-header">
