@@ -10,9 +10,19 @@ describe('LCR — mapa de páginas, seções e cards', () => {
       ...(item.children ?? []).map((child) => child.id),
     ]);
     expect(new Set(allIds).size).toBe(allIds.length);
-    expect(siteMenu.find((item) => item.id === '2')?.children?.map((item) => item.id)).toEqual(['2.A', '2.B']);
-    expect(siteMenu.find((item) => item.id === '4')?.children?.map((item) => item.id)).toEqual(['4.A', '4.B', '4.C']);
-    expect(siteMenu.find((item) => item.id === '6')?.children?.map((item) => item.id)).toEqual(['6.A', '6.B']);
+    expect(siteMenu.find((item) => item.id === '2')?.children?.map((item) => item.id)).toEqual([
+      '2.A',
+      '2.B',
+    ]);
+    expect(siteMenu.find((item) => item.id === '4')?.children?.map((item) => item.id)).toEqual([
+      '4.A',
+      '4.B',
+      '4.C',
+    ]);
+    expect(siteMenu.find((item) => item.id === '6')?.children?.map((item) => item.id)).toEqual([
+      '6.A',
+      '6.B',
+    ]);
   });
 
   it('garante códigos únicos e caminhos internos do site', () => {
@@ -35,16 +45,12 @@ describe('LCR — mapa de páginas, seções e cards', () => {
   });
 
   it('nomeia a Missão, Visão, Propósito e as três frentes do Instituto', () => {
-    expect(siteCards.filter((card) => card.sectionId === '2.A.5').map((card) => card.name)).toEqual([
-      'Missão',
-      'Visão',
-      'Propósito',
-    ]);
-    expect(siteCards.filter((card) => card.sectionId === '2.A.6').map((card) => card.name)).toEqual([
-      'Educação e formação',
-      'Pesquisa aplicada',
-      'Inteligência estratégica',
-    ]);
+    expect(siteCards.filter((card) => card.sectionId === '2.A.5').map((card) => card.name)).toEqual(
+      ['Missão', 'Visão', 'Propósito'],
+    );
+    expect(siteCards.filter((card) => card.sectionId === '2.A.6').map((card) => card.name)).toEqual(
+      ['Educação e formação', 'Pesquisa aplicada', 'Inteligência estratégica'],
+    );
   });
 
   it('identifica os sete valores como informativos, sem clique', () => {

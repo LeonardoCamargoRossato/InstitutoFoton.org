@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('Valores: animação de entrada permanece, mas o hover não altera cor, sombra ou escala', async ({ page }) => {
+test('Valores: animação de entrada permanece, mas o hover não altera cor, sombra ou escala', async ({
+  page,
+}) => {
   await page.goto('./instituto');
   await expect(page.locator('#valores')).toBeVisible();
   const values = page.locator('.values-keywords .value-keyword');
@@ -12,23 +14,35 @@ test('Valores: animação de entrada permanece, mas o hover não altera cor, som
   await expect(first).toHaveClass(/is-revealed/);
   await expect(first).toHaveCSS('cursor', 'auto');
   // A transição de entrada termina antes de comparar estilos de hover.
-  await expect.poll(async () => first.evaluate((node) => getComputedStyle(node).transform)).toBe('none');
+  await expect
+    .poll(async () => first.evaluate((node) => getComputedStyle(node).transform))
+    .toBe('none');
   const before = await first.evaluate((node) => {
     const style = getComputedStyle(node);
-    return { background: style.backgroundImage, shadow: style.boxShadow, transform: style.transform };
+    return {
+      background: style.backgroundImage,
+      shadow: style.boxShadow,
+      transform: style.transform,
+    };
   });
   await first.hover();
   await page.waitForTimeout(350);
   const after = await first.evaluate((node) => {
     const style = getComputedStyle(node);
-    return { background: style.backgroundImage, shadow: style.boxShadow, transform: style.transform };
+    return {
+      background: style.backgroundImage,
+      shadow: style.boxShadow,
+      transform: style.transform,
+    };
   });
   expect(after).toEqual(before);
 });
 
 test('Missão, Visão, Propósito e três frentes não fingem clique no hover', async ({ page }) => {
   await page.goto('./instituto');
-  const cards = page.locator('.institute-purpose-card, .section > .container > .three-grid > .info-card');
+  const cards = page.locator(
+    '.institute-purpose-card, .section > .container > .three-grid > .info-card',
+  );
   await expect(cards).toHaveCount(6);
   for (const card of await cards.all()) {
     await card.scrollIntoViewIfNeeded();
