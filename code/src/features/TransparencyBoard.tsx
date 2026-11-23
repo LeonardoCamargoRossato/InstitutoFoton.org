@@ -195,7 +195,7 @@ export default function TransparencyBoard() {
 
   return (
     <>
-      <Intro eyebrow="Transparência" title="Confiança se constrói com clareza.">
+      <Intro eyebrow="Transparência" title="Confiança se constrói com clareza." id="transparencia-inicio" sectionCode="8.2">
         <p>Documentos e informações institucionais para consulta pública, com responsabilidade.</p>
       </Intro>
       <section className="transparency-lead section">
