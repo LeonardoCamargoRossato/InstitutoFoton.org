@@ -95,7 +95,7 @@ function BrazilConstellation() {
 
 export default function ManifestoHero() {
   return (
-    <section className="manifesto-hero" aria-labelledby="manifesto-hero-title">
+    <section className="manifesto-hero" id="manifesto-capa" data-lcr-section-id="5.1" aria-labelledby="manifesto-hero-title">
       <div className="manifesto-hero-orbit manifesto-hero-orbit--one" aria-hidden="true" />
       <div className="manifesto-hero-orbit manifesto-hero-orbit--two" aria-hidden="true" />
       <div className="container manifesto-hero-layout">
