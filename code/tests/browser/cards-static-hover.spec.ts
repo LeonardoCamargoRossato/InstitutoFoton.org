@@ -13,10 +13,15 @@ test('Valores: animação de entrada permanece, mas o hover não altera cor, som
   await expect(first).toHaveClass(/reveal-item/);
   await expect(first).toHaveClass(/is-revealed/);
   await expect(first).toHaveCSS('cursor', 'auto');
-  // A transição de entrada termina antes de comparar estilos de hover.
+  // A entrada mantém uma matriz neutra (não a string "none") ao concluir.
   await expect
-    .poll(async () => first.evaluate((node) => getComputedStyle(node).transform))
-    .toBe('none');
+    .poll(async () =>
+      first.evaluate((node) => {
+        const transform = getComputedStyle(node).transform;
+        return transform === 'none' || transform === 'matrix(1, 0, 0, 1, 0, 0)';
+      }),
+    )
+    .toBe(true);
   const before = await first.evaluate((node) => {
     const style = getComputedStyle(node);
     return {
@@ -48,7 +53,17 @@ test('Missão, Visão, Propósito e três frentes não fingem clique no hover', 
     await card.scrollIntoViewIfNeeded();
     await expect(card).toHaveAttribute('data-card-hover', 'none');
     await expect(card).toHaveCSS('cursor', 'default');
+    await expect
+      .poll(async () =>
+        card.evaluate((node) => {
+          const transform = getComputedStyle(node).transform;
+          return transform === 'none' || transform === 'matrix(1, 0, 0, 1, 0, 0)';
+        }),
+      )
+      .toBe(true);
+    const before = await card.evaluate((node) => getComputedStyle(node).transform);
     await card.hover();
-    await expect(card).toHaveCSS('transform', 'none');
+    await page.waitForTimeout(350);
+    expect(await card.evaluate((node) => getComputedStyle(node).transform)).toBe(before);
   }
 });
