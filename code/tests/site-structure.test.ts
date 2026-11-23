@@ -1,8 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import { siteMenu, siteSections, siteSectionLink } from '../src/content/siteStructure';
 import { siteCards } from '../src/content/siteCards';
+import { auxiliaryRoutes, pageManifests } from '../src/pages/pageManifest';
 
 describe('LCR — mapa de páginas, seções e cards', () => {
+  it('mantém o espelho de páginas ligado às seções canônicas', () => {
+    const manifestIds = pageManifests.flatMap(({ sectionIds }) => [...sectionIds]);
+    const publishedIds = siteSections
+      .filter(({ published }) => published !== false)
+      .map(({ id }) => id);
+
+    expect(new Set(manifestIds).size).toBe(manifestIds.length);
+    expect(manifestIds.sort()).toEqual(publishedIds.sort());
+    expect(pageManifests.map(({ route }) => route)).toContain('/instituto');
+    expect(auxiliaryRoutes).toContain('/privacidade');
+  });
   it('mantém a numeração pública do menu de 1 a 7, sem duplicações', () => {
     expect(siteMenu.map((item) => item.id)).toEqual(['1', '2', '3', '4', '5', '6', '7']);
     const allIds = siteMenu.flatMap((item) => [
@@ -64,5 +76,10 @@ describe('LCR — mapa de páginas, seções e cards', () => {
     const values = siteCards.filter((card) => card.sectionId === '2.A.8');
     expect(values).toHaveLength(7);
     expect(values.every((card) => card.kind === 'informativo')).toBe(true);
+  });
+
+  it('classifica as cartas regionais como informativas, sem ação no card', () => {
+    const cartas = siteCards.find((card) => card.id === '5.7.C*');
+    expect(cartas?.kind).toBe('informativo');
   });
 });

@@ -114,6 +114,8 @@ carrosséis) preservam seu componente original e recebem apenas rastreabilidade.
 
 A biblioteca de cards está em `code/src/components/cards/`; a biblioteca independente de carrossel está em `code/src/components/carousel/`. Ao padronizar, diferenciar links de cards informativos; **nenhum hover de ação sem clique**. Preservar animações de entrada para ambos.
 
-Os cards em `InstitutePurpose`, `OfficialStatements`, `PublicPages`, `ResearchPages`, `InstituteTeamDashboard` e `NewsPhotoHighlights` já compartilham componentes da biblioteca inicial. Os elementos de Parceiros, Notícias, ODQs, Cartas, Transparência e etapas precisam de migração conservadora para não quebrar layout, imagens, downloads nem navegação. Cada lote deve concluir CI e regressão antes do próximo.
+Os cards de `InstitutePurpose`, `OfficialStatements`, `PublicPages`, `ResearchPages`, `InstituteTeamDashboard`, `NewsPhotoHighlights`, Parceiros, Notícias, ODQs, Cartas, Transparência e etapas usam a biblioteca compartilhada quando semanticamente apropriado. Componentes editoriais especiais (capas, composições, CTAs e galerias) preservam suas estruturas e recebem identificadores de rastreabilidade, sem mudar layout, imagens, downloads ou navegação. O `TransparencyBoard` segue sem rota pública `/transparencia`.
+
+A migração foi integrada pelas PRs #66 e #67 (`2caa8db`), com CI e deploy aprovados. A inspeção visual manual continua sendo uma verificação independente; alterações futuras exigem novo lote e testes de regressão.
 
 O catálogo é versionado junto com o site e deve ser atualizado sempre que se introduzir, remover, renomear ou mover uma seção. **Nunca usar a numeração interna como texto visível do site.**

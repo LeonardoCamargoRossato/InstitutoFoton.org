@@ -10,8 +10,8 @@ import PhotonIdentityAnimation, {
   type PhotonIdentityPhase,
 } from '../components/PhotonIdentityAnimation';
 import HomeAtomEntrance from '../components/HomeAtomEntrance';
-import InstituteTeamDashboard from '../components/InstituteTeamDashboard';
-import InstitutePurpose from '../components/InstitutePurpose';
+import InstituteTeamDashboard from '../pages/instituto/sections/InstituteTeamDashboard';
+import InstitutePurpose from '../pages/instituto/sections/InstitutePurpose';
 import { FoundationTeaser } from '../components/FoundationHistory';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';

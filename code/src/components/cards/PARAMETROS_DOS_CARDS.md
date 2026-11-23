@@ -112,9 +112,11 @@ Carregar **WebP otimizado** no card. Manter PNG oficial na estrutura de dados e 
 
 ## Preservação e implementação gradual
 
-Consumidores iniciais migrados: `InstitutePurpose`, cards informativos de `OfficialStatements` e `PublicPages`, links de Pesquisa e Home, `InstituteTeamDashboard` e `NewsPhotoHighlights`. O CSS editorial original continua aplicando layouts, tipografia e acabamentos particulares; só comportamento e tokens passam à biblioteca.
+Consumidores migrados até as PRs #66 e #67: `InstitutePurpose`, `OfficialStatements`, `PublicPages`, `ResearchPages`, `InstituteTeamDashboard`, `NewsPhotoHighlights`, `PartnerEcosystem`, `Publications` e `TransparencyBoard`. A biblioteca distingue cards interativos e informativos, conservando o CSS editorial, o conteúdo, as ações independentes e os links seguros.
 
-Parceiros, cartas, cartões de publicação e doação permanecem fora deste lote por dependências ou layout sensíveis. Os quatro carrosséis de fotos e suas APIs não são alterados. A animação aprovada de identidade também não é modificada.
+Parceiros com URL, publicações, cartas regionais, ODQs e etapas editoriais usam `ActionCard` ou `InfoCard` conforme sua semântica, com `inheritVisuals` para preservar o visual aprovado. Capas especiais, galerias, convites, CTAs de apoio e mosaicos não são forçados a uma nova estrutura: seguem com componentes próprios e identificação `data-lcr-card-id` quando pertinente. O componente `TransparencyBoard` continua **sem rota pública**. Os carrosséis e a animação de identidade permanecem intocados.
+
+**Evidência:** PRs #66 e #67 integradas à `main`, commit `2caa8db` com Quality checks #545 e Deploy #161 concluídos com sucesso. Testes e deploy não substituem revisão visual manual nem aprovação de alterações editoriais.
 
 ### Adicionar um novo card
 
