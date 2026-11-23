@@ -34,6 +34,7 @@ export default function YouTubeHighlight() {
           </p>
           <a
             className="social-profile-link social-profile-link--youtube"
+            data-lcr-card-id="6.B.4.C2"
             href={YOUTUBE_CHANNEL}
             target="_blank"
             rel="noopener noreferrer"
@@ -45,6 +46,7 @@ export default function YouTubeHighlight() {
 
         <a
           className="social-youtube-highlight__cover"
+          data-lcr-card-id="6.B.4.C1"
           href={YOUTUBE_CHANNEL}
           target="_blank"
           rel="noopener noreferrer"
