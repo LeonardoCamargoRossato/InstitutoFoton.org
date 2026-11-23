@@ -5,7 +5,7 @@ import { BookOpen, Copy, ArrowUpRight } from 'lucide-react';
 import { NewsCarousel } from '../pages/06-noticias/sections/NewsCarousel';
 import { InfoCard } from '../components/cards';
 import { NewsPhotoHighlights } from '../pages/06-noticias/sections/NewsPhotoHighlights';
-import { Intro, Status, Empty, External, TextLink } from '../components/UI';
+import { Intro, Status, Empty, External, TextLink } from '../components/ui';
 import { publications, publication, type Publication } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 import { dateLabel, safeExternalUrl } from '../lib/config';

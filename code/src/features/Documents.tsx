@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback } from 'react';
-import { Intro } from '../components/UI';
+import { Intro } from '../components/ui';
 import { documents, documentUrl } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 const PdfViewer = lazy(() => import('./PdfViewer'));

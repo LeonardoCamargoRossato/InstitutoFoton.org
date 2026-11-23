@@ -1,5 +1,5 @@
 import { HeartHandshake } from 'lucide-react';
-import { Intro, Heading, Action } from '../components/UI';
+import { Intro, Heading, Action } from '../components/ui';
 
 export default function Support() {
   return (

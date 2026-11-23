@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect, useRef, useState, type RefObject } from 'rea
 import { flushSync } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-react';
-import { Action, TextLink, Intro, Heading, External } from '../components/UI';
+import { Action, TextLink, Intro, Heading, External } from '../components/ui';
 import { ActionCard, InfoCard } from '../components/cards';
 import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
