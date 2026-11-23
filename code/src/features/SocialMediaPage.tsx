@@ -8,7 +8,7 @@ import './SocialMediaPage.css';
 export default function SocialMediaPage() {
   return (
     <div className="social-media-page">
-      <section className="social-intro">
+      <section className="social-intro" id="redes-intro" data-lcr-section-id="6.B.1">
         <div className="container social-intro-inner">
           <p className="eyebrow">
             <span />
@@ -46,6 +46,7 @@ export default function SocialMediaPage() {
         <InstagramHighlight />
         <section
           className="social-network social-network--linkedin"
+          data-lcr-section-id="6.B.3"
           aria-labelledby="social-linkedin-title"
         >
           <SocialPhysicsBackdrop region="linkedin" />
