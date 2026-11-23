@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { BookOpen, Network, Pause, Play, Rocket, UsersRound } from 'lucide-react';
-import { assetUrl } from '../lib/siteAssets';
+import { assetUrl } from '../../../lib/siteAssets';
 
 const fronts = [
   { id: 'ecosystem', label: 'Formação de ecossistema', Icon: Network },

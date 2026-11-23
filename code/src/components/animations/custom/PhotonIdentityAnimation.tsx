@@ -1,5 +1,5 @@
 import { useEffect, useState, type RefObject } from 'react';
-import { assetUrl, imageAsset } from '../lib/siteAssets';
+import { assetUrl, imageAsset } from '../../../lib/siteAssets';
 
 const logo = imageAsset('foton-logo-light');
 

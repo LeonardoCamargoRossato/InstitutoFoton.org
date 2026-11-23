@@ -6,10 +6,11 @@ import { Action, TextLink, Intro, Heading, External } from '../components/ui';
 import { ActionCard, InfoCard } from '../components/cards';
 import { assetUrl } from '../lib/siteAssets';
 import PartnerEcosystem from './PartnerEcosystem';
-import PhotonIdentityAnimation, {
+import {
+  HomeAtomEntrance,
+  PhotonIdentityAnimation,
   type PhotonIdentityPhase,
-} from '../components/PhotonIdentityAnimation';
-import HomeAtomEntrance from '../components/HomeAtomEntrance';
+} from '../components/animations';
 import InstituteTeamDashboard from '../pages/02-instituto/sections/InstituteTeamDashboard';
 import InstitutePurpose from '../pages/02-instituto/sections/InstitutePurpose';
 import { FoundationTeaser } from './foundation';
