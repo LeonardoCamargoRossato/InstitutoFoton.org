@@ -8,7 +8,7 @@ export const instituto2A = definePageArea({
   implementation: [
     'features/PublicPages.tsx#Institute',
     'sections/InstitutePurpose.tsx',
-    'components/FoundationHistory.tsx',
+    'features/foundation/FoundationHistory.tsx',
     'components/PhotonIdentityAnimation.tsx',
   ],
   contentSources: ['content/institutional.ts', 'content/siteCards.ts'],

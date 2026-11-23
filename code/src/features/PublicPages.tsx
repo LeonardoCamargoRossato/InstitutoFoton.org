@@ -12,7 +12,7 @@ import PhotonIdentityAnimation, {
 import HomeAtomEntrance from '../components/HomeAtomEntrance';
 import InstituteTeamDashboard from '../pages/02-instituto/sections/InstituteTeamDashboard';
 import InstitutePurpose from '../pages/02-instituto/sections/InstitutePurpose';
-import { FoundationTeaser } from '../components/FoundationHistory';
+import { FoundationTeaser } from './foundation';
 import { odqs, cartas, methodology } from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 import ManifestoHero from './ManifestoHero';
