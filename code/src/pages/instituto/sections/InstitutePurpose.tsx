@@ -1,5 +1,5 @@
 import { Compass, Globe2, Target } from 'lucide-react';
-import { InfoCard, cardPresets } from './cards';
+import { InfoCard, cardPresets } from '../../../components/cards';
 import './InstitutePurpose.css';
 
 const pillars = [

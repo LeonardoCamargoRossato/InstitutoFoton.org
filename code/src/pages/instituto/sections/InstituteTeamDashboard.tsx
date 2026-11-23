@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
-import { assetUrl } from '../lib/siteAssets';
-import { ProfileCard } from './cards';
-import { instituteTeam, type InstituteMember } from '../content/instituteTeam';
+import { assetUrl } from '../../../lib/siteAssets';
+import { ProfileCard } from '../../../components/cards';
+import { instituteTeam, type InstituteMember } from '../../../content/instituteTeam';
 import './InstituteTeamDashboard.css';
 
 const levels = [

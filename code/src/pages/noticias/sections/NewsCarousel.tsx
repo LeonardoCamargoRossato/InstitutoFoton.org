@@ -1,6 +1,6 @@
-import { BaseCarousel, carouselPresets } from './carousel';
-import { assetUrl } from '../lib/siteAssets';
-import '../features/NewsMedia.css';
+import { BaseCarousel, carouselPresets } from '../../../components/carousel';
+import { assetUrl } from '../../../lib/siteAssets';
+import '../../../features/NewsMedia.css';
 
 export type NewsCarouselImage = {
   name: string;

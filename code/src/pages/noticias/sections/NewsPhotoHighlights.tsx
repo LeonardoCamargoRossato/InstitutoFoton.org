@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ImageZoomDialog } from './ImageZoomDialog';
-import { ImageCard } from './cards';
+import { ImageZoomDialog } from '../../../components/ImageZoomDialog';
+import { ImageCard } from '../../../components/cards';
 import type { NewsCarouselImage } from './NewsCarousel';
-import { assetUrl } from '../lib/siteAssets';
-import '../features/NewsMedia.css';
+import { assetUrl } from '../../../lib/siteAssets';
+import '../../../features/NewsMedia.css';
 
 type Props = {
   images: readonly NewsCarouselImage[];
