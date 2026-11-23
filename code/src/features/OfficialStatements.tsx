@@ -20,7 +20,7 @@ export default function OfficialStatements() {
   return (
     <>
       {statements.length > 0 && (
-        <section className="section official-statements">
+        <section className="section official-statements" id="declaracoes-institucionais" data-lcr-section-id="2.A.7">
           <div className="container three-grid">
             {statements.map((block) => (
               <InfoCard className="info-card" key={block.key} catalogId={`2.A.7.C-${block.key}`}>
@@ -32,7 +32,7 @@ export default function OfficialStatements() {
         </section>
       )}
       {values && (
-        <section className="values-section" id="valores" aria-labelledby="values-title">
+        <section className="values-section" id="valores" aria-labelledby="values-title" data-lcr-section-id="2.A.8">
           <div className="values-glow values-glow-one" aria-hidden="true" />
           <div className="values-glow values-glow-two" aria-hidden="true" />
           <div className="container values-layout">
