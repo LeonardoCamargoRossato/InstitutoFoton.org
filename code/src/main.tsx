@@ -5,6 +5,7 @@ import '@fontsource/raleway/latin-400.css';
 import '@fontsource/raleway/latin-500.css';
 import '@fontsource/raleway/latin-600.css';
 import '@fontsource/raleway/latin-700.css';
+import './components/foundations/tokens.css';
 import './styles/site.css';
 import './styles/human-editorial.css';
 import './styles/image-zoom.css';
