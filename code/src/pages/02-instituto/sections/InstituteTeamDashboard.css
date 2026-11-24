@@ -1,5 +1,5 @@
 .institute-team-section {
-  background: #fff;
+  background: var(--white);
   scroll-margin-top: 90px;
   padding-block: clamp(4rem, 7vw, 7rem);
   position: relative;
@@ -90,7 +90,7 @@
   flex-direction: column;
   overflow: hidden;
   cursor: pointer;
-  background: #fff;
+  background: var(--white);
   color: #15334a;
   border: 1px solid #d9e8f0;
   border-radius: 25px 25px 20px 20px;
@@ -165,7 +165,7 @@
   flex: 0 1 260px;
   min-width: 0;
   padding: 1.3rem;
-  background: linear-gradient(145deg, #f7fcff, #fff);
+  background: linear-gradient(145deg, #f7fcff, var(--white));
   border: 1px solid #e1edf4;
   border-radius: 30px;
 }
@@ -202,7 +202,7 @@
 }
 .team-dialog {
   position: relative;
-  background: #fff;
+  background: var(--white);
   border-radius: 26px;
   max-width: 830px;
   width: 100%;

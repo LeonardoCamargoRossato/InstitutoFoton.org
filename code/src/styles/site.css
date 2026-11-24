@@ -653,7 +653,7 @@
     background:
       radial-gradient(ellipse at 82% 18%, rgba(1, 88, 187, 0.18), transparent 36%),
       radial-gradient(ellipse at 66% 82%, rgba(48, 18, 107, 0.1), transparent 32%),
-      linear-gradient(145deg, #ffffff 0%, #f5f8fd 58%, #edf3fb 100%);
+      linear-gradient(145deg, var(--white) 0%, #f5f8fd 58%, #edf3fb 100%);
     overflow: hidden;
     border-radius: 0 0 32px 0;
   }
@@ -1125,7 +1125,7 @@
   .support-cta {
     background:
       radial-gradient(circle at 4% 35%, rgba(1, 88, 187, 0.13), transparent 20%),
-      linear-gradient(115deg, #f0f4fa, #ffffff 55%, #edf2fa);
+      linear-gradient(115deg, #f0f4fa, var(--white) 55%, #edf2fa);
     padding: 65px 0;
     border-radius: 0 28px 0 28px;
   }
@@ -1223,7 +1223,7 @@
     background:
       radial-gradient(ellipse at 88% 10%, rgba(1, 88, 187, 0.16), transparent 30%),
       radial-gradient(ellipse at 65% 100%, rgba(48, 18, 107, 0.08), transparent 34%),
-      linear-gradient(145deg, #ffffff, #f1f5fa);
+      linear-gradient(145deg, var(--white), #f1f5fa);
     border-bottom: 1px solid #072c7b12;
     border-radius: 0 0 28px 0;
     overflow: hidden;
@@ -1424,7 +1424,7 @@
     background:
       radial-gradient(circle at 14% 18%, rgba(29, 131, 229, 0.7), transparent 25%),
       radial-gradient(circle at 88% 78%, rgba(74, 32, 145, 0.72), transparent 29%),
-      linear-gradient(132deg, #03112f 0%, #072c7b 47%, #0b4d9e 72%, #30126b 120%);
+      linear-gradient(132deg, #03112f 0%, var(--navy) 47%, #0b4d9e 72%, var(--purple) 120%);
     border-radius: 32px 0 32px 0;
   }
   .values-section::before {
@@ -3015,7 +3015,7 @@
     right: 0;
     z-index: 1;
     padding: 18px 24px;
-    color: #fff;
+    color: var(--white);
     font-size: 0.72rem;
     font-weight: 600;
     line-height: 1.55;
@@ -3043,7 +3043,7 @@
     background:
       radial-gradient(ellipse at 65% 30%, rgba(40, 130, 210, 0.24), transparent 56%),
       linear-gradient(145deg, #dfeaf7, #edf5ff);
-    color: #072c7b;
+    color: var(--navy);
   }
   .foton-photo-placeholder span {
     text-transform: uppercase;
@@ -3070,7 +3070,7 @@
     padding: 24px;
   }
   .human-story-section {
-    background: #fff;
+    background: var(--white);
   }
   .human-story-layout,
   .institute-people-grid {
@@ -3119,7 +3119,7 @@
   }
 
   .transparency-lead {
-    background: #fff;
+    background: var(--white);
   }
   .transparency-lead-grid {
     display: grid;
@@ -3231,7 +3231,7 @@
   }
   .transparency-group.featured {
     border-color: #c3dafa;
-    background: linear-gradient(125deg, #f8fbff 0%, #ffffff 56%);
+    background: linear-gradient(125deg, #f8fbff 0%, var(--white) 56%);
   }
   .transparency-group.featured::before {
     content: '';
@@ -3576,7 +3576,8 @@
 /* Convite para o questionário do Manifesto: dois pontos de entrada, uma mesma identidade. */
 @layer components {
   .manifesto-participation {
-    background: radial-gradient(ellipse at 90% 20%, rgba(1, 88, 187, 0.07), transparent 52%), #fff;
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(1, 88, 187, 0.07), transparent 52%), var(--white);
     padding-block: clamp(70px, 8vw, 112px);
   }
   .manifesto-participation--bottom {
@@ -3636,7 +3637,7 @@
     padding: 23px 26px;
     border-radius: 19px;
     border: 1px solid rgba(7, 44, 123, 0.12);
-    background: #fff;
+    background: var(--white);
     box-shadow: 0 18px 42px rgba(7, 44, 123, 0.15);
     transition:
       transform 320ms cubic-bezier(0.2, 0.72, 0.2, 1),
