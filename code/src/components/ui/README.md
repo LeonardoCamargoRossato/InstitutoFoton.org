@@ -1,11 +1,11 @@
 # Componentes de interface
 
-| Arquivo        | Descrição sucinta     | Descrição detalhada                                                                            |
-| -------------- | --------------------- | ---------------------------------------------------------------------------------------------- |
-| `actions.tsx`  | Ações e links         | Reúne botão de ação, link interno e link externo com o padrão de interface do site.            |
-| `layout.tsx`   | Estrutura de conteúdo | Fornece componentes de introdução e títulos para manter hierarquia e espaçamento consistentes. |
-| `feedback.tsx` | Estados de feedback   | Exibe estados vazios e mensagens de status para orientar o usuário.                            |
-| `Modal.tsx`    | Janela sobreposta     | Renderiza uma camada modal reutilizável para conteúdos que precisam aparecer sobre a página.   |
-| `index.ts`     | Ponto de entrada      | Reexporta os componentes de interface para importação centralizada.                            |
+Esta pasta reúne peças pequenas e reutilizáveis da interface.
 
-São componentes pequenos e genéricos, usados como peças de interface em várias páginas.
+- `actions.tsx`: links internos, links externos seguros e variações de ação com classes combináveis.
+- `layout.tsx`: introduções e títulos de seção com hierarquia consistente.
+- `feedback.tsx`: estados vazios, carregamento e erro com semântica acessível.
+- `Modal.tsx`: janela `dialog`, fechamento controlado e retorno de foco.
+- `index.ts`: ponto de entrada dos componentes.
+
+Os ícones decorativos usam `aria-hidden`, botões têm `type="button"`, links externos usam `noopener noreferrer` e estados usam papéis ARIA apropriados.

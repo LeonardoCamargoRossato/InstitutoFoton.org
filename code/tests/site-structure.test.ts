@@ -32,7 +32,7 @@ describe('LCR — mapa de páginas, seções e cards', () => {
       }
     }
 
-    expect(readmes).toHaveLength(9);
+    expect(readmes).toHaveLength(11);
     expect(missing).toEqual([]);
   });
 
