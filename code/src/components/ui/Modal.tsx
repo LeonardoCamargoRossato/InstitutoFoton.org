@@ -39,8 +39,14 @@ export function Modal({
       <div className="modal-content">
         <div className="modal-top">
           <span className="eyebrow">Apoie a ciência</span>
-          <button autoFocus className="icon-button" onClick={onClose} aria-label="Fechar detalhes">
-            <X />
+          <button
+            type="button"
+            autoFocus
+            className="icon-button"
+            onClick={onClose}
+            aria-label="Fechar detalhes"
+          >
+            <X aria-hidden="true" />
           </button>
         </div>
         <h2 id="modal-title">{title}</h2>
