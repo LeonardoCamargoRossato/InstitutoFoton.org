@@ -14,55 +14,55 @@
   min-width: 0;
 }
 
-.foton-card[data-card-theme='escuro'] {
+.foton-card[data-card-theme="escuro"] {
   --foton-card-border: #719bb9;
   --foton-card-border-highlight: #9bdafa;
 }
 
-.foton-card[data-card-border='nenhuma'] {
+.foton-card[data-card-border="nenhuma"] {
   border: 0;
 }
-.foton-card[data-card-border='suave'] {
+.foton-card[data-card-border="suave"] {
   border: 1px solid var(--foton-card-border);
 }
-.foton-card[data-card-border='destacada'] {
+.foton-card[data-card-border="destacada"] {
   border: 2px solid var(--foton-card-border-highlight);
 }
-.foton-card[data-card-border='organica'] {
+.foton-card[data-card-border="organica"] {
   border: 1px solid var(--foton-card-border);
   border-radius: 34px 34px 92px 34px;
 }
 
-.foton-card[data-card-radius='sm']:not([data-card-border='organica']) {
+.foton-card[data-card-radius="sm"]:not([data-card-border="organica"]) {
   border-radius: var(--foton-card-radius-sm);
 }
-.foton-card[data-card-radius='md']:not([data-card-border='organica']) {
+.foton-card[data-card-radius="md"]:not([data-card-border="organica"]) {
   border-radius: var(--foton-card-radius-md);
 }
-.foton-card[data-card-radius='lg']:not([data-card-border='organica']) {
+.foton-card[data-card-radius="lg"]:not([data-card-border="organica"]) {
   border-radius: var(--foton-card-radius-lg);
 }
-.foton-card[data-card-radius='xl']:not([data-card-border='organica']) {
+.foton-card[data-card-radius="xl"]:not([data-card-border="organica"]) {
   border-radius: var(--foton-card-radius-xl);
 }
 
-.foton-card[data-card-shadow='nenhuma'] {
+.foton-card[data-card-shadow="nenhuma"] {
   box-shadow: none;
 }
-.foton-card[data-card-shadow='leve'] {
+.foton-card[data-card-shadow="leve"] {
   box-shadow: var(--foton-card-shadow-light);
 }
-.foton-card[data-card-shadow='media'] {
+.foton-card[data-card-shadow="media"] {
   box-shadow: var(--foton-card-shadow-medium);
 }
 
-.foton-card[data-card-spacing='compacto'] {
+.foton-card[data-card-spacing="compacto"] {
   --foton-card-padding: 16px;
 }
-.foton-card[data-card-spacing='padrao'] {
+.foton-card[data-card-spacing="padrao"] {
   --foton-card-padding: 28px;
 }
-.foton-card[data-card-spacing='amplo'] {
+.foton-card[data-card-spacing="amplo"] {
   --foton-card-padding: 40px;
 }
 
@@ -80,14 +80,17 @@
   outline: 3px solid #13a6ce;
   outline-offset: 3px;
 }
-.foton-card--interactive[data-card-hover='lift']:is(:hover, :focus-visible) {
+.foton-card--interactive[data-card-hover="lift"]:is(:hover, :focus-visible) {
   transform: translateY(-4px);
   box-shadow: var(--foton-card-shadow-medium);
 }
-.foton-card--interactive[data-card-hover='border-highlight']:is(:hover, :focus-visible) {
+.foton-card--interactive[data-card-hover="border-highlight"]:is(
+    :hover,
+    :focus-visible
+  ) {
   border-color: var(--foton-card-border-highlight);
 }
-.foton-card--interactive[data-card-hover='image-zoom'] {
+.foton-card--interactive[data-card-hover="image-zoom"] {
   overflow: hidden;
 }
 .foton-card-media {
@@ -106,7 +109,10 @@
     transform var(--foton-card-motion),
     opacity var(--foton-card-motion);
 }
-.foton-card--interactive[data-card-hover='image-zoom']:is(:hover, :focus-visible)
+.foton-card--interactive[data-card-hover="image-zoom"]:is(
+    :hover,
+    :focus-visible
+  )
   .foton-card-image {
   transform: scale(1.04);
 }
@@ -115,7 +121,10 @@
   inset: 0;
   opacity: 0;
 }
-.foton-card--interactive[data-card-hover='image-swap']:is(:hover, :focus-visible)
+.foton-card--interactive[data-card-hover="image-swap"]:is(
+    :hover,
+    :focus-visible
+  )
   .foton-card-image--alternate {
   opacity: 1;
 }
@@ -125,8 +134,11 @@
   .foton-card-media > .foton-card-image {
     transition: none !important;
   }
-  .foton-card--interactive[data-card-hover='lift']:is(:hover, :focus-visible),
-  .foton-card--interactive[data-card-hover='image-zoom']:is(:hover, :focus-visible)
+  .foton-card--interactive[data-card-hover="lift"]:is(:hover, :focus-visible),
+  .foton-card--interactive[data-card-hover="image-zoom"]:is(
+      :hover,
+      :focus-visible
+    )
     .foton-card-image {
     transform: none !important;
   }
