@@ -1,6 +1,6 @@
 @layer components {
   .partner-ecosystem {
-    background: linear-gradient(165deg, #ffffff 0%, #f6f9fe 58%, #ffffff 100%);
+    background: linear-gradient(165deg, var(--white) 0%, #f6f9fe 58%, var(--white) 100%);
   }
   .partner-ecosystem-home {
     border-radius: 48px 0 48px 0;
@@ -71,7 +71,7 @@
     padding: 2px;
     overflow: hidden;
     border: 1px solid #dce6f2;
-    background: #fff;
+    background: var(--white);
     color: var(--navy);
     transition:
       border-color 0.2s ease,
@@ -98,7 +98,7 @@
     transform: translateY(-2px);
   }
   a.partner-card:focus-visible {
-    outline: 3px solid #0158bb;
+    outline: 3px solid var(--blue);
     outline-offset: 3px;
   }
   .partner-text-logo {
