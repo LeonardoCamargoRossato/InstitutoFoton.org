@@ -3576,7 +3576,8 @@
 /* Convite para o questionário do Manifesto: dois pontos de entrada, uma mesma identidade. */
 @layer components {
   .manifesto-participation {
-    background: radial-gradient(ellipse at 90% 20%, rgba(1, 88, 187, 0.07), transparent 52%), var(--white);
+    background:
+      radial-gradient(ellipse at 90% 20%, rgba(1, 88, 187, 0.07), transparent 52%), var(--white);
     padding-block: clamp(70px, 8vw, 112px);
   }
   .manifesto-participation--bottom {
