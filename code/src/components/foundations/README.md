@@ -1,13 +1,16 @@
 # Fundamentos do Design System
 
-Esta pasta contém as decisões visuais globais do Instituto Foton. Ela não renderiza componentes e não contém conteúdo editorial.
+Esta pasta contém as decisões visuais globais do Instituto Foton. Ela não renderiza componentes nem contém conteúdo editorial.
 
-| Arquivo      | Descrição sucinta      | Descrição detalhada                                                                                                                  |
-| ------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `tokens.css` | Tokens visuais globais | Centraliza cores, superfícies, espaçamentos, tipografia, raios, sombras, transições e limites de layout usados pelas demais camadas. |
+| Arquivo | Função |
+|---|---|
+| `tokens.css` | Centraliza cores, superfícies, espaçamentos, tipografia, raios, sombras, transições e limites de layout. |
 
-## Regra de uso
+## Escalas adotadas
 
-Novos componentes devem preferir os tokens desta pasta. Um valor específico só deve ser escrito diretamente quando representar uma exceção intencional do componente e estiver documentado no seu README.
+- Espaçamento: `--space-1` (4px) até `--space-20` (80px), incluindo `--space-7` (28px).
+- Raios: `sm` (8px), `md` (12px), `lg` (20px), `xl` (32px) e `pill`.
+- Sombras: níveis globais e sombras específicas de cards.
+- Movimento: durações rápidas e normais com easing compartilhado.
 
-A migração dos estilos existentes deve ser gradual: primeiro o token é criado, depois os consumidores são migrados e, por fim, valores duplicados são removidos após validação visual e CI.
+Novos componentes devem preferir estes tokens. Valores específicos devem representar exceções intencionais e ser documentados. A migração dos estilos existentes é gradual e validada visualmente e pelo CI.
