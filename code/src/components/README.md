@@ -2,8 +2,9 @@
 
 `components/` reúne as peças visuais reutilizáveis do Instituto Foton. Um componente pode aparecer em várias páginas; a página apenas combina essas peças com conteúdo e regras próprias.
 
-| Pasta         | Descrição sucinta         | Descrição detalhada                                                                                |
+| Pasta             | Descrição sucinta         | Descrição detalhada                                                                                |
 | ------------- | ------------------------- | -------------------------------------------------------------------------------------------------- |
+| `foundations/` | Fundamentos visuais | Reúne tokens globais de cor, espaçamento, tipografia, forma, sombra, movimento e layout. |
 | `animations/` | Animações visuais         | Contém animações reutilizáveis e suas implementações personalizadas para a identidade do Foton.    |
 | `cards/`      | Biblioteca de cards       | Organiza a base comum e os cards informativos ou interativos usados no site.                       |
 | `carousel/`   | Biblioteca de carrossel   | Fornece o motor compartilhado para prévias WebP, originais PNG, navegação, miniaturas e ampliação. |
