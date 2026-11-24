@@ -9,7 +9,7 @@
   --foton-card-radius-lg: 22px;
   --foton-card-radius-xl: 30px;
   --foton-card-motion: 280ms ease-out;
-  --foton-card-padding: 28px;
+  --foton-card-padding: var(--space-7, 28px);
   box-sizing: border-box;
   min-width: 0;
 }
@@ -57,13 +57,13 @@
 }
 
 .foton-card[data-card-spacing='compacto'] {
-  --foton-card-padding: 16px;
+  --foton-card-padding: var(--space-4, 16px);
 }
 .foton-card[data-card-spacing='padrao'] {
-  --foton-card-padding: 28px;
+  --foton-card-padding: var(--space-7, 28px);
 }
 .foton-card[data-card-spacing='amplo'] {
-  --foton-card-padding: 40px;
+  --foton-card-padding: var(--space-10, 40px);
 }
 
 .foton-card--informative {
