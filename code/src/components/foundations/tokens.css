@@ -45,6 +45,8 @@
   --shadow-sm: 0 8px 25px rgba(14, 67, 108, 0.055);
   --shadow-md: 0 18px 35px rgba(14, 67, 108, 0.14);
   --shadow-lg: 0 30px 90px rgba(0, 27, 56, 0.31);
+  --shadow-card-light: 0 12px 28px rgb(3 20 38 / 10%);
+  --shadow-card-medium: 0 22px 48px rgb(7 44 123 / 15%);
 
   /* Typography */
   --font-body: Raleway, Arial, sans-serif;

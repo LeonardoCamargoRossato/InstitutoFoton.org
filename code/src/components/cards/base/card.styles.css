@@ -2,10 +2,10 @@
 .foton-card {
   --foton-card-border: #dce6f1;
   --foton-card-border-highlight: #62afd8;
-  --foton-card-shadow-light: 0 12px 28px rgb(3 20 38 / 10%);
-  --foton-card-shadow-medium: 0 22px 48px rgb(7 44 123 / 15%);
-  --foton-card-radius-sm: 9px;
-  --foton-card-radius-md: 16px;
+  --foton-card-shadow-light: var(--shadow-card-light);
+  --foton-card-shadow-medium: var(--shadow-card-medium);
+  --foton-card-radius-sm: var(--radius-sm);
+  --foton-card-radius-md: var(--radius-md);
   --foton-card-radius-lg: 22px;
   --foton-card-radius-xl: 30px;
   --foton-card-motion: 280ms ease-out;
