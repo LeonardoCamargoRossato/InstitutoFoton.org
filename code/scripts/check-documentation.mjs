@@ -13,6 +13,7 @@ const approvedPublicFiles = new Set([
   'release-notes/README.md',
   'lcr-overview/README.md',
   'security/README.md',
+  'architecture/README.md',
   'architecture/ADR-20261112-Portal-Estatico.md',
   'architecture/20261123-arquitetura-pages-fase1.md',
   'release-notes/RefinamentoVisualTransparencia20261111.md',
