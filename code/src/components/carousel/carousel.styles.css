@@ -17,15 +17,15 @@
   --carousel-surface: #102b4a;
 }
 
-.base-carousel[data-radius="sm"] {
+.base-carousel[data-radius='sm'] {
   --carousel-radius: 8px;
 }
 
-.base-carousel[data-radius="md"] {
+.base-carousel[data-radius='md'] {
   --carousel-radius: 12px;
 }
 
-.base-carousel[data-radius="xl"] {
+.base-carousel[data-radius='xl'] {
   --carousel-radius: 30px;
 }
 
@@ -64,11 +64,11 @@
   cursor: zoom-in;
 }
 
-.base-carousel[data-ratio="4:5"] .base-carousel-primary {
+.base-carousel[data-ratio='4:5'] .base-carousel-primary {
   aspect-ratio: 4 / 5;
 }
 
-.base-carousel[data-ratio="original"] .base-carousel-primary {
+.base-carousel[data-ratio='original'] .base-carousel-primary {
   aspect-ratio: 4 / 3;
 }
 
@@ -88,7 +88,7 @@
   will-change: transform;
 }
 
-.base-carousel[data-fit="contain"] .base-carousel-primary > img {
+.base-carousel[data-fit='contain'] .base-carousel-primary > img {
   object-fit: contain;
 }
 
@@ -97,15 +97,11 @@
   filter: saturate(1.06);
 }
 
-.base-carousel[data-animation]
-  .base-carousel-primary[data-direction="next"]
-  > img {
+.base-carousel[data-animation] .base-carousel-primary[data-direction='next'] > img {
   animation: carousel-enter-from-right var(--carousel-enter-duration) ease both;
 }
 
-.base-carousel[data-animation]
-  .base-carousel-primary[data-direction="previous"]
-  > img {
+.base-carousel[data-animation] .base-carousel-primary[data-direction='previous'] > img {
   animation: carousel-enter-from-left var(--carousel-enter-duration) ease both;
 }
 
@@ -245,10 +241,7 @@
 
 /* Visitas Técnicas: contraste forte no fundo azul e controles circulares alinhados. */
 .visits-carousel .base-carousel .base-carousel-controls .base-carousel-arrow,
-.visits-carousel
-  .base-carousel
-  .base-carousel-controls
-  .base-carousel-grid-toggle {
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-grid-toggle {
   display: grid;
   place-items: center;
   width: 46px;
@@ -261,10 +254,7 @@
   box-shadow: 0 5px 16px rgba(0, 10, 49, 0.2);
 }
 
-.visits-carousel
-  .base-carousel
-  .base-carousel-controls
-  .base-carousel-arrow:hover:not(:disabled),
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-arrow:hover:not(:disabled),
 .visits-carousel
   .base-carousel
   .base-carousel-controls
@@ -273,16 +263,8 @@
   background: #2189dc;
 }
 
-.visits-carousel
-  .base-carousel
-  .base-carousel-controls
-  .base-carousel-arrow
-  > svg,
-.visits-carousel
-  .base-carousel
-  .base-carousel-controls
-  .base-carousel-grid-toggle
-  > svg {
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-arrow > svg,
+.visits-carousel .base-carousel .base-carousel-controls .base-carousel-grid-toggle > svg {
   display: block;
   margin: auto;
 }
