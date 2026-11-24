@@ -3,26 +3,34 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { safeExternalUrl } from '../../lib/config';
 
-export function Action({
-  to,
-  children,
-  secondary = false,
-}: {
+type ActionProps = {
   to: string;
   children: ReactNode;
   secondary?: boolean;
-}) {
+  className?: string;
+};
+
+export function Action({ to, children, secondary = false, className = '' }: ActionProps) {
+  const classes = ['button', secondary && 'button-secondary', className].filter(Boolean).join(' ');
   return (
-    <Link className={`button ${secondary ? 'button-secondary' : ''}`} to={to}>
+    <Link className={classes} to={to}>
       {children}
       <ArrowUpRight size={19} aria-hidden="true" />
     </Link>
   );
 }
 
-export function TextLink({ to, children }: { to: string; children: ReactNode }) {
+export function TextLink({
+  to,
+  children,
+  className = '',
+}: {
+  to: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <Link className="text-link" to={to}>
+    <Link className={['text-link', className].filter(Boolean).join(' ')} to={to}>
       {children}
       <ArrowRight size={18} aria-hidden="true" />
     </Link>
@@ -46,6 +54,6 @@ export function External({
       <span className="sr-only"> (abre em nova aba)</span>
     </a>
   ) : (
-    <span>{children}</span>
+    <span className={className}>{children}</span>
   );
 }
