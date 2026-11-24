@@ -1,11 +1,6 @@
 @layer components {
   .partner-ecosystem {
-    background: linear-gradient(
-      165deg,
-      var(--white) 0%,
-      #f6f9fe 58%,
-      var(--white) 100%
-    );
+    background: linear-gradient(165deg, var(--white) 0%, #f6f9fe 58%, var(--white) 100%);
   }
   .partner-ecosystem-home {
     border-radius: 48px 0 48px 0;
@@ -48,7 +43,7 @@
     letter-spacing: -0.015em;
   }
   .partner-group h3::before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 8px;
     height: 8px;
