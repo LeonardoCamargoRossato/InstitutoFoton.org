@@ -2,8 +2,8 @@
 
 Esta pasta contém as decisões visuais globais do Instituto Foton. Ela não renderiza componentes e não contém conteúdo editorial.
 
-| Arquivo | Descrição sucinta | Descrição detalhada |
-| --- | --- | --- |
+| Arquivo       | Descrição sucinta    | Descrição detalhada                                                                                              |
+| ------------ | -------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `tokens.css` | Tokens visuais globais | Centraliza cores, superfícies, espaçamentos, tipografia, raios, sombras, transições e limites de layout usados pelas demais camadas. |
 
 ## Regra de uso
