@@ -3,7 +3,7 @@ import { ArrowUpRight, RefreshCw } from 'lucide-react';
 
 export function Empty({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="empty-state">
+    <div className="empty-state" role="status">
       <span className="empty-symbol" aria-hidden="true">
         <ArrowUpRight size={32} strokeWidth={1.2} />
       </span>
@@ -26,7 +26,7 @@ export function Status({
 }) {
   if (loading)
     return (
-      <p className="status" role="status">
+      <p className="status" role="status" aria-live="polite">
         Carregando conteúdo…
       </p>
     );
@@ -34,8 +34,8 @@ export function Status({
     return (
       <div className="notice" role="alert">
         <p>{error}</p>
-        <button className="text-link" onClick={retry}>
-          <RefreshCw size={16} />
+        <button type="button" className="text-link" onClick={retry}>
+          <RefreshCw size={16} aria-hidden="true" />
           Tentar novamente
         </button>
       </div>
