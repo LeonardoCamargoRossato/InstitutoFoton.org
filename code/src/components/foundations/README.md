@@ -2,9 +2,7 @@
 
 Esta pasta contém as decisões visuais globais do Instituto Foton. Ela não renderiza componentes nem contém conteúdo editorial.
 
-| Arquivo | Função |
-|---|---|
-| `tokens.css` | Centraliza cores, superfícies, espaçamentos, tipografia, raios, sombras, transições e limites de layout. |
+- `tokens.css`: centraliza cores, superfícies, espaçamentos, tipografia, raios, sombras, transições e limites de layout.
 
 ## Escalas adotadas
 
