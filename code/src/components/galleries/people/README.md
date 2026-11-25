@@ -1,9 +1,13 @@
-# PeopleGallery
+# People gallery
 
-| Arquivo                   | Descrição sucinta     | Descrição detalhada                                                                                      |
-| ------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------- |
-| `PeopleGallery.tsx`       | Grade de pessoas      | Renderiza uma coleção de perfis em uma grade reutilizável e aceita classes de layout do consumidor.      |
-| `PeopleGalleryCard.tsx`   | Card visual de pessoa | Exibe fotografia, nome, função, linha temática e ação opcional de abertura de detalhes.                  |
-| `people-gallery.types.ts` | Contratos da galeria  | Define os dados genéricos de uma pessoa, sem importar `InstituteMember` ou conteúdo específico do Foton. |
+This folder contains the reusable visual structure for people and profile collections.
 
-O diálogo, a curadoria dos perfis e o agrupamento por função permanecem na feature da equipe.
+## File documentation
+
+| File                      | Description                                                                                            |
+| ------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `PeopleGallery.tsx`       | Renders a reusable profile collection in a grid and accepts layout classes from the consuming feature. |
+| `PeopleGalleryCard.tsx`   | Displays photography, name, role, thematic line, and an optional action for opening details.           |
+| `people-gallery.types.ts` | Defines generic people data without importing `InstituteMember` or other Foton-specific content.       |
+
+Dialogs, profile curation, and grouping by role remain responsibilities of the consuming feature.
