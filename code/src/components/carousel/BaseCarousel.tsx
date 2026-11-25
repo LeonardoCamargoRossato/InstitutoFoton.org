@@ -99,7 +99,7 @@ export function BaseCarousel({
         (classNames?.root ?? '')
       }
       role="region"
-      aria-roledescription={english ? "carousel" : "carrossel"}
+      aria-roledescription={english ? 'carousel' : 'carrossel'}
       aria-label={label}
       data-presentation={estiloGrafico.imagem?.apresentacao ?? 'peek'}
       data-ratio={estiloGrafico.imagem?.proporcao ?? 'original'}
