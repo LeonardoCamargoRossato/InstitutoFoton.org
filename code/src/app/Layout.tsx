@@ -201,7 +201,7 @@ export default function Layout() {
                       ? t.common.institute
                       : path === '/pesquisa'
                         ? t.common.research
-                         : t.common.news}
+                        : t.common.news}
                   </summary>
                   <div
                     className="nav-dropdown-links"
