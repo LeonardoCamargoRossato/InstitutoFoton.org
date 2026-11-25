@@ -8,14 +8,6 @@ import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from '../f
 import { useLanguage } from '../i18n';
 import { LanguageSelector } from '../components/ui/LanguageSelector';
 
-const navigation = [
-  ['/', 'Início'],
-  ['/instituto', 'O Instituto'],
-  ['/parceiros', 'Ecossistema de Parceiros'],
-  ['/pesquisa', researchTitle],
-  ['/manifesto', 'Manifesto'],
-  ['/noticias', 'Notícias'],
-];
 const titles: Record<string, string> = {
   '/': 'Ciências e Tecnologias Quânticas',
   '/instituto': 'O Instituto',
