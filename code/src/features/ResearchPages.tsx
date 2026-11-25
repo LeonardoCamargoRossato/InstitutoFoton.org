@@ -1,9 +1,20 @@
 import { Link, useParams } from 'react-router-dom';
+import { useLanguage } from '../i18n';
 import { ArrowDown, ArrowRight, ArrowUpRight, Play } from 'lucide-react';
 import { Action, External, Heading, Intro, TextLink } from '../components/ui';
 import researchMedia from '../content/research-media.json';
+import researchMediaEnglish from '../content/research-media.en.json';
 import { assetUrl } from '../lib/siteAssets';
-import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from './content';
+import {
+  haQuantumTitle,
+  haQuantumTitleEnglish,
+  journeyTitle,
+  journeyTitleEnglish,
+  researchLines,
+  researchLinesEnglish,
+  researchTitle,
+  researchTitleEnglish,
+} from './content';
 import HaQuantumGallery from './HaQuantumGallery';
 import { ActionCard, InfoCard } from '../components/cards';
 import { NotFound } from './PublicPages';
@@ -44,6 +55,29 @@ const haQuantum = {
     'O Instituto Foton realizou o HaQuantum em parceria com a Liga Acadêmica de Computação Quântica da Universidade de Sorocaba, na trilha Mobi Quantum do MOBI Festival 2026.',
   event: 'https://www.even3.com.br/e/hackathon-quantum-731810',
   rules: 'https://drive.google.com/file/d/1O-z8Br-EllIzKcj0cNmUPer1jfKGPmnl/view',
+};
+
+const pathwayEnglish = [
+  { name: 'Pulse', summary: 'Welcoming and integrating participants into the Journey activities.' },
+  { name: 'Lumina', summary: 'Exploring themes, participating in meetings, and creating outreach materials.' },
+  { name: 'Resonance', summary: 'Curating content and contributing to science dissemination events and actions.' },
+  { name: 'Superposition', summary: 'Facilitating activities, providing scientific support, and welcoming new participants.' },
+  { name: 'Entanglement', summary: 'Connecting initiatives and following the development of new researchers.' },
+];
+
+const pulsoEnglish = {
+  title: 'Quantum Pathway — Pulse Stage Closing',
+  watch: pulso.watch,
+  event: pulso.event,
+};
+
+const haQuantumEnglish = {
+  summary:
+    'The hackathon brought together students, researchers, developers, and professionals to develop solutions to real problems using quantum optimization techniques.',
+  partnership:
+    'Instituto Foton held HaQuantum in partnership with the Academic League of Quantum Computing at the University of Sorocaba, as part of the Mobi Quantum track at MOBI Festival 2026.',
+  event: haQuantum.event,
+  rules: haQuantum.rules,
 };
 
 function PulsoVideo() {
