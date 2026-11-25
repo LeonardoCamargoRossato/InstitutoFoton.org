@@ -31,6 +31,7 @@ export default function Layout() {
   const location = useLocation();
   const menuOpen = menuAt === location.pathname;
   const { locale, t } = useLanguage();
+  const isEnglish = locale === 'en-US';
   const navigation = [
     ['/', locale === 'en-US' ? 'Home' : 'Início'],
     ['/instituto', t.common.institute],
@@ -40,13 +41,19 @@ export default function Layout() {
     ['/noticias', t.common.news],
   ] as const;
   useEffect(() => {
-    document.title = `${titles[location.pathname] || 'Instituto Foton'} — Instituto Foton`;
+    const pageTitle =
+      isEnglish && location.pathname === '/parceiros'
+        ? 'Partner Ecosystem'
+        : titles[location.pathname] || 'Instituto Foton';
+    document.title = `${pageTitle} — Instituto Foton`;
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (description)
       description.content =
-        location.pathname === '/redes-sociais'
-          ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
-          : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
+        isEnglish && location.pathname === '/parceiros'
+          ? 'Explore the institutions and companies in the ecosystem presented by Instituto Foton.'
+          : location.pathname === '/redes-sociais'
+            ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+            : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');
@@ -69,7 +76,7 @@ export default function Layout() {
         document.getElementById(location.hash.slice(1))?.scrollIntoView(),
       );
     } else window.scrollTo({ top: 0 });
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, isEnglish]);
   useEffect(() => {
     // A página de parceiros deve renderizar a grade imediatamente, sem transição 3D.
     if (location.pathname === '/parceiros') return;
@@ -272,23 +279,25 @@ export default function Layout() {
                 <span className="brand-signature">{t.common.technologySignature}</span>
               </Link>
               <p>
-                Conhecimento que conecta.
+                {t.common.connectedKnowledge}
                 <br />
-                Ciência que aproxima pessoas.
+                {t.common.peopleScience}
               </p>
             </div>
             <div>
               <h2>{t.common.explore}</h2>
               <Link to="/instituto">{t.common.institute}</Link>
-              <Link to="/pesquisa">{researchTitle}</Link>
+              <Link to="/pesquisa">
+                {isEnglish ? 'Research and Innovative Scientist Journey' : researchTitle}
+              </Link>
               <Link to="/parceiros">{t.common.partners}</Link>
               <Link to="/manifesto">Manifesto</Link>
             </div>
             <div>
               <h2>{t.common.participate}</h2>
-              <Link to="/apoie">Apoie a Ciência</Link>
+              <Link to="/apoie">{t.common.support}</Link>
               <Link to="/noticias">{t.common.newsStories}</Link>
-              <Link to="/redes-sociais">Redes sociais</Link>
+              <Link to="/redes-sociais">{t.common.social}</Link>
               <Link to="/contato">{t.common.contact}</Link>
             </div>
             <div className="footer-statement">
@@ -300,7 +309,7 @@ export default function Layout() {
               <Link
                 className="footer-circle"
                 to="/pesquisa/jornada"
-                aria-label="Conheça a Jornada do Cientista Inovador"
+                aria-label={t.accessibility.journey}
               >
                 <ArrowUpRight />
               </Link>
@@ -309,8 +318,8 @@ export default function Layout() {
           <div className="footer-bottom">
             <span>Instituto Foton · {t.common.portal}</span>
             <div>
-              <Link to="/privacidade">Privacidade</Link>
-              <Link to="/termos">Termos de uso</Link>
+              <Link to="/privacidade">{t.common.privacy}</Link>
+              <Link to="/termos">{t.common.terms}</Link>
               <button
                 aria-label={t.accessibility.backToTop}
                 className="icon-button"
