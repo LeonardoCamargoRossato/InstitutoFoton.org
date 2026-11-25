@@ -1,11 +1,15 @@
-# Animações personalizadas
+# Custom animations
 
-| Arquivo                          | Descrição sucinta            | Descrição detalhada                                                                                                   |
-| -------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `HomeAtomEntrance.tsx`           | Entrada do átomo na Home     | Renderiza a sequência visual do átomo, partículas e formação da rede de identidade do Foton.                          |
-| `PhotonIdentityAnimation.tsx`    | Animação da identidade Foton | Carrega e apresenta a arte SVG animada da identidade visual, preservando a sincronização e o comportamento aprovados. |
-| `Constellation.tsx`              | Constelação visual           | Exibe uma composição decorativa de pontos e conexões para criar profundidade e linguagem de rede.                     |
-| `ElectromagneticWaveDivider.tsx` | Divisor de ondas             | Desenha ondas eletromagnéticas animadas em SVG para separar visualmente blocos de conteúdo.                           |
-| `index.ts`                       | Ponto de entrada             | Reexporta todas as animações personalizadas para importação centralizada.                                             |
+This folder contains the React components that implement Instituto Foton-specific motion and identity experiences.
 
-Todos os arquivos desta pasta são componentes visuais ou auxiliares diretos de componentes visuais.
+## File documentation
+
+| File                             | Description                                                                                                          |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `Constellation.tsx`              | Renders a decorative constellation of points and connections to create depth and a network-oriented visual language. |
+| `ElectromagneticWaveDivider.tsx` | Draws animated electromagnetic-wave SVG dividers between content blocks.                                             |
+| `HomeAtomEntrance.tsx`           | Renders the Home entrance sequence with an atom, particles, and the formation of the Foton identity network.         |
+| `PhotonIdentityAnimation.tsx`    | Presents the approved animated SVG identity artwork while preserving its synchronization and rendering behavior.     |
+| `index.ts`                       | Re-exports all custom animation components through a centralized import surface.                                     |
+
+Every implementation in this folder is a visual component or a direct visual-component support module.
