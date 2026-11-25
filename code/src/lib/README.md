@@ -1,10 +1,14 @@
-# Shared library (`lib`)
+# Shared library
 
-`lib/` contains supporting code that does not render pages directly.
+This folder contains generic support code that does not render pages directly.
 
-- `backend.ts`: resolves the local static public catalog; it is not an active Supabase connection.
-- `config.ts`: centralizes application configuration and paths.
-- `siteAssets.ts`: resolves public images and other assets.
-- `useResource.ts`: provides a hook for asynchronous resources.
+## File documentation
 
-Componentes visuais ficam em `components`; conteúdo editorial em `content`; funcionalidades maiores em `features`. A biblioteca deve permanecer pequena, genérica e sem responsabilidade de renderização de páginas.
+| File | Description |
+| --- | --- |
+| `backend.ts` | Resolves the local static public catalog; it is not an active Supabase connection. |
+| `config.ts` | Centralizes application configuration and paths. |
+| `siteAssets.ts` | Resolves public images and other assets. |
+| `useResource.ts` | Provides a hook for asynchronous resources. |
+
+Visual components belong in `components/`; editorial content belongs in `content/`; larger product functionality belongs in `features/`. This library should remain small, generic, and free of page-rendering responsibility.
