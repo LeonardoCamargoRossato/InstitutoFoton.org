@@ -229,7 +229,9 @@ export function News() {
               </Empty>
             ))}
           <div className="inline-links">
-            <TextLink to="/manifesto">{copy('Manifesto Quântico Nacional', 'National Quantum Manifesto')}</TextLink>
+            <TextLink to="/manifesto">
+              {copy('Manifesto Quântico Nacional', 'National Quantum Manifesto')}
+            </TextLink>
             <TextLink to="/pesquisa">{copy('Pesquisa em rede', 'Network research')}</TextLink>
           </div>
           <div className="pagination" aria-label={copy('Paginação de notícias', 'News pagination')}>
@@ -307,7 +309,10 @@ export function Article() {
               {item.slug === 'lancamento-lacq-pucrs-instituto-foton' && (
                 <NewsCarousel
                   label={copy('lançamento da LACQ PUCRS', 'LACQ PUCRS launch')}
-                  title={copy('Registros do lançamento da LACQ PUCRS', 'Records from the LACQ PUCRS launch')}
+                  title={copy(
+                    'Registros do lançamento da LACQ PUCRS',
+                    'Records from the LACQ PUCRS launch',
+                  )}
                   images={media.filter((media) => media.group === 'lacq-pucrs')}
                 />
               )}
@@ -339,7 +344,10 @@ export function Article() {
               ].includes(item.slug) && (
                 <section
                   className="news-media"
-                  aria-label={copy('Registros visuais da notícia', 'Visual records for this article')}
+                  aria-label={copy(
+                    'Registros visuais da notícia',
+                    'Visual records for this article',
+                  )}
                 >
                   <h2>{copy('Registros institucionais', 'Institutional records')}</h2>
                   <div className="news-media-grid">
@@ -378,11 +386,14 @@ export function Article() {
               {item.source_url && (
                 <p className="source-note">
                   <External href={item.source_url}>
-                    {copy('Ler publicação original', 'Read original publication')} · {item.source_name || copy('Fonte pública', 'Public source')}
+                    {copy('Ler publicação original', 'Read original publication')} ·{' '}
+                    {item.source_name || copy('Fonte pública', 'Public source')}
                   </External>
                 </p>
               )}
-              <p className="source-note">{copy('Atualização', 'Updated')}: {dateLabel(item.updated_at, locale)}</p>
+              <p className="source-note">
+                {copy('Atualização', 'Updated')}: {dateLabel(item.updated_at, locale)}
+              </p>
               <button
                 className="text-link"
                 onClick={async () => {
@@ -395,7 +406,9 @@ export function Article() {
                 }}
               >
                 <Copy size={16} />
-                {copied ? copy('Link copiado', 'Link copied') : copy('Copiar link da publicação', 'Copy publication link')}
+                {copied
+                  ? copy('Link copiado', 'Link copied')
+                  : copy('Copiar link da publicação', 'Copy publication link')}
               </button>
             </>
           )}
