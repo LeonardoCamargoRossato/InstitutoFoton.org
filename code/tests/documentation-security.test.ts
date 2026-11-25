@@ -33,7 +33,7 @@ describe('Separação documental de Safety & Security', () => {
     expect(read('.gitignore')).toContain('/privado/');
     expect(read('AGENTS.md')).toContain('GUARDRAILS.md');
     expect(read('AGENTS.md')).toContain('prompt injection');
-    expect(read('documentation/README.md')).toContain('fora do GitHub');
+    expect(read('documentation/README.md')).toContain('outside GitHub');
     expect(existsSync(resolve(root, 'documentation/public/security/README.md'))).toBe(true);
   });
 
