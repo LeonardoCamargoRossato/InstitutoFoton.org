@@ -270,32 +270,39 @@ export function Research() {
 
 export function ResearchArea() {
   const { slug } = useParams();
-  const selected = researchLines.find((line) => line.slug === slug);
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const lines = english ? researchLinesEnglish : researchLines;
+  const selected = lines.find((line) => line.slug === slug);
   if (!selected) return <NotFound />;
   return (
     <>
-      <Intro eyebrow={`Pesquisa · Área ${selected.label}`} title={selected.title}>
+      <Intro
+        eyebrow={(english ? 'Research · Area ' : 'Pesquisa · Área ') + selected.label}
+        title={selected.title}
+      >
         <p>{selected.summary}</p>
       </Intro>
       <section className="section">
         <div className="container reading">
           <p className="lead">{selected.description}</p>
-          <h2>Perspectivas de investigação</h2>
+          <h2>{copy('Perspectivas de investigação', 'Research perspectives')}</h2>
           <ul className="topic-list">
-            {selected.topics.map((topic) => (
-              <li key={topic}>{topic}</li>
-            ))}
+            {selected.topics.map((topic) => <li key={topic}>{topic}</li>)}
           </ul>
           <div className="notice">
-            <h3>Pesquisa se faz em rede</h3>
+            <h3>{copy('Pesquisa se faz em rede', 'Research is built as a network')}</h3>
             <p>
-              O Instituto articula temas de investigação que conectam diferentes especialidades e
-              instituições em torno das tecnologias quânticas.
+              {copy(
+                'O Instituto articula temas de investigação que conectam diferentes especialidades e instituições em torno das tecnologias quânticas.',
+                'The Institute coordinates research themes connecting different specialties and institutions around quantum technologies.',
+              )}
             </p>
           </div>
           <div className="actions">
-            <Action to="/pesquisa#areas-de-pesquisa">Todas as áreas</Action>
-            <TextLink to="/pesquisa/jornada">Conheça a Jornada</TextLink>
+            <Action to="/pesquisa#areas-de-pesquisa">{copy('Todas as áreas', 'All research areas')}</Action>
+            <TextLink to="/pesquisa/jornada">{copy('Conheça a Jornada', 'Discover the Journey')}</TextLink>
           </div>
         </div>
       </section>
@@ -304,53 +311,58 @@ export function ResearchArea() {
 }
 
 export function Journey() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const lines = english ? researchLinesEnglish : researchLines;
+  const pathwayItems = english ? pathwayEnglish : pathway;
   return (
     <div className="research-experience">
       <Intro
-        eyebrow="Pesquisa e formação"
-        title={journeyTitle}
+        eyebrow={copy('Pesquisa e formação', 'Research and education')}
+        title={english ? journeyTitleEnglish : journeyTitle}
         id="jornada-inicio"
         sectionCode="4.B.1"
       >
-        <p>Conectando ciência, pessoas e inovação.</p>
-        <TextLink to="/pesquisa">Pesquisa e Jornada do Cientista Inovador</TextLink>
+        <p>{copy('Conectando ciência, pessoas e inovação.', 'Connecting science, people, and innovation.')}</p>
+        <TextLink to="/pesquisa">{copy('Pesquisa e Jornada do Cientista Inovador', 'Research and Innovative Scientist Journey')}</TextLink>
       </Intro>
 
       <section className="section" id="jornada-colaboracao" data-lcr-section-id="4.B.2">
         <div className="container split">
-          <Heading title="Aprender e pesquisar em colaboração." />
+          <Heading title={copy('Aprender e pesquisar em colaboração.', 'Learning and researching together.')} />
           <div className="body-copy">
             <p>
-              A Jornada é uma iniciativa do Instituto Foton que conecta pessoas de diferentes
-              formações para estudar tecnologias quânticas, desenvolver projetos e comunicar
-              ciência. O programa estimula o pensamento crítico e a troca de experiências entre
-              áreas.
+              {copy(
+                'A Jornada é uma iniciativa do Instituto Foton que conecta pessoas de diferentes formações para estudar tecnologias quânticas, desenvolver projetos e comunicar ciência. O programa estimula o pensamento crítico e a troca de experiências entre áreas.',
+                'The Journey is an Instituto Foton initiative connecting people from different backgrounds to study quantum technologies, develop projects, and communicate science. The program encourages critical thinking and exchange across fields.',
+              )}
             </p>
             <p>
-              A participação é educacional, colaborativa e voluntária, sem vínculo de emprego ou
-              garantia de bolsa ou remuneração.
+              {copy(
+                'A participação é educacional, colaborativa e voluntária, sem vínculo de emprego ou garantia de bolsa ou remuneração.',
+                'Participation is educational, collaborative, and voluntary, with no employment relationship or guarantee of a scholarship or compensation.',
+              )}
             </p>
           </div>
         </div>
       </section>
 
-      <section
-        className="section research-pathway"
-        id="quantum-pathway"
-        data-lcr-section-id="4.B.3"
-      >
+      <section className="section research-pathway" id="quantum-pathway" data-lcr-section-id="4.B.3">
         <div className="container">
           <Heading title="Quantum Pathway">
-            A trilha avança em ciclos semestrais. As etapas indicam como o envolvimento e as
-            responsabilidades podem crescer ao longo da Jornada.
+            {copy(
+              'A trilha avança em ciclos semestrais. As etapas indicam como o envolvimento e as responsabilidades podem crescer ao longo da Jornada.',
+              'The pathway advances in six-month cycles. The stages show how involvement and responsibilities can grow throughout the Journey.',
+            )}
           </Heading>
-          <ol className="pathway-steps" aria-label="Etapas do Quantum Pathway">
-            {pathway.map(({ name, summary }, index) => (
+          <ol className="pathway-steps" aria-label={copy('Etapas do Quantum Pathway', 'Quantum Pathway stages')}>
+            {pathwayItems.map(({ name, summary }, index) => (
               <InfoCard
                 as="li"
                 className="pathway-step"
                 key={name}
-                catalogId={`4.B.3.C${index + 1}`}
+                catalogId={'4.B.3.C' + (index + 1)}
                 inheritVisuals
               >
                 <h3>{name}</h3>
@@ -364,17 +376,18 @@ export function Journey() {
       <section className="section research-groups" id="jornada-grupos" data-lcr-section-id="4.B.4">
         <div className="container split">
           <div className="body-copy">
-            <Heading title="Grupos temáticos e atividades" />
+            <Heading title={copy('Grupos temáticos e atividades', 'Thematic groups and activities')} />
             <p>
-              Os encontros são principalmente on-line. Os grupos contam com apoio de coordenação e
-              podem conduzir estudos, desenvolver iniciativas e preparar materiais técnicos ou de
-              divulgação.
+              {copy(
+                'Os encontros são principalmente on-line. Os grupos contam com apoio de coordenação e podem conduzir estudos, desenvolver iniciativas e preparar materiais técnicos ou de divulgação.',
+                'Meetings are primarily online. Groups receive coordination support and may conduct studies, develop initiatives, and prepare technical or outreach materials.',
+              )}
             </p>
           </div>
           <ul className="topic-list">
-            {researchLines.map((line) => (
+            {lines.map((line) => (
               <li key={line.slug}>
-                <Link to={`/pesquisa/${line.slug}`}>
+                <Link to={'/pesquisa/' + line.slug}>
                   {line.title} <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               </li>
@@ -385,20 +398,23 @@ export function Journey() {
 
       <section className="section section-gray" id="jornada-eventos" data-lcr-section-id="4.B.5">
         <div className="container split">
-          <Heading title="Eventos e comunicação científica" />
+          <Heading title={copy('Eventos e comunicação científica', 'Events and science communication')} />
           <div className="body-copy">
             <p>
-              Cada etapa se encerra com um evento científico. Os grupos podem apresentar estudos,
-              compartilhar experiências em seminários e demonstrações e receber contribuições para
-              seus trabalhos.
+              {copy(
+                'Cada etapa se encerra com um evento científico. Os grupos podem apresentar estudos, compartilhar experiências em seminários e demonstrações e receber contribuições para seus trabalhos.',
+                'Each stage closes with a scientific event. Groups can present studies, share experiences in seminars and demonstrations, and receive feedback on their work.',
+              )}
             </p>
             <p>
-              Para conhecer oportunidades de participação na Jornada, converse com o Foton pelos
-              canais institucionais.
+              {copy(
+                'Para conhecer oportunidades de participação na Jornada, converse com o Foton pelos canais institucionais.',
+                'To learn about participation opportunities in the Journey, contact Foton through the institutional channels.',
+              )}
             </p>
             <div className="actions">
-              <Action to="/pesquisa#etapa-pulso">Veja o encerramento da Etapa Pulso</Action>
-              <TextLink to="/contato">Canais de contato</TextLink>
+              <Action to="/pesquisa#etapa-pulso">{copy('Veja o encerramento da Etapa Pulso', 'See the Pulse Stage closing')}</Action>
+              <TextLink to="/contato">{copy('Canais de contato', 'Contact channels')}</TextLink>
             </div>
           </div>
         </div>
@@ -408,36 +424,37 @@ export function Journey() {
 }
 
 export function HaQuantum() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const hq = english ? haQuantumEnglish : haQuantum;
   return (
     <div className="research-experience">
       <Intro
-        eyebrow="Eventos do Instituto Foton"
-        title={haQuantumTitle}
+        eyebrow={copy('Eventos do Instituto Foton', 'Instituto Foton events')}
+        title={english ? haQuantumTitleEnglish : haQuantumTitle}
         id="haquantum-inicio"
         sectionCode="4.C.1"
       >
         <HaQuantumDate />
-        <p>{haQuantum.partnership}</p>
-        <TextLink to="/pesquisa#eventos">Eventos e iniciativas</TextLink>
+        <p>{hq.partnership}</p>
+        <TextLink to="/pesquisa#eventos">{copy('Eventos e iniciativas', 'Events and initiatives')}</TextLink>
       </Intro>
 
       <section className="section" id="haquantum-desafios" data-lcr-section-id="4.C.2">
         <div className="container split">
-          <Heading title="Da otimização quântica a desafios reais." />
+          <Heading title={copy('Da otimização quântica a desafios reais.', 'From quantum optimization to real challenges.')} />
           <div className="body-copy">
-            <p>{haQuantum.summary}</p>
+            <p>{hq.summary}</p>
             <p>
-              O desafio propôs aplicar técnicas de otimização quântica para decidir entre várias
-              soluções possíveis de um problema complexo. Os grupos reuniram conhecimentos de
-              computação, ciência e inovação para testar e comunicar suas propostas.
+              {copy(
+                'O desafio propôs aplicar técnicas de otimização quântica para decidir entre várias soluções possíveis de um problema complexo. Os grupos reuniram conhecimentos de computação, ciência e inovação para testar e comunicar suas propostas.',
+                'The challenge proposed using quantum optimization techniques to choose among possible solutions to a complex problem. Groups combined knowledge of computing, science, and innovation to test and communicate their proposals.',
+              )}
             </p>
             <div className="actions research-event-actions">
-              <External className="button" href={haQuantum.rules}>
-                Consultar regulamento oficial
-              </External>
-              <External className="text-link" href={haQuantum.event}>
-                Página oficial do evento
-              </External>
+              <External className="button" href={hq.rules}>{copy('Consultar regulamento oficial', 'View official rules')}</External>
+              <External className="text-link" href={hq.event}>{copy('Página oficial do evento', 'Official event page')}</External>
             </div>
           </div>
         </div>
@@ -445,40 +462,42 @@ export function HaQuantum() {
 
       <section className="section section-gray" id="haquantum-etapas" data-lcr-section-id="4.C.3">
         <div className="container">
-          <Heading title="Da preparação à apresentação final" />
+          <Heading title={copy('Da preparação à apresentação final', 'From preparation to the final presentation')} />
           <div className="research-event-stages">
             <InfoCard as="div" inheritVisuals catalogId="4.C.3.C1">
               <h3>Workshops</h3>
               <p>
-                Encontros on-line abordaram computação e otimização quânticas, a plataforma Ket,
-                inovação, negócios e comunicação de soluções.
+                {copy(
+                  'Encontros on-line abordaram computação e otimização quânticas, a plataforma Ket, inovação, negócios e comunicação de soluções.',
+                  'Online meetings covered quantum computing and optimization, the Ket platform, innovation, business, and communicating solutions.',
+                )}
               </p>
             </InfoCard>
             <InfoCard as="div" inheritVisuals catalogId="4.C.3.C2">
-              <h3>Desenvolvimento em equipes</h3>
+              <h3>{copy('Desenvolvimento em equipes', 'Team development')}</h3>
               <p>
-                As equipes elaboraram suas propostas e submeteram os trabalhos a uma avaliação
-                técnica.
+                {copy(
+                  'As equipes elaboraram suas propostas e submeteram os trabalhos a uma avaliação técnica.',
+                  'Teams developed their proposals and submitted their work for technical evaluation.',
+                )}
               </p>
             </InfoCard>
             <InfoCard as="div" inheritVisuals catalogId="4.C.3.C3">
-              <h3>Final no MOBI Festival</h3>
+              <h3>{copy('Final no MOBI Festival', 'MOBI Festival final')}</h3>
               <p>
-                As equipes finalistas apresentaram suas soluções em 11 de junho de 2026, na
-                Universidade de Sorocaba.
+                {copy(
+                  'As equipes finalistas apresentaram suas soluções em 11 de junho de 2026, na Universidade de Sorocaba.',
+                  'Finalist teams presented their solutions on June 11, 2026, at the University of Sorocaba.',
+                )}
               </p>
             </InfoCard>
           </div>
         </div>
       </section>
 
-      <section
-        className="section research-haquantum"
-        id="haquantum-registros"
-        data-lcr-section-id="4.C.4"
-      >
+      <section className="section research-haquantum" id="haquantum-registros" data-lcr-section-id="4.C.4">
         <div className="container">
-          <Heading title="Registros do HaQuantum" />
+          <Heading title={copy('Registros do HaQuantum', 'HaQuantum records')} />
           <HaQuantumGallery />
         </div>
       </section>
