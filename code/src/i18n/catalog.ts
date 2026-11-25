@@ -10,4 +10,8 @@ export const enUS = {
   language: { selectorLabel: 'Language', current: 'Current language: English (United States)' },
 } as const;
 
-export type TranslationCatalog = typeof ptBR;
+export type TranslationCatalog = {
+  accessibility: { [K in keyof typeof ptBR.accessibility]: string };
+  common: { [K in keyof typeof ptBR.common]: string };
+  language: { [K in keyof typeof ptBR.language]: string };
+};
