@@ -1,9 +1,9 @@
-# Documentação do Instituto Foton
+# Instituto Foton documentation
 
-Este repositório contém **somente documentação autorizada para divulgação**. Os documentos públicos podem ser consultados em [documentation/public/](public/README.md).
+This repository contains **only documentation authorized for publication**. Public documents are available in [documentation/public/](public/README.md).
 
-Documentos operacionais, históricos e registros de auditoria são mantidos **fora do GitHub**, em armazenamento institucional separado com acesso autorizado.
+Operational documents, historical records, and audit records are kept **outside GitHub**, in separate institutional storage with authorized access.
 
-O nome de uma pasta não confere sigilo. Materiais internos não devem ser publicados nem temporariamente em branches, comentários, logs ou artefatos.
+A folder name does not provide confidentiality. Internal materials must not be published, even temporarily, in branches, comments, logs, or artifacts.
 
 O [portal do Instituto Foton](https://leonardocamargorossato.github.io/InstitutoFoton.org/) contém as informações institucionais aprovadas.
