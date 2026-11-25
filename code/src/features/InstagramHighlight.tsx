@@ -18,7 +18,9 @@ export default function InstagramHighlight() {
       <div className="social-instagram-highlight">
         <div className="social-instagram-highlight__content">
           <h2 id="social-instagram-title">
-            {english ? 'Follow Instituto Foton on Instagram' : 'Acompanhe o Instituto Foton no Instagram'}
+            {english
+              ? 'Follow Instituto Foton on Instagram'
+              : 'Acompanhe o Instituto Foton no Instagram'}
           </h2>
           <p className="social-instagram-highlight__handle">
             <InstagramBrandIcon size={22} />
@@ -36,8 +38,12 @@ export default function InstagramHighlight() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {english ? 'Follow on Instagram' : 'Seguir no Instagram'} <ArrowUpRight size={18} aria-hidden="true" />
-            <span className="sr-only"> {english ? '(opens in a new tab)' : '(abre em nova aba)'}</span>
+            {english ? 'Follow on Instagram' : 'Seguir no Instagram'}{' '}
+            <ArrowUpRight size={18} aria-hidden="true" />
+            <span className="sr-only">
+              {' '}
+              {english ? '(opens in a new tab)' : '(abre em nova aba)'}
+            </span>
           </a>
         </div>
         <div className="social-instagram-highlight__visual">
