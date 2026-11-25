@@ -1,32 +1,13 @@
 export const ptBR = {
-  accessibility: {
-    skipToContent: 'Pular para o conteúdo',
-    openMenu: 'Abrir menu',
-    closeMenu: 'Fechar menu',
-    mainNavigation: 'Navegação principal',
-    backToTop: 'Voltar ao topo',
-    home: 'Instituto Foton — início',
-    journey: 'Conheça a Jornada do Cientista Inovador',
-    externalLink: '(abre em nova aba)',
-  },
-  common: {
-    loading: 'Carregando a página…',
-    institute: 'O Instituto',
-    partners: 'Ecossistema de Parceiros',
-    manifesto: 'Manifesto',
-    news: 'Notícias',
-    support: 'Apoie a Ciência',
-    contact: 'Contato',
-    social: 'Redes sociais',
-    research: 'P&D - Cientista Inovador',
-    privacy: 'Privacidade',
-    terms: 'Termos de uso',
-    technologySignature: 'Tecnologia através da ciência.',
-  },
-  language: {
-    selectorLabel: 'Idioma',
-    current: 'Idioma atual: Português (Brasil)',
-  },
+  accessibility: { skipToContent: 'Pular para o conteúdo', openMenu: 'Abrir menu', closeMenu: 'Fechar menu', mainNavigation: 'Navegação principal', backToTop: 'Voltar ao topo', home: 'Instituto Foton — início', journey: 'Conheça a Jornada do Cientista Inovador', externalLink: '(abre em nova aba)' },
+  common: { loading: 'Carregando a página…', institute: 'O Instituto', partners: 'Ecossistema de Parceiros', manifesto: 'Manifesto', news: 'Notícias', support: 'Apoie a Ciência', contact: 'Contato', social: 'Redes sociais', research: 'P&D - Cientista Inovador', privacy: 'Privacidade', terms: 'Termos de uso', technologySignature: 'Tecnologia através da ciência.', explore: 'Explore', participate: 'Participe', team: 'Nossa Equipe', researchLines: 'Linhas temáticas de pesquisa', journeyShort: 'Jornadas do Cientista Inovador', learnInstitute: 'Conheça o Instituto', newsStories: 'Notícias e histórias', followFoton: 'Acompanhe o Foton nas redes sociais', connectedKnowledge: 'Conhecimento que conecta.', peopleScience: 'Ciência que aproxima pessoas.', nextChapter: 'O próximo capítulo da ciência', youToo: 'também pode ter você.', portal: 'Portal científico e social' },
+  language: { selectorLabel: 'Idioma', current: 'Idioma atual: Português (Brasil)' },
+} as const;
+
+export const enUS = {
+  accessibility: { skipToContent: 'Skip to content', openMenu: 'Open menu', closeMenu: 'Close menu', mainNavigation: 'Main navigation', backToTop: 'Back to top', home: 'Instituto Foton — home', journey: 'Discover the Innovative Scientist Journey', externalLink: '(opens in a new tab)' },
+  common: { loading: 'Loading page…', institute: 'The Institute', partners: 'Partner Ecosystem', manifesto: 'Manifesto', news: 'News', support: 'Support Science', contact: 'Contact', social: 'Social media', research: 'R&D - Innovative Scientist', privacy: 'Privacy', terms: 'Terms of use', technologySignature: 'Technology through science.', explore: 'Explore', participate: 'Participate', team: 'Our Team', researchLines: 'Research thematic lines', journeyShort: 'Innovative Scientist Journey', learnInstitute: 'Discover the Institute', newsStories: 'News and stories', followFoton: 'Follow Foton on social media', connectedKnowledge: 'Knowledge that connects.', peopleScience: 'Science that brings people together.', nextChapter: 'The next chapter of science', youToo: 'can include you too.', portal: 'Scientific and social portal' },
+  language: { selectorLabel: 'Language', current: 'Current language: English (United States)' },
 } as const;
 
 export type TranslationCatalog = typeof ptBR;
