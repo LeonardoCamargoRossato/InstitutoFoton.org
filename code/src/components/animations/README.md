@@ -1,9 +1,9 @@
-# Biblioteca de animações
+# Animation library
 
-| Arquivo                       | Descrição sucinta       | Descrição detalhada                                                                                                 |
-| ----------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `index.ts`                    | Ponto de entrada        | Reexporta as animações disponíveis para uso nas páginas.                                                            |
-| `ANIMACOES_PERSONALIZADAS.md` | Documentação técnica    | Registra o propósito, o uso e os cuidados das animações personalizadas do site.                                     |
-| `custom/`                     | Animações implementadas | Contém os componentes React que renderizam as animações específicas da identidade e das páginas do Instituto Foton. |
+| File                          | Short description      | Detailed description                                                                          |
+| ----------------------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
+| `index.ts`                    | Entry point            | Re-exports the animations available to pages.                                                 |
+| `ANIMACOES_PERSONALIZADAS.md` | Documentação técnica   | Registra o propósito, o uso e os cuidados das animações personalizadas do site.               |
+| `custom/`                     | Implemented animations | Contains React components that render identity- and page-specific Instituto Foton animations. |
 
-As implementações visuais ficam em `custom/`; este nível organiza e documenta a biblioteca.
+Visual implementations live in `custom/`; this level organizes and documents the library.
