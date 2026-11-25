@@ -115,12 +115,12 @@ export function Home() {
       <section className="section spectral-divider" id="porque-existe" data-lcr-section-id="1.2">
         <div className="container split">
           <Heading
-            eyebrow="{copy('Por que o Foton existe?', 'Why does Foton exist?')}"
-            title="{copy('A Era Quântica Já Começou.', 'The Quantum Era Has Begun.')}"
+            eyebrow={copy('Por que o Foton existe?', 'Why does Foton exist?')}
+            title={copy('A Era Quântica Já Começou.', 'The Quantum Era Has Begun.')}
           />
           <div className="body-copy">
             <blockquote>
-              “Transformar ciência de fronteira em decisões, soluções e oportunidades.”
+              {copy('“Transformar ciência de fronteira em decisões, soluções e oportunidades.”', '“Turning frontier science into decisions, solutions and opportunities.”')}
             </blockquote>
             <p>
               O Foton busca articular inteligência estratégica, educação, pesquisa aplicada e
@@ -143,8 +143,8 @@ export function Home() {
         <div className="container">
           <div className="heading-row">
             <Heading
-              eyebrow="{copy('Ecossistema Foton', 'Foton Ecosystem')}"
-              title="{copy('Ciência conectada em diferentes regiões.', 'Connected science across different regions.')}"
+              eyebrow={copy('Ecossistema Foton', 'Foton Ecosystem')}
+              title={copy('Ciência conectada em diferentes regiões.', 'Connected science across different regions.')}
             />
             <TextLink to="/instituto">{copy('Sobre a rede', 'About the network')}</TextLink>
           </div>
@@ -161,7 +161,7 @@ export function Home() {
               <strong>140+</strong>
               <span>{copy('membros registrados', 'registered members')}</span>
             </InfoCard>
-            <p className="metrics-source">Indicadores institucionais da rede Foton.</p>
+            <p className="metrics-source">{copy('Indicadores institucionais da rede Foton.', 'Institutional indicators of the Foton network.')}</p>
           </div>
         </div>
       </section>
@@ -170,12 +170,12 @@ export function Home() {
         <div className="container">
           <div className="heading-row">
             <Heading
-              eyebrow="{copy('Frentes e programas', 'Programs and initiatives')}"
-              title="{copy('Do conhecimento à articulação.', 'From knowledge to collaboration.')}"
+              eyebrow={copy('Frentes e programas', 'Programs and initiatives')}
+              title={copy('Do conhecimento à articulação.', 'From knowledge to collaboration.')}
             />
           </div>
           <p className="section-description">
-            Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.
+            {copy('Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.', 'Explore Foton’s research, education, innovation, and collaboration initiatives.')}
           </p>
           <div className="research-grid institutional-programs">
             {programs.map((program, index) => (
@@ -208,8 +208,8 @@ export function Home() {
         <div className="container presentation-feature-layout">
           <div className="presentation-feature-copy">
             <Heading
-              eyebrow="{copy('Documento institucional', 'Institutional document')}"
-              title="{copy('Conheça a apresentação do Foton.', 'Discover Foton’s presentation.')}"
+              eyebrow={copy('Documento institucional', 'Institutional document')}
+              title={copy('Conheça a apresentação do Foton.', 'Discover Foton’s presentation.')}
             />
           </div>
           <div className="presentation-feature-media">
@@ -217,13 +217,13 @@ export function Home() {
               to="/apresentacao"
               data-lcr-card-id="1.5.C1"
               className="presentation-preview-link"
-              aria-label="Visualizar o PDF da apresentação institucional do Foton"
+              aria-label={copy('Visualizar o PDF da apresentação institucional do Foton', 'View Foton’s institutional presentation PDF')}
             >
               <span className="presentation-preview-stack">
                 <img
                   className="presentation-preview-image presentation-preview-back"
                   src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp')}
-                  alt="Segunda página da apresentação institucional do Foton"
+                  alt={copy('Segunda página da apresentação institucional do Foton', 'Second page of Foton’s institutional presentation')}
                   width={1200}
                   height={675}
                   loading="lazy"
@@ -232,7 +232,7 @@ export function Home() {
                 <img
                   className="presentation-preview-image presentation-preview-front"
                   src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp')}
-                  alt="Capa oficial da apresentação institucional do Foton"
+                  alt={copy('Capa oficial da apresentação institucional do Foton', 'Official cover of Foton’s institutional presentation')}
                   width={1200}
                   height={675}
                   loading="lazy"
@@ -244,7 +244,7 @@ export function Home() {
               </span>
             </Link>
             <p className="presentation-preview-caption">
-              Clique na imagem para acessar o PDF da apresentação institucional do Foton.
+              {copy('Clique na imagem para acessar o PDF da apresentação institucional do Foton.', 'Click the image to open Foton’s institutional presentation PDF.')}
             </p>
           </div>
         </div>
@@ -259,8 +259,8 @@ export function Home() {
       >
         <div className="container split">
           <Heading
-            eyebrow="{copy('Contato', 'Contact')}"
-            title="{copy('Converse com o Foton.', 'Talk to Foton.')}"
+            eyebrow={copy('Contato', 'Contact')}
+            title={copy('Converse com o Foton.', 'Talk to Foton.')}
           />
           <div className="body-copy">
             <p>
