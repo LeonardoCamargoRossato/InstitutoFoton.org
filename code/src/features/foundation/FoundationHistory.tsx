@@ -72,7 +72,10 @@ export function FoundationTeaser() {
         <div className="foundation-teaser-copy">
           <p className="eyebrow">{copy('Nossa história · Fundação', 'Our story · Foundation')}</p>
           <p className="foundation-event-date">
-            {copy('30 de janeiro de 2025 · Porto Alegre, RS', 'January 30, 2025 · Porto Alegre, Brazil')}
+            {copy(
+              '30 de janeiro de 2025 · Porto Alegre, RS',
+              'January 30, 2025 · Porto Alegre, Brazil',
+            )}
           </p>
           <h2 id="foundation-teaser-heading">
             {copy('O dia em que nasceu o Instituto Foton', 'The day Instituto Foton was founded')}
