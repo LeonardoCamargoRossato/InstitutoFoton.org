@@ -39,13 +39,19 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
               <p className="eyebrow">
                 <span /> {copy('Rede institucional', 'Institutional network')}
               </p>
-              <h2 id="parceiros-home-title">{copy('Ecossistema de Parceiros', 'Partner Ecosystem')}</h2>
+              <h2 id="parceiros-home-title">
+                {copy('Ecossistema de Parceiros', 'Partner Ecosystem')}
+              </h2>
               <p>
-                {copy('Instituições e empresas que integram o ecossistema apresentado pelo Instituto Foton.', 'Institutions and companies that are part of the ecosystem presented by Instituto Foton.')}
+                {copy(
+                  'Instituições e empresas que integram o ecossistema apresentado pelo Instituto Foton.',
+                  'Institutions and companies that are part of the ecosystem presented by Instituto Foton.',
+                )}
               </p>
             </div>
             <Link className="text-link" to="/parceiros">
-              {copy('Ver todos os parceiros', 'View all partners')} <ArrowRight size={18} aria-hidden="true" />
+              {copy('Ver todos os parceiros', 'View all partners')}{' '}
+              <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
         ) : (
@@ -58,11 +64,15 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
         ) : (
           <div className="partner-list-contact">
             <p>
-              {copy('Para informações sobre o ecossistema de parceiros, consulte os canais institucionais.', 'For information about the partner ecosystem, contact the institutional channels.')}
+              {copy(
+                'Para informações sobre o ecossistema de parceiros, consulte os canais institucionais.',
+                'For information about the partner ecosystem, contact the institutional channels.',
+              )}
             </p>
             {!home && (
               <Link className="text-link" to="/contato">
-                {copy('Canais de contato', 'Contact channels')} <ArrowRight size={16} aria-hidden="true" />
+                {copy('Canais de contato', 'Contact channels')}{' '}
+                <ArrowRight size={16} aria-hidden="true" />
               </Link>
             )}
           </div>
