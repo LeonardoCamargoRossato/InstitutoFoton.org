@@ -4,8 +4,8 @@ This folder contains larger functionality specific to Instituto Foton. Features 
 
 ## Folder overview
 
-| Folder | Short description | Keywords | Detailed purpose |
-| --- | --- | --- | --- |
+| Folder        | Short description  | Keywords                       | Detailed purpose                                                                           |
+| ------------- | ------------------ | ------------------------------ | ------------------------------------------------------------------------------------------ |
 | `foundation/` | Foundation feature | history, institution, timeline | Contains the page-specific foundation experience and its exclusive implementation details. |
 
 ## File documentation
