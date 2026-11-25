@@ -5,6 +5,8 @@ import { siteOrigin, basePath } from '../lib/config';
 import { SiteImageViewer } from '../components/viewers';
 import { assetUrl, imageAsset } from '../lib/siteAssets';
 import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from '../features/content';
+import { useLanguage } from '../i18n';
+import { LanguageSelector } from '../components/ui/LanguageSelector';
 
 const navigation = [
   ['/', 'Início'],
@@ -36,6 +38,7 @@ export default function Layout() {
   const [menuAt, setMenuAt] = useState<string | null>(null);
   const location = useLocation();
   const menuOpen = menuAt === location.pathname;
+  const { t } = useLanguage();
   useEffect(() => {
     document.title = `${titles[location.pathname] || 'Instituto Foton'} — Instituto Foton`;
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
@@ -157,7 +160,7 @@ export default function Layout() {
           </Link>
           <button
             className="icon-button menu-toggle"
-            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-label={menuOpen ? t.accessibility.closeMenu : t.accessibility.openMenu}
             aria-expanded={menuOpen}
             aria-controls="main-nav"
             onClick={() => setMenuAt(menuOpen ? null : location.pathname)}
@@ -166,7 +169,7 @@ export default function Layout() {
           </button>
           <nav
             id="main-nav"
-            aria-label="Navegação principal"
+            aria-label={t.accessibility.mainNavigation}
             className={menuOpen ? 'main-nav open' : 'main-nav'}
             onKeyDown={(e) => {
               if (e.key === 'Escape') {
@@ -313,7 +316,7 @@ export default function Layout() {
               <Link to="/privacidade">Privacidade</Link>
               <Link to="/termos">Termos de uso</Link>
               <button
-                aria-label="Voltar ao topo"
+                aria-label={t.accessibility.backToTop}
                 className="icon-button"
                 onClick={() =>
                   window.scrollTo({
