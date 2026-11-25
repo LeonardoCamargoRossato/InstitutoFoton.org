@@ -136,7 +136,11 @@ function FotonNetwork({
       ref={destination}
       className={'hero-identity hero-identity--network' + (settled ? ' is-settled' : '')}
       role="img"
-      aria-label={english ? "Foton connects ecosystem building, talent connection, research and education, and new startup generation." : "Foton conecta formação de ecossistema, conexão de talentos, pesquisa e educação, e geração de novas startups."}
+      aria-label={
+        english
+          ? 'Foton connects ecosystem building, talent connection, research and education, and new startup generation.'
+          : 'Foton conecta formação de ecossistema, conexão de talentos, pesquisa e educação, e geração de novas startups.'
+      }
       data-testid="home-foton-network"
     >
       <svg
@@ -155,7 +159,10 @@ function FotonNetwork({
         <img src={assetUrl('assets/WebP/branding/Favicon.webp')} alt="" width="60" height="68" />
         <strong>Foton</strong>
       </div>
-      {(english ? fronts.map(({ Icon }, index) => ({ ...frontsEnglish[index], Icon })) : fronts).map(({ id, label, Icon }) => (
+      {(english
+        ? fronts.map(({ Icon }, index) => ({ ...frontsEnglish[index], Icon }))
+        : fronts
+      ).map(({ id, label, Icon }) => (
         <div className={'home-network-node home-network-node--' + id} key={id}>
           <Icon size={17} strokeWidth={2} aria-hidden="true" />
           <span>{label}</span>
@@ -404,7 +411,13 @@ export default function HomeAtomEntrance() {
         }}
       >
         {paused ? <Play size={13} aria-hidden="true" /> : <Pause size={13} aria-hidden="true" />}
-        {paused ? (english ? 'Enable motion' : 'Ativar movimento') : (english ? 'Pause motion' : 'Pausar movimento')}
+        {paused
+          ? english
+            ? 'Enable motion'
+            : 'Ativar movimento'
+          : english
+            ? 'Pause motion'
+            : 'Pausar movimento'}
       </button>
     </>
   );
