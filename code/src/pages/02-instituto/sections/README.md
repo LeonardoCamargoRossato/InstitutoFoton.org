@@ -1,9 +1,9 @@
-# Seções do Instituto
+# Institute sections
 
-Esta pasta contém seções React específicas da página institucional.
+This folder contains React sections specific to the institutional page.
 
-- `InstitutePurpose.tsx`: propósito, missão e valores.
-- `InstituteTeamDashboard.tsx`: apresentação da equipe.
-- Arquivos `.css`: estilos exclusivos dessas seções.
+- `InstitutePurpose.tsx`: purpose, mission, and values.
+- `InstituteTeamDashboard.tsx`: team presentation.
+- `.css` files: styles exclusive to these sections.
 
 Conteúdo editorial deve ser mantido em `src/content`, não diretamente nos componentes.
