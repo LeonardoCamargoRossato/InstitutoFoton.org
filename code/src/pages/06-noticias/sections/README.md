@@ -1,8 +1,12 @@
 # News sections
 
-This folder contains visual blocks exclusive to the news page.
+This folder contains visual blocks exclusive to the News page.
 
-- `NewsCarousel.tsx`: news and media carousel.
-- `NewsPhotoHighlights.tsx`: photo highlights.
+## File documentation
 
-Reusable carousel logic remains in `components/carousel`; this folder composes the News editorial experience.
+| File | Description |
+| --- | --- |
+| `NewsCarousel.tsx` | Renders the news and media carousel for the News page. |
+| `NewsPhotoHighlights.tsx` | Renders highlighted news photography. |
+
+Reusable carousel logic remains in `components/carousel/`; this folder composes the News editorial experience.
