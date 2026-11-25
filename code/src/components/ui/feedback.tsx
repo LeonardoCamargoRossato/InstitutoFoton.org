@@ -19,15 +19,19 @@ export function Status({
   loading,
   error,
   retry,
+  loadingLabel = 'Carregando conteúdo…',
+  retryLabel = 'Tentar novamente',
 }: {
   loading: boolean;
   error: string;
   retry: () => void;
+  loadingLabel?: string;
+  retryLabel?: string;
 }) {
   if (loading)
     return (
       <p className="status" role="status" aria-live="polite">
-        Carregando conteúdo…
+        {loadingLabel}
       </p>
     );
   if (error)
@@ -36,7 +40,7 @@ export function Status({
         <p>{error}</p>
         <button type="button" className="text-link" onClick={retry}>
           <RefreshCw size={16} aria-hidden="true" />
-          Tentar novamente
+          {retryLabel}
         </button>
       </div>
     );
