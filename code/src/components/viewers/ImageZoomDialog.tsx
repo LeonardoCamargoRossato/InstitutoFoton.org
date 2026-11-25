@@ -426,12 +426,12 @@ export function ImageZoomDialog({
           )}
           {showFullscreenToast && fullscreen && (
             <span className="foton-fullscreen-toast" role="status">
-              Tela cheia
+              {english ? 'Fullscreen' : 'Tela cheia'}
             </span>
           )}
         </div>
         <p className="foton-zoom-help">
-          Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar
+          {english ? 'Mouse wheel: zoom · Drag to pan · Double-click: enlarge · Esc: close' : 'Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar'}
         </p>
       </div>
     </div>,
