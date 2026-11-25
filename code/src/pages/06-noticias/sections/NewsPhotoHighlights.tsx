@@ -3,25 +3,31 @@ import { ImageZoomDialog } from '../../../components/viewers';
 import { ImageCard } from '../../../components/cards';
 import type { NewsCarouselImage } from './NewsCarousel';
 import { assetUrl } from '../../../lib/siteAssets';
+import { useLanguage } from '../../../i18n';
 import '../../../features/NewsMedia.css';
 
 type Props = {
   images: readonly NewsCarouselImage[];
 };
 
-/** Fotos editoriais em destaque: WebP na leitura, PNG original sob demanda. */
 export function NewsPhotoHighlights({ images }: Props) {
   const [active, setActive] = useState<number | null>(null);
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
   if (images.length === 0) return null;
   const current = active === null ? null : images[active];
 
   return (
-    <section className="news-highlight-photos" aria-label="Fotografias do Projeto Leonti">
+    <section
+      className="news-highlight-photos"
+      aria-label={copy('Fotografias do Projeto Leonti', 'Leonti Project photographs')}
+    >
       {images.map((image, index) => (
         <figure className="news-highlight-figure" key={image.original}>
           <ImageCard
             className="news-highlight-image-button"
-            label={`Ampliar Projeto Leonti ${index + 1}`}
+            label={`${copy('Ampliar', 'Enlarge')} ${copy('Projeto Leonti', 'Leonti Project')} ${index + 1}`}
             catalogId={`6.A.3.C${index + 1}`}
             onOpen={() => setActive(index)}
             imagem={{
@@ -39,7 +45,9 @@ export function NewsPhotoHighlights({ images }: Props) {
             }}
           />
           <figcaption>
-            <strong>Projeto Leonti {index + 1}</strong>
+            <strong>
+              {copy('Projeto Leonti', 'Leonti Project')} {index + 1}
+            </strong>
             <span>{image.alt}</span>
             <small>{image.credit}</small>
           </figcaption>
