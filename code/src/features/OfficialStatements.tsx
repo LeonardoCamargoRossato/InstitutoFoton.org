@@ -61,12 +61,19 @@ export default function OfficialStatements() {
               <p className="eyebrow">
                 <span /> {english ? 'What guides our choices' : 'O que orienta nossas escolhas'}
               </p>
-              <h2 id="values-title">{english ? 'Values in motion.' : 'Valores que colocamos em movimento.'}</h2>
+              <h2 id="values-title">
+                {english ? 'Values in motion.' : 'Valores que colocamos em movimento.'}
+              </h2>
               <p>
-                {english ? 'Principles connecting science, people, and impact throughout our journey.' : 'Princípios que conectam ciência, pessoas e impacto em cada passo da nossa jornada.'}
+                {english
+                  ? 'Principles connecting science, people, and impact throughout our journey.'
+                  : 'Princípios que conectam ciência, pessoas e impacto em cada passo da nossa jornada.'}
               </p>
             </div>
-            <ul className="values-keywords" aria-label={english ? "Instituto Foton values" : "Valores do Instituto Foton"}>
+            <ul
+              className="values-keywords"
+              aria-label={english ? 'Instituto Foton values' : 'Valores do Instituto Foton'}
+            >
               {localizedValues.content
                 .split('\n')
                 .map((value: string) => value.trim())
