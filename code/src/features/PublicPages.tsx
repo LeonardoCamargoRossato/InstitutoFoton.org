@@ -643,7 +643,7 @@ const manifestoFormUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLSeYr2fuajfrVqG4fnEH4Gitja26eao_7hf7ybqRWfB98pgNgg/viewform';
 
 function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) {
-  const { locale, t } = useLanguage();
+  const { locale } = useLanguage();
   const english = locale === 'en-US';
   const copy = (pt: string, en: string) => (english ? en : pt);
   return (
