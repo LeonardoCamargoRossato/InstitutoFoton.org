@@ -242,7 +242,6 @@ export default function Layout() {
                   end={path === '/'}
                   key={path}
                   to={path}
-                  className={path === '/pesquisa' ? 'nav-research' : undefined}
                 >
                   {label}
                 </NavLink>
