@@ -1,5 +1,6 @@
 import { BaseCarousel, carouselPresets } from '../../../components/carousel';
 import { assetUrl } from '../../../lib/siteAssets';
+import { useLanguage } from '../../../i18n';
 import '../../../features/NewsMedia.css';
 
 export type NewsCarouselImage = {
@@ -18,12 +19,15 @@ type Props = {
   images: readonly NewsCarouselImage[];
 };
 
-/** Adaptador editorial: a navegação e o visualizador pertencem ao motor universal. */
 export function NewsCarousel({ title, label, images }: Props) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+
   return (
     <BaseCarousel
       titulo={title}
-      label={`Carrossel de fotos do ${label}`}
+      label={copy(`Carrossel de fotos do ${label}`, `Photo carousel for ${label}`)}
       listaWebP={images.map((image) => ({
         id: image.name,
         src: assetUrl(image.preview),
@@ -47,10 +51,12 @@ export function NewsCarousel({ title, label, images }: Props) {
         thumbnails: 'news-carousel-thumbnails news-mobi-thumbnails',
         credit: 'news-carousel-credit news-mobi-credit',
       }}
-      previousLabel="Foto anterior"
-      nextLabel="Próxima foto"
-      imageLabel={(index) => `Ampliar foto ${index + 1} do ${label}`}
-      thumbnailLabel={(index) => `Selecionar foto ${index + 1}`}
+      previousLabel={copy('Foto anterior', 'Previous photo')}
+      nextLabel={copy('Próxima foto', 'Next photo')}
+      imageLabel={(index) =>
+        `${copy('Ampliar foto', 'Enlarge photo')} ${index + 1} ${copy('do', 'from')} ${label}`
+      }
+      thumbnailLabel={(index) => `${copy('Selecionar foto', 'Select photo')} ${index + 1}`}
     />
   );
 }
