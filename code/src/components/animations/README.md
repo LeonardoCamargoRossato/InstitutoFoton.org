@@ -1,9 +1,18 @@
 # Animation library
 
-| File                          | Short description      | Detailed description                                                                          |
-| ----------------------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
-| `index.ts`                    | Entry point            | Re-exports the animations available to pages.                                                 |
-| `ANIMACOES_PERSONALIZADAS.md` | Documentação técnica   | Registra o propósito, o uso e os cuidados das animações personalizadas do site.               |
-| `custom/`                     | Implemented animations | Contains React components that render identity- and page-specific Instituto Foton animations. |
+This folder contains reusable motion components and the documented custom animations that support Instituto Foton's visual identity.
 
-Visual implementations live in `custom/`; this level organizes and documents the library.
+## Folder overview
+
+| Folder | Short description | Keywords | Detailed purpose |
+| --- | --- | --- | --- |
+| `custom/` | Custom animation components | identity, SVG, particles, waves | Contains React animation components created for Foton-specific identity moments, page entrances, decorative constellations, and animated section dividers. |
+
+## File documentation
+
+| File | Description |
+| --- | --- |
+| `index.ts` | Re-exports the animation components available to pages and features. |
+| `ANIMACOES_PERSONALIZADAS.md` | Records the purpose, usage guidance, and maintenance notes for the custom animation collection. |
+
+Visual implementations live in `custom/`; this level organizes and documents the animation library.
