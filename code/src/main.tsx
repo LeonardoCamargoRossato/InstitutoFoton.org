@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
+import { LanguageProvider } from './i18n';
 import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import '@fontsource/raleway/latin-400.css';
 import '@fontsource/raleway/latin-500.css';
