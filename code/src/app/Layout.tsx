@@ -144,7 +144,7 @@ export default function Layout() {
       </a>
       <header className="site-header">
         <div className="header-inner">
-          <Link to="/" className="brand" aria-label="Instituto Foton — início">
+          <Link to="/" className="brand" aria-label={t.accessibility.home}>
             <img
               className="brand-logo"
               src={assetUrl(imageAsset('foton-logo-light').webpPath)}
@@ -156,7 +156,7 @@ export default function Layout() {
               width="329"
               height="146"
             />
-            <span className="brand-signature">Tecnologia através da ciência.</span>
+            <span className="brand-signature">{t.common.technologySignature}</span>
           </Link>
           <LanguageSelector />
           <button
@@ -198,10 +198,10 @@ export default function Layout() {
                 >
                   <summary>
                     {path === '/instituto'
-                      ? 'O Instituto'
+                      ? t.common.institute
                       : path === '/pesquisa'
-                        ? 'P&D - Cientista Inovador'
-                        : 'Notícias'}
+                        ? t.common.research
+                        : t.common.news}
                   </summary>
                   <div
                     className="nav-dropdown-links"
@@ -212,19 +212,19 @@ export default function Layout() {
                   >
                     {path === '/instituto' ? (
                       <>
-                        <Link to="/instituto">Conheça o Instituto</Link>
-                        <Link to="/instituto#equipe">Nossa Equipe</Link>
+                        <Link to="/instituto">{t.common.learnInstitute}</Link>
+                        <Link to="/instituto#equipe">{t.common.team}</Link>
                       </>
                     ) : path === '/pesquisa' ? (
                       <>
-                        <Link to="/pesquisa#areas-de-pesquisa">Linhas temáticas de pesquisa</Link>
-                        <Link to="/pesquisa/jornada">Jornadas do Cientista Inovador</Link>
+                        <Link to="/pesquisa#areas-de-pesquisa">{t.common.researchLines}</Link>
+                        <Link to="/pesquisa/jornada">{t.common.journeyShort}</Link>
                         <Link to="/pesquisa/haquantum">HaQuantum</Link>
                       </>
                     ) : (
                       <>
                         <Link to="/noticias">Notícias</Link>
-                        <Link to="/redes-sociais">Redes sociais</Link>
+                        <Link to="/redes-sociais">{t.common.social}</Link>
                       </>
                     )}
                   </div>
@@ -241,7 +241,7 @@ export default function Layout() {
               ),
             )}
             <NavLink to="/apoie" className="nav-support">
-              Apoie a Ciência
+              {t.common.support}
               <ArrowUpRight size={16} aria-hidden="true" />
             </NavLink>
           </nav>
@@ -283,24 +283,24 @@ export default function Layout() {
               </p>
             </div>
             <div>
-              <h2>Explore</h2>
-              <Link to="/instituto">O Instituto</Link>
+              <h2>{t.common.explore}</h2>
+              <Link to="/instituto">{t.common.institute}</Link>
               <Link to="/pesquisa">{researchTitle}</Link>
-              <Link to="/parceiros">Ecossistema de Parceiros</Link>
+              <Link to="/parceiros">{t.common.partners}</Link>
               <Link to="/manifesto">Manifesto</Link>
             </div>
             <div>
-              <h2>Participe</h2>
+              <h2>{t.common.participate}</h2>
               <Link to="/apoie">Apoie a Ciência</Link>
-              <Link to="/noticias">Notícias e histórias</Link>
+              <Link to="/noticias">{t.common.newsStories}</Link>
               <Link to="/redes-sociais">Redes sociais</Link>
-              <Link to="/contato">Contato</Link>
+              <Link to="/contato">{t.common.contact}</Link>
             </div>
             <div className="footer-statement">
               <p>
-                O próximo capítulo da ciência
+                {t.common.nextChapter}
                 <br />
-                também pode ter você.
+                {t.common.youToo}
               </p>
               <Link
                 className="footer-circle"
@@ -312,7 +312,7 @@ export default function Layout() {
             </div>
           </div>
           <div className="footer-bottom">
-            <span>Instituto Foton · Portal científico e social</span>
+            <span>Instituto Foton · {t.common.portal}</span>
             <div>
               <Link to="/privacidade">Privacidade</Link>
               <Link to="/termos">Termos de uso</Link>

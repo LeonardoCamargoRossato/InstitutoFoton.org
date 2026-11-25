@@ -22,11 +22,66 @@ export const ptBR = {
     privacy: 'Privacidade',
     terms: 'Termos de uso',
     technologySignature: 'Tecnologia através da ciência.',
+    explore: 'Explore',
+    participate: 'Participe',
+    team: 'Nossa Equipe',
+    researchLines: 'Linhas temáticas de pesquisa',
+    journeyShort: 'Jornadas do Cientista Inovador',
+    learnInstitute: 'Conheça o Instituto',
+    newsStories: 'Notícias e histórias',
+    followFoton: 'Acompanhe o Foton nas redes sociais',
+    connectedKnowledge: 'Conhecimento que conecta.',
+    peopleScience: 'Ciência que aproxima pessoas.',
+    nextChapter: 'O próximo capítulo da ciência',
+    youToo: 'também pode ter você.',
+    portal: 'Portal científico e social',
   },
-  language: {
-    selectorLabel: 'Idioma',
-    current: 'Idioma atual: Português (Brasil)',
-  },
+  language: { selectorLabel: 'Idioma', current: 'Idioma atual: Português (Brasil)' },
 } as const;
 
-export type TranslationCatalog = typeof ptBR;
+export const enUS = {
+  accessibility: {
+    skipToContent: 'Skip to content',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    mainNavigation: 'Main navigation',
+    backToTop: 'Back to top',
+    home: 'Instituto Foton — home',
+    journey: 'Discover the Innovative Scientist Journey',
+    externalLink: '(opens in a new tab)',
+  },
+  common: {
+    loading: 'Loading page…',
+    institute: 'The Institute',
+    partners: 'Partner Ecosystem',
+    manifesto: 'Manifesto',
+    news: 'News',
+    support: 'Support Science',
+    contact: 'Contact',
+    social: 'Social media',
+    research: 'R&D - Innovative Scientist',
+    privacy: 'Privacy',
+    terms: 'Terms of use',
+    technologySignature: 'Technology through science.',
+    explore: 'Explore',
+    participate: 'Participate',
+    team: 'Our Team',
+    researchLines: 'Research thematic lines',
+    journeyShort: 'Innovative Scientist Journey',
+    learnInstitute: 'Discover the Institute',
+    newsStories: 'News and stories',
+    followFoton: 'Follow Foton on social media',
+    connectedKnowledge: 'Knowledge that connects.',
+    peopleScience: 'Science that brings people together.',
+    nextChapter: 'The next chapter of science',
+    youToo: 'can include you too.',
+    portal: 'Scientific and social portal',
+  },
+  language: { selectorLabel: 'Language', current: 'Current language: English (United States)' },
+} as const;
+
+export type TranslationCatalog = {
+  accessibility: { [K in keyof typeof ptBR.accessibility]: string };
+  common: { [K in keyof typeof ptBR.common]: string };
+  language: { [K in keyof typeof ptBR.language]: string };
+};

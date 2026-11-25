@@ -1,8 +1,9 @@
 import { useLanguage } from '../../i18n';
 import { ENABLED_LANGUAGES } from '../../i18n/languageRegistry';
 import brFlag from '../../assets/flags/BR.svg';
+import usFlag from '../../assets/flags/US.svg';
 
-const FLAG_ASSETS = { 'pt-BR': brFlag } as const;
+const FLAG_ASSETS = { 'pt-BR': brFlag, 'en-US': usFlag } as const;
 
 export function LanguageSelector() {
   const { locale, setLocale, t } = useLanguage();

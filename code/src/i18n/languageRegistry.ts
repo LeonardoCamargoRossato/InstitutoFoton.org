@@ -13,7 +13,7 @@ export const LANGUAGES: readonly LanguageDefinition[] = [
     label: 'English (United States)',
     nativeLabel: 'English (US)',
     flagAsset: 'US.svg',
-    enabled: false,
+    enabled: true,
   },
   {
     locale: 'es-ES',
