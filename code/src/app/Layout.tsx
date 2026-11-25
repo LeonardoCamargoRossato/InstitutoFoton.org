@@ -46,14 +46,20 @@ export default function Layout() {
         ? 'Partner Ecosystem'
         : isEnglish && location.pathname === '/manifesto'
           ? 'National Quantum Manifesto'
-          : titles[location.pathname] || 'Instituto Foton';
+          : isEnglish && location.pathname === '/noticias'
+            ? 'News and stories'
+            : titles[location.pathname] || 'Instituto Foton';
     document.title = `${pageTitle} — Instituto Foton`;
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (description)
       description.content =
         isEnglish && location.pathname === '/parceiros'
           ? 'Explore the institutions and companies in the ecosystem presented by Instituto Foton.'
-          : location.pathname === '/redes-sociais'
+          : isEnglish && location.pathname === '/manifesto'
+            ? 'Explore the National Quantum Manifesto and its regional commitments.'
+            : isEnglish && location.pathname === '/noticias'
+              ? 'Explore news, stories, research, events, and institutional updates from Instituto Foton.'
+              : location.pathname === '/redes-sociais'
             ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
             : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
