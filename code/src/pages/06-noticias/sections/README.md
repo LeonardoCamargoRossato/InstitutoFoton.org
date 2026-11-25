@@ -1,8 +1,8 @@
-# Seções de Notícias
+# News sections
 
-Esta pasta contém blocos visuais exclusivos da página de notícias.
+This folder contains visual blocks exclusive to the news page.
 
-- `NewsCarousel.tsx`: carrossel de notícias e mídia.
-- `NewsPhotoHighlights.tsx`: destaques fotográficos.
+- `NewsCarousel.tsx`: news and media carousel.
+- `NewsPhotoHighlights.tsx`: photo highlights.
 
-A lógica visual reutilizável de carrossel permanece em `components/carousel`; esta pasta compõe a experiência editorial de Notícias.
+Reusable carousel logic remains in `components/carousel`; this folder composes the News editorial experience.
