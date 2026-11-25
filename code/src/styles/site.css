@@ -3800,3 +3800,32 @@
     }
   }
 }
+
+/* Global language control: visible in the header on every viewport. */
+.language-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-inline-start: auto;
+}
+.language-selector select {
+  border: 1px solid var(--color-border, #d8e1ec);
+  border-radius: 999px;
+  background: var(--color-surface, #fff);
+  color: inherit;
+  padding: 0.45rem 0.7rem;
+  min-height: 2.25rem;
+}
+.language-selector img {
+  flex: 0 0 auto;
+  border-radius: 2px;
+  object-fit: cover;
+}
+@media (max-width: 700px) {
+  .language-selector {
+    margin-inline-start: 0;
+  }
+  .header-inner {
+    gap: 0.65rem;
+  }
+}
