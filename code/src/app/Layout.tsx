@@ -230,11 +230,7 @@ export default function Layout() {
                   </div>
                 </details>
               ) : (
-                <NavLink
-                  end={path === '/'}
-                  key={path}
-                  to={path}
-                >
+                <NavLink end={path === '/'} key={path} to={path}>
                   {label}
                 </NavLink>
               ),
