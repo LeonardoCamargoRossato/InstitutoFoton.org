@@ -48,7 +48,7 @@ export function CarouselImage({
         type="button"
         onClick={onOpen}
         aria-label={imageLabel}
-        title={english ? "Enlarge photograph" : "Ampliar fotografia"}
+        title={english ? 'Enlarge photograph' : 'Ampliar fotografia'}
         data-direction={direction}
       >
         <img
@@ -62,7 +62,7 @@ export function CarouselImage({
           draggable={false}
         />
         <span className="base-carousel-expand" aria-hidden="true">
-          <Maximize2 size={19} /> {english ? "Enlarge" : "Ampliar"}
+          <Maximize2 size={19} /> {english ? 'Enlarge' : 'Ampliar'}
         </span>
       </button>
       {peek && next && (
