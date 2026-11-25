@@ -8,14 +8,6 @@ import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from '../f
 import { useLanguage } from '../i18n';
 import { LanguageSelector } from '../components/ui/LanguageSelector';
 
-const navigation = [
-  ['/', 'Início'],
-  ['/instituto', 'O Instituto'],
-  ['/parceiros', 'Ecossistema de Parceiros'],
-  ['/pesquisa', researchTitle],
-  ['/manifesto', 'Manifesto'],
-  ['/noticias', 'Notícias'],
-];
 const titles: Record<string, string> = {
   '/': 'Ciências e Tecnologias Quânticas',
   '/instituto': 'O Instituto',
@@ -38,7 +30,15 @@ export default function Layout() {
   const [menuAt, setMenuAt] = useState<string | null>(null);
   const location = useLocation();
   const menuOpen = menuAt === location.pathname;
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
+  const navigation = [
+    ['/', locale === 'en-US' ? 'Home' : 'Início'],
+    ['/instituto', t.common.institute],
+    ['/parceiros', t.common.partners],
+    ['/pesquisa', t.common.research],
+    ['/manifesto', t.common.manifesto],
+    ['/noticias', t.common.news],
+  ] as const;
   useEffect(() => {
     document.title = `${titles[location.pathname] || 'Instituto Foton'} — Instituto Foton`;
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
@@ -223,19 +223,14 @@ export default function Layout() {
                       </>
                     ) : (
                       <>
-                        <Link to="/noticias">Notícias</Link>
+                        <Link to="/noticias">{t.common.news}</Link>
                         <Link to="/redes-sociais">{t.common.social}</Link>
                       </>
                     )}
                   </div>
                 </details>
               ) : (
-                <NavLink
-                  end={path === '/'}
-                  key={path}
-                  to={path}
-                  className={path === '/pesquisa' ? 'nav-research' : undefined}
-                >
+                <NavLink end={path === '/'} key={path} to={path}>
                   {label}
                 </NavLink>
               ),
@@ -274,7 +269,7 @@ export default function Layout() {
                   width="1920"
                   height="595"
                 />
-                <span className="brand-signature">Tecnologia através da ciência.</span>
+                <span className="brand-signature">{t.common.technologySignature}</span>
               </Link>
               <p>
                 Conhecimento que conecta.

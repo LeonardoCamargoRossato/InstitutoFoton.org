@@ -14,6 +14,7 @@ import { FoundationGallery, foundationRoute, foundationCards } from './foundatio
 import { assetUrl } from '../lib/siteAssets';
 import newsMedia from '../content/news-media.json';
 import './NewsMedia.css';
+import { useLanguage } from '../i18n';
 
 export function PublicationCard({ item }: { item: Publication }) {
   const body = (
@@ -110,6 +111,9 @@ function ArticleBody({ item }: { item: Publication }) {
 }
 
 export function News() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('');
   const [debounced, setDebounced] = useState('');
@@ -131,31 +135,33 @@ export function News() {
   return (
     <>
       <Intro
-        eyebrow="Notícias e histórias"
-        title="Há sempre mais para descobrir."
+        eyebrow={copy('Notícias e histórias', 'News and stories')}
+        title={copy('Há sempre mais para descobrir.', 'There is always more to discover.')}
         id="noticias-inicio"
         sectionCode="6.A.1"
       >
         <p>
-          Ciência, comunidade e novas perspectivas. Um espaço para compartilhar o conhecimento e
-          acompanhar o Instituto.
+          {copy(
+            'Ciência, comunidade e novas perspectivas. Um espaço para compartilhar o conhecimento e acompanhar o Instituto.',
+            'Science, community, and new perspectives. A space to share knowledge and follow the Institute.',
+          )}
         </p>
       </Intro>
       <section className="section" id="noticias-publicacoes" data-lcr-section-id="6.A.2">
         <div className="container">
           <div className="news-controls">
             <label>
-              Buscar publicações
+              {copy('Buscar publicações', 'Search publications')}
               <input
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="O que você quer descobrir?"
+                placeholder={copy('O que você quer descobrir?', 'What would you like to discover?')}
                 maxLength={160}
               />
             </label>
             <label>
-              Categoria
+              {copy('Categoria', 'Category')}
               <select
                 value={category}
                 onChange={(e) => {
@@ -180,7 +186,7 @@ export function News() {
               </select>
             </label>
             <label>
-              Ordenação
+              {copy('Ordenação', 'Sort order')}
               <select
                 value={sort}
                 onChange={(e) => {
@@ -188,8 +194,8 @@ export function News() {
                   setPage(0);
                 }}
               >
-                <option value="recent">Mais recentes</option>
-                <option value="oldest">Mais antigas</option>
+                <option value="recent">{copy('Mais recentes', 'Most recent')}</option>
+                <option value="oldest">{copy('Mais antigas', 'Oldest')}</option>
               </select>
             </label>
           </div>
@@ -206,34 +212,39 @@ export function News() {
               <Empty
                 title={
                   search || category !== 'Todas'
-                    ? 'Nenhuma publicação encontrada.'
-                    : 'Publicações do Instituto'
+                    ? copy('Nenhuma publicação encontrada.', 'No publications found.')
+                    : copy('Publicações do Instituto', 'Institute publications')
                 }
               >
                 {search || category !== 'Todas'
-                  ? 'Tente outra palavra ou categoria.'
-                  : 'Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.'}
+                  ? copy('Tente outra palavra ou categoria.', 'Try another keyword or category.')
+                  : copy(
+                      'Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.',
+                      'Explore the National Quantum Manifesto and the Institute’s research areas.',
+                    )}
               </Empty>
             ))}
           <div className="inline-links">
             <TextLink to="/manifesto">Manifesto Quântico Nacional</TextLink>
             <TextLink to="/pesquisa">Pesquisa em rede</TextLink>
           </div>
-          <div className="pagination" aria-label="Paginação de notícias">
+          <div className="pagination" aria-label={copy('Paginação de notícias', 'News pagination')}>
             <button
               className="button button-secondary"
               disabled={page === 0 || resource.loading}
               onClick={() => setPage((p) => p - 1)}
             >
-              Anterior
+              {copy('Anterior', 'Previous')}
             </button>
-            <span>Página {page + 1}</span>
+            <span>
+              {copy('Página', 'Page')} {page + 1}
+            </span>
             <button
               className="button button-secondary"
               disabled={!resource.data?.more || resource.loading}
               onClick={() => setPage((p) => p + 1)}
             >
-              Próxima
+              {copy('Próxima', 'Next')}
             </button>
           </div>
         </div>
@@ -243,6 +254,9 @@ export function News() {
 }
 
 export function Article() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
   const { slug = '' } = useParams();
   const loader = useCallback(() => publication(slug), [slug]);
   const resource = useResource(loader);
@@ -255,8 +269,8 @@ export function Article() {
   return (
     <>
       <Intro
-        eyebrow="Publicações"
-        title={item?.title || 'Carregando publicação…'}
+        eyebrow={copy('Publicações', 'Publications')}
+        title={item?.title || copy('Carregando publicação…', 'Loading publication…')}
         id="noticia-artigo"
         sectionCode="6.A.3"
       >
@@ -267,7 +281,7 @@ export function Article() {
               {dateLabel(item.published_at)}
               {item.author_display_name && ` · ${item.author_display_name}`}
               {item.body &&
-                ` · ${Math.max(1, Math.ceil(item.body.split(/\s+/).length / 200))} min de leitura`}
+                ` · ${Math.max(1, Math.ceil(item.body.split(/\s+/).length / 200))} min read`}
             </p>
           </>
         )}
@@ -378,7 +392,7 @@ export function Article() {
             </>
           )}
           <div className="inline-links">
-            <TextLink to="/noticias">Todas as publicações</TextLink>
+            <TextLink to="/noticias">{copy('Todas as publicações', 'All publications')}</TextLink>
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import { ArrowDownRight } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
+import { useLanguage } from '../i18n';
 import '../styles/manifesto-hero.css';
 
 const brazilStates = assetUrl('assets/05 - Manifesto/Imagens da Página/SVG/BrazilStates.svg');
@@ -94,6 +95,9 @@ function BrazilConstellation() {
 }
 
 export default function ManifestoHero() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
   return (
     <section
       className="manifesto-hero"
@@ -106,25 +110,39 @@ export default function ManifestoHero() {
       <div className="container manifesto-hero-layout">
         <div className="manifesto-hero-copy">
           <span className="manifesto-hero-eyebrow">
-            Instituto Foton <span aria-hidden="true">•</span> Uma construção nacional
+            Instituto Foton <span aria-hidden="true">•</span>{' '}
+            {copy('Uma construção nacional', 'A national endeavor')}
           </span>
           <h1 id="manifesto-hero-title">
             <span>{'Manifesto '}</span>
-            <strong>Quântico Nacional</strong>
+            <strong>{copy('Quântico Nacional', 'National Quantum Manifesto')}</strong>
           </h1>
           <p>
-            Ciência, cooperação e soberania tecnológica. Um movimento para conectar o Brasil e
-            construir, juntos, o futuro das tecnologias quânticas.
+            {copy(
+              'Ciência, cooperação e soberania tecnológica. Um movimento para conectar o Brasil e construir, juntos, o futuro das tecnologias quânticas.',
+              'Science, cooperation, and technological sovereignty. A movement to connect Brazil and build the future of quantum technologies together.',
+            )}
           </p>
           <p className="sr-only">
-            O mapa conecta registros de Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF),
-            Sorocaba (SP) e Porto Alegre (RS). As linhas representam a articulação do movimento.
+            {copy(
+              'O mapa conecta registros de Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP) e Porto Alegre (RS). As linhas representam a articulação do movimento.',
+              'The map connects records from Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP), and Porto Alegre (RS). The lines represent the movement’s network.',
+            )}
           </p>
-          <div className="manifesto-hero-pillars" aria-label="Abrangência e objetivos do Manifesto">
+          <div
+            className="manifesto-hero-pillars"
+            aria-label={copy(
+              'Abrangência e objetivos do Manifesto',
+              'Manifesto scope and objectives',
+            )}
+          >
             <a href="#odqs">
               <strong>11</strong>
               <span>
-                ODQs<small>Objetivos de Desenvolvimento Quântico</small>
+                ODQs
+                <small>
+                  {copy('Objetivos de Desenvolvimento Quântico', 'Quantum Development Objectives')}
+                </small>
               </span>
             </a>
             <a href="#cartas">
@@ -135,7 +153,7 @@ export default function ManifestoHero() {
             </a>
           </div>
           <a className="manifesto-hero-action" href="#contribuir-manifesto">
-            Venha contribuir <ArrowDownRight aria-hidden="true" size={21} />
+            {copy('Venha contribuir', 'Contribute')} <ArrowDownRight aria-hidden="true" size={21} />
           </a>
         </div>
         <div className="manifesto-hero-visual" aria-hidden="true">
@@ -156,8 +174,8 @@ export default function ManifestoHero() {
           </picture>
         </div>
         <p className="manifesto-hero-places">
-          <span>Conexões do movimento</span> Manaus · João Pessoa · Recife · Brasília · Sorocaba ·
-          Porto Alegre
+          <span>{copy('Conexões do movimento', 'Movement connections')}</span> Manaus · João Pessoa
+          · Recife · Brasília · Sorocaba · Porto Alegre
         </p>
       </div>
       <span className="manifesto-hero-bottom-line" aria-hidden="true" />

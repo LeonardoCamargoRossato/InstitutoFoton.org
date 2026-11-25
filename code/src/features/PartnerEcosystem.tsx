@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { LogoGallery } from '../components/galleries/logo/LogoGallery';
 import { partnerLogoAssets } from '../content/partnerAssets';
 import { partnerGroups, publishedPartners, safePartnerUrl } from '../content/partners';
+import { useLanguage } from '../i18n';
 
 const approvedGroups = partnerGroups(publishedPartners());
 const logoGroups = approvedGroups.map((group) => ({
@@ -17,6 +18,9 @@ const logoGroups = approvedGroups.map((group) => ({
 }));
 
 export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
   const groups = logoGroups;
   return (
     <section
@@ -33,20 +37,26 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
           <div className="partner-section-header">
             <div>
               <p className="eyebrow">
-                <span /> Rede institucional
+                <span /> {copy('Rede institucional', 'Institutional network')}
               </p>
-              <h2 id="parceiros-home-title">Ecossistema de Parceiros</h2>
+              <h2 id="parceiros-home-title">
+                {copy('Ecossistema de Parceiros', 'Partner Ecosystem')}
+              </h2>
               <p>
-                Instituições e empresas que integram o ecossistema apresentado pelo Instituto Foton.
+                {copy(
+                  'Instituições e empresas que integram o ecossistema apresentado pelo Instituto Foton.',
+                  'Institutions and companies that are part of the ecosystem presented by Instituto Foton.',
+                )}
               </p>
             </div>
             <Link className="text-link" to="/parceiros">
-              Ver todos os parceiros <ArrowRight size={18} aria-hidden="true" />
+              {copy('Ver todos os parceiros', 'View all partners')}{' '}
+              <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
         ) : (
           <h2 className="sr-only" id="parceiros-page-title">
-            Organizações do ecossistema
+            {copy('Organizações do ecossistema', 'Ecosystem organizations')}
           </h2>
         )}
         {groups.length > 0 ? (
@@ -54,11 +64,15 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
         ) : (
           <div className="partner-list-contact">
             <p>
-              Para informações sobre o ecossistema de parceiros, consulte os canais institucionais.
+              {copy(
+                'Para informações sobre o ecossistema de parceiros, consulte os canais institucionais.',
+                'For information about the partner ecosystem, contact the institutional channels.',
+              )}
             </p>
             {!home && (
               <Link className="text-link" to="/contato">
-                Canais de contato <ArrowRight size={16} aria-hidden="true" />
+                {copy('Canais de contato', 'Contact channels')}{' '}
+                <ArrowRight size={16} aria-hidden="true" />
               </Link>
             )}
           </div>
