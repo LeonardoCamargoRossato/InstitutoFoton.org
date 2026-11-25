@@ -167,6 +167,7 @@ export default function ManifestoMedia({
   caption?: string;
 }) {
   const { locale } = useLanguage();
+  const [active, setActive] = useState<number | null>(null);
   const english = locale === 'en-US';
   const copy = (pt: string, en: string) => (english ? en : pt);
   const localizedVisitImages = english
