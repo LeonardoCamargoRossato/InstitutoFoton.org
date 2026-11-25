@@ -538,8 +538,11 @@ export function Institute() {
       <div className="institute-story">
         <InstituteLightPath artwork={identityArtwork} onPhaseChange={setIdentityPhase} />
         <Intro
-          eyebrow={copy("O Instituto", "The Institute")}
-          title={copy("Ciência que aproxima. Conhecimento que transforma.", "Science that brings people closer. Knowledge that transforms.")}
+          eyebrow={copy('O Instituto', 'The Institute')}
+          title={copy(
+            'Ciência que aproxima. Conhecimento que transforma.',
+            'Science that brings people closer. Knowledge that transforms.',
+          )}
           id="instituto-inicio"
           sectionCode="2.A.1"
         >
@@ -556,7 +559,13 @@ export function Institute() {
           data-lcr-section-id="2.A.2"
         >
           <div className="container split">
-            <Heading eyebrow={copy("Nossa história", "Our history")} title={copy("Uma inquietação que se tornou encontro.", "A question that became a meeting point.")} />
+            <Heading
+              eyebrow={copy('Nossa história', 'Our history')}
+              title={copy(
+                'Uma inquietação que se tornou encontro.',
+                'A question that became a meeting point.',
+              )}
+            />
             <div className="body-copy">
               <p>
                 {copy(
@@ -603,17 +612,23 @@ export function Institute() {
             <PhotonIdentityAnimation artwork={identityArtwork} phase={identityPhase} />
             <div>
               <Heading
-                eyebrow={copy("Por que Foton?", "Why Foton?")}
-                title={copy("Um nome que carrega uma ideia de movimento.", "A name that carries an idea of movement.")}
+                eyebrow={copy('Por que Foton?', 'Why Foton?')}
+                title={copy(
+                  'Um nome que carrega uma ideia de movimento.',
+                  'A name that carries an idea of movement.',
+                )}
               />
               <p>
                 {copy(
-                'O fóton é a partícula elementar da luz. Para o Foton, o nome simboliza ciência, conexão e transformação.',
-                'A photon is the elementary particle of light. For Foton, the name symbolizes science, connection, and transformation.',
-              )}
+                  'O fóton é a partícula elementar da luz. Para o Foton, o nome simboliza ciência, conexão e transformação.',
+                  'A photon is the elementary particle of light. For Foton, the name symbolizes science, connection, and transformation.',
+                )}
               </p>
               <blockquote>
-                {copy("“Foton é luz. É ciência em movimento. É tecnologia com direção.”", "“Foton is light. It is science in motion. It is technology with direction.”")}
+                {copy(
+                  '“Foton é luz. É ciência em movimento. É tecnologia com direção.”',
+                  '“Foton is light. It is science in motion. It is technology with direction.”',
+                )}
               </blockquote>
             </div>
           </div>
@@ -623,22 +638,40 @@ export function Institute() {
       <InstitutePurpose />
       <section className="section" id="frentes-articulacao" data-lcr-section-id="2.A.6">
         <div className="container">
-          <Heading eyebrow={copy("Frentes de articulação", "Areas of collaboration")} title={copy("Ciência, formação e estratégia.", "Science, education, and strategy.")} />
+          <Heading
+            eyebrow={copy('Frentes de articulação', 'Areas of collaboration')}
+            title={copy('Ciência, formação e estratégia.', 'Science, education, and strategy.')}
+          />
           <div className="three-grid">
             <InfoCard as="div" className="info-card" catalogId="2.A.6.C1">
               <BookOpen aria-hidden="true" />
-              <h3>{copy("Educação e formação", "Education and training")}</h3>
-              <p>{copy("Promover a aproximação entre conhecimento científico, formação e sociedade.", "Bringing scientific knowledge, education, and society closer.")}</p>
+              <h3>{copy('Educação e formação', 'Education and training')}</h3>
+              <p>
+                {copy(
+                  'Promover a aproximação entre conhecimento científico, formação e sociedade.',
+                  'Bringing scientific knowledge, education, and society closer.',
+                )}
+              </p>
             </InfoCard>
             <InfoCard as="div" className="info-card" catalogId="2.A.6.C2">
               <Compass aria-hidden="true" />
-              <h3>{copy("Pesquisa aplicada", "Applied research")}</h3>
-              <p>{copy("Articular temas de investigação e colaboração entre diferentes áreas.", "Connecting research themes and collaboration across fields.")}</p>
+              <h3>{copy('Pesquisa aplicada', 'Applied research')}</h3>
+              <p>
+                {copy(
+                  'Articular temas de investigação e colaboração entre diferentes áreas.',
+                  'Connecting research themes and collaboration across fields.',
+                )}
+              </p>
             </InfoCard>
             <InfoCard as="div" className="info-card" catalogId="2.A.6.C3">
               <Network aria-hidden="true" />
-              <h3>{copy("Inteligência estratégica", "Strategic intelligence")}</h3>
-              <p>{copy("Conectar conhecimento e análise a decisões de organizações e sociedade.", "Connecting knowledge and analysis to organizational and societal decisions.")}</p>
+              <h3>{copy('Inteligência estratégica', 'Strategic intelligence')}</h3>
+              <p>
+                {copy(
+                  'Conectar conhecimento e análise a decisões de organizações e sociedade.',
+                  'Connecting knowledge and analysis to organizational and societal decisions.',
+                )}
+              </p>
             </InfoCard>
           </div>
         </div>
@@ -966,7 +999,10 @@ export function Contact() {
     <>
       <Intro
         eyebrow={copy('Contato', 'Contact')}
-        title={copy('Boas conexões começam com uma conversa.', 'Good connections start with a conversation.')}
+        title={copy(
+          'Boas conexões começam com uma conversa.',
+          'Good connections start with a conversation.',
+        )}
         id="contato-intro"
         sectionCode="8.1"
       >
@@ -998,7 +1034,12 @@ export function Contact() {
               <li>{copy('Patrocínio empresarial', 'Corporate sponsorship')}</li>
               <li>{copy('Imprensa', 'Press')}</li>
             </ul>
-            <p>{copy('Escolha o assunto e converse com o Foton pelos canais oficiais.', 'Choose a topic and talk to Foton through official channels.')}</p>
+            <p>
+              {copy(
+                'Escolha o assunto e converse com o Foton pelos canais oficiais.',
+                'Choose a topic and talk to Foton through official channels.',
+              )}
+            </p>
           </div>
         </div>
       </section>
@@ -1048,7 +1089,9 @@ export function Legal({ terms = false }: { terms?: boolean }) {
             </>
           ) : (
             <>
-              <h2>{copy('Navegação e informações técnicas', 'Navigation and technical information')}</h2>
+              <h2>
+                {copy('Navegação e informações técnicas', 'Navigation and technical information')}
+              </h2>
               <p>
                 {copy(
                   'O site disponibiliza páginas e documentos institucionais públicos. O serviço de hospedagem pode processar registros técnicos necessários ao funcionamento e à segurança da navegação.',
@@ -1069,7 +1112,9 @@ export function Legal({ terms = false }: { terms?: boolean }) {
                   'Links to external services follow the privacy policies and terms of their respective operators.',
                 )}
               </p>
-              <TextLink to="/contato">{copy('Canais institucionais', 'Institutional channels')}</TextLink>
+              <TextLink to="/contato">
+                {copy('Canais institucionais', 'Institutional channels')}
+              </TextLink>
             </>
           )}
         </div>
