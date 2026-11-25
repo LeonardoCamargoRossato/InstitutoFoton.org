@@ -203,7 +203,11 @@ export function News() {
               </select>
             </label>
           </div>
-          <Status {...resource} />
+          <Status
+            {...resource}
+            loadingLabel={copy('Carregando conteúdo…', 'Loading content…')}
+            retryLabel={copy('Tentar novamente', 'Try again')}
+          />
           {!resource.loading &&
             !resource.error &&
             (items.length ? (
@@ -295,7 +299,11 @@ export function Article() {
       </Intro>
       <section className="section">
         <div className="container reading">
-          <Status {...resource} />
+          <Status
+            {...resource}
+            loadingLabel={copy('Carregando conteúdo…', 'Loading content…')}
+            retryLabel={copy('Tentar novamente', 'Try again')}
+          />
           {item && (
             <>
               {item.type === 'press' ? (
