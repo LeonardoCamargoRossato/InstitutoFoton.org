@@ -123,13 +123,10 @@ export function Home() {
               {copy('“Transformar ciência de fronteira em decisões, soluções e oportunidades.”', '“Turning frontier science into decisions, solutions and opportunities.”')}
             </blockquote>
             <p>
-              O Foton busca articular inteligência estratégica, educação, pesquisa aplicada e
-              diálogo entre ciência, organizações e sociedade.
+              {copy('O Foton busca articular inteligência estratégica, educação, pesquisa aplicada e diálogo entre ciência, organizações e sociedade.', 'Foton connects strategic intelligence, education, applied research, and dialogue between science, organizations, and society.')}
             </p>
             <p>
-              As tecnologias quânticas abrem novas perspectivas para comunicação, segurança, saúde,
-              energia e indústria. O Foton articula conhecimento, pesquisa e diálogo em torno dessas
-              transformações.
+              {copy('As tecnologias quânticas abrem novas perspectivas para comunicação, segurança, saúde, energia e indústria. O Foton articula conhecimento, pesquisa e diálogo em torno dessas transformações.', 'Quantum technologies open new perspectives for communication, security, health, energy, and industry. Foton connects knowledge, research, and dialogue around these transformations.')}
             </p>
           </div>
         </div>
@@ -149,8 +146,7 @@ export function Home() {
             <TextLink to="/instituto">{copy('Sobre a rede', 'About the network')}</TextLink>
           </div>
           <p className="section-description">
-            O Foton reúne trajetórias de diferentes áreas do conhecimento e conecta pessoas,
-            pesquisadores e instituições em diferentes regiões do Brasil.
+            {copy('O Foton reúne trajetórias de diferentes áreas do conhecimento e conecta pessoas, pesquisadores e instituições em diferentes regiões do Brasil.', 'Foton brings together paths from different fields of knowledge and connects people, researchers, and institutions across Brazil.')}
           </p>
           <div className="documentary-metrics institutional-metrics">
             <InfoCard as="div" inheritVisuals catalogId="1.3.C1">
@@ -264,8 +260,7 @@ export function Home() {
           />
           <div className="body-copy">
             <p>
-              Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos
-              nossos canais de contato.
+              {copy('Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos nossos canais de contato.', 'Talk to Foton about science, research, collaboration, and new connections through our contact channels.')}
             </p>
             <div className="institutional-contact-actions">
               <Action to="/contato">{copy('Canais de contato', 'Contact channels')}</Action>
