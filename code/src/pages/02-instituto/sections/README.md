@@ -1,9 +1,14 @@
 # Institute sections
 
-This folder contains React sections specific to the institutional page.
+This folder contains React sections specific to the Institute page.
 
-- `InstitutePurpose.tsx`: purpose, mission, and values.
-- `InstituteTeamDashboard.tsx`: team presentation.
-- `.css` files: styles exclusive to these sections.
+## File documentation
 
-Conteúdo editorial deve ser mantido em `src/content`, não diretamente nos componentes.
+| File                         | Description                                                          |
+| ---------------------------- | -------------------------------------------------------------------- |
+| `InstitutePurpose.tsx`       | Renders purpose, mission, and values content for the Institute page. |
+| `InstitutePurpose.css`       | Styles the Institute purpose section.                                |
+| `InstituteTeamDashboard.tsx` | Renders the Institute team presentation.                             |
+| `InstituteTeamDashboard.css` | Styles the Institute team dashboard.                                 |
+
+Editorial content remains in `src/content/`, not directly inside visual components.

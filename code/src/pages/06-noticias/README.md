@@ -20,3 +20,19 @@
 | 6.B.4 | YouTube    | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/redes-sociais#social-youtube-title)   | [componente](../../features/YouTubeHighlight.tsx)   | [posts](../../content/social-posts.json)    | [Redes sociais](../../../public/assets/06%20-%20Not%C3%ADcias/Redes%20Sociais/)       |
 
 [Abrir mapa técnico 6A](./6A-Noticias.ts) · [6B](./6B-RedesSociais.ts)
+
+## Implementation files
+
+| File                 | Description                                  |
+| -------------------- | -------------------------------------------- |
+| `6A-Noticias.ts`     | Technical map for news and reports.          |
+| `6B-RedesSociais.ts` | Technical map for social-media sections.     |
+| `PAGE.ts`            | Page-level technical map and route metadata. |
+
+The page map above is the editorial navigation mirror; this section documents the files directly stored in the page folder.
+
+## Folder overview
+
+| Folder      | Short description  | Keywords                        | Detailed purpose                                     |
+| ----------- | ------------------ | ------------------------------- | ---------------------------------------------------- |
+| `sections/` | News-only sections | carousel, highlights, editorial | Contains visual sections used only by the News page. |

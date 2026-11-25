@@ -16,3 +16,12 @@ Estas rotas aparecem no React Router, mas não são conteúdo editorial do menu:
 - [Entrar](../../features/Access.tsx)
 - `/auth/callback`
 - `/admin/*`
+
+## Implementation files
+
+| File                    | Description                                  |
+| ----------------------- | -------------------------------------------- |
+| `8A-RotasAuxiliares.ts` | Technical map for auxiliary routes.          |
+| `PAGE.ts`               | Page-level technical map and route metadata. |
+
+The page map above is the editorial navigation mirror; this section documents the files directly stored in the page folder.

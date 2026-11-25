@@ -6,3 +6,12 @@
 | --- | -------------------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | 3.1 | Apresentação do Ecossistema      | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/parceiros#parceiros-intro) | [página](../../features/PartnersPage.tsx)          | [estrutura](../../content/siteStructure.ts)                                                                             | —                                                                                                         |
 | 3.2 | Organizações parceiras por grupo | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/parceiros#lista-parceiros) | [ecossistema](../../features/PartnerEcosystem.tsx) | [parceiros](../../content/partners.ts) · [assets](../../content/partnerAssets.ts) · [JSON](../../content/partners.json) | [31 logos SVG](../../../public/assets/03%20-%20Ecossistema%20de%20Parceiros/Logos%20dos%20Parceiros/SVG/) |
+
+## Implementation files
+
+| File                           | Description                                   |
+| ------------------------------ | --------------------------------------------- |
+| `3A-EcossistemaDeParceiros.ts` | Technical map for the partner ecosystem page. |
+| `PAGE.ts`                      | Page-level technical map and route metadata.  |
+
+The page map above is the editorial navigation mirror; this section documents the files directly stored in the page folder.

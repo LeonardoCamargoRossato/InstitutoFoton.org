@@ -22,3 +22,19 @@
 | 2.B.1 | As pessoas que constroem o Foton | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/instituto#equipe) | [componente](./sections/InstituteTeamDashboard.tsx) · [CSS](./sections/InstituteTeamDashboard.css) | [equipe](../../content/instituteTeam.ts) | [retratos](../../../public/assets/02%20-%20O%20Instituto/02B%20-%20Nossa%20Equipe/) |
 
 [Abrir mapa técnico 2A](./2A-ConhecaOInstituto.ts) · [2B](./2B-NossaEquipe.ts)
+
+## Implementation files
+
+| File                      | Description                                                        |
+| ------------------------- | ------------------------------------------------------------------ |
+| `2A-ConhecaOInstituto.ts` | Technical map for the Institute introduction and history sections. |
+| `2B-NossaEquipe.ts`       | Technical map for the Institute team section.                      |
+| `PAGE.ts`                 | Page-level technical map and route metadata.                       |
+
+The page map above is the editorial navigation mirror; this section documents the files directly stored in the page folder.
+
+## Folder overview
+
+| Folder      | Short description       | Keywords                     | Detailed purpose                                          |
+| ----------- | ----------------------- | ---------------------------- | --------------------------------------------------------- |
+| `sections/` | Institute-only sections | purpose, team, institutional | Contains visual sections used only by the Institute page. |
