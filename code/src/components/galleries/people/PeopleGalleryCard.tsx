@@ -17,7 +17,9 @@ export function PeopleGalleryCard({ item }: PeopleGalleryCardProps) {
       <span className="team-photo-wrap">
         <img
           src={item.imageSrc}
-          alt={item.imageAlt ?? (english ? `Photograph of ${item.name}` : `Fotografia de ${item.name}`)}
+          alt={
+            item.imageAlt ?? (english ? `Photograph of ${item.name}` : `Fotografia de ${item.name}`)
+          }
           width={320}
           height={360}
           loading="lazy"
@@ -29,7 +31,8 @@ export function PeopleGalleryCard({ item }: PeopleGalleryCardProps) {
         <span>{item.role}</span>
         {item.thematicLine && <small>{item.thematicLine}</small>}
         <span className="team-person-action">
-          {english ? 'View profile' : 'Conheça o perfil'} <ArrowUpRight size={16} aria-hidden="true" />
+          {english ? 'View profile' : 'Conheça o perfil'}{' '}
+          <ArrowUpRight size={16} aria-hidden="true" />
         </span>
       </span>
     </ProfileCard>
