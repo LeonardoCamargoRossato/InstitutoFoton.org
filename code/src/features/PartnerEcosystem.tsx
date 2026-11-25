@@ -30,7 +30,7 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
   };
   const groups = logoGroups.map((group) => ({
     ...group,
-    tier: english ? tierTranslations[group.tier] ?? group.tier : group.tier,
+    tier: english ? (tierTranslations[group.tier] ?? group.tier) : group.tier,
   }));
   return (
     <section
