@@ -6,6 +6,7 @@ This folder contains GitHub Actions workflow definitions used by the repository 
 
 | File | Description |
 | --- | --- |
-| `quality.yml` | Runs the repository validation pipeline, including security scans, documentation checks, formatting, tests, asset validation, and artifact checks. |
+| `ci.yml` | Runs the repository validation pipeline, including security scans, documentation checks, formatting, tests, asset validation, and artifact checks. |
+| `deploy-pages.yml` | Builds and publishes the approved static site to GitHub Pages. |
 
 Workflow files are infrastructure configuration; they do not render site pages or ship as public assets.
