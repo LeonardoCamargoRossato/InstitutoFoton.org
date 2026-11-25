@@ -43,7 +43,9 @@ const englishTitles: Record<string, string> = {
   '/pesquisa': researchTitleEnglish,
   '/pesquisa/jornada': journeyTitleEnglish,
   '/pesquisa/haquantum': haQuantumTitleEnglish,
-  ...Object.fromEntries(researchLinesEnglish.map(({ slug, title }) => ['/pesquisa/' + slug, title])),
+  ...Object.fromEntries(
+    researchLinesEnglish.map(({ slug, title }) => ['/pesquisa/' + slug, title]),
+  ),
   '/manifesto': 'National Quantum Manifesto',
   '/noticias': 'News and stories',
   '/redes-sociais': 'Follow Foton on social media',
@@ -57,13 +59,19 @@ const englishTitles: Record<string, string> = {
 
 const englishDescriptions: Record<string, string> = {
   '/': 'Quantum science, people, and possibilities. Discover Instituto Foton, its research areas, and ways to support science.',
-  '/instituto': 'Discover the people, purpose, and scientific coordination teams that build Instituto Foton.',
-  '/parceiros': 'Explore the institutions and companies in the ecosystem presented by Instituto Foton.',
-  '/pesquisa': 'Research areas and pathways connecting quantum science, education, and collaboration.',
-  '/pesquisa/jornada': 'Discover the Innovative Scientist Journey and its pathways for scientific development.',
-  '/pesquisa/haquantum': 'Explore HaQuantum, a hackathon focused on quantum technologies and collaboration.',
+  '/instituto':
+    'Discover the people, purpose, and scientific coordination teams that build Instituto Foton.',
+  '/parceiros':
+    'Explore the institutions and companies in the ecosystem presented by Instituto Foton.',
+  '/pesquisa':
+    'Research areas and pathways connecting quantum science, education, and collaboration.',
+  '/pesquisa/jornada':
+    'Discover the Innovative Scientist Journey and its pathways for scientific development.',
+  '/pesquisa/haquantum':
+    'Explore HaQuantum, a hackathon focused on quantum technologies and collaboration.',
   '/manifesto': 'Explore the National Quantum Manifesto and its regional commitments.',
-  '/noticias': 'Explore news, stories, research, events, and institutional updates from Instituto Foton.',
+  '/noticias':
+    'Explore news, stories, research, events, and institutional updates from Instituto Foton.',
   '/redes-sociais': 'Follow Instituto Foton on Instagram, LinkedIn, and YouTube.',
   '/apoie': 'Learn how to support science and Instituto Foton initiatives.',
   '/contato': 'Find official channels to contact Instituto Foton.',
