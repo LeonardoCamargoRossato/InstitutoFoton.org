@@ -1,14 +1,15 @@
 # Component library
 
-`components/` contains Instituto Foton's reusable visual pieces. A component may appear on multiple pages; each page combines these pieces with its own content and rules.
+`components/` contains Instituto Foton's reusable visual building blocks. Pages compose these components with page-specific content and behavior; editorial data and route logic remain outside this library.
 
-| Pasta          | Descrição sucinta         | Descrição detalhada                                                                                |
-| -------------- | ------------------------- | -------------------------------------------------------------------------------------------------- |
-| `foundations/` | Fundamentos visuais       | Reúne tokens globais de cor, espaçamento, tipografia, forma, sombra, movimento e layout.           |
-| `animations/`  | Animações visuais         | Contém animações reutilizáveis e suas implementações personalizadas para a identidade do Foton.    |
-| `cards/`       | Biblioteca de cards       | Organiza a base comum e os cards informativos ou interativos usados no site.                       |
-| `carousel/`    | Biblioteca de carrossel   | Fornece o motor compartilhado para prévias WebP, originais PNG, navegação, miniaturas e ampliação. |
-| `ui/`          | Elementos de interface    | Reúne ações, links, títulos, mensagens de estado e modal, usados como peças pequenas de interface. |
-| `viewers/`     | Visualizadores de imagens | Centraliza a experiência de ampliar, navegar, baixar e visualizar imagens em tela cheia.           |
+| Folder | Short description | Keywords | Detailed purpose |
+| --- | --- | --- | --- |
+| `animations/` | Visual motion library | motion, transitions, identity | Contains reusable animation primitives and Foton-specific motion implementations, including documented custom identity animations. |
+| `cards/` | Card component library | base, informative, interactive | Organizes shared card foundations and the informative or interactive card variants used across the site. |
+| `carousel/` | Media carousel engine | WebP, PNG, navigation, thumbnails | Provides the shared carousel behavior for preview media, original media, controls, thumbnails, image navigation, and enlargement. |
+| `foundations/` | Design foundations | tokens, color, spacing, typography | Defines the global visual tokens that establish consistent color, spacing, typography, shape, shadow, motion, and layout decisions. |
+| `galleries/` | Reusable gallery patterns | cards, logos, people, collections | Groups reusable gallery compositions for card collections, partner logos, and people profiles, keeping presentation structure separate from site-specific data. |
+| `ui/` | Interface primitives | actions, feedback, layout, modal | Contains small reusable interface pieces such as actions, feedback states, layout helpers, and modal surfaces. |
+| `viewers/` | Image viewing experiences | zoom, fullscreen, download, media | Centralizes image enlargement, navigation, download, fullscreen, and related media-viewing interactions. |
 
-Cada subpasta possui um README com a função de seus arquivos. A pasta `components/` não contém arquivos visuais soltos; suas peças estão agrupadas por responsabilidade.
+Each component subfolder documents its own files and responsibilities in a local README. The `components/` root should not contain unrelated loose visual files; reusable pieces remain grouped by responsibility.
