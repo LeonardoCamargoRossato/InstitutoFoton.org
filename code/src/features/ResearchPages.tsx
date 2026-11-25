@@ -59,10 +59,23 @@ const haQuantum = {
 
 const pathwayEnglish = [
   { name: 'Pulse', summary: 'Welcoming and integrating participants into the Journey activities.' },
-  { name: 'Lumina', summary: 'Exploring themes, participating in meetings, and creating outreach materials.' },
-  { name: 'Resonance', summary: 'Curating content and contributing to science dissemination events and actions.' },
-  { name: 'Superposition', summary: 'Facilitating activities, providing scientific support, and welcoming new participants.' },
-  { name: 'Entanglement', summary: 'Connecting initiatives and following the development of new researchers.' },
+  {
+    name: 'Lumina',
+    summary: 'Exploring themes, participating in meetings, and creating outreach materials.',
+  },
+  {
+    name: 'Resonance',
+    summary: 'Curating content and contributing to science dissemination events and actions.',
+  },
+  {
+    name: 'Superposition',
+    summary:
+      'Facilitating activities, providing scientific support, and welcoming new participants.',
+  },
+  {
+    name: 'Entanglement',
+    summary: 'Connecting initiatives and following the development of new researchers.',
+  },
 ];
 
 const pulsoEnglish = {
@@ -90,7 +103,11 @@ function PulsoVideo() {
       href={pulso.watch}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={english ? 'Open the Pulse Stage video on YouTube (new tab)' : 'Abrir o vídeo da Etapa Pulso no YouTube (nova aba)'}
+      aria-label={
+        english
+          ? 'Open the Pulse Stage video on YouTube (new tab)'
+          : 'Abrir o vídeo da Etapa Pulso no YouTube (nova aba)'
+      }
     >
       <img
         src={assetUrl(media.pulso.previewPath)}
@@ -112,8 +129,7 @@ function HaQuantumDate() {
   const english = locale === 'en-US';
   return (
     <p className="research-date">
-      <time dateTime="2026-05-09">{english ? 'May 9' : '9 de maio'}</time>{' '}
-      {english ? 'to' : 'a'}{' '}
+      <time dateTime="2026-05-09">{english ? 'May 9' : '9 de maio'}</time> {english ? 'to' : 'a'}{' '}
       <time dateTime="2026-06-11">{english ? 'June 11, 2026' : '11 de junho de 2026'}</time>
     </p>
   );
@@ -154,7 +170,11 @@ export function Research() {
         </nav>
       </Intro>
 
-      <section className="section research-areas" id="areas-de-pesquisa" data-lcr-section-id="4.A.2">
+      <section
+        className="section research-areas"
+        id="areas-de-pesquisa"
+        data-lcr-section-id="4.A.2"
+      >
         <div className="container">
           <Heading title={copy('Áreas de pesquisa', 'Research areas')} />
           <p className="section-description">
@@ -174,7 +194,8 @@ export function Research() {
                 <h3>{line.title}</h3>
                 <p>{line.summary}</p>
                 <span className="card-link">
-                  {copy('Explorar essa área', 'Explore this area')} <ArrowUpRight size={18} aria-hidden="true" />
+                  {copy('Explorar essa área', 'Explore this area')}{' '}
+                  <ArrowUpRight size={18} aria-hidden="true" />
                 </span>
               </ActionCard>
             ))}
@@ -182,11 +203,18 @@ export function Research() {
         </div>
       </section>
 
-      <section className="section section-gray research-journey-intro" id="jornada-do-cientista" data-lcr-section-id="4.A.3">
+      <section
+        className="section section-gray research-journey-intro"
+        id="jornada-do-cientista"
+        data-lcr-section-id="4.A.3"
+      >
         <div className="container split">
           <div className="body-copy">
             <Heading title={english ? journeyTitleEnglish : journeyTitle}>
-              {copy('Conectando ciência, pessoas e inovação.', 'Connecting science, people, and innovation.')}
+              {copy(
+                'Conectando ciência, pessoas e inovação.',
+                'Connecting science, people, and innovation.',
+              )}
             </Heading>
             <p>
               {copy(
@@ -201,13 +229,24 @@ export function Research() {
               )}
             </p>
             <div className="actions">
-              <Action to="/pesquisa/jornada">{copy('Conheça a Jornada', 'Discover the Journey')}</Action>
+              <Action to="/pesquisa/jornada">
+                {copy('Conheça a Jornada', 'Discover the Journey')}
+              </Action>
             </div>
           </div>
           <div className="pathway-preview">
             <h3>Quantum Pathway</h3>
-            <p>{copy('A trilha organiza a participação em cinco etapas de envolvimento progressivo.', 'The pathway organizes participation into five stages of progressive involvement.')}</p>
-            <ol>{pathwayItems.map(({ name }) => <li key={name}>{name}</li>)}</ol>
+            <p>
+              {copy(
+                'A trilha organiza a participação em cinco etapas de envolvimento progressivo.',
+                'The pathway organizes participation into five stages of progressive involvement.',
+              )}
+            </p>
+            <ol>
+              {pathwayItems.map(({ name }) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
@@ -216,7 +255,10 @@ export function Research() {
         <div className="container split">
           <Heading
             eyebrow={copy('Nossos eventos e iniciativas', 'Our events and initiatives')}
-            title={copy('A ciência ganha força quando é compartilhada.', 'Science grows stronger when it is shared.')}
+            title={copy(
+              'A ciência ganha força quando é compartilhada.',
+              'Science grows stronger when it is shared.',
+            )}
           />
           <p>
             {copy(
@@ -232,17 +274,28 @@ export function Research() {
           <PulsoVideo />
           <div className="body-copy">
             <Heading title={pulsoInfo.title} />
-            <p className="research-date"><time dateTime="2026-03-28">{copy('28 de março de 2026', 'March 28, 2026')}</time></p>
+            <p className="research-date">
+              <time dateTime="2026-03-28">{copy('28 de março de 2026', 'March 28, 2026')}</time>
+            </p>
             <p>
               {copy(
                 'O encontro encerrou o primeiro ciclo formativo da Jornada. Os Cientistas Inovadores apresentaram trabalhos sobre computação, comunicação e criptografia quânticas, algoritmos, sensores e materiais, além de aplicações da quântica aos negócios.',
                 'The meeting closed the Journey’s first training cycle. Innovative Scientists presented work on quantum computing, communication and cryptography, algorithms, sensors and materials, and applications of quantum technology to business.',
               )}
             </p>
-            <p>{copy('A transmissão permitiu ao público acompanhar os trabalhos dos grupos temáticos.', 'The broadcast allowed the public to follow the thematic groups’ work.')}</p>
+            <p>
+              {copy(
+                'A transmissão permitiu ao público acompanhar os trabalhos dos grupos temáticos.',
+                'The broadcast allowed the public to follow the thematic groups’ work.',
+              )}
+            </p>
             <div className="actions research-event-actions">
-              <External className="button" href={pulsoInfo.watch}>{copy('Assistir à transmissão completa', 'Watch the full broadcast')}</External>
-              <External className="text-link" href={pulsoInfo.event}>{copy('Página do evento', 'Event page')}</External>
+              <External className="button" href={pulsoInfo.watch}>
+                {copy('Assistir à transmissão completa', 'Watch the full broadcast')}
+              </External>
+              <External className="text-link" href={pulsoInfo.event}>
+                {copy('Página do evento', 'Event page')}
+              </External>
             </div>
           </div>
         </div>
@@ -260,7 +313,9 @@ export function Research() {
           </div>
           <HaQuantumGallery />
           <div className="actions">
-            <Action to="/pesquisa/haquantum">{copy('Saiba mais sobre o HaQuantum', 'Learn more about HaQuantum')}</Action>
+            <Action to="/pesquisa/haquantum">
+              {copy('Saiba mais sobre o HaQuantum', 'Learn more about HaQuantum')}
+            </Action>
           </div>
         </div>
       </section>
@@ -289,7 +344,9 @@ export function ResearchArea() {
           <p className="lead">{selected.description}</p>
           <h2>{copy('Perspectivas de investigação', 'Research perspectives')}</h2>
           <ul className="topic-list">
-            {selected.topics.map((topic) => <li key={topic}>{topic}</li>)}
+            {selected.topics.map((topic) => (
+              <li key={topic}>{topic}</li>
+            ))}
           </ul>
           <div className="notice">
             <h3>{copy('Pesquisa se faz em rede', 'Research is built as a network')}</h3>
@@ -301,8 +358,12 @@ export function ResearchArea() {
             </p>
           </div>
           <div className="actions">
-            <Action to="/pesquisa#areas-de-pesquisa">{copy('Todas as áreas', 'All research areas')}</Action>
-            <TextLink to="/pesquisa/jornada">{copy('Conheça a Jornada', 'Discover the Journey')}</TextLink>
+            <Action to="/pesquisa#areas-de-pesquisa">
+              {copy('Todas as áreas', 'All research areas')}
+            </Action>
+            <TextLink to="/pesquisa/jornada">
+              {copy('Conheça a Jornada', 'Discover the Journey')}
+            </TextLink>
           </div>
         </div>
       </section>
@@ -324,13 +385,28 @@ export function Journey() {
         id="jornada-inicio"
         sectionCode="4.B.1"
       >
-        <p>{copy('Conectando ciência, pessoas e inovação.', 'Connecting science, people, and innovation.')}</p>
-        <TextLink to="/pesquisa">{copy('Pesquisa e Jornada do Cientista Inovador', 'Research and Innovative Scientist Journey')}</TextLink>
+        <p>
+          {copy(
+            'Conectando ciência, pessoas e inovação.',
+            'Connecting science, people, and innovation.',
+          )}
+        </p>
+        <TextLink to="/pesquisa">
+          {copy(
+            'Pesquisa e Jornada do Cientista Inovador',
+            'Research and Innovative Scientist Journey',
+          )}
+        </TextLink>
       </Intro>
 
       <section className="section" id="jornada-colaboracao" data-lcr-section-id="4.B.2">
         <div className="container split">
-          <Heading title={copy('Aprender e pesquisar em colaboração.', 'Learning and researching together.')} />
+          <Heading
+            title={copy(
+              'Aprender e pesquisar em colaboração.',
+              'Learning and researching together.',
+            )}
+          />
           <div className="body-copy">
             <p>
               {copy(
@@ -348,7 +424,11 @@ export function Journey() {
         </div>
       </section>
 
-      <section className="section research-pathway" id="quantum-pathway" data-lcr-section-id="4.B.3">
+      <section
+        className="section research-pathway"
+        id="quantum-pathway"
+        data-lcr-section-id="4.B.3"
+      >
         <div className="container">
           <Heading title="Quantum Pathway">
             {copy(
@@ -356,7 +436,10 @@ export function Journey() {
               'The pathway advances in six-month cycles. The stages show how involvement and responsibilities can grow throughout the Journey.',
             )}
           </Heading>
-          <ol className="pathway-steps" aria-label={copy('Etapas do Quantum Pathway', 'Quantum Pathway stages')}>
+          <ol
+            className="pathway-steps"
+            aria-label={copy('Etapas do Quantum Pathway', 'Quantum Pathway stages')}
+          >
             {pathwayItems.map(({ name, summary }, index) => (
               <InfoCard
                 as="li"
@@ -376,7 +459,9 @@ export function Journey() {
       <section className="section research-groups" id="jornada-grupos" data-lcr-section-id="4.B.4">
         <div className="container split">
           <div className="body-copy">
-            <Heading title={copy('Grupos temáticos e atividades', 'Thematic groups and activities')} />
+            <Heading
+              title={copy('Grupos temáticos e atividades', 'Thematic groups and activities')}
+            />
             <p>
               {copy(
                 'Os encontros são principalmente on-line. Os grupos contam com apoio de coordenação e podem conduzir estudos, desenvolver iniciativas e preparar materiais técnicos ou de divulgação.',
@@ -398,7 +483,9 @@ export function Journey() {
 
       <section className="section section-gray" id="jornada-eventos" data-lcr-section-id="4.B.5">
         <div className="container split">
-          <Heading title={copy('Eventos e comunicação científica', 'Events and science communication')} />
+          <Heading
+            title={copy('Eventos e comunicação científica', 'Events and science communication')}
+          />
           <div className="body-copy">
             <p>
               {copy(
@@ -413,7 +500,9 @@ export function Journey() {
               )}
             </p>
             <div className="actions">
-              <Action to="/pesquisa#etapa-pulso">{copy('Veja o encerramento da Etapa Pulso', 'See the Pulse Stage closing')}</Action>
+              <Action to="/pesquisa#etapa-pulso">
+                {copy('Veja o encerramento da Etapa Pulso', 'See the Pulse Stage closing')}
+              </Action>
               <TextLink to="/contato">{copy('Canais de contato', 'Contact channels')}</TextLink>
             </div>
           </div>
@@ -438,12 +527,19 @@ export function HaQuantum() {
       >
         <HaQuantumDate />
         <p>{hq.partnership}</p>
-        <TextLink to="/pesquisa#eventos">{copy('Eventos e iniciativas', 'Events and initiatives')}</TextLink>
+        <TextLink to="/pesquisa#eventos">
+          {copy('Eventos e iniciativas', 'Events and initiatives')}
+        </TextLink>
       </Intro>
 
       <section className="section" id="haquantum-desafios" data-lcr-section-id="4.C.2">
         <div className="container split">
-          <Heading title={copy('Da otimização quântica a desafios reais.', 'From quantum optimization to real challenges.')} />
+          <Heading
+            title={copy(
+              'Da otimização quântica a desafios reais.',
+              'From quantum optimization to real challenges.',
+            )}
+          />
           <div className="body-copy">
             <p>{hq.summary}</p>
             <p>
@@ -453,8 +549,12 @@ export function HaQuantum() {
               )}
             </p>
             <div className="actions research-event-actions">
-              <External className="button" href={hq.rules}>{copy('Consultar regulamento oficial', 'View official rules')}</External>
-              <External className="text-link" href={hq.event}>{copy('Página oficial do evento', 'Official event page')}</External>
+              <External className="button" href={hq.rules}>
+                {copy('Consultar regulamento oficial', 'View official rules')}
+              </External>
+              <External className="text-link" href={hq.event}>
+                {copy('Página oficial do evento', 'Official event page')}
+              </External>
             </div>
           </div>
         </div>
@@ -462,7 +562,12 @@ export function HaQuantum() {
 
       <section className="section section-gray" id="haquantum-etapas" data-lcr-section-id="4.C.3">
         <div className="container">
-          <Heading title={copy('Da preparação à apresentação final', 'From preparation to the final presentation')} />
+          <Heading
+            title={copy(
+              'Da preparação à apresentação final',
+              'From preparation to the final presentation',
+            )}
+          />
           <div className="research-event-stages">
             <InfoCard as="div" inheritVisuals catalogId="4.C.3.C1">
               <h3>Workshops</h3>
@@ -495,7 +600,11 @@ export function HaQuantum() {
         </div>
       </section>
 
-      <section className="section research-haquantum" id="haquantum-registros" data-lcr-section-id="4.C.4">
+      <section
+        className="section research-haquantum"
+        id="haquantum-registros"
+        data-lcr-section-id="4.C.4"
+      >
         <div className="container">
           <Heading title={copy('Registros do HaQuantum', 'HaQuantum records')} />
           <HaQuantumGallery />
