@@ -10,13 +10,17 @@ import { publications, publication, type Publication } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 import { dateLabel, safeExternalUrl } from '../lib/config';
 import { NotFound } from './PublicPages';
-import { FoundationGallery, foundationRoute, foundationCards } from './foundation';
+import { FoundationGallery } from './foundation';
 import { assetUrl } from '../lib/siteAssets';
 import newsMedia from '../content/news-media.json';
+import newsMediaEnglish from '../content/news-media.en.json';
 import './NewsMedia.css';
 import { useLanguage } from '../i18n';
 
 export function PublicationCard({ item }: { item: Publication }) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
   const body = (
     <>
       <div
@@ -30,31 +34,27 @@ export function PublicationCard({ item }: { item: Publication }) {
             width={1600}
             height={900}
             loading="lazy"
-            alt={
-              item.slug === foundationRoute.split('/').at(-1)
-                ? foundationCards[0].title
-                : item.title
-            }
+            alt={item.title}
           />
         ) : (
           <>
             <BookOpen size={45} strokeWidth={1} aria-hidden="true" />
-            <span>Conhecimento em movimento</span>
+            <span>{copy('Conhecimento em movimento', 'Knowledge in motion')}</span>
           </>
         )}
       </div>
       <div className="publication-content">
         <p className="eyebrow">
-          {item.category} · {dateLabel(item.published_at)}
+          {item.category} · {dateLabel(item.published_at, locale)}
         </p>
         <h2>{item.title}</h2>
         <p>{item.summary}</p>
         <span className="card-link">
           {item.type === 'press'
-            ? `Ler na fonte${item.source_name ? ` · ${item.source_name}` : ''}`
+            ? `${copy('Ler na fonte', 'Read source')}${item.source_name ? ` · ${item.source_name}` : ''}`
             : item.slug === 'fundacao-instituto-foton'
-              ? 'Conheça essa história'
-              : 'Continuar leitura'}
+              ? copy('Conheça essa história', 'Discover this story')
+              : copy('Continuar leitura', 'Continue reading')}
           <ArrowUpRight size={18} aria-hidden="true" />
         </span>
       </div>
@@ -76,9 +76,13 @@ export function PublicationCard({ item }: { item: Publication }) {
   );
 }
 
-function ArticleBody({ item }: { item: Publication }) {
+function ArticleBody({ item, media }: { item: Publication; media: typeof newsMedia }) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const isLeonti = item.slug === 'uniso-quantum-day-entrega-projeto-leonti';
-  const heading = '### Uma construção com diferentes competências';
+  const heading = english
+    ? '### A project built with different skills'
+    : '### Uma construção com diferentes competências';
   const splitAt = isLeonti ? item.body.indexOf(heading) : -1;
   const introduction = splitAt < 0 ? item.body : item.body.slice(0, splitAt);
   const continuation = splitAt < 0 ? '' : item.body.slice(splitAt);
@@ -103,7 +107,7 @@ function ArticleBody({ item }: { item: Publication }) {
     <div className="markdown">
       {renderMarkdown(introduction)}
       {isLeonti && (
-        <NewsPhotoHighlights images={newsMedia.filter((media) => media.group === 'uniso-leonti')} />
+        <NewsPhotoHighlights images={media.filter((image) => image.group === 'uniso-leonti')} />
       )}
       {continuation && renderMarkdown(continuation)}
     </div>
@@ -117,11 +121,11 @@ export function News() {
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('');
   const [debounced, setDebounced] = useState('');
-  const [category, setCategory] = useState('Todas');
+  const [category, setCategory] = useState('all');
   const [sort, setSort] = useState('recent');
   const loader = useCallback(
-    () => publications(page, debounced, category, sort),
-    [page, debounced, category, sort],
+    () => publications(page, debounced, category, sort, locale),
+    [page, debounced, category, sort, locale],
   );
   const resource = useResource(loader);
   useEffect(() => {
@@ -170,14 +174,14 @@ export function News() {
                 }}
               >
                 {[
-                  ['Todas', 'Todas'],
+                  ['all', copy('Todas', 'All')],
                   ['blog', 'Blog'],
-                  ['press', 'Na mídia'],
-                  ['Manifesto', 'Manifesto'],
-                  ['Pesquisa', 'Pesquisa'],
-                  ['Comunidade', 'Comunidade'],
-                  ['Eventos', 'Eventos'],
-                  ['Educação', 'Educação'],
+                  ['press', copy('Na mídia', 'In the media')],
+                  ['manifesto', 'Manifesto'],
+                  ['research', copy('Pesquisa', 'Research')],
+                  ['community', copy('Comunidade', 'Community')],
+                  ['events', copy('Eventos', 'Events')],
+                  ['education', copy('Educação', 'Education')],
                 ].map(([v, l]) => (
                   <option value={v} key={v}>
                     {l}
@@ -211,12 +215,12 @@ export function News() {
             ) : (
               <Empty
                 title={
-                  search || category !== 'Todas'
+                  search || category !== 'all'
                     ? copy('Nenhuma publicação encontrada.', 'No publications found.')
                     : copy('Publicações do Instituto', 'Institute publications')
                 }
               >
-                {search || category !== 'Todas'
+                {search || category !== 'all'
                   ? copy('Tente outra palavra ou categoria.', 'Try another keyword or category.')
                   : copy(
                       'Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.',
@@ -225,8 +229,8 @@ export function News() {
               </Empty>
             ))}
           <div className="inline-links">
-            <TextLink to="/manifesto">Manifesto Quântico Nacional</TextLink>
-            <TextLink to="/pesquisa">Pesquisa em rede</TextLink>
+            <TextLink to="/manifesto">{copy('Manifesto Quântico Nacional', 'National Quantum Manifesto')}</TextLink>
+            <TextLink to="/pesquisa">{copy('Pesquisa em rede', 'Network research')}</TextLink>
           </div>
           <div className="pagination" aria-label={copy('Paginação de notícias', 'News pagination')}>
             <button
@@ -258,7 +262,8 @@ export function Article() {
   const english = locale === 'en-US';
   const copy = (pt: string, en: string) => (english ? en : pt);
   const { slug = '' } = useParams();
-  const loader = useCallback(() => publication(slug), [slug]);
+  const loader = useCallback(() => publication(slug, locale), [slug, locale]);
+  const media = english ? newsMediaEnglish : newsMedia;
   const resource = useResource(loader);
   const [copied, setCopied] = useState(false);
   const item = resource.data;
@@ -278,10 +283,10 @@ export function Article() {
           <>
             <p>{item.summary}</p>
             <p className="article-meta">
-              {dateLabel(item.published_at)}
+              {dateLabel(item.published_at, locale)}
               {item.author_display_name && ` · ${item.author_display_name}`}
               {item.body &&
-                ` · ${Math.max(1, Math.ceil(item.body.split(/\s+/).length / 200))} min read`}
+                ` · ${Math.max(1, Math.ceil(item.body.split(/\s+/).length / 200))} ${copy('min de leitura', 'min read')}`}
             </p>
           </>
         )}
@@ -296,20 +301,20 @@ export function Article() {
                   Ler na fonte · {item.source_name}
                 </External>
               ) : (
-                <ArticleBody item={item} />
+                <ArticleBody item={item} media={media} />
               )}
               {item.slug === 'fundacao-instituto-foton' && <FoundationGallery />}
               {item.slug === 'lancamento-lacq-pucrs-instituto-foton' && (
                 <NewsCarousel
-                  label="lançamento da LACQ PUCRS"
-                  title="Registros do lançamento da LACQ PUCRS"
+                  label={copy('lançamento da LACQ PUCRS', 'LACQ PUCRS launch')}
+                  title={copy('Registros do lançamento da LACQ PUCRS', 'Records from the LACQ PUCRS launch')}
                   images={newsMedia.filter((media) => media.group === 'lacq-pucrs')}
                 />
               )}
               {item.slug === 'foton-mobi-quantum-festival-2026' && (
                 <NewsCarousel
                   label="Mobi Quantum"
-                  title="Registros do Mobi Quantum"
+                  title={copy('Registros do Mobi Quantum', 'Mobi Quantum records')}
                   images={newsMedia.filter((media) => media.group === 'mobi-quantum')}
                 />
               )}
@@ -317,12 +322,12 @@ export function Article() {
                 <>
                   <NewsCarousel
                     label="Quantum Day 1"
-                    title="Quantum Day — Dia 1"
+                    title="Quantum Day — Day 1"
                     images={newsMedia.filter((media) => media.group === 'quantum-day-1')}
                   />
                   <NewsCarousel
                     label="Quantum Day 2"
-                    title="Quantum Day — Dia 2"
+                    title="Quantum Day — Day 2"
                     images={newsMedia.filter((media) => media.group === 'quantum-day-2')}
                   />
                 </>
@@ -332,10 +337,13 @@ export function Article() {
                 'foton-assespro-rs-termo-cooperacao',
                 'seminario-cubotech-direito-computacao-quantica',
               ].includes(item.slug) && (
-                <section className="news-media" aria-label="Registros visuais da notícia">
-                  <h2>Registros institucionais</h2>
+                <section
+                  className="news-media"
+                  aria-label={copy('Registros visuais da notícia', 'Visual records for this article')}
+                >
+                  <h2>{copy('Registros institucionais', 'Institutional records')}</h2>
                   <div className="news-media-grid">
-                    {newsMedia
+                    {media
                       .filter((media) =>
                         item.slug.startsWith('foton-softsul')
                           ? media.group === 'softsul' &&
@@ -359,7 +367,7 @@ export function Article() {
                             loading="lazy"
                             tabIndex={0}
                             role="button"
-                            aria-label={`Ampliar: ${media.alt}`}
+                            aria-label={`${english ? 'Enlarge' : 'Ampliar'}: ${media.alt}`}
                           />
                           <figcaption>{media.credit}</figcaption>
                         </figure>
@@ -370,11 +378,11 @@ export function Article() {
               {item.source_url && (
                 <p className="source-note">
                   <External href={item.source_url}>
-                    Ler publicação original · {item.source_name || 'Fonte pública'}
+                    {copy('Ler publicação original', 'Read original publication')} · {item.source_name || copy('Fonte pública', 'Public source')}
                   </External>
                 </p>
               )}
-              <p className="source-note">Atualização: {dateLabel(item.updated_at)}</p>
+              <p className="source-note">{copy('Atualização', 'Updated')}: {dateLabel(item.updated_at, locale)}</p>
               <button
                 className="text-link"
                 onClick={async () => {
@@ -387,7 +395,7 @@ export function Article() {
                 }}
               >
                 <Copy size={16} />
-                {copied ? 'Link copiado' : 'Copiar link da publicação'}
+                {copied ? copy('Link copiado', 'Link copied') : copy('Copiar link da publicação', 'Copy publication link')}
               </button>
             </>
           )}
