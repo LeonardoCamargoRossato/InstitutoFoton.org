@@ -103,7 +103,9 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
       const href = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = href;
-      a.download = `foton-presentation-2026-page-${page}.png`;
+      a.download = english
+        ? `foton-presentation-2026-page-${page}.png`
+        : `foton-apresentacao-2026-pagina-${page}.png`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(href), 1000);
     }, 'image/png');
