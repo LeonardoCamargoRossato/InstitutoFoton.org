@@ -69,7 +69,7 @@ document.addEventListener('visibilitychange', () => {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <LanguageProvider>\n        <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Suspense
         fallback={
           <p className="container status" role="status">
