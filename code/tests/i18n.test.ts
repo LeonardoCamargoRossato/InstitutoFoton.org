@@ -6,7 +6,14 @@ import { ptBR } from '../src/i18n/catalog';
 describe('Foton internationalization foundation', () => {
   it('keeps the official language order and enables only PT-BR in Stage 01', () => {
     expect(LANGUAGES.map((language) => language.locale)).toEqual([
-      'pt-BR', 'en-US', 'es-ES', 'zh-CN', 'it-IT', 'fr-FR', 'de-DE', 'ja-JP',
+      'pt-BR',
+      'en-US',
+      'es-ES',
+      'zh-CN',
+      'it-IT',
+      'fr-FR',
+      'de-DE',
+      'ja-JP',
     ]);
     expect(ENABLED_LANGUAGES.map((language) => language.locale)).toEqual([DEFAULT_LOCALE]);
   });
