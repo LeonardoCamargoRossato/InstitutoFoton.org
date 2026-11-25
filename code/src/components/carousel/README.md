@@ -1,25 +1,27 @@
-# Biblioteca de carrossel
+# Carousel library
 
-Esta pasta reúne o motor compartilhado de carrosséis do Instituto Foton. Os arquivos menores fornecem contratos, dados, configurações e estilos; os arquivos `.tsx` renderizam partes visuais da experiência.
+This folder contains Instituto Foton's shared carousel engine. The `.tsx` files render visual parts of the experience, while the TypeScript, CSS, configuration, and documentation files provide its contracts and support.
 
-| Arquivo                      | Descrição sucinta                | Descrição detalhada                                                                                                                                                                         |
-| ---------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `BaseCarousel.tsx`           | Componente principal             | Coordena o carrossel completo: seleciona a imagem ativa, controla setas, teclado, toque, miniaturas, animações e abertura do visualizador. Recebe listas WebP/PNG e um preset visual.       |
-| `CarouselControls.tsx`       | Parte visual dos controles       | Renderiza as setas anterior/próxima, o contador de posição e o botão que abre ou recolhe as miniaturas. Não decide a navegação; recebe essas ações por propriedades.                        |
-| `CarouselImage.tsx`          | Parte visual da imagem           | Exibe a prévia WebP ativa, o efeito de hover e, quando configurado, uma amostra da próxima imagem. Ao clicar, solicita a abertura da imagem ampliada.                                       |
-| `CarouselThumbnails.tsx`     | Parte visual das miniaturas      | Mostra a grade de miniaturas WebP e indica qual item está ativo. Cada miniatura funciona como um botão para selecionar diretamente uma imagem.                                              |
-| `CarouselViewer.tsx`         | Adaptador do visualizador        | Liga o carrossel ao visualizador compartilhado `ImageZoomDialog`. Passa o PNG original, legenda, créditos, download, fullscreen e navegação entre imagens.                                  |
-| `carousel.types.ts`          | Contratos e tipos                | Define o formato esperado para imagens WebP e PNG, itens pareados, presets visuais e propriedades do componente principal. É código de TypeScript, não uma tela renderizada.                |
-| `carousel.data.ts`           | Dados e funções auxiliares       | Contém funções que pareiam WebP com PNG pelo mesmo `id` e calculam índices circulares. Também valida arquivos incompletos, duplicados ou sem correspondência.                               |
-| `carousel.presets.ts`        | Objetos de configuração visual   | Exporta presets como `institucional`, `noticias`, `fundacao`, `haquantum` e `visitas`. Eles agrupam tema, proporção, borda, hover, animação, navegação e visualizador sem duplicar o motor. |
-| `carousel.styles.css`        | Aparência e comportamento visual | Define cores, bordas, proporções, hover, transições, miniaturas, controles, responsividade e estados do carrossel. Não é um componente isolado; é a camada visual compartilhada.            |
-| `index.ts`                   | Ponto de entrada público         | Reexporta o componente principal, presets, funções auxiliares e tipos para que as páginas importem a biblioteca por `components/carousel`, sem conhecer cada arquivo interno.               |
-| `PARAMETROS_DO_CARROSSEL.md` | Documentação técnica             | Explica o contrato de uso, os parâmetros, o pareamento WebP/PNG, os presets, o visualizador em três estados e os cuidados para manutenção dos catálogos de imagens.                         |
+## File documentation
 
-## Como ler a estrutura
+| File                         | Description                                                                                                                                                                                   |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BaseCarousel.tsx`           | Coordinates the complete carousel: active-item selection, arrows, keyboard and touch input, thumbnails, animation, and viewer opening. It receives paired WebP/PNG media and a visual preset. |
+| `CarouselControls.tsx`       | Renders previous/next controls, the position counter, and the thumbnail toggle. Navigation decisions remain in the parent and arrive through props.                                           |
+| `CarouselImage.tsx`          | Displays the active WebP preview, hover treatment, and optional next-image cue. Clicking requests the enlarged image experience.                                                              |
+| `CarouselThumbnails.tsx`     | Displays the WebP thumbnail grid, marks the active item, and exposes each thumbnail as a direct selection button.                                                                             |
+| `CarouselViewer.tsx`         | Adapts the carousel to the shared `ImageZoomDialog`, passing the original PNG, caption, credits, download, fullscreen, and image-navigation behavior.                                         |
+| `carousel.types.ts`          | Defines the WebP/PNG media contracts, paired items, visual presets, and main-component properties. It is TypeScript support code, not a rendered screen.                                      |
+| `carousel.data.ts`           | Pairs WebP and PNG media by identifier, calculates circular indexes, and rejects incomplete, duplicated, or unmatched media records.                                                          |
+| `carousel.presets.ts`        | Exports visual presets such as institutional, news, foundation, HaQuantum, and technical-visit variants without duplicating the carousel engine.                                              |
+| `carousel.styles.css`        | Defines carousel colors, borders, proportions, hover states, transitions, thumbnails, controls, responsiveness, and visual states. It is a shared style layer, not an isolated component.     |
+| `index.ts`                   | Re-exports the main component, presets, helper functions, and types so pages can import the library through the carousel entry point.                                                         |
+| `PARAMETROS_DO_CARROSSEL.md` | Documents usage contracts, parameters, WebP/PNG pairing, presets, the three-state viewer flow, and catalog-maintenance guidance.                                                              |
 
-- **Componentes visuais:** `BaseCarousel.tsx`, `CarouselControls.tsx`, `CarouselImage.tsx`, `CarouselThumbnails.tsx` e `CarouselViewer.tsx`.
-- **Código de apoio:** `carousel.types.ts`, `carousel.data.ts`, `carousel.presets.ts` e `index.ts`.
-- **Estilo e documentação:** `carousel.styles.css` e `PARAMETROS_DO_CARROSSEL.md`.
+## Reading the structure
 
-Os arquivos minúsculos não aparecem sozinhos na tela. Eles são módulos reutilizados pelos componentes visuais para manter o carrossel consistente e fácil de manter.
+- **Visual components:** `BaseCarousel.tsx`, `CarouselControls.tsx`, `CarouselImage.tsx`, `CarouselThumbnails.tsx`, and `CarouselViewer.tsx`.
+- **Support code:** `carousel.types.ts`, `carousel.data.ts`, `carousel.presets.ts`, and `index.ts`.
+- **Style and documentation:** `carousel.styles.css` and `PARAMETROS_DO_CARROSSEL.md`.
+
+The support modules do not appear on screen by themselves. They are reused by the visual components to keep carousel behavior consistent and maintainable.
