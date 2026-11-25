@@ -25,3 +25,14 @@
 | 1.7 | Contato com o Foton     | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/#contato-foton) | [Home](../../features/PublicPages.tsx)            | [estrutura](../../content/siteStructure.ts)     | —                                                                                                  |
 
 [Abrir mapa técnico 1A](./1A-CapaEIdentidade.ts) · [1B](./1B-EcossistemaEFrentes.ts) · [1C](./1C-ApresentacaoParceirosContato.ts)
+
+## Implementation files
+
+| File                                 | Description                                                              |
+| ------------------------------------ | ------------------------------------------------------------------------ |
+| `1A-CapaEIdentidade.ts`              | Technical map for the Home identity and presentation sections.           |
+| `1B-EcossistemaEFrentes.ts`          | Technical map for the Home ecosystem and program sections.               |
+| `1C-ApresentacaoParceirosContato.ts` | Technical map for the Home presentation, partners, and contact sections. |
+| `PAGE.ts`                            | Page-level technical map and route metadata.                             |
+
+The page map above is the editorial navigation mirror; this section documents the files directly stored in the page folder.
