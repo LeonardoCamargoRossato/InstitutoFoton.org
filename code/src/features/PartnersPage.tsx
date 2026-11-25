@@ -14,7 +14,12 @@ export default function PartnersPage() {
         id="parceiros-intro"
         sectionCode="3.1"
       >
-        <p>{copy('Conheça as instituições e empresas do ecossistema apresentado pelo Instituto Foton.', 'Explore the institutions and companies in the ecosystem presented by Instituto Foton.')}</p>
+        <p>
+          {copy(
+            'Conheça as instituições e empresas do ecossistema apresentado pelo Instituto Foton.',
+            'Explore the institutions and companies in the ecosystem presented by Instituto Foton.',
+          )}
+        </p>
       </Intro>
       <PartnerEcosystem />
     </>
