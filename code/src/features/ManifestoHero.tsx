@@ -110,23 +110,39 @@ export default function ManifestoHero() {
       <div className="container manifesto-hero-layout">
         <div className="manifesto-hero-copy">
           <span className="manifesto-hero-eyebrow">
-            Instituto Foton <span aria-hidden="true">•</span> {copy('Uma construção nacional', 'A national endeavor')}
+            Instituto Foton <span aria-hidden="true">•</span>{' '}
+            {copy('Uma construção nacional', 'A national endeavor')}
           </span>
           <h1 id="manifesto-hero-title">
             <span>{'Manifesto '}</span>
             <strong>{copy('Quântico Nacional', 'National Quantum Manifesto')}</strong>
           </h1>
           <p>
-            {copy('Ciência, cooperação e soberania tecnológica. Um movimento para conectar o Brasil e construir, juntos, o futuro das tecnologias quânticas.', 'Science, cooperation, and technological sovereignty. A movement to connect Brazil and build the future of quantum technologies together.')}
+            {copy(
+              'Ciência, cooperação e soberania tecnológica. Um movimento para conectar o Brasil e construir, juntos, o futuro das tecnologias quânticas.',
+              'Science, cooperation, and technological sovereignty. A movement to connect Brazil and build the future of quantum technologies together.',
+            )}
           </p>
           <p className="sr-only">
-            {copy('O mapa conecta registros de Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP) e Porto Alegre (RS). As linhas representam a articulação do movimento.', 'The map connects records from Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP), and Porto Alegre (RS). The lines represent the movement’s network.')}
+            {copy(
+              'O mapa conecta registros de Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP) e Porto Alegre (RS). As linhas representam a articulação do movimento.',
+              'The map connects records from Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP), and Porto Alegre (RS). The lines represent the movement’s network.',
+            )}
           </p>
-          <div className="manifesto-hero-pillars" aria-label={copy('Abrangência e objetivos do Manifesto', 'Manifesto scope and objectives')}>
+          <div
+            className="manifesto-hero-pillars"
+            aria-label={copy(
+              'Abrangência e objetivos do Manifesto',
+              'Manifesto scope and objectives',
+            )}
+          >
             <a href="#odqs">
               <strong>11</strong>
               <span>
-                ODQs<small>{copy('Objetivos de Desenvolvimento Quântico', 'Quantum Development Objectives')}</small>
+                ODQs
+                <small>
+                  {copy('Objetivos de Desenvolvimento Quântico', 'Quantum Development Objectives')}
+                </small>
               </span>
             </a>
             <a href="#cartas">
@@ -158,8 +174,8 @@ export default function ManifestoHero() {
           </picture>
         </div>
         <p className="manifesto-hero-places">
-          <span>{copy('Conexões do movimento', 'Movement connections')}</span> Manaus · João Pessoa · Recife · Brasília · Sorocaba ·
-          Porto Alegre
+          <span>{copy('Conexões do movimento', 'Movement connections')}</span> Manaus · João Pessoa
+          · Recife · Brasília · Sorocaba · Porto Alegre
         </p>
       </div>
       <span className="manifesto-hero-bottom-line" aria-hidden="true" />
