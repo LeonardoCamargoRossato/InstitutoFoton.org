@@ -298,7 +298,7 @@ export function Article() {
             <>
               {item.type === 'press' ? (
                 <External href={item.source_url} className="button">
-                  Ler na fonte · {item.source_name}
+                  {copy('Ler na fonte', 'Read source')} · {item.source_name}
                 </External>
               ) : (
                 <ArticleBody item={item} media={media} />
