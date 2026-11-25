@@ -1,7 +1,11 @@
-# Cards informativos
+# Informational cards
 
-| Arquivo        | Descrição sucinta  | Descrição detalhada                                                                                    |
-| -------------- | ------------------ | ------------------------------------------------------------------------------------------------------ |
-| `InfoCard.tsx` | Card de informação | Apresenta título, conteúdo e aparência de um card informativo, usando a estrutura comum de `BaseCard`. |
+This folder contains cards optimized for readable presentation of content without assuming a primary navigation or action.
 
-Este card organiza conteúdo para leitura e não presume uma ação de navegação.
+## File documentation
+
+| File           | Description                                                                                                      |
+| -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `InfoCard.tsx` | Presents a title, content, and visual treatment for an informational card using the shared `BaseCard` structure. |
+
+Use this variant when the card's main purpose is reading or communicating information.

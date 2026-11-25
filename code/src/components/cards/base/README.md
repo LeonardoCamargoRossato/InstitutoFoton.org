@@ -1,11 +1,15 @@
-# Base dos cards
+# Base cards
 
-| Arquivo              | Descrição sucinta      | Descrição detalhada                                                                              |
-| -------------------- | ---------------------- | ------------------------------------------------------------------------------------------------ |
-| `BaseCard.tsx`       | Componente estrutural  | Fornece a estrutura visual e os estados comuns usados pelos diferentes tipos de card.            |
-| `card.types.ts`      | Contratos e tipos      | Define propriedades, variantes e dados aceitos pela família de cards. Não renderiza tela.        |
-| `card.appearance.ts` | Regras de aparência    | Centraliza a transformação das propriedades do card em classes e atributos visuais.              |
-| `card.presets.ts`    | Configurações prontas  | Reúne combinações de aparência reutilizáveis para manter consistência entre páginas.             |
-| `card.styles.css`    | Estilos compartilhados | Define superfícies, bordas, tipografia, espaçamento, responsividade e estados visuais dos cards. |
+This folder contains the shared technical foundation used by every card variant.
 
-Esta pasta é a fundação técnica; os cards finais ficam em `informative/` e `interactive/`.
+## File documentation
+
+| File                 | Description                                                                                              |
+| -------------------- | -------------------------------------------------------------------------------------------------------- |
+| `BaseCard.tsx`       | Provides the shared visual structure and common states used by the different card types.                 |
+| `card.types.ts`      | Defines the properties, variants, and data contracts accepted by the card family; it does not render UI. |
+| `card.appearance.ts` | Converts card properties into consistent visual classes and attributes.                                  |
+| `card.presets.ts`    | Provides reusable appearance combinations to keep card behavior consistent across pages.                 |
+| `card.styles.css`    | Defines shared card surfaces, borders, typography, spacing, responsiveness, and visual states.           |
+
+The final card variants live in `informative/` and `interactive/`; this folder remains their shared foundation.

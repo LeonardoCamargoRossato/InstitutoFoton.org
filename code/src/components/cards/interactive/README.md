@@ -1,9 +1,13 @@
-# Cards interativos
+# Interactive cards
 
-| Arquivo           | Descrição sucinta | Descrição detalhada                                                               |
-| ----------------- | ----------------- | --------------------------------------------------------------------------------- |
-| `ActionCard.tsx`  | Card de ação      | Apresenta uma chamada para ação e encaminha o usuário para uma interação ou rota. |
-| `ImageCard.tsx`   | Card com imagem   | Combina imagem, texto e interação em uma unidade visual reutilizável.             |
-| `ProfileCard.tsx` | Card de perfil    | Apresenta uma pessoa ou perfil com imagem, identificação e informações resumidas. |
+This folder contains card variants with an explicit user interaction or navigation affordance.
 
-Esses cards têm affordance de interação e devem ser usados quando houver uma ação real associada.
+## File documentation
+
+| File              | Description                                                                       |
+| ----------------- | --------------------------------------------------------------------------------- |
+| `ActionCard.tsx`  | Presents a call to action and routes the user to an interaction or destination.   |
+| `ImageCard.tsx`   | Combines image, text, and interaction in a reusable visual unit.                  |
+| `ProfileCard.tsx` | Presents a person or profile with an image, identity, and summarized information. |
+
+Use these cards only when a real action, link, or meaningful interaction is associated with the surface.
