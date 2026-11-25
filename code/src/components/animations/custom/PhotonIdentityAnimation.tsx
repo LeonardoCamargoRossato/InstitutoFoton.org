@@ -34,7 +34,8 @@ export default function PhotonIdentityAnimation({
         if (!response.ok) throw new Error(english ? 'SVG unavailable' : 'SVG indisponível');
         const xml = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
         if (controller.signal.aborted) return;
-        if (xml.documentElement.localName !== 'svg') throw new Error(english ? 'Invalid SVG' : 'SVG inválido');
+        if (xml.documentElement.localName !== 'svg')
+          throw new Error(english ? 'Invalid SVG' : 'SVG inválido');
 
         // A seção é clara. As regras de reprodução ficam isoladas do restante da página.
         const rules = document.createElement('style');
