@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { ActionCard, InfoCard } from '../../cards';
 import type { LogoGalleryCardProps } from './logo-gallery.types';
+import { useLanguage } from '../../../i18n';
 
 function Logo({
   item,
@@ -31,6 +32,8 @@ export function LogoGalleryCard({
   critical = false,
   catalogSection = '3.2',
 }: LogoGalleryCardProps) {
+  const { locale, t } = useLanguage();
+  const officialWebsiteLabel = locale === 'en-US' ? 'official website' : 'site oficial';
   const cardClass = 'partner-card' + (item.invertLogo ? ' partner-card-contrast' : '');
   const contents = (
     <>
@@ -46,7 +49,7 @@ export function LogoGalleryCard({
         inheritVisuals
         catalogId={`${catalogSection}.C-${item.id}`}
         title={item.title}
-        label={item.title + ' — site oficial (abre em nova aba)'}
+        label={`${item.title} — ${officialWebsiteLabel} ${t.accessibility.externalLink}`}
         className={cardClass}
       >
         {contents}
