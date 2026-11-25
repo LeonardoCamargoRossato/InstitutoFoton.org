@@ -43,7 +43,9 @@ export default function LinkedInHighlight() {
       </div>
       <div className="social-linkedin-highlight__content">
         <h2 id="social-linkedin-title">
-          {english ? 'Follow Instituto Foton on LinkedIn' : 'Acompanhe o Instituto Foton no LinkedIn'}
+          {english
+            ? 'Follow Instituto Foton on LinkedIn'
+            : 'Acompanhe o Instituto Foton no LinkedIn'}
         </h2>
         <p className="social-linkedin-highlight__handle">
           <LinkedInBrandIcon size={22} />
@@ -61,8 +63,12 @@ export default function LinkedInHighlight() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {english ? 'Follow on LinkedIn' : 'Acompanhar no LinkedIn'} <ArrowUpRight size={18} aria-hidden="true" />
-          <span className="sr-only"> {english ? '(opens in a new tab)' : '(abre em nova aba)'}</span>
+          {english ? 'Follow on LinkedIn' : 'Acompanhar no LinkedIn'}{' '}
+          <ArrowUpRight size={18} aria-hidden="true" />
+          <span className="sr-only">
+            {' '}
+            {english ? '(opens in a new tab)' : '(abre em nova aba)'}
+          </span>
         </a>
       </div>
     </div>
