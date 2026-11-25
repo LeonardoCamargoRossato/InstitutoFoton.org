@@ -34,7 +34,7 @@ describe('Separação documental de Safety & Security', () => {
     expect(read('AGENTS.md')).toContain('GUARDRAILS.md');
     expect(read('AGENTS.md')).toContain('prompt injection');
     expect(read('documentation/README.md')).toContain('outside GitHub');
-    expect(existsSync(resolve(root, 'documentation/public/security/README.md'))).toBe(true);
+    expect(existsSync(resolve(root, 'documentation/security/README.md'))).toBe(true);
   });
 
   it('não reduz verificações de segurança ou deploy', () => {

@@ -14,4 +14,4 @@ Este é um **repositório público**: credenciais, dados pessoais protegidos e d
 
 Para tarefas dependentes de políticas internas, consultar **GUARDRAILS.md no ambiente privado autorizado**. Se esse documento não estiver disponível, solicitar acesso ou suspender a operação dependente. A consulta ao Drive é explícita; não presumir sincronização ou carregamento automático.
 
-A visão geral pública está em [LCR Workflow](documentation/public/lcr-overview/README.md); os guardrails completos nunca devem ser publicados aqui.
+A visão geral pública está em [LCR Workflow](documentation/lcr-overview/README.md); os guardrails completos nunca devem ser publicados aqui.

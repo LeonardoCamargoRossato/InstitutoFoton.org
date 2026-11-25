@@ -98,7 +98,7 @@ for (const folder of [
   }
 }
 
-const publicRoot = join(repoRoot, 'documentation/public');
+const publicRoot = join(repoRoot, 'documentation');
 const publicFiles = await listFiles(publicRoot);
 const extra = publicFiles.filter((f) => !approvedPublicFiles.has(f));
 const missing = [...approvedPublicFiles].filter((f) => !publicFiles.includes(f));

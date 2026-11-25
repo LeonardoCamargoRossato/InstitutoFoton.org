@@ -8,4 +8,4 @@ Institutional information, contact details, and contribution options are availab
 
 The institutional presentation can be opened through the Home visual highlight, which displays the first two official pages in WebP and leads to the PDF viewer.
 
-See also the [public documentation](documentation/public/README.md).
+See also the [public documentation](documentation/README.md).

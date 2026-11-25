@@ -6,4 +6,4 @@ O **Planner** estrutura requisitos e alternativas; o **Builder** implementa; o *
 
 Esta é apenas uma síntese pública. Procedimentos completos e registros de operação são disponibilizados exclusivamente pelos meios de acesso controlado apropriados.
 
-Neste repositório, a implementação da aplicação reside em `code/`; os registros publicáveis ficam em `documentation/public/`. Procedimentos internos não são expostos no GitHub público.
+In this repository, the application implementation lives in `code/`; publishable records live in the documentation folders at the root of `documentation/`. Internal procedures are not exposed in the public GitHub repository.
