@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { ArrowUpRight, RefreshCw } from 'lucide-react';
+import { useLanguage } from '../../i18n';
 
 export function Empty({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -20,7 +21,7 @@ export function Status({
   error,
   retry,
   loadingLabel = 'Carregando conteúdo…',
-  retryLabel = 'Tentar novamente',
+  retryLabel,
 }: {
   loading: boolean;
   error: string;
@@ -28,10 +29,14 @@ export function Status({
   loadingLabel?: string;
   retryLabel?: string;
 }) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const loadingText = loadingLabel ?? (english ? 'Loading content…' : 'Carregando conteúdo…');
+  const retryText = retryLabel ?? (english ? 'Try again' : 'Tentar novamente');
   if (loading)
     return (
       <p className="status" role="status" aria-live="polite">
-        {loadingLabel}
+        {loadingText}
       </p>
     );
   if (error)
@@ -40,7 +45,7 @@ export function Status({
         <p>{error}</p>
         <button type="button" className="text-link" onClick={retry}>
           <RefreshCw size={16} aria-hidden="true" />
-          {retryLabel}
+          {retryText}
         </button>
       </div>
     );
