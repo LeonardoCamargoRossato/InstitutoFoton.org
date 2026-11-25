@@ -4,9 +4,9 @@ This folder contains the site-specific functionality for the Instituto Foton fou
 
 ## File documentation
 
-| File | Description |
-| --- | --- |
+| File                    | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
 | `FoundationHistory.tsx` | Renders the foundation history experience used by the Institute page. |
-| `FoundationHistory.css` | Defines styles exclusive to the foundation history experience. |
+| `FoundationHistory.css` | Defines styles exclusive to the foundation history experience.        |
 
 Components and styles exclusive to this feature remain together. Elements that can be reused elsewhere should be promoted to `components/`.
