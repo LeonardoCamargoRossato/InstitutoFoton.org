@@ -46,9 +46,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
       })
       .catch(() => {
         if (active) {
-          setError(
-            'Unable to open the PDF. You can try opening the document in another tab.',
-          );
+          setError('Unable to open the PDF. You can try opening the document in another tab.');
           setRendering(false);
         }
       });
@@ -112,21 +110,27 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
   }
   return (
     <div className="pdf-viewer" ref={container}>
-      <div className="pdf-toolbar" role="group" aria-label={english ? "Presentation controls" : "Controles da apresentação"}>
+      <div
+        className="pdf-toolbar"
+        role="group"
+        aria-label={english ? 'Presentation controls' : 'Controles da apresentação'}
+      >
         <button
           className="icon-button"
-          aria-label={english ? "Previous page" : "Página anterior"}
+          aria-label={english ? 'Previous page' : 'Página anterior'}
           disabled={!pdf || page <= 1}
           onClick={() => setPage((n) => n - 1)}
         >
           <ChevronLeft />
         </button>
         <span aria-live="polite">
-          {english ? `Page ${page} of ${pdf?.numPages ?? '…'}` : `Página ${page} de ${pdf?.numPages ?? '…'}`}
+          {english
+            ? `Page ${page} of ${pdf?.numPages ?? '…'}`
+            : `Página ${page} de ${pdf?.numPages ?? '…'}`}
         </span>
         <button
           className="icon-button"
-          aria-label={english ? "Next page" : "Próxima página"}
+          aria-label={english ? 'Next page' : 'Próxima página'}
           disabled={!pdf || page >= pdf.numPages}
           onClick={() => setPage((n) => n + 1)}
         >
@@ -135,18 +139,22 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
         <span className="toolbar-divider" />
         <button
           className="icon-button"
-          aria-label={english ? "Zoom out" : "Diminuir zoom"}
+          aria-label={english ? 'Zoom out' : 'Diminuir zoom'}
           disabled={zoom <= 0.5}
           onClick={() => setZoom((n) => Math.max(0.5, n - 0.25))}
         >
           <ZoomOut />
         </button>
-        <button className="text-link" onClick={() => setZoom(1)} aria-label={english ? "Fit to width" : "Ajustar à largura"}>
+        <button
+          className="text-link"
+          onClick={() => setZoom(1)}
+          aria-label={english ? 'Fit to width' : 'Ajustar à largura'}
+        >
           {Math.round(zoom * 100)}%
         </button>
         <button
           className="icon-button"
-          aria-label={english ? "Zoom in" : "Aumentar zoom"}
+          aria-label={english ? 'Zoom in' : 'Aumentar zoom'}
           disabled={zoom >= 3}
           onClick={() => setZoom((n) => Math.min(3, n + 0.25))}
         >
@@ -154,7 +162,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
         </button>
         <button
           className="icon-button"
-          aria-label={english ? "Fullscreen" : "Tela cheia"}
+          aria-label={english ? 'Fullscreen' : 'Tela cheia'}
           onClick={() => {
             if (document.fullscreenElement) void document.exitFullscreen();
             else
@@ -169,7 +177,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
           className="icon-button"
           href={url}
           download="foton-apresentacao-2026.pdf"
-          aria-label={english ? "Download full PDF" : "Baixar PDF integral"}
+          aria-label={english ? 'Download full PDF' : 'Baixar PDF integral'}
         >
           <Download />
         </a>
@@ -177,7 +185,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
           <button
             className="icon-button"
             disabled={!rendered || rendering}
-            aria-label={english ? "Save page as PNG" : "Salvar página em PNG"}
+            aria-label={english ? 'Save page as PNG' : 'Salvar página em PNG'}
             onClick={exportPage}
           >
             <ImageDown />
@@ -198,12 +206,20 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
         className="pdf-canvas-scroll"
         tabIndex={0}
         role="region"
-        aria-label={english ? "Presentation page; use the arrow keys to scroll" : "Página da apresentação, use as setas para rolar"}
+        aria-label={
+          english
+            ? 'Presentation page; use the arrow keys to scroll'
+            : 'Página da apresentação, use as setas para rolar'
+        }
       >
         <canvas
           ref={canvas}
           role="img"
-          aria-label={english ? `Page ${page} of the Instituto Foton institutional presentation` : `Página ${page} da apresentação institucional Foton`}
+          aria-label={
+            english
+              ? `Page ${page} of the Instituto Foton institutional presentation`
+              : `Página ${page} da apresentação institucional Foton`
+          }
         />
       </div>
       <p className="pdf-fallback">
