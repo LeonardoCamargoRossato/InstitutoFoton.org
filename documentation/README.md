@@ -1,6 +1,6 @@
 # Instituto Foton documentation
 
-This repository contains **only documentation authorized for publication**. Public documents are available in [documentation/public/](public/README.md).
+This repository contains **only documentation authorized for publication**. Public documents are organized in the documentation folders below.
 
 Operational documents, historical records, and audit records are kept **outside GitHub**, in separate institutional storage with authorized access.
 
