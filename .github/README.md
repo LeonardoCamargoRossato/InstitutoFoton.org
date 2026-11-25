@@ -4,6 +4,6 @@ This folder contains repository-level automation and contribution configuration.
 
 ## Folder overview
 
-| Folder | Short description | Keywords | Detailed purpose |
-| --- | --- | --- | --- |
+| Folder       | Short description      | Keywords                         | Detailed purpose                                                                                                    |
+| ------------ | ---------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | `workflows/` | Continuous integration | GitHub Actions, CI, quality gate | Contains the automated workflows that validate documentation, code quality, assets, security, and browser behavior. |
