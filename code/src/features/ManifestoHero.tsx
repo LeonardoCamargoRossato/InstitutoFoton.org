@@ -26,8 +26,17 @@ const regions = [
   { name: 'Sudeste', x: 342, y: 350 },
   { name: 'Sul', x: 265, y: 472 },
 ];
+const regionEnglishNames: Record<string, string> = {
+  Norte: 'North',
+  Nordeste: 'Northeast',
+  'Centro-Oeste': 'Midwest',
+  Sudeste: 'Southeast',
+  Sul: 'South',
+};
 
 function BrazilConstellation() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const hub = journeyCities[3];
   return (
     <svg
@@ -66,7 +75,7 @@ function BrazilConstellation() {
       <g className="manifesto-map-regions">
         {regions.map((region) => (
           <text key={region.name} x={region.x} y={region.y}>
-            {region.name}
+            {english ? regionEnglishNames[region.name] : region.name}
           </text>
         ))}
       </g>
@@ -87,7 +96,7 @@ function BrazilConstellation() {
       <g className="manifesto-map-caption">
         <circle cx="112" cy="567" r="3" fill="#a5e8ff" />
         <text x="124" y="571">
-          CONEXÕES DO MOVIMENTO NACIONAL
+          {english ? 'NATIONAL MOVEMENT CONNECTIONS' : 'CONEXÕES DO MOVIMENTO NACIONAL'}
         </text>
       </g>
     </svg>
@@ -148,7 +157,8 @@ export default function ManifestoHero() {
             <a href="#cartas">
               <strong>5</strong>
               <span>
-                macrorregiões<small>Uma construção nacional</small>
+                {copy('macrorregiões', 'macro-regions')}
+                <small>{copy('Uma construção nacional', 'A national endeavor')}</small>
               </span>
             </a>
           </div>
