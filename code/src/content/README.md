@@ -1,7 +1,7 @@
-# Conteúdo editorial
+# Editorial content
 
-Esta pasta reúne os dados exibidos pelo site, separados da apresentação visual.
+This folder contains the data displayed by the site, separated from visual presentation.
 
-Inclui textos institucionais, parceiros, publicações, notícias, documentos públicos, redes sociais e catálogos em JSON.
+It includes institutional copy, partners, publications, news, public documents, social media, and JSON catalogs.
 
-Regra: conteúdo editorial fica aqui; componentes visuais ficam em `components`; funcionalidades maiores ficam em `features`.
+Rule: editorial content belongs here; visual components belong in `components`; larger functionality belongs in `features`.
