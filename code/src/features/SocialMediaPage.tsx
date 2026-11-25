@@ -20,13 +20,22 @@ export default function SocialMediaPage() {
           <h1>{copy('Acompanhe o Foton nas redes sociais', 'Follow Foton on social media')}</h1>
           <div className="social-intro-copy">
             <p>
-              {copy('A ciência também acontece nos encontros, nas conversas e nas conexões que construímos todos os dias.', 'Science also happens through the encounters, conversations, and connections we build every day.')}
+              {copy(
+                'A ciência também acontece nos encontros, nas conversas e nas conexões que construímos todos os dias.',
+                'Science also happens through the encounters, conversations, and connections we build every day.',
+              )}
             </p>
             <p>
-              {copy('Acompanhe o Instituto Foton nas redes sociais e fique por dentro das nossas iniciativas, pesquisas, eventos e oportunidades de participação.', 'Follow Instituto Foton on social media for our initiatives, research, events, and opportunities to participate.')}
+              {copy(
+                'Acompanhe o Instituto Foton nas redes sociais e fique por dentro das nossas iniciativas, pesquisas, eventos e oportunidades de participação.',
+                'Follow Instituto Foton on social media for our initiatives, research, events, and opportunities to participate.',
+              )}
             </p>
           </div>
-          <nav className="social-quick-links" aria-label={copy('Redes nesta página', 'Networks on this page')}>
+          <nav
+            className="social-quick-links"
+            aria-label={copy('Redes nesta página', 'Networks on this page')}
+          >
             <a className="social-quick-link--instagram" href="#social-instagram-title">
               <InstagramBrandIcon />
               Instagram
