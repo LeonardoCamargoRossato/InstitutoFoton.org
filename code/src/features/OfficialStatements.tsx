@@ -1,8 +1,11 @@
 import { InfoCard } from '../components/cards';
 import { officialStatements } from '../lib/backend';
 import { useResource } from '../lib/useResource';
+import { useLanguage } from '../i18n';
 
 export default function OfficialStatements() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const { data } = useResource(officialStatements);
   const fallback = {
     key: 'institute.values',
@@ -15,6 +18,15 @@ export default function OfficialStatements() {
     ? data
     : [fallback, ...(data || [])];
   const values = blocks.find((block) => block.key === 'institute.values');
+  const localizedValues = values
+    ? {
+        ...values,
+        title: english ? 'Values' : values.title,
+        content: english
+          ? 'Excellence\\nLeadership\\nInnovation\\nStrategy\\nTalent development\\nEthics\\nCollaboration'
+          : values.content,
+      }
+    : values;
   const statements = blocks.filter((block) => block.key !== 'institute.values');
 
   return (
@@ -35,7 +47,7 @@ export default function OfficialStatements() {
           </div>
         </section>
       )}
-      {values && (
+      {localizedValues && (
         <section
           className="values-section"
           id="valores"
@@ -47,15 +59,15 @@ export default function OfficialStatements() {
           <div className="container values-layout">
             <div className="values-heading">
               <p className="eyebrow">
-                <span /> O que orienta nossas escolhas
+                <span /> {english ? 'What guides our choices' : 'O que orienta nossas escolhas'}
               </p>
-              <h2 id="values-title">Valores que colocamos em movimento.</h2>
+              <h2 id="values-title">{english ? 'Values in motion.' : 'Valores que colocamos em movimento.'}</h2>
               <p>
-                Princípios que conectam ciência, pessoas e impacto em cada passo da nossa jornada.
+                {english ? 'Principles connecting science, people, and impact throughout our journey.' : 'Princípios que conectam ciência, pessoas e impacto em cada passo da nossa jornada.'}
               </p>
             </div>
-            <ul className="values-keywords" aria-label="Valores do Instituto Foton">
-              {values.content
+            <ul className="values-keywords" aria-label={english ? "Instituto Foton values" : "Valores do Instituto Foton"}>
+              {localizedValues.content
                 .split('\n')
                 .map((value: string) => value.trim())
                 .filter(Boolean)
