@@ -35,8 +35,12 @@ export function CarouselControls({
   const { locale } = useLanguage();
   const english = locale === 'en-US';
   const toggleLabel = thumbnailsOpen
-    ? english ? 'Hide thumbnails' : 'Ocultar miniaturas'
-    : english ? 'Show thumbnails' : 'Mostrar miniaturas';
+    ? english
+      ? 'Hide thumbnails'
+      : 'Ocultar miniaturas'
+    : english
+      ? 'Show thumbnails'
+      : 'Mostrar miniaturas';
   return (
     <div className={'base-carousel-controls ' + (className ?? '')}>
       <div className="base-carousel-nav">
