@@ -4,8 +4,8 @@ This folder contains cards optimized for readable presentation of content withou
 
 ## File documentation
 
-| File | Description |
-| --- | --- |
+| File           | Description                                                                                                      |
+| -------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `InfoCard.tsx` | Presents a title, content, and visual treatment for an informational card using the shared `BaseCard` structure. |
 
 Use this variant when the card's main purpose is reading or communicating information.
