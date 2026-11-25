@@ -10,10 +10,13 @@ export function safeExternalUrl(value: string | undefined | null): string | unde
     return undefined;
   }
 }
-export function dateLabel(value: string | null): string {
+export function dateLabel(value: string | null, locale = 'pt-BR'): string {
   if (!value) return '';
   const date = new Date(value);
   return Number.isNaN(date.valueOf())
     ? ''
-    : new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
+    : new Intl.DateTimeFormat(locale === 'en-US' ? 'en-US' : 'pt-BR', {
+        dateStyle: 'long',
+        timeZone: 'UTC',
+      }).format(date);
 }
