@@ -2,10 +2,12 @@
 
 This folder contains reusable visual structures for organizing collections of elements. Each gallery receives page-specific data and rules while maintaining standardized presentation and behavior.
 
-| Pasta     | Descrição sucinta  | Descrição detalhada                                                                         |
-| --------- | ------------------ | ------------------------------------------------------------------------------------------- |
-| `logo/`   | Galeria de logos   | Organiza marcas em grupos, exibe SVGs, oferece fallback textual e links externos opcionais. |
-| `people/` | Galeria de pessoas | Organiza perfis com fotografia, nome, função e abertura opcional de detalhes.               |
-| `cards/`  | Galeria de cards   | Organiza qualquer conjunto de cards em uma grade sem impor um tipo visual específico.       |
+## Folder overview
 
-As galerias são componentes reutilizáveis. As `features/` fornecem os dados e o contexto editorial de cada uso.
+| Folder | Short description | Keywords | Detailed purpose |
+| --- | --- | --- | --- |
+| `cards/` | Card gallery | collections, grid, composition | Organizes any collection of cards in a reusable grid without imposing a specific card visual type. |
+| `logo/` | Logo gallery | brands, SVG, links, accessibility | Organizes brands into groups, renders SVG logos, provides textual fallbacks, and supports optional external links. |
+| `people/` | People gallery | profiles, photography, roles | Organizes people profiles with photography, names, roles, thematic lines, and optional detail actions. |
+
+Galleries are reusable visual components. Site-specific features provide the editorial data, curation, grouping, and context for each use.
