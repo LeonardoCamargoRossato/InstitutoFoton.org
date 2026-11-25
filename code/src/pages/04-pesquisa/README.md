@@ -33,3 +33,14 @@
 | 4.C.4 | Galeria HaQuantum                  | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/pesquisa/haquantum#haquantum-registros) | [seção](../../features/ResearchPages.tsx) · [galeria](../../features/HaQuantumGallery.tsx) | [mídia](../../content/research-media.json) | [PNG e WebP](../../../public/assets/04%20-%20P%26D%20-%20Cientista%20Inovador/04C%20-%20HaQuantum/Galeria%20HaQuantum/) |
 
 [Abrir mapa técnico 4A](./4A-LinhasTematicas.ts) · [4B](./4B-JornadaDoCientista.ts) · [4C](./4C-HaQuantum.ts)
+
+## Implementation files
+
+| File                       | Description                                        |
+| -------------------------- | -------------------------------------------------- |
+| `4A-LinhasTematicas.ts`    | Technical map for research lines.                  |
+| `4B-JornadaDoCientista.ts` | Technical map for the Innovator Scientist journey. |
+| `4C-HaQuantum.ts`          | Technical map for the HaQuantum experience.        |
+| `PAGE.ts`                  | Page-level technical map and route metadata.       |
+
+The page map above is the editorial navigation mirror; this section documents the files directly stored in the page folder.
