@@ -1,7 +1,7 @@
 # Instituto Foton
 
-O Instituto Foton aproxima pessoas, pesquisa, educação científica e tecnologias quânticas.
+Instituto Foton connects people, research, science education, and quantum technologies.
 
-Para conhecer as atividades, áreas de pesquisa, projetos e formas de contato, consulte o [portal do Instituto Foton](https://leonardocamargorossato.github.io/InstitutoFoton.org/).
+For activities, research areas, projects, and contact details, see the [Instituto Foton portal](https://leonardocamargorossato.github.io/InstitutoFoton.org/).
 
-Este índice não substitui documentos institucionais formalmente aprovados.
+This index does not replace formally approved institutional documents.
