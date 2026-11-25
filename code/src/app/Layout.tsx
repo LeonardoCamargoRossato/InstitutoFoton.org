@@ -140,7 +140,7 @@ export default function Layout() {
   return (
     <>
       <a className="skip-link" href="#conteudo">
-        Pular para o conteúdo
+        {t.accessibility.skipToContent}
       </a>
       <header className="site-header">
         <div className="header-inner">
@@ -158,6 +158,7 @@ export default function Layout() {
             />
             <span className="brand-signature">Tecnologia através da ciência.</span>
           </Link>
+          <LanguageSelector />
           <button
             className="icon-button menu-toggle"
             aria-label={menuOpen ? t.accessibility.closeMenu : t.accessibility.openMenu}
