@@ -28,7 +28,9 @@ export default function YouTubeHighlight() {
       <div className="social-youtube-highlight">
         <div className="social-youtube-highlight__content">
           <h2 id="social-youtube-title">
-            {english ? 'Follow Instituto Foton on YouTube' : 'Acompanhe o Instituto Foton no YouTube'}
+            {english
+              ? 'Follow Instituto Foton on YouTube'
+              : 'Acompanhe o Instituto Foton no YouTube'}
           </h2>
           <p className="social-youtube-highlight__handle">
             <YouTubeBrandIcon size={28} />
@@ -46,8 +48,12 @@ export default function YouTubeHighlight() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {english ? 'Open YouTube channel' : 'Acessar canal no YouTube'} <ArrowUpRight size={18} aria-hidden="true" />
-            <span className="sr-only"> {english ? '(opens in a new tab)' : '(abre em nova aba)'}</span>
+            {english ? 'Open YouTube channel' : 'Acessar canal no YouTube'}{' '}
+            <ArrowUpRight size={18} aria-hidden="true" />
+            <span className="sr-only">
+              {' '}
+              {english ? '(opens in a new tab)' : '(abre em nova aba)'}
+            </span>
           </a>
         </div>
 
