@@ -18,7 +18,7 @@ export function CarouselThumbnails({ items, active, onSelect, id, open, classNam
     <div
       id={id}
       className={'base-carousel-thumbnails ' + (className ?? '')}
-      aria-label={english ? "Select photograph" : "Selecionar fotografia"}
+      aria-label={english ? 'Select photograph' : 'Selecionar fotografia'}
       hidden={!open}
     >
       {items.map((item, index) => (
@@ -26,7 +26,9 @@ export function CarouselThumbnails({ items, active, onSelect, id, open, classNam
           type="button"
           key={item.preview.id}
           className={index === active ? 'is-active' : ''}
-          aria-label={label?.(index) ?? `${english ? "Select photo" : "Selecionar foto"} ${index + 1}`}
+          aria-label={
+            label?.(index) ?? `${english ? 'Select photo' : 'Selecionar foto'} ${index + 1}`
+          }
           aria-pressed={index === active}
           onClick={() => onSelect(index)}
         >
