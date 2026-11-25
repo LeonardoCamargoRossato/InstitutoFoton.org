@@ -28,7 +28,13 @@ export function Presentation() {
       </Intro>
       <section className="section section-gray">
         <div className="container">
-          <Suspense fallback={<p role="status">{english ? 'Preparing the viewer…' : 'Preparando o visualizador…'}</p>}>
+          <Suspense
+            fallback={
+              <p role="status">
+                {english ? 'Preparing the viewer…' : 'Preparando o visualizador…'}
+              </p>
+            }
+          >
             <PdfViewer key={url} url={url} allowExport={doc?.allow_page_export ?? true} />
           </Suspense>
         </div>
