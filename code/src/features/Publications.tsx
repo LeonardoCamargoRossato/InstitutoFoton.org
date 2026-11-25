@@ -209,13 +209,13 @@ export function News() {
               <Empty
                 title={
                   search || category !== 'Todas'
-                    ? {copy('Nenhuma publicação encontrada.', 'No publications found.')}
-                    : {copy('Publicações do Instituto', 'Institute publications')}
+                    ? copy('Nenhuma publicação encontrada.', 'No publications found.')
+                    : copy('Publicações do Instituto', 'Institute publications')
                 }
               >
                 {search || category !== 'Todas'
-                  ? {copy('Tente outra palavra ou categoria.', 'Try another keyword or category.')}
-                  : {copy('Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.', 'Explore the National Quantum Manifesto and the Institute’s research areas.')}}
+                  ? copy('Tente outra palavra ou categoria.', 'Try another keyword or category.')
+                  : copy('Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.', 'Explore the National Quantum Manifesto and the Institute’s research areas.')}
               </Empty>
             ))}
           <div className="inline-links">
