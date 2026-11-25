@@ -15,7 +15,14 @@ import {
 import InstituteTeamDashboard from '../pages/02-instituto/sections/InstituteTeamDashboard';
 import InstitutePurpose from '../pages/02-instituto/sections/InstitutePurpose';
 import { FoundationTeaser } from './foundation';
-import { odqs, cartas, methodology } from './manifesto-content';
+import {
+  odqs,
+  cartas,
+  methodology,
+  odqsEnglish,
+  cartasEnglish,
+  methodologyEnglish,
+} from './manifesto-content';
 import OfficialStatements from './OfficialStatements';
 import ManifestoHero from './ManifestoHero';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
@@ -636,6 +643,9 @@ const manifestoFormUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLSeYr2fuajfrVqG4fnEH4Gitja26eao_7hf7ybqRWfB98pgNgg/viewform';
 
 function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) {
+  const { locale, t } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
   return (
     <section
       className={`section manifesto-participation manifesto-participation--${placement}`}
@@ -645,20 +655,33 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
     >
       <div className="container manifesto-participation-layout">
         <div className="manifesto-participation-copy">
-          <span className="eyebrow">Sua voz faz parte dessa construção</span>
-          <h2 id={`manifesto-participation-${placement}`}>Venha contribuir com o Manifesto.</h2>
+          <span className="eyebrow">
+            {copy('Sua voz faz parte dessa construção', 'Your voice is part of this endeavor')}
+          </span>
+          <h2 id={`manifesto-participation-${placement}`}>
+            {copy('Venha contribuir com o Manifesto.', 'Contribute to the Manifesto.')}
+          </h2>
           <p>
-            Você também pode participar. Você também pode contribuir com o Manifesto Quântico
-            Nacional. Basta clicar no formulário e compartilhar suas ideias.
+            {copy(
+              'Você também pode participar. Você também pode contribuir com o Manifesto Quântico Nacional. Basta clicar no formulário e compartilhar suas ideias.',
+              'You can take part and contribute to the National Quantum Manifesto. Click the form and share your ideas.',
+            )}
           </p>
           <p className="manifesto-participation-hint">
-            <span>Consulta pública e gratuita</span>
+            <span>{copy('Consulta pública e gratuita', 'Free public consultation')}</span>
             <span aria-hidden="true">·</span>
-            <span>Reserve cerca de 5 a 10 minutos (estimativa)</span>
+            <span>
+              {copy(
+                'Reserve cerca de 5 a 10 minutos (estimativa)',
+                'Allow approximately 5 to 10 minutes (estimate)',
+              )}
+            </span>
           </p>
           <p className="manifesto-participation-note">
-            O tempo de preenchimento pode variar conforme o conteúdo das suas respostas. O
-            formulário abre em uma nova aba do Google Forms.
+            {copy(
+              'O tempo de preenchimento pode variar conforme o conteúdo das suas respostas. O formulário abre em uma nova aba do Google Forms.',
+              'Completion time may vary depending on your answers. The form opens in a new Google Forms tab.',
+            )}
           </p>
         </div>
         <a
@@ -667,7 +690,10 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
           href={manifestoFormUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Responder ao formulário de contribuição para o Manifesto Quântico Nacional (abre em nova aba)"
+          aria-label={copy(
+            'Responder ao formulário de contribuição para o Manifesto Quântico Nacional (abre em nova aba)',
+            'Answer the contribution form for the National Quantum Manifesto (opens in a new tab)',
+          )}
         >
           <span className="manifesto-form-stack" aria-hidden="true">
             <span className="manifesto-form-sheet manifesto-form-sheet--back">
@@ -680,18 +706,26 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
             <span className="manifesto-form-sheet manifesto-form-sheet--front">
               <span className="manifesto-form-sheet-top" />
               <span className="manifesto-form-icon">✦</span>
-              <span className="manifesto-form-title">Sua contribuição importa.</span>
-              <span className="manifesto-form-caption">Manifesto Quântico Nacional</span>
+              <span className="manifesto-form-title">
+                {copy('Sua contribuição importa.', 'Your contribution matters.')}
+              </span>
+              <span className="manifesto-form-caption">
+                {copy('Manifesto Quântico Nacional', 'National Quantum Manifesto')}
+              </span>
               <span className="manifesto-form-line" />
               <span className="manifesto-form-line manifesto-form-line--short" />
               <span className="manifesto-form-radio" />
             </span>
             <span className="manifesto-form-action">
-              Responder ao formulário <ArrowUpRight size={18} aria-hidden="true" />
+              {copy('Responder ao formulário', 'Answer the form')}{' '}
+              <ArrowUpRight size={18} aria-hidden="true" />
             </span>
           </span>
           <span className="manifesto-form-link-caption">
-            Clique no cartão para contribuir pelo Google Forms
+            {copy(
+              'Clique no cartão para contribuir pelo Google Forms',
+              'Click the card to contribute through Google Forms',
+            )}
           </span>
         </a>
       </div>
@@ -700,16 +734,23 @@ function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) 
 }
 
 export function Manifesto() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const manifestoOdqs = english ? odqsEnglish : odqs;
+  const manifestoMethodology = english ? methodologyEnglish : methodology;
+  const manifestoCartas = english ? cartasEnglish : cartas;
+
   return (
     <>
       <ManifestoHero />
       <ManifestoParticipation placement="top" />
       <div className="anchor-bar">
         <div className="container">
-          <a href="#sobre-manifesto">O movimento</a>
-          <a href="#metodologia">Metodologia</a>
-          <a href="#cartas">Cartas regionais</a>
-          <a href="#visitas">Visitas técnicas</a>
+          <a href="#sobre-manifesto">{copy('O movimento', 'The movement')}</a>
+          <a href="#metodologia">{copy('Metodologia', 'Methodology')}</a>
+          <a href="#cartas">{copy('Cartas regionais', 'Regional letters')}</a>
+          <a href="#visitas">{copy('Visitas técnicas', 'Technical visits')}</a>
           <a href="#odqs">11 ODQs</a>
         </div>
       </div>
@@ -717,16 +758,23 @@ export function Manifesto() {
         <div className="container split manifesto-overview">
           <div className="body-copy">
             <Heading
-              eyebrow="O movimento"
-              title="Ciência, governo, empresas e sociedade em diálogo."
+              eyebrow={copy('O movimento', 'The movement')}
+              title={copy(
+                'Ciência, governo, empresas e sociedade em diálogo.',
+                'Science, government, companies, and society in dialogue.',
+              )}
             />
             <p>
-              O Manifesto Quântico Nacional é um movimento que une ciência, governo, empresas e
-              sociedade para construir uma agenda estratégica de tecnologias quânticas no Brasil.
+              {copy(
+                'O Manifesto Quântico Nacional é um movimento que une ciência, governo, empresas e sociedade para construir uma agenda estratégica de tecnologias quânticas no Brasil.',
+                'The National Quantum Manifesto is a movement that brings together science, government, companies, and society to build a strategic agenda for quantum technologies in Brazil.',
+              )}
             </p>
             <p>
-              É uma iniciativa colaborativa, conduzida pelo Foton, para transformar conhecimento em
-              direção, impacto e soberania tecnológica.
+              {copy(
+                'É uma iniciativa colaborativa, conduzida pelo Foton, para transformar conhecimento em direção, impacto e soberania tecnológica.',
+                'It is a collaborative initiative led by Foton to turn knowledge into direction, impact, and technological sovereignty.',
+              )}
             </p>
           </div>
           <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
@@ -744,14 +792,21 @@ export function Manifesto() {
             <ManifestoMedia kind="importance" />
           </Suspense>
           <div className="body-copy">
-            <Heading eyebrow="O futuro já começou" title="Por que isso é importante?" />
+            <Heading
+              eyebrow={copy('O futuro já começou', 'The future has already begun')}
+              title={copy('Por que isso é importante?', 'Why does this matter?')}
+            />
             <p>
-              Tecnologias quânticas já moldam segurança, economia e inovação no mundo. O Brasil tem
-              base científica forte, mas falta integrar esforços.
+              {copy(
+                'Tecnologias quânticas já moldam segurança, economia e inovação no mundo. O Brasil tem base científica forte, mas falta integrar esforços.',
+                'Quantum technologies are already shaping security, the economy, and innovation worldwide. Brazil has a strong scientific base, but its efforts still need to be integrated.',
+              )}
             </p>
             <p>
-              O Manifesto organiza essa convergência para que o país lidere, e não apenas acompanhe,
-              a nova era tecnológica.
+              {copy(
+                'O Manifesto organiza essa convergência para que o país lidere, e não apenas acompanhe, a nova era tecnológica.',
+                'The Manifesto organizes this convergence so that Brazil can lead, rather than merely follow, the new technological era.',
+              )}
             </p>
           </div>
         </div>
@@ -760,11 +815,18 @@ export function Manifesto() {
         <div className="container">
           <div className="split manifesto-method-intro">
             <div>
-              <Heading eyebrow="Como faremos isso" title="Escuta regional. Articulação nacional." />
+              <Heading
+                eyebrow={copy('Como faremos isso', 'How will we do it?')}
+                title={copy(
+                  'Escuta regional. Articulação nacional.',
+                  'Regional listening. National coordination.',
+                )}
+              />
               <p className="section-description">
-                A construção é coletiva e nacional, com escuta ativa em todas as regiões do país. As
-                contribuições de especialistas conduzem a criação das Cartas Macrorregionais e
-                orientam os 11 Objetivos de Desenvolvimento Quântico, que guiam a ação do Manifesto.
+                {copy(
+                  'A construção é coletiva e nacional, com escuta ativa em todas as regiões do país. As contribuições de especialistas conduzem a criação das Cartas Macrorregionais e orientam os 11 Objetivos de Desenvolvimento Quântico, que guiam a ação do Manifesto.',
+                  'The process is collective and national, with active listening in every region of the country. Expert contributions guide the creation of the Macroregional Letters and the 11 Quantum Development Objectives that guide the Manifesto’s action.',
+                )}
               </p>
             </div>
             <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
@@ -772,7 +834,7 @@ export function Manifesto() {
             </Suspense>
           </div>
           <ol className="methodology">
-            {methodology.map((step, index) => (
+            {manifestoMethodology.map((step, index) => (
               <InfoCard as="li" inheritVisuals key={step.num} catalogId={`5.6.C${index + 1}`}>
                 <span className="number">0{step.num}</span>
                 <div>
@@ -786,13 +848,18 @@ export function Manifesto() {
       </section>
       <section className="section" id="cartas" data-lcr-section-id="5.7">
         <div className="container">
-          <Heading eyebrow="Cinco macrorregiões" title="O Brasil em muitas vozes." />
+          <Heading
+            eyebrow={copy('Cinco macrorregiões', 'Five macro-regions')}
+            title={copy('O Brasil em muitas vozes.', 'Brazil in many voices.')}
+          />
           <p className="section-description">
-            As Cartas reúnem perspectivas regionais na construção do Manifesto. Conheça os relatos
-            de cada região.
+            {copy(
+              'As Cartas reúnem perspectivas regionais na construção do Manifesto. Conheça os relatos de cada região.',
+              'The Letters bring regional perspectives into the Manifesto. Explore each region’s account.',
+            )}
           </p>
           <div className="regional-letters">
-            {cartas.map((carta, index) => (
+            {manifestoCartas.map((carta, index) => (
               <InfoCard
                 as="article"
                 inheritVisuals
@@ -806,7 +873,11 @@ export function Manifesto() {
                   <p>{carta.text}</p>
                 </div>
                 <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
-                  <ManifestoMedia kind="letter" region={carta.region} caption={carta.text} />
+                  <ManifestoMedia
+                    kind="letter"
+                    region={cartas[index].region}
+                    caption={carta.text}
+                  />
                 </Suspense>
               </InfoCard>
             ))}
@@ -820,12 +891,17 @@ export function Manifesto() {
       >
         <div className="container">
           <Heading
-            eyebrow="Conexões em campo"
-            title="Visitas técnicas que aproximam o ecossistema."
+            eyebrow={copy('Conexões em campo', 'Connections in the field')}
+            title={copy(
+              'Visitas técnicas que aproximam o ecossistema.',
+              'Technical visits that bring the ecosystem closer.',
+            )}
           />
           <p className="section-description">
-            Registros de encontros com pesquisadores, instituições, empresas e ambientes de inovação
-            em diferentes regiões do país.
+            {copy(
+              'Registros de encontros com pesquisadores, instituições, empresas e ambientes de inovação em diferentes regiões do país.',
+              'Records of meetings with researchers, institutions, companies, and innovation environments across the country.',
+            )}
           </p>
           <Suspense fallback={<div className="media-placeholder" aria-hidden="true" />}>
             <ManifestoMedia kind="visits" />
@@ -835,14 +911,23 @@ export function Manifesto() {
       <section className="section section-gray" id="odqs" data-lcr-section-id="5.9">
         <div className="container">
           <Heading
-            eyebrow="Objetivos de Desenvolvimento Quântico"
-            title="11 objetivos. Um horizonte compartilhado."
+            eyebrow={copy(
+              'Objetivos de Desenvolvimento Quântico',
+              'Quantum Development Objectives',
+            )}
+            title={copy(
+              '11 objetivos. Um horizonte compartilhado.',
+              '11 objectives. A shared horizon.',
+            )}
           />
           <p className="section-description">
-            Conheça os objetivos que orientam a construção do Manifesto.
+            {copy(
+              'Conheça os objetivos que orientam a construção do Manifesto.',
+              'Explore the objectives that guide the Manifesto.',
+            )}
           </p>
           <div className="odq-grid">
-            {odqs.map((odq) => (
+            {manifestoOdqs.map((odq) => (
               <InfoCard
                 as="article"
                 inheritVisuals
