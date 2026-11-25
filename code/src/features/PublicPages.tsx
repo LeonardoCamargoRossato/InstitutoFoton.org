@@ -26,53 +26,86 @@ export function Home() {
   const copy = (pt: string, en: string) => (english ? en : pt);
   const programs = english
     ? [
-        { title: 'Research, Development and Innovation', description: 'Scientific investigation and applied research in quantum technologies.', to: '/pesquisa' },
-        { title: 'Quantum for Business', description: 'Dialogue between scientific knowledge, strategy and organizations.', to: '/contato' },
-        { title: 'National Quantum Manifesto', description: 'A national agenda and access to public letters and records.', to: '/manifesto' },
-        { title: 'Innovative Scientist Journey', description: 'Training, connections and bringing people closer to science.', to: '/pesquisa/jornada' },
+        {
+          title: 'Research, Development and Innovation',
+          description: 'Scientific investigation and applied research in quantum technologies.',
+          to: '/pesquisa',
+        },
+        {
+          title: 'Quantum for Business',
+          description: 'Dialogue between scientific knowledge, strategy and organizations.',
+          to: '/contato',
+        },
+        {
+          title: 'National Quantum Manifesto',
+          description: 'A national agenda and access to public letters and records.',
+          to: '/manifesto',
+        },
+        {
+          title: 'Innovative Scientist Journey',
+          description: 'Training, connections and bringing people closer to science.',
+          to: '/pesquisa/jornada',
+        },
       ]
     : [
-    {
-      title: 'Pesquisa, Desenvolvimento e Inovação',
-      description: 'Investigação científica e pesquisa aplicada em tecnologias quânticas.',
-      to: '/pesquisa',
-    },
-    {
-      title: 'Quantum for Business',
-      description: 'Diálogo entre conhecimento científico, estratégia e organizações.',
-      to: '/contato',
-    },
-    {
-      title: 'Manifesto Quântico Nacional',
-      description: 'Articulação de uma agenda nacional e acesso às cartas e registros públicos.',
-      to: '/manifesto',
-    },
-    {
-      title: 'Jornada do Cientista Inovador',
-      description: 'Formação, conexões e aproximação de pessoas com a ciência.',
-      to: '/pesquisa/jornada',
-    },
-  ];
+        {
+          title: 'Pesquisa, Desenvolvimento e Inovação',
+          description: 'Investigação científica e pesquisa aplicada em tecnologias quânticas.',
+          to: '/pesquisa',
+        },
+        {
+          title: 'Quantum for Business',
+          description: 'Diálogo entre conhecimento científico, estratégia e organizações.',
+          to: '/contato',
+        },
+        {
+          title: 'Manifesto Quântico Nacional',
+          description:
+            'Articulação de uma agenda nacional e acesso às cartas e registros públicos.',
+          to: '/manifesto',
+        },
+        {
+          title: 'Jornada do Cientista Inovador',
+          description: 'Formação, conexões e aproximação de pessoas com a ciência.',
+          to: '/pesquisa/jornada',
+        },
+      ];
   return (
     <>
       <section className="home-hero home-hero-minimal" id="inicio-capa" data-lcr-section-id="1.1">
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">
-              <span /> {copy('Instituto Foton · Ciências e Tecnologias Quânticas', 'Instituto Foton · Quantum Sciences and Technologies')}
+              <span />{' '}
+              {copy(
+                'Instituto Foton · Ciências e Tecnologias Quânticas',
+                'Instituto Foton · Quantum Sciences and Technologies',
+              )}
             </p>
             <h1>
-              {copy('Transformar ciência de fronteira em ', 'Turning frontier science into ')}<em>{copy('decisões, soluções e oportunidades.', 'decisions, solutions and opportunities.')}</em>
+              {copy('Transformar ciência de fronteira em ', 'Turning frontier science into ')}
+              <em>
+                {copy(
+                  'decisões, soluções e oportunidades.',
+                  'decisions, solutions and opportunities.',
+                )}
+              </em>
             </h1>
             <p className="hero-description">
-              {copy('Tecnologia através da ciência. Articulamos conhecimento, formação e pesquisa para aproximar as tecnologias quânticas de desafios reais da sociedade.', 'Technology through science. We connect knowledge, education and research to bring quantum technologies closer to real challenges in society.')}
+              {copy(
+                'Tecnologia através da ciência. Articulamos conhecimento, formação e pesquisa para aproximar as tecnologias quânticas de desafios reais da sociedade.',
+                'Technology through science. We connect knowledge, education and research to bring quantum technologies closer to real challenges in society.',
+              )}
             </p>
             <div className="actions">
               <Action to="/instituto">{copy('Conheça o Foton', 'Discover Foton')}</Action>
-              <TextLink to="/apresentacao">{copy('Apresentação institucional', 'Institutional presentation')}</TextLink>
+              <TextLink to="/apresentacao">
+                {copy('Apresentação institucional', 'Institutional presentation')}
+              </TextLink>
             </div>
             <a className="scroll-hint" href="#porque-existe">
-              <ArrowDown size={15} aria-hidden="true" /> {copy('Entenda nosso propósito', 'Understand our purpose')}
+              <ArrowDown size={15} aria-hidden="true" />{' '}
+              {copy('Entenda nosso propósito', 'Understand our purpose')}
             </a>
           </div>
           <HomeAtomEntrance />
@@ -81,7 +114,10 @@ export function Home() {
 
       <section className="section spectral-divider" id="porque-existe" data-lcr-section-id="1.2">
         <div className="container split">
-          <Heading eyebrow="{copy('Por que o Foton existe?', 'Why does Foton exist?')}" title="{copy('A Era Quântica Já Começou.', 'The Quantum Era Has Begun.')}" />
+          <Heading
+            eyebrow="{copy('Por que o Foton existe?', 'Why does Foton exist?')}"
+            title="{copy('A Era Quântica Já Começou.', 'The Quantum Era Has Begun.')}"
+          />
           <div className="body-copy">
             <blockquote>
               “Transformar ciência de fronteira em decisões, soluções e oportunidades.”
@@ -106,7 +142,10 @@ export function Home() {
       >
         <div className="container">
           <div className="heading-row">
-            <Heading eyebrow="{copy('Ecossistema Foton', 'Foton Ecosystem')}" title="{copy('Ciência conectada em diferentes regiões.', 'Connected science across different regions.')}" />
+            <Heading
+              eyebrow="{copy('Ecossistema Foton', 'Foton Ecosystem')}"
+              title="{copy('Ciência conectada em diferentes regiões.', 'Connected science across different regions.')}"
+            />
             <TextLink to="/instituto">{copy('Sobre a rede', 'About the network')}</TextLink>
           </div>
           <p className="section-description">
@@ -130,7 +169,10 @@ export function Home() {
       <section className="section spectral-divider" id="frentes" data-lcr-section-id="1.4">
         <div className="container">
           <div className="heading-row">
-            <Heading eyebrow="{copy('Frentes e programas', 'Programs and initiatives')}" title="{copy('Do conhecimento à articulação.', 'From knowledge to collaboration.')}" />
+            <Heading
+              eyebrow="{copy('Frentes e programas', 'Programs and initiatives')}"
+              title="{copy('Do conhecimento à articulação.', 'From knowledge to collaboration.')}"
+            />
           </div>
           <p className="section-description">
             Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.
@@ -165,7 +207,10 @@ export function Home() {
       >
         <div className="container presentation-feature-layout">
           <div className="presentation-feature-copy">
-            <Heading eyebrow="{copy('Documento institucional', 'Institutional document')}" title="{copy('Conheça a apresentação do Foton.', 'Discover Foton’s presentation.')}" />
+            <Heading
+              eyebrow="{copy('Documento institucional', 'Institutional document')}"
+              title="{copy('Conheça a apresentação do Foton.', 'Discover Foton’s presentation.')}"
+            />
           </div>
           <div className="presentation-feature-media">
             <Link
@@ -213,7 +258,10 @@ export function Home() {
         data-lcr-section-id="1.7"
       >
         <div className="container split">
-          <Heading eyebrow="{copy('Contato', 'Contact')}" title="{copy('Converse com o Foton.', 'Talk to Foton.')}" />
+          <Heading
+            eyebrow="{copy('Contato', 'Contact')}"
+            title="{copy('Converse com o Foton.', 'Talk to Foton.')}"
+          />
           <div className="body-copy">
             <p>
               Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos
