@@ -19,7 +19,7 @@ export function LanguageSelector() {
         ))}
       </select>
       <img
-        src={assetUrl(`/assets/branding/flags/${ENABLED_LANGUAGES.find((language) => language.locale === locale)?.flagAsset ?? 'BR.svg'}`)}
+        src={assetUrl(`assets/branding/flags/${ENABLED_LANGUAGES.find((language) => language.locale === locale)?.flagAsset ?? 'BR.svg'}`)}
         alt=""
         aria-hidden="true"
         width="20"
