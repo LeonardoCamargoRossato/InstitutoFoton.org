@@ -23,7 +23,7 @@ export default function OfficialStatements() {
         ...values,
         title: english ? 'Values' : values.title,
         content: english
-          ? 'Excellence\\nLeadership\\nInnovation\\nStrategy\\nTalent development\\nEthics\\nCollaboration'
+          ? 'Excellence\nLeadership\nInnovation\nStrategy\nTalent development\nEthics\nCollaboration'
           : values.content,
       }
     : values;
