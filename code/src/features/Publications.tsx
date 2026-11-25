@@ -209,20 +209,20 @@ export function News() {
               <Empty
                 title={
                   search || category !== 'Todas'
-                    ? '{copy('Nenhuma publicação encontrada.', 'No publications found.')}'
-                    : '{copy('Publicações do Instituto', 'Institute publications')}'
+                    ? {copy('Nenhuma publicação encontrada.', 'No publications found.')}
+                    : {copy('Publicações do Instituto', 'Institute publications')}
                 }
               >
                 {search || category !== 'Todas'
-                  ? '{copy('Tente outra palavra ou categoria.', 'Try another keyword or category.')}'
-                  : '{copy('Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.', 'Explore the National Quantum Manifesto and the Institute’s research areas.')}'}
+                  ? {copy('Tente outra palavra ou categoria.', 'Try another keyword or category.')}
+                  : {copy('Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.', 'Explore the National Quantum Manifesto and the Institute’s research areas.')}}
               </Empty>
             ))}
           <div className="inline-links">
             <TextLink to="/manifesto">Manifesto Quântico Nacional</TextLink>
             <TextLink to="/pesquisa">Pesquisa em rede</TextLink>
           </div>
-          <div className="pagination" aria-label="{copy('Paginação de notícias', 'News pagination')}">
+          <div className="pagination" aria-label={copy('Paginação de notícias', 'News pagination')}>
             <button
               className="button button-secondary"
               disabled={page === 0 || resource.loading}
