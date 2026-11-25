@@ -1,11 +1,11 @@
 # Instituto Foton
 
-Portal científico e social dedicado a aproximar pessoas, conhecimento e oportunidades, conectando pesquisa, educação e tecnologias quânticas.
+Scientific and social portal dedicated to connecting people, knowledge, and opportunities through research, education, and quantum technologies.
 
-**Acesse o site:** https://leonardocamargorossato.github.io/InstitutoFoton.org/
+**Visit the website:** https://leonardocamargorossato.github.io/InstitutoFoton.org/
 
-Informações institucionais, contato e formas de contribuição estão disponíveis no próprio portal.
+Institutional information, contact details, and contribution options are available on the portal.
 
-A apresentação institucional pode ser aberta pelo destaque visual da Home, que exibe as duas primeiras páginas oficiais em WebP e conduz ao visualizador do PDF.
+The institutional presentation can be opened through the Home visual highlight, which displays the first two official pages in WebP and leads to the PDF viewer.
 
-Conheça também a [documentação pública](documentation/public/README.md).
+See also the [public documentation](documentation/public/README.md).

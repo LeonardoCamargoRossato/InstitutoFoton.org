@@ -1,6 +1,6 @@
-# Bibliotecas de galerias
+# Gallery libraries
 
-Esta pasta reúne estruturas visuais reutilizáveis para organizar coleções de elementos. Cada galeria recebe dados e regras específicas da página, mas mantém sua apresentação e comportamento padronizados.
+This folder contains reusable visual structures for organizing collections of elements. Each gallery receives page-specific data and rules while maintaining standardized presentation and behavior.
 
 | Pasta     | Descrição sucinta  | Descrição detalhada                                                                         |
 | --------- | ------------------ | ------------------------------------------------------------------------------------------- |

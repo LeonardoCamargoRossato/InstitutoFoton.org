@@ -1,14 +1,14 @@
-# Estrutura de `src`
+# `src` structure
 
-`src/` contém o código-fonte da aplicação React.
+`src/` contains the React application source code.
 
-- `app/`: layout e composição global.
-- `components/`: biblioteca visual e tokens do design system.
-- `content/`: textos, catálogos, documentos e dados editoriais.
-- `features/`: funcionalidades maiores ligadas ao produto.
-- `lib/`: configuração, assets, catálogo local e hooks.
-- `pages/`: espelho documentado das páginas e seções.
-- `styles/`: estilos globais e de áreas.
-- `main.tsx`: entrada da aplicação React.
+- `app/`: global layout and composition.
+- `components/`: visual library and design-system tokens.
+- `content/`: copy, catalogs, documents, and editorial data.
+- `features/`: larger product-specific functionality.
+- `lib/`: configuration, assets, local catalog, and hooks.
+- `pages/`: documented mirror of pages and sections.
+- `styles/`: global and area-specific styles.
+- `main.tsx`: React application entry point.
 
-As pastas relevantes possuem README próprio. Conteúdo, apresentação visual e infraestrutura devem permanecer separados.
+Relevant folders have their own README. Content, visual presentation, and infrastructure must remain separate.

@@ -1,5 +1,5 @@
-# Dados dos scripts
+# Script data
 
-Esta pasta contém inventários e catálogos auxiliares usados pelos scripts de automação.
+This folder contains supporting inventories and catalogs used by automation scripts.
 
-Os arquivos não são conteúdo editorial do site. Eles servem para validação de assets, nomes de parceiros e auditorias de consistência.
+These files are not site editorial content. They support asset validation, partner names, and consistency audits.

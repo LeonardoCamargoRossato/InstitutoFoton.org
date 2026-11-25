@@ -53,8 +53,11 @@ if (operationalTerms.test(readme)) {
 }
 
 const index = await readFile(join(repoRoot, 'documentation/README.md'), 'utf8');
-if (!index.includes('somente documentação autorizada') || !index.includes('fora do GitHub')) {
-  throw new Error('Índice documental deve informar a separação física e o acesso público.');
+if (
+  !index.includes('only documentation authorized for publication') ||
+  !index.includes('outside GitHub')
+) {
+  throw new Error('Documentation index must describe the public/private boundary.');
 }
 if (/\]\([^)]*(?:documentation\/private|private\/docs)/i.test(index)) {
   throw new Error('Índice contém links obsoletos para documentação interna.');

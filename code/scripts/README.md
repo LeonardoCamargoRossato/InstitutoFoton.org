@@ -1,10 +1,10 @@
-# Scripts de automação
+# Automation scripts
 
-Esta pasta contém scripts usados no build, na auditoria, na geração e na validação do projeto.
+This folder contains scripts used for builds, audits, generation, and project validation.
 
-- Scripts de build preparam assets e artefatos de publicação.
-- Scripts de auditoria verificam dependências, segredos e documentação.
-- Scripts de geração criam previews, inventários e catálogos.
-- A pasta `data/` guarda inventários auxiliares.
+- Build scripts prepare assets and publication artifacts.
+- Audit scripts verify dependencies, secrets, and documentation.
+- Generation scripts create previews, inventories, and catalogs.
+- The `data/` folder stores supporting inventories.
 
-Os scripts devem ser determinísticos, documentados e seguros para execução no CI.
+Scripts must be deterministic, documented, and safe to run in CI.

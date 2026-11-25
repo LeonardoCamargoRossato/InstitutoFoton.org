@@ -1,5 +1,5 @@
-# Testes de navegador
+# Browser tests
 
-Esta pasta contém testes E2E executados em navegador real.
+This folder contains E2E tests executed in a real browser.
 
-Eles verificam rotas, navegação, responsividade, carrosséis, galerias, animações, desempenho e evidências visuais. Os testes devem validar comportamento observável sem depender de detalhes internos desnecessários.
+They verify routes, navigation, responsiveness, carousels, galleries, animations, performance, and visual evidence. Tests must validate observable behavior without depending on unnecessary internal details.

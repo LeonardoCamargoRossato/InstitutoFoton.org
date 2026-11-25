@@ -1,7 +1,7 @@
-# Funcionalidades
+# Features
 
-Esta pasta contém funcionalidades maiores e específicas do Instituto Foton.
+This folder contains larger functionality specific to Instituto Foton.
 
-Elas combinam componentes reutilizáveis, conteúdo e regras próprias de uma área do produto. Exemplos incluem pesquisa, parceiros, manifesto, redes sociais, galerias e destaques institucionais.
+These features combine reusable components, content, and area-specific product rules. Examples include research, partners, manifesto, social media, galleries, and institutional highlights.
 
-Componentes visuais genéricos permanecem em `components`; dados editoriais permanecem em `content`.
+Generic visual components remain in `components`; editorial data remains in `content`.

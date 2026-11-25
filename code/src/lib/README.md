@@ -1,10 +1,10 @@
-# Biblioteca compartilhada (`lib`)
+# Shared library (`lib`)
 
-`lib/` contém código de apoio que não desenha páginas diretamente.
+`lib/` contains supporting code that does not render pages directly.
 
-- `backend.ts`: resolve catálogo público estático local; não é uma conexão ativa com Supabase.
-- `config.ts`: centraliza configurações e caminhos da aplicação.
-- `siteAssets.ts`: resolve imagens e outros assets públicos.
-- `useResource.ts`: fornece um hook para recursos assíncronos.
+- `backend.ts`: resolves the local static public catalog; it is not an active Supabase connection.
+- `config.ts`: centralizes application configuration and paths.
+- `siteAssets.ts`: resolves public images and other assets.
+- `useResource.ts`: provides a hook for asynchronous resources.
 
 Componentes visuais ficam em `components`; conteúdo editorial em `content`; funcionalidades maiores em `features`. A biblioteca deve permanecer pequena, genérica e sem responsabilidade de renderização de páginas.
