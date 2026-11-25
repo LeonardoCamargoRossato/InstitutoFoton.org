@@ -308,14 +308,14 @@ export function Article() {
                 <NewsCarousel
                   label={copy('lançamento da LACQ PUCRS', 'LACQ PUCRS launch')}
                   title={copy('Registros do lançamento da LACQ PUCRS', 'Records from the LACQ PUCRS launch')}
-                  images={newsMedia.filter((media) => media.group === 'lacq-pucrs')}
+                  images={media.filter((media) => media.group === 'lacq-pucrs')}
                 />
               )}
               {item.slug === 'foton-mobi-quantum-festival-2026' && (
                 <NewsCarousel
                   label="Mobi Quantum"
                   title={copy('Registros do Mobi Quantum', 'Mobi Quantum records')}
-                  images={newsMedia.filter((media) => media.group === 'mobi-quantum')}
+                  images={media.filter((media) => media.group === 'mobi-quantum')}
                 />
               )}
               {item.slug === 'uniso-quantum-day-entrega-projeto-leonti' && (
@@ -323,12 +323,12 @@ export function Article() {
                   <NewsCarousel
                     label="Quantum Day 1"
                     title="Quantum Day — Day 1"
-                    images={newsMedia.filter((media) => media.group === 'quantum-day-1')}
+                    images={media.filter((media) => media.group === 'quantum-day-1')}
                   />
                   <NewsCarousel
                     label="Quantum Day 2"
                     title="Quantum Day — Day 2"
-                    images={newsMedia.filter((media) => media.group === 'quantum-day-2')}
+                    images={media.filter((media) => media.group === 'quantum-day-2')}
                   />
                 </>
               )}
