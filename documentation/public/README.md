@@ -1,6 +1,6 @@
-# Documentação pública
+# Public documentation
 
-Materiais aprovados para consulta pública no InstitutoFoton.org.
+Materials approved for public consultation on InstitutoFoton.org.
 
 - [Instituição](institution/README.md): apresentação e portal institucional.
 - [Arquitetura](architecture/ADR-20261112-Portal-Estatico.md): visão geral da decisão sobre o site estático.
@@ -9,4 +9,4 @@ Materiais aprovados para consulta pública no InstitutoFoton.org.
 - [Segurança](security/README.md): postura pública e reporte responsável de vulnerabilidades.
 - [Notas de versão](release-notes/README.md): atualizações aprovadas.
 
-A documentação interna exige autorização institucional e **não** está armazenada no GitHub público.
+Internal documentation requires institutional authorization and is **not** stored in the public GitHub repository.
