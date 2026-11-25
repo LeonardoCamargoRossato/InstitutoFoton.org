@@ -1,6 +1,6 @@
-# Biblioteca de componentes
+# Component library
 
-`components/` reúne as peças visuais reutilizáveis do Instituto Foton. Um componente pode aparecer em várias páginas; a página apenas combina essas peças com conteúdo e regras próprias.
+`components/` contains Instituto Foton's reusable visual pieces. A component may appear on multiple pages; each page combines these pieces with its own content and rules.
 
 | Pasta          | Descrição sucinta         | Descrição detalhada                                                                                |
 | -------------- | ------------------------- | -------------------------------------------------------------------------------------------------- |
