@@ -141,7 +141,10 @@ export function News() {
         sectionCode="6.A.1"
       >
         <p>
-          {copy('Ciência, comunidade e novas perspectivas. Um espaço para compartilhar o conhecimento e acompanhar o Instituto.', 'Science, community, and new perspectives. A space to share knowledge and follow the Institute.')}
+          {copy(
+            'Ciência, comunidade e novas perspectivas. Um espaço para compartilhar o conhecimento e acompanhar o Instituto.',
+            'Science, community, and new perspectives. A space to share knowledge and follow the Institute.',
+          )}
         </p>
       </Intro>
       <section className="section" id="noticias-publicacoes" data-lcr-section-id="6.A.2">
@@ -215,7 +218,10 @@ export function News() {
               >
                 {search || category !== 'Todas'
                   ? copy('Tente outra palavra ou categoria.', 'Try another keyword or category.')
-                  : copy('Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.', 'Explore the National Quantum Manifesto and the Institute’s research areas.')}
+                  : copy(
+                      'Conheça o Manifesto Quântico Nacional e as áreas de pesquisa do Instituto.',
+                      'Explore the National Quantum Manifesto and the Institute’s research areas.',
+                    )}
               </Empty>
             ))}
           <div className="inline-links">
@@ -230,7 +236,9 @@ export function News() {
             >
               {copy('Anterior', 'Previous')}
             </button>
-            <span>{copy('Página', 'Page')} {page + 1}</span>
+            <span>
+              {copy('Página', 'Page')} {page + 1}
+            </span>
             <button
               className="button button-secondary"
               disabled={!resource.data?.more || resource.loading}
