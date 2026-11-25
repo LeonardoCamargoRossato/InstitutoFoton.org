@@ -14,3 +14,12 @@
 | 5.8  | Visitas técnicas           | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/manifesto#visitas)                    | [mídia](../../features/ManifestoMedia.tsx)  | [conteúdo](../../features/manifesto-content.ts)                                       | [visitas](../../../public/assets/02%20-%20O%20Instituto/02A%20-%20Conhe%C3%A7a%20o%20Instituto/Visitas%20T%C3%A9cnicas/) |
 | 5.9  | Onze ODQs                  | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/manifesto#odqs)                       | [Manifesto](../../features/PublicPages.tsx) | [conteúdo](../../features/manifesto-content.ts) · [cards](../../content/siteCards.ts) | —                                                                                                                        |
 | 5.10 | Convite para contribuir    | [Abrir](https://leonardocamargorossato.github.io/InstitutoFoton.org/manifesto#contribuir-manifesto-final) | [Manifesto](../../features/PublicPages.tsx) | [conteúdo](../../features/manifesto-content.ts)                                       | —                                                                                                                        |
+
+## Implementation files
+
+| File                              | Description                                            |
+| --------------------------------- | ------------------------------------------------------ |
+| `5A-ManifestoQuanticoNacional.ts` | Technical map for the National Quantum Manifesto page. |
+| `PAGE.ts`                         | Page-level technical map and route metadata.           |
+
+The page map above is the editorial navigation mirror; this section documents the files directly stored in the page folder.
