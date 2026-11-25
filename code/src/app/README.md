@@ -1,7 +1,7 @@
-# Aplicação
+# Application
 
-Esta pasta contém a composição global da aplicação React.
+This folder contains the global composition of the React application.
 
-- `Layout.tsx`: estrutura compartilhada, navegação, rodapé, rotas visuais e elementos globais.
+- `Layout.tsx`: shared structure, navigation, footer, visual routes, and global elements.
 
-A pasta `app` organiza a moldura da aplicação. Páginas e componentes específicos permanecem em `pages` e `components`.
+The `app` folder organizes the application frame. Page-specific and component-specific code remains in `pages` and `components`.
