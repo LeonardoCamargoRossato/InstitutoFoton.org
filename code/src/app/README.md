@@ -1,7 +1,11 @@
-# Application
+# Application shell
 
 This folder contains the global composition of the React application.
 
-- `Layout.tsx`: shared structure, navigation, footer, visual routes, and global elements.
+## File documentation
 
-The `app` folder organizes the application frame. Page-specific and component-specific code remains in `pages` and `components`.
+| File         | Description                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------- |
+| `Layout.tsx` | Defines the shared application frame, navigation, footer, visual routes, and global elements. |
+
+The application shell organizes the frame; page-specific and reusable component code remains in `pages/` and `components/`.

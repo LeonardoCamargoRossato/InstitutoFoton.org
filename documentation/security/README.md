@@ -1,7 +1,11 @@
-# Segurança e comunicação responsável
+# Security and responsible communication
 
-O portal Instituto Foton adota verificações de documentação, qualidade do código, dependências e integridade dos artefatos durante o processo de publicação.
+The Instituto Foton portal applies documentation, code-quality, dependency, and artifact-integrity checks during publication.
 
-Para comunicar uma possível vulnerabilidade, solicite o canal apropriado pelos **contatos institucionais oficiais publicados no portal**. Não divulgue publicamente dados pessoais, credenciais ou detalhes de falhas ainda não corrigidas. Não teste sistemas ou dados sem autorização.
+## File documentation
 
-Procedimentos operacionais e relatórios internos de segurança ficam fora do repositório público. Esta política não garante ausência de riscos e não autoriza alterações financeiras.
+This folder currently has no additional direct files; this README defines its public security-communication policy.
+
+To report a possible vulnerability, use the official institutional contacts published on the portal. Do not disclose personal data, credentials, or unpatched vulnerability details publicly. Do not test systems or data without authorization.
+
+Operational procedures and internal security reports remain outside the public repository. This policy does not guarantee the absence of risk and does not authorize financial changes.

@@ -1,9 +1,9 @@
-# Visão geral do LCR Workflow
+# LCR Framework overview
 
-O LCR Workflow organiza o desenvolvimento em etapas com responsabilidades distintas: planejamento, decisão humana, implementação, auditoria independente de qualidade e segurança, correções, validação e aprovação final.
+The LCR Framework organizes development into distinct responsibilities: planning, human decision-making, implementation, independent quality and security auditing, correction, validation, and final approval.
 
-O **Planner** estrutura requisitos e alternativas; o **Builder** implementa; o **Auditor Quality & Security** revisa de forma independente; a decisão de aprovação e publicação cabe às pessoas autorizadas.
+The Planner structures requirements and alternatives; the Builder implements; the Quality & Security Auditor reviews independently; authorized people approve publication.
 
-Esta é apenas uma síntese pública. Procedimentos completos e registros de operação são disponibilizados exclusivamente pelos meios de acesso controlado apropriados.
+This is a public summary. Full procedures and operational records are available only through controlled access.
 
-In this repository, the application implementation lives in `code/`; publishable records live in the documentation folders at the root of `documentation/`. Internal procedures are not exposed in the public GitHub repository.
+The application implementation lives in `code/`; publishable records live in the documentation folders at the repository root.

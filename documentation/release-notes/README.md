@@ -1,5 +1,14 @@
-# Notas públicas de versão
+# Public release notes
 
-Atualizações relevantes do portal poderão ser descritas aqui após revisão e aprovação institucional.
+Relevant portal updates may be recorded here after institutional review and approval.
 
-Não são publicados neste índice relatórios técnicos internos, evidências restritas de teste ou detalhes operacionais de segurança.
+## File documentation
+
+| File                                        | Description                                          |
+| ------------------------------------------- | ---------------------------------------------------- |
+| `EcossistemaParceiros20261113.md`           | Records the approved partner-ecosystem update.       |
+| `HotfixInstitucionalMinimal20261113.md`     | Records the institutional minimal-content hotfix.    |
+| `InventarioMigracaoEstatica20261112.md`     | Records the static-asset migration inventory.        |
+| `RefinamentoVisualTransparencia20261111.md` | Records the approved transparency visual refinement. |
+
+This index does not publish internal technical reports, restricted test evidence, or operational security details.

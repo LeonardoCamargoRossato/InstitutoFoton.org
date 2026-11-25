@@ -14,6 +14,7 @@ const approvedPublicFiles = new Set([
   'lcr-overview/README.md',
   'security/README.md',
   'architecture/README.md',
+  'audits/README.md',
   'audits/2026-11-24-international-compliance-baseline.md',
   'architecture/ADR-20261112-Portal-Estatico.md',
   'architecture/20261123-arquitetura-pages-fase1.md',
