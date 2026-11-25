@@ -21,7 +21,17 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
   const copy = (pt: string, en: string) => (english ? en : pt);
-  const groups = logoGroups;
+  const tierTranslations: Record<string, string> = {
+    'Ciência e Pesquisa': 'Science and Research',
+    'Ecossistema e Instituições': 'Ecosystem and Institutions',
+    'Foton: Tecnologias Quânticas': 'Foton: Quantum Technologies',
+    'Empresas Parceiras': 'Partner Companies',
+    Parceiros: 'Partners',
+  };
+  const groups = logoGroups.map((group) => ({
+    ...group,
+    tier: english ? tierTranslations[group.tier] ?? group.tier : group.tier,
+  }));
   return (
     <section
       className={
