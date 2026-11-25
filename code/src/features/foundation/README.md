@@ -1,5 +1,12 @@
-# Fundação
+# Foundation feature
 
-Esta subpasta contém a funcionalidade específica sobre a fundação do Instituto Foton.
+This folder contains the site-specific functionality for the Instituto Foton foundation experience.
 
-Os componentes e estilos desta área devem permanecer juntos quando forem exclusivos da Fundação. Elementos que possam ser reutilizados em outras páginas devem ser promovidos para `components`.
+## File documentation
+
+| File | Description |
+| --- | --- |
+| `FoundationHistory.tsx` | Renders the foundation history experience used by the Institute page. |
+| `FoundationHistory.css` | Defines styles exclusive to the foundation history experience. |
+
+Components and styles exclusive to this feature remain together. Elements that can be reused elsewhere should be promoted to `components/`.
