@@ -4,8 +4,8 @@ This folder contains Instituto Foton's global visual decisions. It does not rend
 
 ## File documentation
 
-| File | Description |
-| --- | --- |
+| File         | Description                                                                                                                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | `tokens.css` | Centralizes colors, surfaces, spacing, typography, radii, shadows, transitions, and layout limits used by the design system. |
 
 ## Adopted scales
