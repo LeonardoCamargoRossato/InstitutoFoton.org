@@ -19,6 +19,8 @@ import {
 GlobalWorkerOptions.workerSrc = worker;
 
 export default function PdfViewer({ url, allowExport }: { url: string; allowExport: boolean }) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const [pdf, setPdf] = useState<PDFDocumentProxy | null>(null);
   const [page, setPage] = useState(1);
   const [zoom, setZoom] = useState(1);
