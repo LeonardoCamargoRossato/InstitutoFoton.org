@@ -60,8 +60,8 @@ export default function Layout() {
             : isEnglish && location.pathname === '/noticias'
               ? 'Explore news, stories, research, events, and institutional updates from Instituto Foton.'
               : location.pathname === '/redes-sociais'
-            ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
-            : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
+                ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+                : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');
