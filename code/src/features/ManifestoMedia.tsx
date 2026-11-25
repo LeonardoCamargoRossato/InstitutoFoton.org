@@ -4,8 +4,17 @@ import { ImageZoomDialog } from '../components/viewers';
 import { BaseCarousel, carouselPresets } from '../components/carousel';
 
 import { imageAsset, assetUrl } from '../lib/siteAssets';
+import { useLanguage } from '../i18n';
 
 const manifestoImage = (id: string) => assetUrl(imageAsset(id).pngPath);
+
+const regionEnglishNames: Record<string, string> = {
+  'Carta do Sudeste': 'Southeast Letter',
+  'Carta do Norte': 'North Letter',
+  'Carta do Nordeste': 'Northeast Letter',
+  'Carta do Centro-oeste': 'Midwest Letter',
+  'Carta do Sul': 'South Letter',
+};
 
 const letterMedia = {
   'Carta do Sudeste': {
@@ -50,7 +59,17 @@ function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function Video({ src, image, title }: { src: string; image: string; title: string }) {
+function Video({
+  src,
+  image,
+  title,
+  english = false,
+}: {
+  src: string;
+  image: string;
+  title: string;
+  english?: boolean;
+}) {
   const [playing, setPlaying] = useState(false);
   const [posterOpen, setPosterOpen] = useState(false);
   const videoId = src.match(/embed\/([^?]+)/)?.[1];
@@ -74,7 +93,7 @@ function Video({ src, image, title }: { src: string; image: string; title: strin
             className="manifesto-video-play"
             type="button"
             onClick={() => setPlaying(true)}
-            aria-label={`Reproduzir ${title}`}
+            aria-label={`${english ? 'Play' : 'Reproduzir'} ${title}`}
           >
             <ProgressiveImage src={image} alt="" />
             <span className="media-play" aria-hidden="true">
@@ -86,8 +105,8 @@ function Video({ src, image, title }: { src: string; image: string; title: strin
           <button
             type="button"
             className="manifesto-video-zoom"
-            aria-label={`Ampliar imagem de capa: ${title}`}
-            title="Ampliar imagem"
+            aria-label={`${english ? 'Enlarge cover image' : 'Ampliar imagem de capa'}: ${title}`}
+            title={english ? 'Enlarge image' : 'Ampliar imagem'}
             onClick={() => setPosterOpen(true)}
           >
             <Maximize2 size={20} aria-hidden="true" />
@@ -98,12 +117,12 @@ function Video({ src, image, title }: { src: string; image: string; title: strin
         <ImageZoomDialog
           src={image}
           fallback={optimized(image)}
-          title={`Imagem de capa: ${title}`}
+          title={`${english ? 'Cover image' : 'Imagem de capa'}: ${title}`}
           onClose={() => setPosterOpen(false)}
         />
       )}
       <a href={external} target="_blank" rel="noopener noreferrer">
-        Abrir vídeo no YouTube
+        {english ? 'Open video on YouTube' : 'Abrir vídeo no YouTube'}
       </a>
     </div>
   );
@@ -147,31 +166,50 @@ export default function ManifestoMedia({
   region?: string;
   caption?: string;
 }) {
-  const [active, setActive] = useState<number | null>(null);
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const localizedVisitImages = english
+    ? visitImages.map((image, index) => ({
+        ...image,
+        title: `Technical visit ${String(index + 1).padStart(2, '0')}`,
+        caption:
+          'Record of Foton’s collaboration with researchers, institutions, and science and innovation environments.',
+      }))
+    : visitImages;
 
   if (kind === 'importance')
     return (
       <Video
         src="https://www.youtube.com/embed/xiQklvt6d70?start=4615"
         image={`${manifestoImage('thumb_PorqueIssoEImportante')}`}
-        title="Por que o Manifesto Quântico Nacional é importante"
+        title={copy(
+          'Por que o Manifesto Quântico Nacional é importante',
+          'Why the National Quantum Manifesto matters',
+        )}
+        english={english}
       />
     );
 
   if (kind === 'letter' && region && region in letterMedia) {
     const media = letterMedia[region as keyof typeof letterMedia];
-    if (media.type === 'video') return <Video src={media.src} image={media.image} title={region} />;
+    const localizedRegion = english ? (regionEnglishNames[region] ?? region) : region;
+    if (media.type === 'video')
+      return (
+        <Video src={media.src} image={media.image} title={localizedRegion} english={english} />
+      );
     const single = [
       {
         src: media.image,
-        title: region,
-        caption: caption || `Evidência da ${region}.`,
+        title: localizedRegion,
+        caption:
+          caption || copy(`Evidência da ${region}.`, `Evidence from the ${localizedRegion}.`),
       },
     ];
     return (
       <>
         <button className="manifesto-image" onClick={() => setActive(0)} type="button">
-          <ProgressiveImage src={media.image} alt={region} />
+          <ProgressiveImage src={media.image} alt={localizedRegion} />
           <span aria-hidden="true">
             <Maximize2 />
           </span>
@@ -192,14 +230,17 @@ export default function ManifestoMedia({
     return (
       <div className="visits-carousel">
         <BaseCarousel
-          label="Galeria de Visitas Técnicas do Instituto Foton"
-          listaWebP={visitImages.map((image) => ({
+          label={copy(
+            'Galeria de Visitas Técnicas do Instituto Foton',
+            'Foton technical visits gallery',
+          )}
+          listaWebP={localizedVisitImages.map((image) => ({
             id: image.title,
             src: optimized(image.src),
             alt: image.title,
             title: image.title,
           }))}
-          listaPNG={visitImages.map((image) => ({
+          listaPNG={localizedVisitImages.map((image) => ({
             id: image.title,
             src: image.src,
             downloadName: image.src.split('/').at(-1),
@@ -207,10 +248,14 @@ export default function ManifestoMedia({
           }))}
           estiloGrafico={carouselPresets.visitas}
           classNames={{ root: 'visits-universal-carousel' }}
-          previousLabel="Visitas anteriores"
-          nextLabel="Próximas visitas"
-          imageLabel={(index, _count, image) => `Ampliar ${image.title ?? `visita ${index + 1}`}`}
-          thumbnailLabel={(index) => `Selecionar visita ${index + 1}`}
+          previousLabel={copy('Visitas anteriores', 'Previous visits')}
+          nextLabel={copy('Próximas visitas', 'Next visits')}
+          imageLabel={(index, _count, image) =>
+            `${english ? 'Enlarge' : 'Ampliar'} ${image.title ?? (english ? `visit ${index + 1}` : `visita ${index + 1}`)}`
+          }
+          thumbnailLabel={(index) =>
+            `${english ? 'Select visit' : 'Selecionar visita'} ${index + 1}`
+          }
         />
       </div>
     );
@@ -219,8 +264,20 @@ export default function ManifestoMedia({
     kind === 'overview'
       ? `${manifestoImage('OqueeoManifestoQuanticoNacional')}`
       : `${manifestoImage('ComoFaremosIsso')}`;
-  const title = kind === 'overview' ? 'O que é o Manifesto Quântico Nacional' : 'Como faremos isso';
-  const single = [{ src: image, title, caption: 'Manifesto Quântico Nacional — Instituto Foton.' }];
+  const title =
+    kind === 'overview'
+      ? copy('O que é o Manifesto Quântico Nacional', 'What is the National Quantum Manifesto?')
+      : copy('Como faremos isso', 'How will we do it?');
+  const single = [
+    {
+      src: image,
+      title,
+      caption: copy(
+        'Manifesto Quântico Nacional — Instituto Foton.',
+        'National Quantum Manifesto — Instituto Foton.',
+      ),
+    },
+  ];
   return (
     <>
       <button className="manifesto-image" onClick={() => setActive(0)} type="button">
