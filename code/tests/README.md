@@ -1,9 +1,9 @@
-# Testes
+# Tests
 
-Esta pasta reúne os testes automatizados do projeto.
+This folder contains the project's automated tests.
 
-- Testes unitários validam funções, dados e componentes isolados.
-- Testes de integração validam relações entre partes da aplicação.
-- A pasta `browser/` contém testes E2E e auditorias visuais.
+- Unit tests validate isolated functions, data, and components.
+- Integration tests validate relationships between application parts.
+- The `browser/` folder contains E2E tests and visual audits.
 
 Toda alteração relevante deve preservar os testes existentes e incluir cobertura quando introduzir comportamento novo.
