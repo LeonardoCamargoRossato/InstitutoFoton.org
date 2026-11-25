@@ -46,7 +46,11 @@ export default function SiteImageViewer() {
           ? el.dataset.mobileFullImage || el.dataset.fullImage
           : el.dataset.fullImage) || (canonicalWebP ? local.href : undefined);
       if (!src) return null;
-      return { src, fallback: preview, title: el.alt || (english ? 'Instituto Foton image' : 'Imagem do Instituto Foton') };
+      return {
+        src,
+        fallback: preview,
+        title: el.alt || (english ? 'Instituto Foton image' : 'Imagem do Instituto Foton'),
+      };
     }
     function click(event: MouseEvent) {
       const match = resolve(event.target);
