@@ -110,7 +110,7 @@ export default function ManifestoHero() {
       <div className="container manifesto-hero-layout">
         <div className="manifesto-hero-copy">
           <span className="manifesto-hero-eyebrow">
-            Instituto Foton <span aria-hidden="true">•</span> {copy('{copy('Uma construção nacional', 'A national endeavor')}', 'A national endeavor')}
+            Instituto Foton <span aria-hidden="true">•</span> {copy('Uma construção nacional', 'A national endeavor')}
           </span>
           <h1 id="manifesto-hero-title">
             <span>{'Manifesto '}</span>
@@ -122,7 +122,7 @@ export default function ManifestoHero() {
           <p className="sr-only">
             {copy('O mapa conecta registros de Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP) e Porto Alegre (RS). As linhas representam a articulação do movimento.', 'The map connects records from Manaus (AM), João Pessoa (PB), Recife (PE), Brasília (DF), Sorocaba (SP), and Porto Alegre (RS). The lines represent the movement’s network.')}
           </p>
-          <div className="manifesto-hero-pillars" aria-label="{copy('Abrangência e objetivos do Manifesto', 'Manifesto scope and objectives')}">
+          <div className="manifesto-hero-pillars" aria-label={copy('Abrangência e objetivos do Manifesto', 'Manifesto scope and objectives')}>
             <a href="#odqs">
               <strong>11</strong>
               <span>
