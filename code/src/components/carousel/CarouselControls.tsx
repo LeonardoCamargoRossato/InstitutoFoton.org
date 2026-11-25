@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight, LayoutGrid } from 'lucide-react';
+import { useLanguage } from '../../i18n';
 
 type Props = {
   active: number;
@@ -31,6 +32,11 @@ export function CarouselControls({
   className,
   positionClassName,
 }: Props) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const toggleLabel = thumbnailsOpen
+    ? english ? 'Hide thumbnails' : 'Ocultar miniaturas'
+    : english ? 'Show thumbnails' : 'Mostrar miniaturas';
   return (
     <div className={'base-carousel-controls ' + (className ?? '')}>
       <div className="base-carousel-nav">
@@ -67,10 +73,10 @@ export function CarouselControls({
           type="button"
           className="base-carousel-grid-toggle"
           onClick={onToggle}
-          aria-label={thumbnailsOpen ? 'Ocultar miniaturas' : 'Mostrar miniaturas'}
+          aria-label={toggleLabel}
           aria-expanded={thumbnailsOpen}
           aria-controls={thumbnailsId}
-          title={thumbnailsOpen ? 'Ocultar miniaturas' : 'Mostrar miniaturas'}
+          title={toggleLabel}
         >
           <LayoutGrid size={21} aria-hidden="true" />
         </button>
