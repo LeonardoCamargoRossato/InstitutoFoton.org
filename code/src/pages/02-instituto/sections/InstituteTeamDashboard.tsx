@@ -15,7 +15,7 @@ const levels = [
   },
   {
     key: 'adviser',
-    title: '{english ? 'Board Advisers' : 'Conselheiros e Advisers'}',
+    title: 'Conselheiros e Advisers',
     subtitle: 'Experiência e conhecimento para ampliar nossas perspectivas.',
   },
   {
@@ -199,7 +199,7 @@ export default function InstituteTeamDashboard() {
             <strong>{grouped('coordenacao').length}</strong> {english ? 'Scientific Coordination' : 'Coordenação Científica'}
           </span>
           <span>
-            <strong>{grouped('adviser').length}</strong> Conselheiros e Advisers
+            <strong>{grouped('adviser').length}</strong> {english ? 'Board Advisers' : 'Conselheiros e Advisers'}
           </span>
         </div>
         {activeLevels.map(({ key, title, subtitle }) => {
