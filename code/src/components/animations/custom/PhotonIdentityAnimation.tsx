@@ -1,5 +1,6 @@
 import { useEffect, useState, type RefObject } from 'react';
 import { assetUrl, imageAsset } from '../../../lib/siteAssets';
+import { useLanguage } from '../../../i18n';
 
 const logo = imageAsset('foton-logo-light');
 
@@ -15,6 +16,8 @@ export default function PhotonIdentityAnimation({
   artwork: RefObject<HTMLDivElement | null>;
   phase: PhotonIdentityPhase;
 }) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const [fallbackToPng, setFallbackToPng] = useState(false);
 
   useEffect(() => {
@@ -28,10 +31,11 @@ export default function PhotonIdentityAnimation({
           integrity: approvedIntegrity,
           signal: controller.signal,
         });
-        if (!response.ok) throw new Error('SVG indisponível');
+        if (!response.ok) throw new Error(english ? 'SVG unavailable' : 'SVG indisponível');
         const xml = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
         if (controller.signal.aborted) return;
-        if (xml.documentElement.localName !== 'svg') throw new Error('SVG inválido');
+        if (xml.documentElement.localName !== 'svg')
+          throw new Error(english ? 'Invalid SVG' : 'SVG inválido');
 
         // A seção é clara. As regras de reprodução ficam isoladas do restante da página.
         const rules = document.createElement('style');
@@ -78,7 +82,7 @@ export default function PhotonIdentityAnimation({
         </div>
       </div>
       <span className="photon-identity-caption" aria-hidden="true">
-        luz · conexão · ciência
+        {english ? 'light · connection · science' : 'luz · conexão · ciência'}
       </span>
     </div>
   );

@@ -1,12 +1,20 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { BookOpen, Network, Pause, Play, Rocket, UsersRound } from 'lucide-react';
 import { assetUrl } from '../../../lib/siteAssets';
+import { useLanguage } from '../../../i18n';
 
 const fronts = [
   { id: 'ecosystem', label: 'Formação de ecossistema', Icon: Network },
   { id: 'talents', label: 'Conexão de talentos', Icon: UsersRound },
   { id: 'education', label: 'Pesquisa e educação', Icon: BookOpen },
   { id: 'startups', label: 'Geração de novas startups', Icon: Rocket },
+] as const;
+
+const frontsEnglish = [
+  { id: 'ecosystem', label: 'Ecosystem building' },
+  { id: 'talents', label: 'Talent connection' },
+  { id: 'education', label: 'Research and education' },
+  { id: 'startups', label: 'New startup generation' },
 ] as const;
 
 function QuantumGlass({ paused, formed }: { paused: boolean; formed: boolean }) {
@@ -117,8 +125,10 @@ function CollisionField({ count }: { count: number }) {
 function FotonNetwork({
   settled,
   destination,
+  english,
 }: {
   settled: boolean;
+  english: boolean;
   destination: React.RefObject<HTMLDivElement | null>;
 }) {
   return (
@@ -126,7 +136,11 @@ function FotonNetwork({
       ref={destination}
       className={'hero-identity hero-identity--network' + (settled ? ' is-settled' : '')}
       role="img"
-      aria-label="Foton conecta formação de ecossistema, conexão de talentos, pesquisa e educação, e geração de novas startups."
+      aria-label={
+        english
+          ? 'Foton connects ecosystem building, talent connection, research and education, and new startup generation.'
+          : 'Foton conecta formação de ecossistema, conexão de talentos, pesquisa e educação, e geração de novas startups.'
+      }
       data-testid="home-foton-network"
     >
       <svg
@@ -145,7 +159,10 @@ function FotonNetwork({
         <img src={assetUrl('assets/WebP/branding/Favicon.webp')} alt="" width="60" height="68" />
         <strong>Foton</strong>
       </div>
-      {fronts.map(({ id, label, Icon }) => (
+      {(english
+        ? fronts.map(({ Icon }, index) => ({ ...frontsEnglish[index], Icon }))
+        : fronts
+      ).map(({ id, label, Icon }) => (
         <div className={'home-network-node home-network-node--' + id} key={id}>
           <Icon size={17} strokeWidth={2} aria-hidden="true" />
           <span>{label}</span>
@@ -157,6 +174,8 @@ function FotonNetwork({
 
 /** Finite particle collision forms the network; controllable glass motion stays behind it. */
 export default function HomeAtomEntrance() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const destination = useRef<HTMLDivElement>(null);
   const flight = useRef<HTMLDivElement>(null);
   const running = useRef<Animation[]>([]);
@@ -370,7 +389,7 @@ export default function HomeAtomEntrance() {
   return (
     <>
       <QuantumGlass paused={paused || !visible || !tabVisible} formed={settled} />
-      <FotonNetwork settled={settled} destination={destination} />
+      <FotonNetwork settled={settled} destination={destination} english={english} />
       {arriving && (
         <div
           ref={flight}
@@ -392,7 +411,13 @@ export default function HomeAtomEntrance() {
         }}
       >
         {paused ? <Play size={13} aria-hidden="true" /> : <Pause size={13} aria-hidden="true" />}
-        {paused ? 'Ativar movimento' : 'Pausar movimento'}
+        {paused
+          ? english
+            ? 'Enable motion'
+            : 'Ativar movimento'
+          : english
+            ? 'Pause motion'
+            : 'Pausar movimento'}
       </button>
     </>
   );

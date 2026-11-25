@@ -7,6 +7,7 @@ import {
   type PointerEvent,
   type WheelEvent,
 } from 'react';
+import { useLanguage } from '../../i18n';
 import { createPortal } from 'react-dom';
 import {
   ChevronLeft,
@@ -48,6 +49,8 @@ export function ImageZoomDialog({
   allowFullscreen = true,
   downloadName,
 }: Props) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const isCarousel = variant === 'carousel';
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
   const [errorSrc, setErrorSrc] = useState<string | null>(null);
@@ -303,8 +306,8 @@ export function ImageZoomDialog({
               type="button"
               onClick={() => setScale((value) => value + (isCarousel ? 0.25 : 0.5))}
               disabled={zoom >= 6}
-              aria-label="Ampliar imagem"
-              title="Ampliar imagem"
+              aria-label={english ? 'Enlarge image' : 'Ampliar imagem'}
+              title={english ? 'Enlarge image' : 'Ampliar imagem'}
             >
               <Plus size={20} />
             </button>
@@ -313,8 +316,8 @@ export function ImageZoomDialog({
                 className="foton-zoom-percent"
                 type="text"
                 inputMode="decimal"
-                aria-label="Percentual do zoom"
-                title="Digite o percentual de zoom"
+                aria-label={english ? 'Zoom percentage' : 'Percentual do zoom'}
+                title={english ? 'Enter zoom percentage' : 'Digite o percentual de zoom'}
                 value={zoomDraft}
                 onChange={(event) => setZoomDraft(event.target.value)}
                 onBlur={commitPercent}
@@ -335,8 +338,8 @@ export function ImageZoomDialog({
               type="button"
               onClick={() => setScale((value) => value - (isCarousel ? 0.25 : 0.5))}
               disabled={zoom <= (isCarousel ? 0.25 : 1)}
-              aria-label="Reduzir imagem"
-              title="Reduzir imagem"
+              aria-label={english ? 'Zoom out' : 'Reduzir imagem'}
+              title={english ? 'Zoom out' : 'Reduzir imagem'}
             >
               <Minus size={20} />
             </button>
@@ -345,8 +348,8 @@ export function ImageZoomDialog({
                 <a
                   href={src}
                   download={downloadName ?? src.split('/').pop() ?? 'fotografia.png'}
-                  aria-label="Baixar PNG original"
-                  title="Baixar PNG original"
+                  aria-label={english ? 'Download original PNG' : 'Baixar PNG original'}
+                  title={english ? 'Download original PNG' : 'Baixar PNG original'}
                 >
                   <Download size={20} />
                 </a>
@@ -355,13 +358,21 @@ export function ImageZoomDialog({
                     type="button"
                     aria-label={
                       fullscreen
-                        ? 'Reduzir para visualização intermediária'
-                        : 'Expandir para tela cheia'
+                        ? english
+                          ? 'Exit fullscreen'
+                          : 'Reduzir para visualização intermediária'
+                        : english
+                          ? 'Enter fullscreen'
+                          : 'Expandir para tela cheia'
                     }
                     title={
                       fullscreen
-                        ? 'Reduzir para visualização intermediária'
-                        : 'Expandir para tela cheia'
+                        ? english
+                          ? 'Exit fullscreen'
+                          : 'Reduzir para visualização intermediária'
+                        : english
+                          ? 'Enter fullscreen'
+                          : 'Expandir para tela cheia'
                     }
                     onClick={() => {
                       if (fullscreen) void reduce();
@@ -374,7 +385,11 @@ export function ImageZoomDialog({
               </>
             )}
             {!isCarousel && (
-              <button type="button" onClick={() => setScale(1)} aria-label="Ajustar imagem à tela">
+              <button
+                type="button"
+                onClick={() => setScale(1)}
+                aria-label={english ? 'Fit image to screen' : 'Ajustar imagem à tela'}
+              >
                 <Maximize size={20} />
               </button>
             )}
@@ -382,8 +397,8 @@ export function ImageZoomDialog({
               ref={closeRef}
               type="button"
               onClick={() => void closeAll()}
-              aria-label="Fechar galeria"
-              title="Fechar galeria"
+              aria-label={english ? 'Close gallery' : 'Fechar galeria'}
+              title={english ? 'Close gallery' : 'Fechar galeria'}
             >
               <X size={22} />
             </button>
@@ -394,7 +409,7 @@ export function ImageZoomDialog({
             <button
               className="foton-zoom-arrow previous"
               onClick={onPrevious}
-              aria-label="Imagem anterior"
+              aria-label={english ? 'Previous image' : 'Imagem anterior'}
             >
               <ChevronLeft />
             </button>
@@ -417,18 +432,24 @@ export function ImageZoomDialog({
             className={zoom > 1 ? 'is-pannable' : ''}
           />
           {onNext && (
-            <button className="foton-zoom-arrow next" onClick={onNext} aria-label="Próxima imagem">
+            <button
+              className="foton-zoom-arrow next"
+              onClick={onNext}
+              aria-label={english ? 'Next image' : 'Próxima imagem'}
+            >
               <ChevronRight />
             </button>
           )}
           {showFullscreenToast && fullscreen && (
             <span className="foton-fullscreen-toast" role="status">
-              Tela cheia
+              {english ? 'Fullscreen' : 'Tela cheia'}
             </span>
           )}
         </div>
         <p className="foton-zoom-help">
-          Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar
+          {english
+            ? 'Mouse wheel: zoom · Drag to pan · Double-click: enlarge · Esc: close'
+            : 'Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar'}
         </p>
       </div>
     </div>,

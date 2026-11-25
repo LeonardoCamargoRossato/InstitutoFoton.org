@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "computacao-quantica",
+    "title": "Quantum computing",
+    "label": "01",
+    "summary": "New ways to process information. New questions for science.",
+    "description": "Quantum computing investigates how properties of quantum systems can be used to process information. Hardware, software, and firmware meet in a field that requires fundamental research and collaboration across specialties.",
+    "topics": ["Hardware and software", "Photonic computing", "Collaborative research"]
+  },
+  {
+    "slug": "comunicacao-e-criptografia",
+    "title": "Communication and cryptography",
+    "label": "02",
+    "summary": "Knowledge to shape the future of communication and security.",
+    "description": "Quantum communication and post-quantum cryptography are distinct approaches. The first uses physical properties of quantum systems; the second develops classical cryptographic algorithms designed to withstand attacks from quantum computers.",
+    "topics": ["Quantum communication", "Post-quantum cryptography", "Cryptographic transition"]
+  },
+  {
+    "slug": "sensores-e-materiais",
+    "title": "Quantum sensors and materials",
+    "label": "03",
+    "summary": "Observe with precision to discover possibilities.",
+    "description": "Quantum sensing explores quantum properties to perform measurements. Materials research seeks to understand and develop physical properties. These fields connect fundamental science with application questions through partner institutions and laboratories.",
+    "topics": ["Precision measurements", "Advanced materials", "Physical properties"]
+  },
+  {
+    "slug": "algoritmos-e-otimizacao",
+    "title": "Algorithms and optimization",
+    "label": "04",
+    "summary": "Investigating paths through complex problems.",
+    "description": "Quantum algorithms and hybrid methods are studied for computation and optimization problems, including applications in healthcare and other sectors.",
+    "topics": ["Hybrid methods", "Optimization", "Research applications"]
+  },
+  {
+    "slug": "quantica-nos-negocios",
+    "title": "Quantum for business",
+    "label": "05",
+    "summary": "A bridge between research, organizations, and society.",
+    "description": "Understanding emerging technologies also involves education, management, and dialogue. This field brings scientific knowledge closer to the questions faced by organizations while respecting each technology's maturity level.",
+    "topics": ["Education", "Innovation management", "Science and society"]
+  },
+  {
+    "slug": "quantum-no-direito",
+    "title": "Quantum in law",
+    "label": "06",
+    "summary": "Connecting quantum technology evolution with legal and social questions.",
+    "description": "Quantum in law promotes interdisciplinary dialogue on the legal, ethical, and institutional implications of quantum technologies. Research topics include data protection, information security, intellectual property, and the regulatory and governance challenges associated with technological transformation.",
+    "topics": ["Law and technology", "Data protection", "Regulation and governance"]
+  }
+]

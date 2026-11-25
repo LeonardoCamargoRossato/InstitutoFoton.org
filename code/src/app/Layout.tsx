@@ -4,7 +4,16 @@ import { Menu, X, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { siteOrigin, basePath } from '../lib/config';
 import { SiteImageViewer } from '../components/viewers';
 import { assetUrl, imageAsset } from '../lib/siteAssets';
-import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from '../features/content';
+import {
+  haQuantumTitle,
+  haQuantumTitleEnglish,
+  journeyTitle,
+  journeyTitleEnglish,
+  researchLines,
+  researchLinesEnglish,
+  researchTitle,
+  researchTitleEnglish,
+} from '../features/content';
 import { useLanguage } from '../i18n';
 import { LanguageSelector } from '../components/ui/LanguageSelector';
 
@@ -26,6 +35,52 @@ const titles: Record<string, string> = {
   '/privacidade': 'Privacidade',
   '/termos': 'Termos de uso',
 };
+
+const englishTitles: Record<string, string> = {
+  '/': 'Quantum Sciences and Technologies',
+  '/instituto': 'The Institute',
+  '/parceiros': 'Partner Ecosystem',
+  '/pesquisa': researchTitleEnglish,
+  '/pesquisa/jornada': journeyTitleEnglish,
+  '/pesquisa/haquantum': haQuantumTitleEnglish,
+  ...Object.fromEntries(
+    researchLinesEnglish.map(({ slug, title }) => ['/pesquisa/' + slug, title]),
+  ),
+  '/manifesto': 'National Quantum Manifesto',
+  '/noticias': 'News and stories',
+  '/redes-sociais': 'Follow Foton on social media',
+  '/apoie': 'Support science',
+  '/contato': 'Contact',
+  '/entrar': 'Institutional access',
+  '/apresentacao': 'Institutional presentation',
+  '/privacidade': 'Privacy',
+  '/termos': 'Terms of use',
+};
+
+const englishDescriptions: Record<string, string> = {
+  '/': 'Quantum science, people, and possibilities. Discover Instituto Foton, its research areas, and ways to support science.',
+  '/instituto':
+    'Discover the people, purpose, and scientific coordination teams that build Instituto Foton.',
+  '/parceiros':
+    'Explore the institutions and companies in the ecosystem presented by Instituto Foton.',
+  '/pesquisa':
+    'Research areas and pathways connecting quantum science, education, and collaboration.',
+  '/pesquisa/jornada':
+    'Discover the Innovative Scientist Journey and its pathways for scientific development.',
+  '/pesquisa/haquantum':
+    'Explore HaQuantum, a hackathon focused on quantum technologies and collaboration.',
+  '/manifesto': 'Explore the National Quantum Manifesto and its regional commitments.',
+  '/noticias':
+    'Explore news, stories, research, events, and institutional updates from Instituto Foton.',
+  '/redes-sociais': 'Follow Instituto Foton on Instagram, LinkedIn, and YouTube.',
+  '/apoie': 'Learn how to support science and Instituto Foton initiatives.',
+  '/contato': 'Find official channels to contact Instituto Foton.',
+  '/entrar': 'Access institutional areas of Instituto Foton.',
+  '/apresentacao': 'Explore Instituto Foton’s institutional presentation.',
+  '/privacidade': 'Read Instituto Foton’s privacy information.',
+  '/termos': 'Read the terms for using the Instituto Foton portal.',
+};
+
 export default function Layout() {
   const [menuAt, setMenuAt] = useState<string | null>(null);
   const location = useLocation();
@@ -41,27 +96,17 @@ export default function Layout() {
     ['/noticias', t.common.news],
   ] as const;
   useEffect(() => {
-    const pageTitle =
-      isEnglish && location.pathname === '/parceiros'
-        ? 'Partner Ecosystem'
-        : isEnglish && location.pathname === '/manifesto'
-          ? 'National Quantum Manifesto'
-          : isEnglish && location.pathname === '/noticias'
-            ? 'News and stories'
-            : titles[location.pathname] || 'Instituto Foton';
-    document.title = `${pageTitle} — Instituto Foton`;
+    const pageTitle = isEnglish
+      ? englishTitles[location.pathname] || 'Instituto Foton'
+      : titles[location.pathname] || 'Instituto Foton';
+    document.title = pageTitle + ' — Instituto Foton';
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (description)
-      description.content =
-        isEnglish && location.pathname === '/parceiros'
-          ? 'Explore the institutions and companies in the ecosystem presented by Instituto Foton.'
-          : isEnglish && location.pathname === '/manifesto'
-            ? 'Explore the National Quantum Manifesto and its regional commitments.'
-            : isEnglish && location.pathname === '/noticias'
-              ? 'Explore news, stories, research, events, and institutional updates from Instituto Foton.'
-              : location.pathname === '/redes-sociais'
-                ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
-                : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
+      description.content = isEnglish
+        ? englishDescriptions[location.pathname] || englishDescriptions['/']
+        : location.pathname === '/redes-sociais'
+          ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+          : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');

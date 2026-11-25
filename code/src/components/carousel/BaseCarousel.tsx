@@ -4,6 +4,7 @@ import { CarouselImage } from './CarouselImage';
 import { CarouselControls } from './CarouselControls';
 import { CarouselThumbnails } from './CarouselThumbnails';
 import { CarouselViewer } from './CarouselViewer';
+import { useLanguage } from '../../i18n';
 import type { BaseCarouselProps } from './carousel.types';
 import './carousel.styles.css';
 
@@ -14,12 +15,16 @@ export function BaseCarousel({
   label,
   titulo,
   classNames,
-  previousLabel = 'Imagem anterior',
-  nextLabel = 'Próxima imagem',
+  previousLabel,
+  nextLabel,
   imageLabel,
   thumbnailLabel,
   onChange,
 }: BaseCarouselProps) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const previousLabelText = previousLabel ?? (english ? 'Previous image' : 'Imagem anterior');
+  const nextLabelText = nextLabel ?? (english ? 'Next image' : 'Próxima imagem');
   const items = useMemo(() => pairCarouselItems(listaWebP, listaPNG), [listaWebP, listaPNG]);
   const [selected, setSelected] = useState(0);
   const [direction, setDirection] = useState<'next' | 'previous'>('next');
@@ -83,7 +88,7 @@ export function BaseCarousel({
 
   const stageLabel =
     imageLabel?.(active, total, item.preview) ??
-    `Ampliar imagem ${active + 1} de ${total}: ${item.preview.title ?? item.preview.alt}`;
+    `${english ? 'Enlarge image' : 'Ampliar imagem'} ${active + 1} ${english ? 'of' : 'de'} ${total}: ${item.preview.title ?? item.preview.alt}`;
 
   return (
     <section
@@ -94,7 +99,7 @@ export function BaseCarousel({
         (classNames?.root ?? '')
       }
       role="region"
-      aria-roledescription="carrossel"
+      aria-roledescription={english ? 'carousel' : 'carrossel'}
       aria-label={label}
       data-presentation={estiloGrafico.imagem?.apresentacao ?? 'peek'}
       data-ratio={estiloGrafico.imagem?.proporcao ?? 'original'}
@@ -125,8 +130,8 @@ export function BaseCarousel({
       <CarouselControls
         active={active}
         total={total}
-        previousLabel={previousLabel}
-        nextLabel={nextLabel}
+        previousLabel={previousLabelText}
+        nextLabel={nextLabelText}
         onPrevious={() => move(-1)}
         onNext={() => move(1)}
         showCounter={estiloGrafico.navegacao?.contador !== false}

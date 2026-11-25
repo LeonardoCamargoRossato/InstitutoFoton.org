@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ImageZoomDialog } from './ImageZoomDialog';
+import { useLanguage } from '../../i18n';
 
 type Selected = { src: string; fallback: string; title: string };
 export default function SiteImageViewer() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const [image, setImage] = useState<Selected | null>(null);
   useEffect(() => {
     function resolve(target: EventTarget | null): Selected | null {
@@ -43,7 +46,11 @@ export default function SiteImageViewer() {
           ? el.dataset.mobileFullImage || el.dataset.fullImage
           : el.dataset.fullImage) || (canonicalWebP ? local.href : undefined);
       if (!src) return null;
-      return { src, fallback: preview, title: el.alt || 'Imagem do Instituto Foton' };
+      return {
+        src,
+        fallback: preview,
+        title: el.alt || (english ? 'Instituto Foton image' : 'Imagem do Instituto Foton'),
+      };
     }
     function click(event: MouseEvent) {
       const match = resolve(event.target);
@@ -65,7 +72,7 @@ export default function SiteImageViewer() {
       document.removeEventListener('click', click, true);
       document.removeEventListener('keydown', key, true);
     };
-  }, []);
+  }, [english]);
   return (
     image && (
       <ImageZoomDialog

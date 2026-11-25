@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import SocialPhysicsBackdrop from './SocialPhysicsBackdrop';
 import ElectromagneticWaveDivider from './ElectromagneticWaveDivider';
 import './YouTubeHighlight.css';
+import { useLanguage } from '../i18n';
 
 const YOUTUBE_CHANNEL = 'https://youtube.com/@institutofoton?si=asOgikmknRyM5y7_';
 
@@ -15,6 +16,8 @@ export function YouTubeBrandIcon({ size = 24 }: { size?: number }) {
 }
 
 export default function YouTubeHighlight() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   return (
     <section
       className="social-network social-network--youtube"
@@ -24,14 +27,19 @@ export default function YouTubeHighlight() {
       <ElectromagneticWaveDivider />
       <div className="social-youtube-highlight">
         <div className="social-youtube-highlight__content">
-          <h2 id="social-youtube-title">Acompanhe o Instituto Foton no YouTube</h2>
+          <h2 id="social-youtube-title">
+            {english
+              ? 'Follow Instituto Foton on YouTube'
+              : 'Acompanhe o Instituto Foton no YouTube'}
+          </h2>
           <p className="social-youtube-highlight__handle">
             <YouTubeBrandIcon size={28} />
             <span>@institutofoton</span>
           </p>
           <p className="social-youtube-highlight__description">
-            Ciência, tecnologia e inovação em vídeo. Acompanhe conteúdos, encontros e iniciativas
-            que conectam pessoas e conhecimento.
+            {english
+              ? 'Science, technology, and innovation in video. Follow content, meetings, and initiatives that connect people and knowledge.'
+              : 'Ciência, tecnologia e inovação em vídeo. Acompanhe conteúdos, encontros e iniciativas que conectam pessoas e conhecimento.'}
           </p>
           <a
             className="social-profile-link social-profile-link--youtube"
@@ -40,8 +48,12 @@ export default function YouTubeHighlight() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Acessar canal no YouTube <ArrowUpRight size={18} aria-hidden="true" />
-            <span className="sr-only"> (abre em nova aba)</span>
+            {english ? 'Open YouTube channel' : 'Acessar canal no YouTube'}{' '}
+            <ArrowUpRight size={18} aria-hidden="true" />
+            <span className="sr-only">
+              {' '}
+              {english ? '(opens in a new tab)' : '(abre em nova aba)'}
+            </span>
           </a>
         </div>
 
@@ -51,10 +63,14 @@ export default function YouTubeHighlight() {
           href={YOUTUBE_CHANNEL}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Abrir canal oficial do Instituto Foton no YouTube (abre em nova aba)"
+          aria-label={
+            english
+              ? 'Open Instituto Foton’s official YouTube channel (opens in a new tab)'
+              : 'Abrir canal oficial do Instituto Foton no YouTube (abre em nova aba)'
+          }
         >
           <span className="social-youtube-highlight__cover-header" aria-hidden="true">
-            <span>CANAL OFICIAL</span>
+            <span>{english ? 'OFFICIAL CHANNEL' : 'CANAL OFICIAL'}</span>
             <YouTubeBrandIcon size={31} />
           </span>
           <span className="social-youtube-highlight__play" aria-hidden="true">
@@ -66,7 +82,7 @@ export default function YouTubeHighlight() {
               <small>@institutofoton</small>
             </span>
             <span className="social-youtube-highlight__cover-cta">
-              Assistir <ArrowUpRight size={20} />
+              {english ? 'Watch' : 'Assistir'} <ArrowUpRight size={20} />
             </span>
           </span>
         </a>

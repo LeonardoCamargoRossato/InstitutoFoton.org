@@ -1,9 +1,20 @@
 import { Link, useParams } from 'react-router-dom';
+import { useLanguage } from '../i18n';
 import { ArrowDown, ArrowRight, ArrowUpRight, Play } from 'lucide-react';
 import { Action, External, Heading, Intro, TextLink } from '../components/ui';
 import researchMedia from '../content/research-media.json';
+import researchMediaEnglish from '../content/research-media.en.json';
 import { assetUrl } from '../lib/siteAssets';
-import { haQuantumTitle, journeyTitle, researchLines, researchTitle } from './content';
+import {
+  haQuantumTitle,
+  haQuantumTitleEnglish,
+  journeyTitle,
+  journeyTitleEnglish,
+  researchLines,
+  researchLinesEnglish,
+  researchTitle,
+  researchTitleEnglish,
+} from './content';
 import HaQuantumGallery from './HaQuantumGallery';
 import { ActionCard, InfoCard } from '../components/cards';
 import { NotFound } from './PublicPages';
@@ -46,20 +57,62 @@ const haQuantum = {
   rules: 'https://drive.google.com/file/d/1O-z8Br-EllIzKcj0cNmUPer1jfKGPmnl/view',
 };
 
+const pathwayEnglish = [
+  { name: 'Pulse', summary: 'Welcoming and integrating participants into the Journey activities.' },
+  {
+    name: 'Lumina',
+    summary: 'Exploring themes, participating in meetings, and creating outreach materials.',
+  },
+  {
+    name: 'Resonance',
+    summary: 'Curating content and contributing to science dissemination events and actions.',
+  },
+  {
+    name: 'Superposition',
+    summary:
+      'Facilitating activities, providing scientific support, and welcoming new participants.',
+  },
+  {
+    name: 'Entanglement',
+    summary: 'Connecting initiatives and following the development of new researchers.',
+  },
+];
+
+const pulsoEnglish = {
+  title: 'Quantum Pathway — Pulse Stage Closing',
+  watch: pulso.watch,
+  event: pulso.event,
+};
+
+const haQuantumEnglish = {
+  summary:
+    'The hackathon brought together students, researchers, developers, and professionals to develop solutions to real problems using quantum optimization techniques.',
+  partnership:
+    'Instituto Foton held HaQuantum in partnership with the Academic League of Quantum Computing at the University of Sorocaba, as part of the Mobi Quantum track at MOBI Festival 2026.',
+  event: haQuantum.event,
+  rules: haQuantum.rules,
+};
+
 function PulsoVideo() {
-  // O responsável pelo vídeo desativou a reprodução incorporada no YouTube.
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const media = english ? researchMediaEnglish : researchMedia;
   return (
     <a
       className="pulso-player"
       href={pulso.watch}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Abrir o vídeo da Etapa Pulso no YouTube (nova aba)"
+      aria-label={
+        english
+          ? 'Open the Pulse Stage video on YouTube (new tab)'
+          : 'Abrir o vídeo da Etapa Pulso no YouTube (nova aba)'
+      }
     >
       <img
-        src={assetUrl(researchMedia.pulso.previewPath)}
-        width={researchMedia.pulso.width}
-        height={researchMedia.pulso.height}
+        src={assetUrl(media.pulso.previewPath)}
+        width={media.pulso.width}
+        height={media.pulso.height}
         alt=""
         loading="lazy"
         decoding="async"
@@ -72,36 +125,47 @@ function PulsoVideo() {
 }
 
 function HaQuantumDate() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   return (
     <p className="research-date">
-      <time dateTime="2026-05-09">9 de maio</time> a{' '}
-      <time dateTime="2026-06-11">11 de junho de 2026</time>
+      <time dateTime="2026-05-09">{english ? 'May 9' : '9 de maio'}</time> {english ? 'to' : 'a'}{' '}
+      <time dateTime="2026-06-11">{english ? 'June 11, 2026' : '11 de junho de 2026'}</time>
     </p>
   );
 }
 
 export function Research() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const lines = english ? researchLinesEnglish : researchLines;
+  const pathwayItems = english ? pathwayEnglish : pathway;
+  const pulsoInfo = english ? pulsoEnglish : pulso;
+  const hq = english ? haQuantumEnglish : haQuantum;
   return (
     <div className="research-experience">
       <Intro
         eyebrow="Instituto Foton"
-        title={researchTitle}
+        title={english ? researchTitleEnglish : researchTitle}
         id="pesquisa-inicio"
         sectionCode="4.A.1"
       >
         <p>
-          Explore as áreas de pesquisa em tecnologias quânticas do Foton e conheça as iniciativas
-          que aproximam pesquisadores, estudantes e profissionais.
+          {copy(
+            'Explore as áreas de pesquisa em tecnologias quânticas do Foton e conheça as iniciativas que aproximam pesquisadores, estudantes e profissionais.',
+            'Explore Foton’s quantum technology research areas and the initiatives bringing researchers, students, and professionals closer together.',
+          )}
         </p>
-        <nav className="research-jump-links" aria-label="Nesta página">
+        <nav className="research-jump-links" aria-label={english ? 'On this page' : 'Nesta página'}>
           <a href="#areas-de-pesquisa">
-            Áreas de pesquisa <ArrowDown size={15} aria-hidden="true" />
+            {copy('Áreas de pesquisa', 'Research areas')} <ArrowDown size={15} aria-hidden="true" />
           </a>
           <a href="#jornada-do-cientista">
-            Jornada <ArrowDown size={15} aria-hidden="true" />
+            {copy('Jornada', 'Journey')} <ArrowDown size={15} aria-hidden="true" />
           </a>
           <a href="#eventos">
-            Eventos <ArrowDown size={15} aria-hidden="true" />
+            {copy('Eventos', 'Events')} <ArrowDown size={15} aria-hidden="true" />
           </a>
         </nav>
       </Intro>
@@ -112,23 +176,26 @@ export function Research() {
         data-lcr-section-id="4.A.2"
       >
         <div className="container">
-          <Heading title="Áreas de pesquisa" />
+          <Heading title={copy('Áreas de pesquisa', 'Research areas')} />
           <p className="section-description">
-            Explore seis grandes áreas de pesquisa e desenvolvimento em tecnologias quânticas
-            articuladas pelo Foton.
+            {copy(
+              'Explore seis grandes áreas de pesquisa e desenvolvimento em tecnologias quânticas articuladas pelo Foton.',
+              'Explore six major research and development areas in quantum technologies coordinated by Foton.',
+            )}
           </p>
           <div className="research-grid full-research">
-            {researchLines.map((line, index) => (
+            {lines.map((line, index) => (
               <ActionCard
                 className="research-card"
-                to={`/pesquisa/${line.slug}`}
+                to={'/pesquisa/' + line.slug}
                 key={line.slug}
-                catalogId={`4.A.2.C${index + 1}`}
+                catalogId={'4.A.2.C' + (index + 1)}
               >
                 <h3>{line.title}</h3>
                 <p>{line.summary}</p>
                 <span className="card-link">
-                  Explorar essa área <ArrowUpRight size={18} aria-hidden="true" />
+                  {copy('Explorar essa área', 'Explore this area')}{' '}
+                  <ArrowUpRight size={18} aria-hidden="true" />
                 </span>
               </ActionCard>
             ))}
@@ -143,24 +210,40 @@ export function Research() {
       >
         <div className="container split">
           <div className="body-copy">
-            <Heading title={journeyTitle}>Conectando ciência, pessoas e inovação.</Heading>
+            <Heading title={english ? journeyTitleEnglish : journeyTitle}>
+              {copy(
+                'Conectando ciência, pessoas e inovação.',
+                'Connecting science, people, and innovation.',
+              )}
+            </Heading>
             <p>
-              A Jornada reúne pesquisadores e profissionais de diferentes áreas em uma trajetória
-              colaborativa de formação continuada, desenvolvimento científico e inovação.
+              {copy(
+                'A Jornada reúne pesquisadores e profissionais de diferentes áreas em uma trajetória colaborativa de formação continuada, desenvolvimento científico e inovação.',
+                'The Journey brings together researchers and professionals from different fields in a collaborative path of continuing education, scientific development, and innovation.',
+              )}
             </p>
             <p>
-              Grupos temáticos, encontros e eventos científicos abrem espaço para estudar em
-              conjunto, compartilhar resultados e desenvolver projetos.
+              {copy(
+                'Grupos temáticos, encontros e eventos científicos abrem espaço para estudar em conjunto, compartilhar resultados e desenvolver projetos.',
+                'Thematic groups, meetings, and scientific events create space to study together, share results, and develop projects.',
+              )}
             </p>
             <div className="actions">
-              <Action to="/pesquisa/jornada">Conheça a Jornada</Action>
+              <Action to="/pesquisa/jornada">
+                {copy('Conheça a Jornada', 'Discover the Journey')}
+              </Action>
             </div>
           </div>
           <div className="pathway-preview">
             <h3>Quantum Pathway</h3>
-            <p>A trilha organiza a participação em cinco etapas de envolvimento progressivo.</p>
+            <p>
+              {copy(
+                'A trilha organiza a participação em cinco etapas de envolvimento progressivo.',
+                'The pathway organizes participation into five stages of progressive involvement.',
+              )}
+            </p>
             <ol>
-              {pathway.map(({ name }) => (
+              {pathwayItems.map(({ name }) => (
                 <li key={name}>{name}</li>
               ))}
             </ol>
@@ -171,12 +254,17 @@ export function Research() {
       <section className="section research-events-intro" id="eventos" data-lcr-section-id="4.A.4">
         <div className="container split">
           <Heading
-            eyebrow="Nossos eventos e iniciativas"
-            title="A ciência ganha força quando é compartilhada."
+            eyebrow={copy('Nossos eventos e iniciativas', 'Our events and initiatives')}
+            title={copy(
+              'A ciência ganha força quando é compartilhada.',
+              'Science grows stronger when it is shared.',
+            )}
           />
           <p>
-            O Foton promove encontros, apresentações e desafios em que pesquisadores, estudantes e
-            profissionais trocam experiências e exploram aplicações das tecnologias quânticas.
+            {copy(
+              'O Foton promove encontros, apresentações e desafios em que pesquisadores, estudantes e profissionais trocam experiências e exploram aplicações das tecnologias quânticas.',
+              'Foton promotes meetings, presentations, and challenges where researchers, students, and professionals exchange experiences and explore applications of quantum technologies.',
+            )}
           </p>
         </div>
       </section>
@@ -185,22 +273,28 @@ export function Research() {
         <div className="container split">
           <PulsoVideo />
           <div className="body-copy">
-            <Heading title={pulso.title} />
+            <Heading title={pulsoInfo.title} />
             <p className="research-date">
-              <time dateTime="2026-03-28">28 de março de 2026</time>
+              <time dateTime="2026-03-28">{copy('28 de março de 2026', 'March 28, 2026')}</time>
             </p>
             <p>
-              O encontro encerrou o primeiro ciclo formativo da Jornada. Os Cientistas Inovadores
-              apresentaram trabalhos sobre computação, comunicação e criptografia quânticas,
-              algoritmos, sensores e materiais, além de aplicações da quântica aos negócios.
+              {copy(
+                'O encontro encerrou o primeiro ciclo formativo da Jornada. Os Cientistas Inovadores apresentaram trabalhos sobre computação, comunicação e criptografia quânticas, algoritmos, sensores e materiais, além de aplicações da quântica aos negócios.',
+                'The meeting closed the Journey’s first training cycle. Innovative Scientists presented work on quantum computing, communication and cryptography, algorithms, sensors and materials, and applications of quantum technology to business.',
+              )}
             </p>
-            <p>A transmissão permitiu ao público acompanhar os trabalhos dos grupos temáticos.</p>
+            <p>
+              {copy(
+                'A transmissão permitiu ao público acompanhar os trabalhos dos grupos temáticos.',
+                'The broadcast allowed the public to follow the thematic groups’ work.',
+              )}
+            </p>
             <div className="actions research-event-actions">
-              <External className="button" href={pulso.watch}>
-                Assistir à transmissão completa
+              <External className="button" href={pulsoInfo.watch}>
+                {copy('Assistir à transmissão completa', 'Watch the full broadcast')}
               </External>
-              <External className="text-link" href={pulso.event}>
-                Página do evento
+              <External className="text-link" href={pulsoInfo.event}>
+                {copy('Página do evento', 'Event page')}
               </External>
             </div>
           </div>
@@ -210,16 +304,18 @@ export function Research() {
       <section className="section research-haquantum" id="haquantum" data-lcr-section-id="4.A.6">
         <div className="container">
           <div className="split research-haquantum-intro">
-            <Heading title={haQuantumTitle} />
+            <Heading title={english ? haQuantumTitleEnglish : haQuantumTitle} />
             <div className="body-copy">
               <HaQuantumDate />
-              <p>{haQuantum.summary}</p>
-              <p>{haQuantum.partnership}</p>
+              <p>{hq.summary}</p>
+              <p>{hq.partnership}</p>
             </div>
           </div>
           <HaQuantumGallery />
           <div className="actions">
-            <Action to="/pesquisa/haquantum">Saiba mais sobre o HaQuantum</Action>
+            <Action to="/pesquisa/haquantum">
+              {copy('Saiba mais sobre o HaQuantum', 'Learn more about HaQuantum')}
+            </Action>
           </div>
         </div>
       </section>
@@ -229,32 +325,45 @@ export function Research() {
 
 export function ResearchArea() {
   const { slug } = useParams();
-  const selected = researchLines.find((line) => line.slug === slug);
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const lines = english ? researchLinesEnglish : researchLines;
+  const selected = lines.find((line) => line.slug === slug);
   if (!selected) return <NotFound />;
   return (
     <>
-      <Intro eyebrow={`Pesquisa · Área ${selected.label}`} title={selected.title}>
+      <Intro
+        eyebrow={(english ? 'Research · Area ' : 'Pesquisa · Área ') + selected.label}
+        title={selected.title}
+      >
         <p>{selected.summary}</p>
       </Intro>
       <section className="section">
         <div className="container reading">
           <p className="lead">{selected.description}</p>
-          <h2>Perspectivas de investigação</h2>
+          <h2>{copy('Perspectivas de investigação', 'Research perspectives')}</h2>
           <ul className="topic-list">
             {selected.topics.map((topic) => (
               <li key={topic}>{topic}</li>
             ))}
           </ul>
           <div className="notice">
-            <h3>Pesquisa se faz em rede</h3>
+            <h3>{copy('Pesquisa se faz em rede', 'Research is built as a network')}</h3>
             <p>
-              O Instituto articula temas de investigação que conectam diferentes especialidades e
-              instituições em torno das tecnologias quânticas.
+              {copy(
+                'O Instituto articula temas de investigação que conectam diferentes especialidades e instituições em torno das tecnologias quânticas.',
+                'The Institute coordinates research themes connecting different specialties and institutions around quantum technologies.',
+              )}
             </p>
           </div>
           <div className="actions">
-            <Action to="/pesquisa#areas-de-pesquisa">Todas as áreas</Action>
-            <TextLink to="/pesquisa/jornada">Conheça a Jornada</TextLink>
+            <Action to="/pesquisa#areas-de-pesquisa">
+              {copy('Todas as áreas', 'All research areas')}
+            </Action>
+            <TextLink to="/pesquisa/jornada">
+              {copy('Conheça a Jornada', 'Discover the Journey')}
+            </TextLink>
           </div>
         </div>
       </section>
@@ -263,31 +372,53 @@ export function ResearchArea() {
 }
 
 export function Journey() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const lines = english ? researchLinesEnglish : researchLines;
+  const pathwayItems = english ? pathwayEnglish : pathway;
   return (
     <div className="research-experience">
       <Intro
-        eyebrow="Pesquisa e formação"
-        title={journeyTitle}
+        eyebrow={copy('Pesquisa e formação', 'Research and education')}
+        title={english ? journeyTitleEnglish : journeyTitle}
         id="jornada-inicio"
         sectionCode="4.B.1"
       >
-        <p>Conectando ciência, pessoas e inovação.</p>
-        <TextLink to="/pesquisa">Pesquisa e Jornada do Cientista Inovador</TextLink>
+        <p>
+          {copy(
+            'Conectando ciência, pessoas e inovação.',
+            'Connecting science, people, and innovation.',
+          )}
+        </p>
+        <TextLink to="/pesquisa">
+          {copy(
+            'Pesquisa e Jornada do Cientista Inovador',
+            'Research and Innovative Scientist Journey',
+          )}
+        </TextLink>
       </Intro>
 
       <section className="section" id="jornada-colaboracao" data-lcr-section-id="4.B.2">
         <div className="container split">
-          <Heading title="Aprender e pesquisar em colaboração." />
+          <Heading
+            title={copy(
+              'Aprender e pesquisar em colaboração.',
+              'Learning and researching together.',
+            )}
+          />
           <div className="body-copy">
             <p>
-              A Jornada é uma iniciativa do Instituto Foton que conecta pessoas de diferentes
-              formações para estudar tecnologias quânticas, desenvolver projetos e comunicar
-              ciência. O programa estimula o pensamento crítico e a troca de experiências entre
-              áreas.
+              {copy(
+                'A Jornada é uma iniciativa do Instituto Foton que conecta pessoas de diferentes formações para estudar tecnologias quânticas, desenvolver projetos e comunicar ciência. O programa estimula o pensamento crítico e a troca de experiências entre áreas.',
+                'The Journey is an Instituto Foton initiative connecting people from different backgrounds to study quantum technologies, develop projects, and communicate science. The program encourages critical thinking and exchange across fields.',
+              )}
             </p>
             <p>
-              A participação é educacional, colaborativa e voluntária, sem vínculo de emprego ou
-              garantia de bolsa ou remuneração.
+              {copy(
+                'A participação é educacional, colaborativa e voluntária, sem vínculo de emprego ou garantia de bolsa ou remuneração.',
+                'Participation is educational, collaborative, and voluntary, with no employment relationship or guarantee of a scholarship or compensation.',
+              )}
             </p>
           </div>
         </div>
@@ -300,16 +431,21 @@ export function Journey() {
       >
         <div className="container">
           <Heading title="Quantum Pathway">
-            A trilha avança em ciclos semestrais. As etapas indicam como o envolvimento e as
-            responsabilidades podem crescer ao longo da Jornada.
+            {copy(
+              'A trilha avança em ciclos semestrais. As etapas indicam como o envolvimento e as responsabilidades podem crescer ao longo da Jornada.',
+              'The pathway advances in six-month cycles. The stages show how involvement and responsibilities can grow throughout the Journey.',
+            )}
           </Heading>
-          <ol className="pathway-steps" aria-label="Etapas do Quantum Pathway">
-            {pathway.map(({ name, summary }, index) => (
+          <ol
+            className="pathway-steps"
+            aria-label={copy('Etapas do Quantum Pathway', 'Quantum Pathway stages')}
+          >
+            {pathwayItems.map(({ name, summary }, index) => (
               <InfoCard
                 as="li"
                 className="pathway-step"
                 key={name}
-                catalogId={`4.B.3.C${index + 1}`}
+                catalogId={'4.B.3.C' + (index + 1)}
                 inheritVisuals
               >
                 <h3>{name}</h3>
@@ -323,17 +459,20 @@ export function Journey() {
       <section className="section research-groups" id="jornada-grupos" data-lcr-section-id="4.B.4">
         <div className="container split">
           <div className="body-copy">
-            <Heading title="Grupos temáticos e atividades" />
+            <Heading
+              title={copy('Grupos temáticos e atividades', 'Thematic groups and activities')}
+            />
             <p>
-              Os encontros são principalmente on-line. Os grupos contam com apoio de coordenação e
-              podem conduzir estudos, desenvolver iniciativas e preparar materiais técnicos ou de
-              divulgação.
+              {copy(
+                'Os encontros são principalmente on-line. Os grupos contam com apoio de coordenação e podem conduzir estudos, desenvolver iniciativas e preparar materiais técnicos ou de divulgação.',
+                'Meetings are primarily online. Groups receive coordination support and may conduct studies, develop initiatives, and prepare technical or outreach materials.',
+              )}
             </p>
           </div>
           <ul className="topic-list">
-            {researchLines.map((line) => (
+            {lines.map((line) => (
               <li key={line.slug}>
-                <Link to={`/pesquisa/${line.slug}`}>
+                <Link to={'/pesquisa/' + line.slug}>
                   {line.title} <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               </li>
@@ -344,20 +483,27 @@ export function Journey() {
 
       <section className="section section-gray" id="jornada-eventos" data-lcr-section-id="4.B.5">
         <div className="container split">
-          <Heading title="Eventos e comunicação científica" />
+          <Heading
+            title={copy('Eventos e comunicação científica', 'Events and science communication')}
+          />
           <div className="body-copy">
             <p>
-              Cada etapa se encerra com um evento científico. Os grupos podem apresentar estudos,
-              compartilhar experiências em seminários e demonstrações e receber contribuições para
-              seus trabalhos.
+              {copy(
+                'Cada etapa se encerra com um evento científico. Os grupos podem apresentar estudos, compartilhar experiências em seminários e demonstrações e receber contribuições para seus trabalhos.',
+                'Each stage closes with a scientific event. Groups can present studies, share experiences in seminars and demonstrations, and receive feedback on their work.',
+              )}
             </p>
             <p>
-              Para conhecer oportunidades de participação na Jornada, converse com o Foton pelos
-              canais institucionais.
+              {copy(
+                'Para conhecer oportunidades de participação na Jornada, converse com o Foton pelos canais institucionais.',
+                'To learn about participation opportunities in the Journey, contact Foton through the institutional channels.',
+              )}
             </p>
             <div className="actions">
-              <Action to="/pesquisa#etapa-pulso">Veja o encerramento da Etapa Pulso</Action>
-              <TextLink to="/contato">Canais de contato</TextLink>
+              <Action to="/pesquisa#etapa-pulso">
+                {copy('Veja o encerramento da Etapa Pulso', 'See the Pulse Stage closing')}
+              </Action>
+              <TextLink to="/contato">{copy('Canais de contato', 'Contact channels')}</TextLink>
             </div>
           </div>
         </div>
@@ -367,35 +513,47 @@ export function Journey() {
 }
 
 export function HaQuantum() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const hq = english ? haQuantumEnglish : haQuantum;
   return (
     <div className="research-experience">
       <Intro
-        eyebrow="Eventos do Instituto Foton"
-        title={haQuantumTitle}
+        eyebrow={copy('Eventos do Instituto Foton', 'Instituto Foton events')}
+        title={english ? haQuantumTitleEnglish : haQuantumTitle}
         id="haquantum-inicio"
         sectionCode="4.C.1"
       >
         <HaQuantumDate />
-        <p>{haQuantum.partnership}</p>
-        <TextLink to="/pesquisa#eventos">Eventos e iniciativas</TextLink>
+        <p>{hq.partnership}</p>
+        <TextLink to="/pesquisa#eventos">
+          {copy('Eventos e iniciativas', 'Events and initiatives')}
+        </TextLink>
       </Intro>
 
       <section className="section" id="haquantum-desafios" data-lcr-section-id="4.C.2">
         <div className="container split">
-          <Heading title="Da otimização quântica a desafios reais." />
+          <Heading
+            title={copy(
+              'Da otimização quântica a desafios reais.',
+              'From quantum optimization to real challenges.',
+            )}
+          />
           <div className="body-copy">
-            <p>{haQuantum.summary}</p>
+            <p>{hq.summary}</p>
             <p>
-              O desafio propôs aplicar técnicas de otimização quântica para decidir entre várias
-              soluções possíveis de um problema complexo. Os grupos reuniram conhecimentos de
-              computação, ciência e inovação para testar e comunicar suas propostas.
+              {copy(
+                'O desafio propôs aplicar técnicas de otimização quântica para decidir entre várias soluções possíveis de um problema complexo. Os grupos reuniram conhecimentos de computação, ciência e inovação para testar e comunicar suas propostas.',
+                'The challenge proposed using quantum optimization techniques to choose among possible solutions to a complex problem. Groups combined knowledge of computing, science, and innovation to test and communicate their proposals.',
+              )}
             </p>
             <div className="actions research-event-actions">
-              <External className="button" href={haQuantum.rules}>
-                Consultar regulamento oficial
+              <External className="button" href={hq.rules}>
+                {copy('Consultar regulamento oficial', 'View official rules')}
               </External>
-              <External className="text-link" href={haQuantum.event}>
-                Página oficial do evento
+              <External className="text-link" href={hq.event}>
+                {copy('Página oficial do evento', 'Official event page')}
               </External>
             </div>
           </div>
@@ -404,27 +562,38 @@ export function HaQuantum() {
 
       <section className="section section-gray" id="haquantum-etapas" data-lcr-section-id="4.C.3">
         <div className="container">
-          <Heading title="Da preparação à apresentação final" />
+          <Heading
+            title={copy(
+              'Da preparação à apresentação final',
+              'From preparation to the final presentation',
+            )}
+          />
           <div className="research-event-stages">
             <InfoCard as="div" inheritVisuals catalogId="4.C.3.C1">
               <h3>Workshops</h3>
               <p>
-                Encontros on-line abordaram computação e otimização quânticas, a plataforma Ket,
-                inovação, negócios e comunicação de soluções.
+                {copy(
+                  'Encontros on-line abordaram computação e otimização quânticas, a plataforma Ket, inovação, negócios e comunicação de soluções.',
+                  'Online meetings covered quantum computing and optimization, the Ket platform, innovation, business, and communicating solutions.',
+                )}
               </p>
             </InfoCard>
             <InfoCard as="div" inheritVisuals catalogId="4.C.3.C2">
-              <h3>Desenvolvimento em equipes</h3>
+              <h3>{copy('Desenvolvimento em equipes', 'Team development')}</h3>
               <p>
-                As equipes elaboraram suas propostas e submeteram os trabalhos a uma avaliação
-                técnica.
+                {copy(
+                  'As equipes elaboraram suas propostas e submeteram os trabalhos a uma avaliação técnica.',
+                  'Teams developed their proposals and submitted their work for technical evaluation.',
+                )}
               </p>
             </InfoCard>
             <InfoCard as="div" inheritVisuals catalogId="4.C.3.C3">
-              <h3>Final no MOBI Festival</h3>
+              <h3>{copy('Final no MOBI Festival', 'MOBI Festival final')}</h3>
               <p>
-                As equipes finalistas apresentaram suas soluções em 11 de junho de 2026, na
-                Universidade de Sorocaba.
+                {copy(
+                  'As equipes finalistas apresentaram suas soluções em 11 de junho de 2026, na Universidade de Sorocaba.',
+                  'Finalist teams presented their solutions on June 11, 2026, at the University of Sorocaba.',
+                )}
               </p>
             </InfoCard>
           </div>
@@ -437,7 +606,7 @@ export function HaQuantum() {
         data-lcr-section-id="4.C.4"
       >
         <div className="container">
-          <Heading title="Registros do HaQuantum" />
+          <Heading title={copy('Registros do HaQuantum', 'HaQuantum records')} />
           <HaQuantumGallery />
         </div>
       </section>

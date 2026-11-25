@@ -3,6 +3,7 @@ import { ArrowUpRight, X } from 'lucide-react';
 import { assetUrl } from '../../../lib/siteAssets';
 import { PeopleGallery } from '../../../components/galleries/people/PeopleGallery';
 import { instituteTeam, type InstituteMember } from '../../../content/instituteTeam';
+import { useLanguage } from '../../../i18n';
 import './InstituteTeamDashboard.css';
 
 const levels = [
@@ -24,7 +25,125 @@ const levels = [
   },
 ] as const;
 
+const levelsEnglish = [
+  {
+    key: 'diretoria',
+    title: 'Executive Board',
+    subtitle: 'Institutional leadership and management.',
+  },
+  {
+    key: 'vice-presidencia',
+    title: 'Vice Presidencies',
+    subtitle: 'Strategic coordination, research, and education.',
+  },
+  {
+    key: 'adviser',
+    title: 'Board Advisers',
+    subtitle: 'Experience and knowledge to broaden our perspectives.',
+  },
+  {
+    key: 'coordenacao',
+    title: 'Our Scientific Coordination Teams',
+    subtitle: 'Specialized knowledge, interdisciplinary collaboration, and networked research.',
+  },
+] as const;
+
+const lineEnglish: Record<string, string> = {
+  'Computação Quântica': 'Quantum Computing',
+  'Comunicação e Criptografia Quântica': 'Quantum Communication and Cryptography',
+  'Sensores e Materiais Quânticos': 'Quantum Sensors and Materials',
+  'Algoritmos e Otimização': 'Algorithms and Optimization',
+  'Quântica para Negócios': 'Quantum for Business',
+  'Quantum no Direito': 'Quantum in Law',
+};
+
+const memberEnglish: Record<number, { role: string; roleDescription: string }> = {
+  63: {
+    role: 'President',
+    roleDescription:
+      'Leads strategic direction, institutional representation, and coordination of Instituto Foton.',
+  },
+  98: {
+    role: 'Vice President',
+    roleDescription:
+      'Supports the presidency, institutional alignment, and execution of the Institute’s priorities.',
+  },
+  20: {
+    role: 'Treasurer',
+    roleDescription:
+      'Oversees financial planning and supports responsible management of institutional resources.',
+  },
+  13: {
+    role: 'Secretary-General',
+    roleDescription:
+      'Supports institutional organization, records, and administrative coordination of the secretariat.',
+  },
+  15: {
+    role: 'VP of Strategic Relations',
+    roleDescription:
+      'Coordinates partnerships, strategic relations, and connections with organizations and institutions.',
+  },
+  61: {
+    role: 'VP of Research and Education',
+    roleDescription: 'Coordinates research, education, and academic collaboration initiatives.',
+  },
+  21: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Quantum Computing field.',
+  },
+  109: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Quantum Communication and Cryptography field.',
+  },
+  71: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Quantum Sensors and Materials field.',
+  },
+  110: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Algorithms and Optimization field.',
+  },
+  65: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Algorithms and Optimization field.',
+  },
+  52: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Quantum for Business field.',
+  },
+  107: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Quantum for Business field.',
+  },
+  18: {
+    role: 'Scientific Coordinator',
+    roleDescription:
+      'Coordinates researchers, initiatives, and interdisciplinary collaboration in the Quantum in Law field.',
+  },
+  64: {
+    role: 'Board Adviser',
+    roleDescription: 'Provides strategic advice and contributes experience to institutional work.',
+  },
+  45: {
+    role: 'Board Adviser',
+    roleDescription: 'Supports institutional decisions with professional advice and experience.',
+  },
+  51: {
+    role: 'Board Adviser',
+    roleDescription: 'Contributes to strategic direction and institutional connections.',
+  },
+};
+
 function ProfileDialog({ member, onClose }: { member: InstituteMember; onClose: () => void }) {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
   const closeButton = useRef<HTMLButtonElement>(null);
   const dialog = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -74,31 +193,35 @@ function ProfileDialog({ member, onClose }: { member: InstituteMember; onClose: 
           ref={closeButton}
           onClick={onClose}
           type="button"
-          aria-label="Fechar perfil"
+          aria-label={english ? 'Close profile' : 'Fechar perfil'}
         >
           <X size={22} />
         </button>
         <img
           src={assetUrl(member.photo)}
-          alt={`Fotografia de ${member.fullName}`}
+          alt={english ? `Photograph of ${member.fullName}` : `Fotografia de ${member.fullName}`}
           width={320}
           height={360}
         />
         <div className="team-dialog-copy">
-          <p className="team-label">Nossa Equipe</p>
+          <p className="team-label">{english ? 'Our Team' : 'Nossa Equipe'}</p>
           <h3 id="team-profile-name">{member.fullName}</h3>
           <strong>{member.role}</strong>
           {member.thematicLine && <p className="team-thematic">{member.thematicLine}</p>}
           {member.shortBio && (
             <>
-              <h4>Trajetória profissional</h4>
+              <h4>{english ? 'Professional background' : 'Trajetória profissional'}</h4>
               <p>{member.shortBio}</p>
             </>
           )}
-          <h4>Atuação no Foton</h4>
+          <h4>{english ? 'Role at Foton' : 'Atuação no Foton'}</h4>
           <p>{member.roleDescription}</p>
           {!member.shortBio && (
-            <p className="team-bio-note">Biografia profissional em atualização.</p>
+            <p className="team-bio-note">
+              {english
+                ? 'Professional biography under review.'
+                : 'Biografia profissional em atualização.'}
+            </p>
           )}
           <div className="team-profile-links">
             {member.linkedin && (
@@ -119,9 +242,22 @@ function ProfileDialog({ member, onClose }: { member: InstituteMember; onClose: 
 }
 
 export default function InstituteTeamDashboard() {
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const team = english
+    ? instituteTeam.map((member) => ({
+        ...member,
+        role: memberEnglish[member.id]?.role ?? member.role,
+        roleDescription: memberEnglish[member.id]?.roleDescription ?? member.roleDescription,
+        thematicLine: member.thematicLine
+          ? (lineEnglish[member.thematicLine] ?? member.thematicLine)
+          : member.thematicLine,
+      }))
+    : instituteTeam;
+  const activeLevels = english ? levelsEnglish : levels;
   const [selected, setSelected] = useState<InstituteMember | null>(null);
   const grouped = (level: InstituteMember['level']) =>
-    instituteTeam.filter((member) => member.level === level);
+    team.filter((member) => member.level === level);
   return (
     <section
       id="equipe"
@@ -131,28 +267,39 @@ export default function InstituteTeamDashboard() {
     >
       <div className="container">
         <div className="team-intro">
-          <p className="team-label">Nossa Equipe</p>
-          <h2 id="team-heading">As pessoas que constroem o Foton</h2>
-          <p className="team-subtitle">Diferentes trajetórias. Um propósito em comum.</p>
+          <p className="team-label">{english ? 'Our Team' : 'Nossa Equipe'}</p>
+          <h2 id="team-heading">
+            {english ? 'The people building Foton' : 'As pessoas que constroem o Foton'}
+          </h2>
+          <p className="team-subtitle">
+            {english
+              ? 'Different paths. One shared purpose.'
+              : 'Diferentes trajetórias. Um propósito em comum.'}
+          </p>
           <p>
-            O Instituto Foton reúne lideranças, pesquisadores e profissionais de diferentes áreas do
-            conhecimento. Nossa estrutura multidisciplinar conecta ciência, tecnologia, educação e
-            estratégia para fortalecer o desenvolvimento das tecnologias quânticas no Brasil.
+            {english
+              ? 'Instituto Foton brings together leaders, researchers, and professionals from different fields of knowledge. Our multidisciplinary structure connects science, technology, education, and strategy to strengthen quantum technology development in Brazil.'
+              : 'O Instituto Foton reúne lideranças, pesquisadores e profissionais de diferentes áreas do conhecimento. Nossa estrutura multidisciplinar conecta ciência, tecnologia, educação e estratégia para fortalecer o desenvolvimento das tecnologias quânticas no Brasil.'}
           </p>
         </div>
-        <div className="team-stats" aria-label="Composição da equipe">
+        <div
+          className="team-stats"
+          aria-label={english ? 'Team composition' : 'Composição da equipe'}
+        >
           <span>
             <strong>{grouped('diretoria').length + grouped('vice-presidencia').length}</strong>{' '}
-            Diretoria e Vice-Presidências
+            {english ? 'Board and Vice Presidencies' : 'Diretoria e Vice-Presidências'}
           </span>
           <span>
-            <strong>{grouped('coordenacao').length}</strong> Coordenação Científica
+            <strong>{grouped('coordenacao').length}</strong>{' '}
+            {english ? 'Scientific Coordination' : 'Coordenação Científica'}
           </span>
           <span>
-            <strong>{grouped('adviser').length}</strong> Conselheiros e Advisers
+            <strong>{grouped('adviser').length}</strong>{' '}
+            {english ? 'Board Advisers' : 'Conselheiros e Advisers'}
           </span>
         </div>
-        {levels.map(({ key, title, subtitle }) => {
+        {activeLevels.map(({ key, title, subtitle }) => {
           const members = grouped(key);
           const lines =
             key === 'coordenacao'
