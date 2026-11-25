@@ -70,40 +70,42 @@ document.addEventListener('visibilitychange', () => {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <LanguageProvider>\n        <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <Suspense
-        fallback={
-          <p className="container status" role="status">
-            Carregando a página…
-          </p>
-        }
-      >
-        <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="instituto" element={<Institute />} />
-            <Route path="pesquisa" element={<Research />} />
-            <Route path="parceiros" element={<PartnersPage />} />
-            <Route path="pesquisa/jornada" element={<Journey />} />
-            <Route path="pesquisa/haquantum" element={<HaQuantum />} />
-            <Route path="pesquisa/:slug" element={<ResearchArea />} />
-            <Route path="jornada" element={<LegacyJourneyRedirect />} />
-            <Route path="manifesto" element={<Manifesto />} />
-            <Route path="apoie" element={<Support />} />
-            <Route path="noticias" element={<News />} />
-            <Route path="redes-sociais" element={<SocialMediaPage />} />
-            <Route path="noticias/:slug" element={<Article />} />
-            <Route path="apresentacao" element={<Presentation />} />
-            <Route path="contato" element={<Contact />} />
-            <Route path="entrar" element={<Access />} />
-            <Route path="auth/callback" element={<Access />} />
-            <Route path="admin/*" element={<Access />} />
-            <Route path="privacidade" element={<Legal />} />
-            <Route path="termos" element={<Legal terms />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </Suspense>
+    <LanguageProvider>
+      \n{' '}
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <Suspense
+          fallback={
+            <p className="container status" role="status">
+              Carregando a página…
+            </p>
+          }
+        >
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="instituto" element={<Institute />} />
+              <Route path="pesquisa" element={<Research />} />
+              <Route path="parceiros" element={<PartnersPage />} />
+              <Route path="pesquisa/jornada" element={<Journey />} />
+              <Route path="pesquisa/haquantum" element={<HaQuantum />} />
+              <Route path="pesquisa/:slug" element={<ResearchArea />} />
+              <Route path="jornada" element={<LegacyJourneyRedirect />} />
+              <Route path="manifesto" element={<Manifesto />} />
+              <Route path="apoie" element={<Support />} />
+              <Route path="noticias" element={<News />} />
+              <Route path="redes-sociais" element={<SocialMediaPage />} />
+              <Route path="noticias/:slug" element={<Article />} />
+              <Route path="apresentacao" element={<Presentation />} />
+              <Route path="contato" element={<Contact />} />
+              <Route path="entrar" element={<Access />} />
+              <Route path="auth/callback" element={<Access />} />
+              <Route path="admin/*" element={<Access />} />
+              <Route path="privacidade" element={<Legal />} />
+              <Route path="termos" element={<Legal terms />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </LanguageProvider>
   </React.StrictMode>,
