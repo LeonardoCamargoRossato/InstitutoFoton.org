@@ -103,6 +103,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           </Route>
         </Routes>
       </Suspense>
-    </BrowserRouter>
+      </BrowserRouter>
+    </LanguageProvider>
   </React.StrictMode>,
 );
