@@ -44,7 +44,9 @@ export default function Layout() {
     const pageTitle =
       isEnglish && location.pathname === '/parceiros'
         ? 'Partner Ecosystem'
-        : titles[location.pathname] || 'Instituto Foton';
+        : isEnglish && location.pathname === '/manifesto'
+          ? 'National Quantum Manifesto'
+          : titles[location.pathname] || 'Instituto Foton';
     document.title = `${pageTitle} — Instituto Foton`;
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (description)
