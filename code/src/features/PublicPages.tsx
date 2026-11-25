@@ -120,13 +120,22 @@ export function Home() {
           />
           <div className="body-copy">
             <blockquote>
-              {copy('“Transformar ciência de fronteira em decisões, soluções e oportunidades.”', '“Turning frontier science into decisions, solutions and opportunities.”')}
+              {copy(
+                '“Transformar ciência de fronteira em decisões, soluções e oportunidades.”',
+                '“Turning frontier science into decisions, solutions and opportunities.”',
+              )}
             </blockquote>
             <p>
-              {copy('O Foton busca articular inteligência estratégica, educação, pesquisa aplicada e diálogo entre ciência, organizações e sociedade.', 'Foton connects strategic intelligence, education, applied research, and dialogue between science, organizations, and society.')}
+              {copy(
+                'O Foton busca articular inteligência estratégica, educação, pesquisa aplicada e diálogo entre ciência, organizações e sociedade.',
+                'Foton connects strategic intelligence, education, applied research, and dialogue between science, organizations, and society.',
+              )}
             </p>
             <p>
-              {copy('As tecnologias quânticas abrem novas perspectivas para comunicação, segurança, saúde, energia e indústria. O Foton articula conhecimento, pesquisa e diálogo em torno dessas transformações.', 'Quantum technologies open new perspectives for communication, security, health, energy, and industry. Foton connects knowledge, research, and dialogue around these transformations.')}
+              {copy(
+                'As tecnologias quânticas abrem novas perspectivas para comunicação, segurança, saúde, energia e indústria. O Foton articula conhecimento, pesquisa e diálogo em torno dessas transformações.',
+                'Quantum technologies open new perspectives for communication, security, health, energy, and industry. Foton connects knowledge, research, and dialogue around these transformations.',
+              )}
             </p>
           </div>
         </div>
@@ -141,12 +150,18 @@ export function Home() {
           <div className="heading-row">
             <Heading
               eyebrow={copy('Ecossistema Foton', 'Foton Ecosystem')}
-              title={copy('Ciência conectada em diferentes regiões.', 'Connected science across different regions.')}
+              title={copy(
+                'Ciência conectada em diferentes regiões.',
+                'Connected science across different regions.',
+              )}
             />
             <TextLink to="/instituto">{copy('Sobre a rede', 'About the network')}</TextLink>
           </div>
           <p className="section-description">
-            {copy('O Foton reúne trajetórias de diferentes áreas do conhecimento e conecta pessoas, pesquisadores e instituições em diferentes regiões do Brasil.', 'Foton brings together paths from different fields of knowledge and connects people, researchers, and institutions across Brazil.')}
+            {copy(
+              'O Foton reúne trajetórias de diferentes áreas do conhecimento e conecta pessoas, pesquisadores e instituições em diferentes regiões do Brasil.',
+              'Foton brings together paths from different fields of knowledge and connects people, researchers, and institutions across Brazil.',
+            )}
           </p>
           <div className="documentary-metrics institutional-metrics">
             <InfoCard as="div" inheritVisuals catalogId="1.3.C1">
@@ -157,7 +172,12 @@ export function Home() {
               <strong>140+</strong>
               <span>{copy('membros registrados', 'registered members')}</span>
             </InfoCard>
-            <p className="metrics-source">{copy('Indicadores institucionais da rede Foton.', 'Institutional indicators of the Foton network.')}</p>
+            <p className="metrics-source">
+              {copy(
+                'Indicadores institucionais da rede Foton.',
+                'Institutional indicators of the Foton network.',
+              )}
+            </p>
           </div>
         </div>
       </section>
@@ -171,7 +191,10 @@ export function Home() {
             />
           </div>
           <p className="section-description">
-            {copy('Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.', 'Explore Foton’s research, education, innovation, and collaboration initiatives.')}
+            {copy(
+              'Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.',
+              'Explore Foton’s research, education, innovation, and collaboration initiatives.',
+            )}
           </p>
           <div className="research-grid institutional-programs">
             {programs.map((program, index) => (
@@ -213,13 +236,19 @@ export function Home() {
               to="/apresentacao"
               data-lcr-card-id="1.5.C1"
               className="presentation-preview-link"
-              aria-label={copy('Visualizar o PDF da apresentação institucional do Foton', 'View Foton’s institutional presentation PDF')}
+              aria-label={copy(
+                'Visualizar o PDF da apresentação institucional do Foton',
+                'View Foton’s institutional presentation PDF',
+              )}
             >
               <span className="presentation-preview-stack">
                 <img
                   className="presentation-preview-image presentation-preview-back"
                   src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina02.webp')}
-                  alt={copy('Segunda página da apresentação institucional do Foton', 'Second page of Foton’s institutional presentation')}
+                  alt={copy(
+                    'Segunda página da apresentação institucional do Foton',
+                    'Second page of Foton’s institutional presentation',
+                  )}
                   width={1200}
                   height={675}
                   loading="lazy"
@@ -228,7 +257,10 @@ export function Home() {
                 <img
                   className="presentation-preview-image presentation-preview-front"
                   src={assetUrl('assets/WebP/apresentacao/ApresentacaoFotonPagina01.webp')}
-                  alt={copy('Capa oficial da apresentação institucional do Foton', 'Official cover of Foton’s institutional presentation')}
+                  alt={copy(
+                    'Capa oficial da apresentação institucional do Foton',
+                    'Official cover of Foton’s institutional presentation',
+                  )}
                   width={1200}
                   height={675}
                   loading="lazy"
@@ -240,7 +272,10 @@ export function Home() {
               </span>
             </Link>
             <p className="presentation-preview-caption">
-              {copy('Clique na imagem para acessar o PDF da apresentação institucional do Foton.', 'Click the image to open Foton’s institutional presentation PDF.')}
+              {copy(
+                'Clique na imagem para acessar o PDF da apresentação institucional do Foton.',
+                'Click the image to open Foton’s institutional presentation PDF.',
+              )}
             </p>
           </div>
         </div>
@@ -260,7 +295,10 @@ export function Home() {
           />
           <div className="body-copy">
             <p>
-              {copy('Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos nossos canais de contato.', 'Talk to Foton about science, research, collaboration, and new connections through our contact channels.')}
+              {copy(
+                'Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos nossos canais de contato.',
+                'Talk to Foton about science, research, collaboration, and new connections through our contact channels.',
+              )}
             </p>
             <div className="institutional-contact-actions">
               <Action to="/contato">{copy('Canais de contato', 'Contact channels')}</Action>
