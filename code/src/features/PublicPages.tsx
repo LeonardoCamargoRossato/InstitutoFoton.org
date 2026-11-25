@@ -5,6 +5,7 @@ import { ArrowUpRight, ArrowDown, Network, Compass, BookOpen } from 'lucide-reac
 import { Action, TextLink, Intro, Heading, External } from '../components/ui';
 import { ActionCard, InfoCard } from '../components/cards';
 import { assetUrl } from '../lib/siteAssets';
+import { useLanguage } from '../i18n';
 import PartnerEcosystem from './PartnerEcosystem';
 import {
   HomeAtomEntrance,
@@ -20,49 +21,91 @@ import ManifestoHero from './ManifestoHero';
 const ManifestoMedia = lazy(() => import('./ManifestoMedia'));
 
 export function Home() {
-  const programs = [
-    {
-      title: 'Pesquisa, Desenvolvimento e Inovação',
-      description: 'Investigação científica e pesquisa aplicada em tecnologias quânticas.',
-      to: '/pesquisa',
-    },
-    {
-      title: 'Quantum for Business',
-      description: 'Diálogo entre conhecimento científico, estratégia e organizações.',
-      to: '/contato',
-    },
-    {
-      title: 'Manifesto Quântico Nacional',
-      description: 'Articulação de uma agenda nacional e acesso às cartas e registros públicos.',
-      to: '/manifesto',
-    },
-    {
-      title: 'Jornada do Cientista Inovador',
-      description: 'Formação, conexões e aproximação de pessoas com a ciência.',
-      to: '/pesquisa/jornada',
-    },
-  ];
+  const { locale } = useLanguage();
+  const english = locale === 'en-US';
+  const copy = (pt: string, en: string) => (english ? en : pt);
+  const programs = english
+    ? [
+        {
+          title: 'Research, Development and Innovation',
+          description: 'Scientific investigation and applied research in quantum technologies.',
+          to: '/pesquisa',
+        },
+        {
+          title: 'Quantum for Business',
+          description: 'Dialogue between scientific knowledge, strategy and organizations.',
+          to: '/contato',
+        },
+        {
+          title: 'National Quantum Manifesto',
+          description: 'A national agenda and access to public letters and records.',
+          to: '/manifesto',
+        },
+        {
+          title: 'Innovative Scientist Journey',
+          description: 'Training, connections and bringing people closer to science.',
+          to: '/pesquisa/jornada',
+        },
+      ]
+    : [
+        {
+          title: 'Pesquisa, Desenvolvimento e Inovação',
+          description: 'Investigação científica e pesquisa aplicada em tecnologias quânticas.',
+          to: '/pesquisa',
+        },
+        {
+          title: 'Quantum for Business',
+          description: 'Diálogo entre conhecimento científico, estratégia e organizações.',
+          to: '/contato',
+        },
+        {
+          title: 'Manifesto Quântico Nacional',
+          description:
+            'Articulação de uma agenda nacional e acesso às cartas e registros públicos.',
+          to: '/manifesto',
+        },
+        {
+          title: 'Jornada do Cientista Inovador',
+          description: 'Formação, conexões e aproximação de pessoas com a ciência.',
+          to: '/pesquisa/jornada',
+        },
+      ];
   return (
     <>
       <section className="home-hero home-hero-minimal" id="inicio-capa" data-lcr-section-id="1.1">
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">
-              <span /> Instituto Foton · Ciências e Tecnologias Quânticas
+              <span />{' '}
+              {copy(
+                'Instituto Foton · Ciências e Tecnologias Quânticas',
+                'Instituto Foton · Quantum Sciences and Technologies',
+              )}
             </p>
             <h1>
-              Transformar ciência de fronteira em <em>decisões, soluções e oportunidades.</em>
+              {copy('Transformar ciência de fronteira em ', 'Turning frontier science into ')}
+              <em>
+                {copy(
+                  'decisões, soluções e oportunidades.',
+                  'decisions, solutions and opportunities.',
+                )}
+              </em>
             </h1>
             <p className="hero-description">
-              Tecnologia através da ciência. Articulamos conhecimento, formação e pesquisa para
-              aproximar as tecnologias quânticas de desafios reais da sociedade.
+              {copy(
+                'Tecnologia através da ciência. Articulamos conhecimento, formação e pesquisa para aproximar as tecnologias quânticas de desafios reais da sociedade.',
+                'Technology through science. We connect knowledge, education and research to bring quantum technologies closer to real challenges in society.',
+              )}
             </p>
             <div className="actions">
-              <Action to="/instituto">Conheça o Foton</Action>
-              <TextLink to="/apresentacao">Apresentação institucional</TextLink>
+              <Action to="/instituto">{copy('Conheça o Foton', 'Discover Foton')}</Action>
+              <TextLink to="/apresentacao">
+                {copy('Apresentação institucional', 'Institutional presentation')}
+              </TextLink>
             </div>
             <a className="scroll-hint" href="#porque-existe">
-              <ArrowDown size={15} aria-hidden="true" /> Entenda nosso propósito
+              <ArrowDown size={15} aria-hidden="true" />{' '}
+              {copy('Entenda nosso propósito', 'Understand our purpose')}
             </a>
           </div>
           <HomeAtomEntrance />
@@ -71,7 +114,10 @@ export function Home() {
 
       <section className="section spectral-divider" id="porque-existe" data-lcr-section-id="1.2">
         <div className="container split">
-          <Heading eyebrow="Por que o Foton existe?" title="A Era Quântica Já Começou." />
+          <Heading
+            eyebrow="{copy('Por que o Foton existe?', 'Why does Foton exist?')}"
+            title="{copy('A Era Quântica Já Começou.', 'The Quantum Era Has Begun.')}"
+          />
           <div className="body-copy">
             <blockquote>
               “Transformar ciência de fronteira em decisões, soluções e oportunidades.”
@@ -96,8 +142,11 @@ export function Home() {
       >
         <div className="container">
           <div className="heading-row">
-            <Heading eyebrow="Ecossistema Foton" title="Ciência conectada em diferentes regiões." />
-            <TextLink to="/instituto">Sobre a rede</TextLink>
+            <Heading
+              eyebrow="{copy('Ecossistema Foton', 'Foton Ecosystem')}"
+              title="{copy('Ciência conectada em diferentes regiões.', 'Connected science across different regions.')}"
+            />
+            <TextLink to="/instituto">{copy('Sobre a rede', 'About the network')}</TextLink>
           </div>
           <p className="section-description">
             O Foton reúne trajetórias de diferentes áreas do conhecimento e conecta pessoas,
@@ -106,11 +155,11 @@ export function Home() {
           <div className="documentary-metrics institutional-metrics">
             <InfoCard as="div" inheritVisuals catalogId="1.3.C1">
               <strong>15</strong>
-              <span>estados representados</span>
+              <span>{copy('estados representados', 'states represented')}</span>
             </InfoCard>
             <InfoCard as="div" inheritVisuals catalogId="1.3.C2">
               <strong>140+</strong>
-              <span>membros registrados</span>
+              <span>{copy('membros registrados', 'registered members')}</span>
             </InfoCard>
             <p className="metrics-source">Indicadores institucionais da rede Foton.</p>
           </div>
@@ -120,7 +169,10 @@ export function Home() {
       <section className="section spectral-divider" id="frentes" data-lcr-section-id="1.4">
         <div className="container">
           <div className="heading-row">
-            <Heading eyebrow="Frentes e programas" title="Do conhecimento à articulação." />
+            <Heading
+              eyebrow="{copy('Frentes e programas', 'Programs and initiatives')}"
+              title="{copy('Do conhecimento à articulação.', 'From knowledge to collaboration.')}"
+            />
           </div>
           <p className="section-description">
             Conheça as frentes de pesquisa, formação, inovação e articulação do Foton.
@@ -140,7 +192,7 @@ export function Home() {
                 <h3>{program.title}</h3>
                 <p>{program.description}</p>
                 <span className="card-link">
-                  Saiba mais <ArrowUpRight size={18} aria-hidden="true" />
+                  {copy('Saiba mais', 'Learn more')} <ArrowUpRight size={18} aria-hidden="true" />
                 </span>
               </ActionCard>
             ))}
@@ -155,7 +207,10 @@ export function Home() {
       >
         <div className="container presentation-feature-layout">
           <div className="presentation-feature-copy">
-            <Heading eyebrow="Documento institucional" title="Conheça a apresentação do Foton." />
+            <Heading
+              eyebrow="{copy('Documento institucional', 'Institutional document')}"
+              title="{copy('Conheça a apresentação do Foton.', 'Discover Foton’s presentation.')}"
+            />
           </div>
           <div className="presentation-feature-media">
             <Link
@@ -184,7 +239,7 @@ export function Home() {
                   decoding="async"
                 />
                 <span className="presentation-preview-action" aria-hidden="true">
-                  Visualizar apresentação <ArrowUpRight size={20} />
+                  {copy('Visualizar apresentação', 'View presentation')} <ArrowUpRight size={20} />
                 </span>
               </span>
             </Link>
@@ -203,14 +258,17 @@ export function Home() {
         data-lcr-section-id="1.7"
       >
         <div className="container split">
-          <Heading eyebrow="Contato" title="Converse com o Foton." />
+          <Heading
+            eyebrow="{copy('Contato', 'Contact')}"
+            title="{copy('Converse com o Foton.', 'Talk to Foton.')}"
+          />
           <div className="body-copy">
             <p>
               Converse com o Foton sobre ciência, pesquisa, colaboração e novas conexões pelos
               nossos canais de contato.
             </p>
             <div className="institutional-contact-actions">
-              <Action to="/contato">Canais de contato</Action>
+              <Action to="/contato">{copy('Canais de contato', 'Contact channels')}</Action>
             </div>
           </div>
         </div>
