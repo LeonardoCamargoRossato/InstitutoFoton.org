@@ -4,6 +4,7 @@ import { assetUrl } from '../../../lib/siteAssets';
 import { PeopleGallery } from '../../../components/galleries/people/PeopleGallery';
 import { instituteTeam, type InstituteMember } from '../../../content/instituteTeam';
 import { useLanguage } from '../../../i18n';
+import { localizedCopy } from '../../../i18n/localizedCopy';
 import './InstituteTeamDashboard.css';
 
 const levels = [
@@ -143,7 +144,7 @@ const memberEnglish: Record<number, { role: string; roleDescription: string }> =
 
 function ProfileDialog({ member, onClose }: { member: InstituteMember; onClose: () => void }) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const closeButton = useRef<HTMLButtonElement>(null);
   const dialog = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -193,34 +194,35 @@ function ProfileDialog({ member, onClose }: { member: InstituteMember; onClose: 
           ref={closeButton}
           onClick={onClose}
           type="button"
-          aria-label={english ? 'Close profile' : 'Fechar perfil'}
+          aria-label={copy('Fechar perfil', 'Close profile')}
         >
           <X size={22} />
         </button>
         <img
           src={assetUrl(member.photo)}
-          alt={english ? `Photograph of ${member.fullName}` : `Fotografia de ${member.fullName}`}
+          alt={`${copy('Fotografia de', 'Photograph of')} ${member.fullName}`}
           width={320}
           height={360}
         />
         <div className="team-dialog-copy">
-          <p className="team-label">{english ? 'Our Team' : 'Nossa Equipe'}</p>
+          <p className="team-label">{copy('Nossa Equipe', 'Our Team')}</p>
           <h3 id="team-profile-name">{member.fullName}</h3>
           <strong>{member.role}</strong>
           {member.thematicLine && <p className="team-thematic">{member.thematicLine}</p>}
           {member.shortBio && (
             <>
-              <h4>{english ? 'Professional background' : 'Trajetória profissional'}</h4>
+              <h4>{copy('Trajetória profissional', 'Professional background')}</h4>
               <p>{member.shortBio}</p>
             </>
           )}
-          <h4>{english ? 'Role at Foton' : 'Atuação no Foton'}</h4>
+          <h4>{copy('Atuação no Foton', 'Role at Foton')}</h4>
           <p>{member.roleDescription}</p>
           {!member.shortBio && (
             <p className="team-bio-note">
-              {english
-                ? 'Professional biography under review.'
-                : 'Biografia profissional em atualização.'}
+              {copy(
+                'Biografia profissional em atualização.',
+                'Professional biography under review.',
+              )}
             </p>
           )}
           <div className="team-profile-links">
@@ -243,18 +245,23 @@ function ProfileDialog({ member, onClose }: { member: InstituteMember; onClose: 
 
 export default function InstituteTeamDashboard() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const team = english
-    ? instituteTeam.map((member) => ({
-        ...member,
-        role: memberEnglish[member.id]?.role ?? member.role,
-        roleDescription: memberEnglish[member.id]?.roleDescription ?? member.roleDescription,
-        thematicLine: member.thematicLine
-          ? (lineEnglish[member.thematicLine] ?? member.thematicLine)
-          : member.thematicLine,
-      }))
-    : instituteTeam;
-  const activeLevels = english ? levelsEnglish : levels;
+  const copy = localizedCopy(locale);
+  const team = instituteTeam.map((member) => ({
+    ...member,
+    role: copy(member.role, memberEnglish[member.id]?.role ?? member.role),
+    roleDescription: copy(
+      member.roleDescription,
+      memberEnglish[member.id]?.roleDescription ?? member.roleDescription,
+    ),
+    thematicLine: member.thematicLine
+      ? copy(member.thematicLine, lineEnglish[member.thematicLine] ?? member.thematicLine)
+      : member.thematicLine,
+  }));
+  const activeLevels = levels.map((level, index) => ({
+    ...level,
+    title: copy(level.title, levelsEnglish[index].title),
+    subtitle: copy(level.subtitle, levelsEnglish[index].subtitle),
+  }));
   const [selected, setSelected] = useState<InstituteMember | null>(null);
   const grouped = (level: InstituteMember['level']) =>
     team.filter((member) => member.level === level);
@@ -267,36 +274,35 @@ export default function InstituteTeamDashboard() {
     >
       <div className="container">
         <div className="team-intro">
-          <p className="team-label">{english ? 'Our Team' : 'Nossa Equipe'}</p>
+          <p className="team-label">{copy('Nossa Equipe', 'Our Team')}</p>
           <h2 id="team-heading">
-            {english ? 'The people building Foton' : 'As pessoas que constroem o Foton'}
+            {copy('As pessoas que constroem o Foton', 'The people building Foton')}
           </h2>
           <p className="team-subtitle">
-            {english
-              ? 'Different paths. One shared purpose.'
-              : 'Diferentes trajetórias. Um propósito em comum.'}
+            {copy(
+              'Diferentes trajetórias. Um propósito em comum.',
+              'Different paths. One shared purpose.',
+            )}
           </p>
           <p>
-            {english
-              ? 'Instituto Foton brings together leaders, researchers, and professionals from different fields of knowledge. Our multidisciplinary structure connects science, technology, education, and strategy to strengthen quantum technology development in Brazil.'
-              : 'O Instituto Foton reúne lideranças, pesquisadores e profissionais de diferentes áreas do conhecimento. Nossa estrutura multidisciplinar conecta ciência, tecnologia, educação e estratégia para fortalecer o desenvolvimento das tecnologias quânticas no Brasil.'}
+            {copy(
+              'O Instituto Foton reúne lideranças, pesquisadores e profissionais de diferentes áreas do conhecimento. Nossa estrutura multidisciplinar conecta ciência, tecnologia, educação e estratégia para fortalecer o desenvolvimento das tecnologias quânticas no Brasil.',
+              'Instituto Foton brings together leaders, researchers, and professionals from different fields of knowledge. Our multidisciplinary structure connects science, technology, education, and strategy to strengthen quantum technology development in Brazil.',
+            )}
           </p>
         </div>
-        <div
-          className="team-stats"
-          aria-label={english ? 'Team composition' : 'Composição da equipe'}
-        >
+        <div className="team-stats" aria-label={copy('Composição da equipe', 'Team composition')}>
           <span>
             <strong>{grouped('diretoria').length + grouped('vice-presidencia').length}</strong>{' '}
-            {english ? 'Board and Vice Presidencies' : 'Diretoria e Vice-Presidências'}
+            {copy('Diretoria e Vice-Presidências', 'Board and Vice Presidencies')}
           </span>
           <span>
             <strong>{grouped('coordenacao').length}</strong>{' '}
-            {english ? 'Scientific Coordination' : 'Coordenação Científica'}
+            {copy('Coordenação Científica', 'Scientific Coordination')}
           </span>
           <span>
             <strong>{grouped('adviser').length}</strong>{' '}
-            {english ? 'Board Advisers' : 'Conselheiros e Advisers'}
+            {copy('Conselheiros e Advisers', 'Board Advisers')}
           </span>
         </div>
         {activeLevels.map(({ key, title, subtitle }) => {
