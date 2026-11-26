@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import { LanguageProvider } from './i18n';
+import { LanguageProvider, useLanguage } from './i18n';
 import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import '@fontsource/raleway/latin-400.css';
 import '@fontsource/raleway/latin-500.css';
@@ -41,6 +41,15 @@ function LegacyJourneyRedirect() {
   return <Navigate to={{ pathname: '/pesquisa/jornada', search, hash }} replace />;
 }
 
+function RouteLoading() {
+  const { locale } = useLanguage();
+  return (
+    <p className="container status" role="status">
+      {locale === 'en-US' ? 'Loading page…' : 'Carregando a página…'}
+    </p>
+  );
+}
+
 const deployedVersion = async () => {
   try {
     const response = await fetch(`${import.meta.env.BASE_URL}version.json?t=${Date.now()}`, {
@@ -71,15 +80,8 @@ document.addEventListener('visibilitychange', () => {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <LanguageProvider>
-      \n{' '}
       <BrowserRouter basename={import.meta.env.BASE_URL}>
-        <Suspense
-          fallback={
-            <p className="container status" role="status">
-              Carregando a página…
-            </p>
-          }
-        >
+        <Suspense fallback={<RouteLoading />}>
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<Home />} />
