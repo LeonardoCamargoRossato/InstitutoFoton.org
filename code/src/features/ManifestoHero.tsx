@@ -106,7 +106,6 @@ function BrazilConstellation() {
 
 export default function ManifestoHero() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   return (
     <section

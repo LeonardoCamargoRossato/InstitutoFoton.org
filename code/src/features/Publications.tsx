@@ -20,7 +20,6 @@ import { localizedCopy } from '../i18n/localizedCopy';
 
 export function PublicationCard({ item }: { item: Publication }) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const body = (
     <>
@@ -117,7 +116,6 @@ function ArticleBody({ item, media }: { item: Publication; media: typeof newsMed
 
 export function News() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('');

@@ -1,10 +1,11 @@
 import { LockKeyhole } from 'lucide-react';
 import { Intro, Action } from '../components/ui';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 
 export default function Access() {
   const { locale } = useLanguage();
-  const copy = (pt: string, en: string) => (locale === 'en-US' ? en : pt);
+  const copy = localizedCopy(locale);
   return (
     <>
       <Intro

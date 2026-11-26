@@ -1,8 +1,9 @@
 import researchLinesPt from '../content/research-lines.json';
 import researchLinesEnglish from '../content/research-lines.en.json';
+import researchLinesSpanish from '../content/research-lines.es.json';
 
 export const researchLines = researchLinesPt;
-export { researchLinesEnglish };
+export { researchLinesEnglish, researchLinesSpanish };
 
 export const researchTitle = 'Pesquisa e Jornada do Cientista Inovador';
 export const researchTitleEnglish = 'Research and Innovative Scientist Journey';

@@ -20,7 +20,6 @@ const logoGroups = approvedGroups.map((group) => ({
 
 export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const tierTranslations: Record<string, string> = {
     'Ciência e Pesquisa': 'Science and Research',
@@ -31,7 +30,7 @@ export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
   };
   const groups = logoGroups.map((group) => ({
     ...group,
-    tier: english ? (tierTranslations[group.tier] ?? group.tier) : group.tier,
+    tier: copy(group.tier, tierTranslations[group.tier] ?? group.tier),
   }));
   return (
     <section

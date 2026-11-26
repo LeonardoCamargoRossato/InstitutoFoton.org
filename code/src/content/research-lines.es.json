@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "computacao-quantica",
+    "title": "Computación cuántica",
+    "label": "01",
+    "summary": "Nuevas formas de procesar información. Nuevas preguntas para la ciencia.",
+    "description": "La computación cuántica investiga cómo las propiedades de los sistemas cuánticos pueden utilizarse en el procesamiento de información. Hardware, software y firmware convergen en un área que requiere investigación fundamental y colaboración entre especialidades.",
+    "topics": ["Hardware y software", "Computación fotónica", "Investigación colaborativa"]
+  },
+  {
+    "slug": "comunicacao-e-criptografia",
+    "title": "Comunicación y criptografía",
+    "label": "02",
+    "summary": "Conocimiento para pensar el futuro de la comunicación y la seguridad.",
+    "description": "La comunicación cuántica y la criptografía poscuántica son enfoques distintos. La primera utiliza propiedades físicas de sistemas cuánticos; la segunda desarrolla algoritmos criptográficos clásicos diseñados para resistir ataques de ordenadores cuánticos.",
+    "topics": ["Comunicación cuántica", "Criptografía poscuántica", "Transición criptográfica"]
+  },
+  {
+    "slug": "sensores-e-materiais",
+    "title": "Sensores y materiales cuánticos",
+    "label": "03",
+    "summary": "Observar con precisión para descubrir posibilidades.",
+    "description": "La detección cuántica explora propiedades cuánticas para realizar mediciones. La investigación en materiales busca comprender y desarrollar propiedades físicas. Estas áreas acercan la ciencia fundamental a cuestiones de aplicación, mediante instituciones y laboratorios colaboradores.",
+    "topics": ["Mediciones de precisión", "Materiales avanzados", "Propiedades físicas"]
+  },
+  {
+    "slug": "algoritmos-e-otimizacao",
+    "title": "Algoritmos y optimización",
+    "label": "04",
+    "summary": "Investigar caminos para problemas complejos.",
+    "description": "Los algoritmos cuánticos y los métodos híbridos se estudian en problemas de cálculo y optimización, con investigación de aplicaciones en salud y otros sectores.",
+    "topics": ["Métodos híbridos", "Optimización", "Aplicaciones en investigación"]
+  },
+  {
+    "slug": "quantica-nos-negocios",
+    "title": "Cuántica en los negocios",
+    "label": "05",
+    "summary": "Un puente entre investigación, organizaciones y sociedad.",
+    "description": "Comprender las tecnologías emergentes también implica formación, gestión y diálogo. Esta área acerca el conocimiento científico a las cuestiones que afrontan las organizaciones, respetando el grado de madurez de cada tecnología.",
+    "topics": ["Formación", "Gestión de la innovación", "Ciencia y sociedad"]
+  },
+  {
+    "slug": "quantum-no-direito",
+    "title": "Cuántica en el Derecho",
+    "label": "06",
+    "summary": "Conectar la evolución de las tecnologías cuánticas con las cuestiones jurídicas y sociales.",
+    "description": "La línea Cuántica en el Derecho promueve el diálogo interdisciplinar sobre las implicaciones jurídicas, éticas e institucionales de las tecnologías cuánticas. Entre sus temas de investigación están la protección de datos, la seguridad de la información, la propiedad intelectual y los retos de regulación y gobernanza asociados a la transformación tecnológica.",
+    "topics": ["Derecho y tecnología", "Protección de datos", "Regulación y gobernanza"]
+  }
+]

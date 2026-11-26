@@ -216,8 +216,8 @@ export function Home() {
                   <span className="number">{String(index + 1).padStart(2, '0')}</span>
                   <ArrowUpRight size={21} aria-hidden="true" />
                 </div>
-                <h3>{program.title}</h3>
-                <p>{program.description}</p>
+                <h3>{copy(program.title, program.title)}</h3>
+                <p>{copy(program.description, program.description)}</p>
                 <span className="card-link">
                   {copy('Saiba mais', 'Learn more')} <ArrowUpRight size={18} aria-hidden="true" />
                 </span>
@@ -525,7 +525,6 @@ function InstituteLightPath({
 
 export function Institute() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const identityArtwork = useRef<HTMLDivElement>(null);
   const [identityPhase, setIdentityPhase] = useState<PhotonIdentityPhase>(() =>
@@ -688,7 +687,6 @@ const manifestoFormUrl =
 
 function ManifestoParticipation({ placement }: { placement: 'top' | 'bottom' }) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   return (
     <section
@@ -781,9 +779,21 @@ export function Manifesto() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
   const copy = localizedCopy(locale);
-  const manifestoOdqs = english ? odqsEnglish : odqs;
-  const manifestoMethodology = english ? methodologyEnglish : methodology;
-  const manifestoCartas = english ? cartasEnglish : cartas;
+  const manifestoOdqs = (english ? odqsEnglish : odqs).map((item) => ({
+    ...item,
+    title: copy(item.title, item.title),
+    desc: copy(item.desc, item.desc),
+  }));
+  const manifestoMethodology = (english ? methodologyEnglish : methodology).map((item) => ({
+    ...item,
+    title: copy(item.title, item.title),
+    desc: copy(item.desc, item.desc),
+  }));
+  const manifestoCartas = (english ? cartasEnglish : cartas).map((item) => ({
+    ...item,
+    region: copy(item.region, item.region),
+    text: copy(item.text, item.text),
+  }));
 
   return (
     <>
@@ -994,7 +1004,6 @@ export function Manifesto() {
 
 export function Contact() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   return (
     <>
@@ -1050,7 +1059,6 @@ export function Contact() {
 
 export function Legal({ terms = false }: { terms?: boolean }) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   return (
     <>
@@ -1126,7 +1134,6 @@ export function Legal({ terms = false }: { terms?: boolean }) {
 
 export function NotFound() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   return (
     <>

@@ -3,11 +3,12 @@ import { Intro } from '../components/ui';
 import { documents, documentUrl } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 const PdfViewer = lazy(() => import('./PdfViewer'));
 
 export function Presentation() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const loader = useCallback(() => documents('presentation'), []);
   const resource = useResource(loader);
   const doc = resource.data?.[0];
@@ -17,13 +18,11 @@ export function Presentation() {
   return (
     <>
       <Intro
-        eyebrow={english ? 'Institutional presentation' : 'Apresentação institucional'}
-        title={english ? 'Discover Foton up close.' : 'Conheça o Foton mais de perto.'}
+        eyebrow={copy('Apresentação institucional', 'Institutional presentation')}
+        title={copy('Conheça o Foton mais de perto.', 'Discover Foton up close.')}
       >
         <p>
-          {english
-            ? 'Science, purpose, and connections. Discover Foton’s identity and initiatives.'
-            : 'Ciência, propósito e conexões. Conheça a identidade e as iniciativas do Foton.'}
+          {copy('Ciência, propósito e conexões. Conheça a identidade e as iniciativas do Foton.', 'Science, purpose, and connections. Discover Foton’s identity and initiatives.')}
         </p>
       </Intro>
       <section className="section section-gray">
@@ -31,7 +30,7 @@ export function Presentation() {
           <Suspense
             fallback={
               <p role="status">
-                {english ? 'Preparing the viewer…' : 'Preparando o visualizador…'}
+                {copy('Preparando o visualizador…', 'Preparing the viewer…')}
               </p>
             }
           >
