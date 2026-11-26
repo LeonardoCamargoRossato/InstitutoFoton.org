@@ -85,3 +85,44 @@ export type TranslationCatalog = {
   common: { [K in keyof typeof ptBR.common]: string };
   language: { [K in keyof typeof ptBR.language]: string };
 };
+
+export const esES: TranslationCatalog = {
+  accessibility: {
+    skipToContent: 'Saltar al contenido',
+    openMenu: 'Abrir menú',
+    closeMenu: 'Cerrar menú',
+    mainNavigation: 'Navegación principal',
+    backToTop: 'Volver arriba',
+    home: 'Instituto Foton — inicio',
+    journey: 'Conoce la Trayectoria del Científico Innovador',
+    externalLink: '(se abre en una nueva pestaña)',
+  },
+  common: {
+    loading: 'Cargando la página…',
+    institute: 'El Instituto',
+    partners: 'Ecosistema de colaboradores',
+    manifesto: 'Manifiesto',
+    news: 'Noticias',
+    support: 'Apoya la ciencia',
+    contact: 'Contacto',
+    social: 'Redes sociales',
+    research: 'I+D - Científico Innovador',
+    privacy: 'Privacidad',
+    terms: 'Condiciones de uso',
+    technologySignature: 'Tecnología a través de la ciencia.',
+    explore: 'Explora',
+    participate: 'Participa',
+    team: 'Nuestro equipo',
+    researchLines: 'Líneas temáticas de investigación',
+    journeyShort: 'Trayectorias del Científico Innovador',
+    learnInstitute: 'Conoce el Instituto',
+    newsStories: 'Noticias e historias',
+    followFoton: 'Sigue a Foton en las redes sociales',
+    connectedKnowledge: 'Conocimiento que conecta.',
+    peopleScience: 'Ciencia que acerca a las personas.',
+    nextChapter: 'El próximo capítulo de la ciencia',
+    youToo: 'también puede contar contigo.',
+    portal: 'Portal científico y social',
+  },
+  language: { selectorLabel: 'Idioma', current: 'Idioma actual: Español (España)' },
+};

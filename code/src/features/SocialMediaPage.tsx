@@ -5,10 +5,11 @@ import { InstagramBrandIcon, LinkedInBrandIcon } from './SocialPlatformIcons';
 import SocialPhysicsBackdrop from './SocialPhysicsBackdrop';
 import './SocialMediaPage.css';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 
 export default function SocialMediaPage() {
   const { locale } = useLanguage();
-  const copy = (pt: string, en: string) => (locale === 'en-US' ? en : pt);
+  const copy = localizedCopy(locale);
   return (
     <div className="social-media-page">
       <section className="social-intro" id="redes-intro" data-lcr-section-id="6.B.1">

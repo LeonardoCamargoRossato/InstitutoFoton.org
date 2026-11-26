@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 import { ArrowDown, ArrowRight, ArrowUpRight, Play } from 'lucide-react';
 import { Action, External, Heading, Intro, TextLink } from '../components/ui';
 import researchMedia from '../content/research-media.json';
@@ -138,7 +139,7 @@ function HaQuantumDate() {
 export function Research() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const lines = english ? researchLinesEnglish : researchLines;
   const pathwayItems = english ? pathwayEnglish : pathway;
   const pulsoInfo = english ? pulsoEnglish : pulso;
@@ -327,7 +328,7 @@ export function ResearchArea() {
   const { slug } = useParams();
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const lines = english ? researchLinesEnglish : researchLines;
   const selected = lines.find((line) => line.slug === slug);
   if (!selected) return <NotFound />;
@@ -374,7 +375,7 @@ export function ResearchArea() {
 export function Journey() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const lines = english ? researchLinesEnglish : researchLines;
   const pathwayItems = english ? pathwayEnglish : pathway;
   return (
@@ -515,7 +516,7 @@ export function Journey() {
 export function HaQuantum() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const hq = english ? haQuantumEnglish : haQuantum;
   return (
     <div className="research-experience">

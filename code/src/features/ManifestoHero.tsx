@@ -1,6 +1,7 @@
 import { ArrowDownRight } from 'lucide-react';
 import { assetUrl } from '../lib/siteAssets';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 import '../styles/manifesto-hero.css';
 
 const brazilStates = assetUrl('assets/05 - Manifesto/Imagens da Página/SVG/BrazilStates.svg');
@@ -106,7 +107,7 @@ function BrazilConstellation() {
 export default function ManifestoHero() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   return (
     <section
       className="manifesto-hero"

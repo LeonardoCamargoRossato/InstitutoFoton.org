@@ -4,6 +4,7 @@ import { LogoGallery } from '../components/galleries/logo/LogoGallery';
 import { partnerLogoAssets } from '../content/partnerAssets';
 import { partnerGroups, publishedPartners, safePartnerUrl } from '../content/partners';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 
 const approvedGroups = partnerGroups(publishedPartners());
 const logoGroups = approvedGroups.map((group) => ({
@@ -20,7 +21,7 @@ const logoGroups = approvedGroups.map((group) => ({
 export default function PartnerEcosystem({ home = false }: { home?: boolean }) {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const tierTranslations: Record<string, string> = {
     'Ciência e Pesquisa': 'Science and Research',
     'Ecossistema e Instituições': 'Ecosystem and Institutions',
