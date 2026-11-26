@@ -1,6 +1,7 @@
 // Static public catalog served exclusively from approved local content.
 import publicData from '../content/publications.json';
 import publicDataEnglish from '../content/publications.en.json';
+import publicDataChinese from '../content/publications.zh.json';
 import publicDataSpanish from '../content/publications.es.json';
 import { institutionalStatements } from '../content/institutional';
 import { publicDocuments } from '../content/public-documents';
@@ -55,7 +56,23 @@ const approvedPublicationsSpanish = approvedPublications.map((item) => {
   return translation ? { ...item, ...translation } : item;
 });
 
+const approvedChineseTranslations = publicDataChinese as PublicationTranslation[];
+const approvedPublicationsChinese = approvedPublications.map((item) => {
+  const translation = approvedChineseTranslations.find(({ slug }) => slug === item.slug);
+  return translation ? { ...item, ...translation } : item;
+});
+
 const categoryLabels = {
+  zh: {
+    all: '全部',
+    blog: '博客',
+    press: '媒体报道',
+    manifesto: '宣言',
+    research: '研究',
+    community: '社区',
+    events: '活动',
+    education: '教育',
+  },
   pt: {
     all: 'Todas',
     blog: 'Blog',
@@ -94,11 +111,13 @@ function isAllCategory(category: string) {
 
 function selectedCategoryLabel(category: string, locale: string) {
   const labels =
-    locale === 'es-ES'
-      ? categoryLabels.es
-      : locale === 'en-US'
-        ? categoryLabels.en
-        : categoryLabels.pt;
+    locale === 'zh-CN'
+      ? categoryLabels.zh
+      : locale === 'es-ES'
+        ? categoryLabels.es
+        : locale === 'en-US'
+          ? categoryLabels.en
+          : categoryLabels.pt;
   return labels[category as keyof typeof labels] ?? category;
 }
 
@@ -115,11 +134,13 @@ export async function publications(
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase();
   const catalog =
-    locale === 'es-ES'
-      ? approvedPublicationsSpanish
-      : locale === 'en-US'
-        ? approvedPublicationsEnglish
-        : approvedPublications;
+    locale === 'zh-CN'
+      ? approvedPublicationsChinese
+      : locale === 'es-ES'
+        ? approvedPublicationsSpanish
+        : locale === 'en-US'
+          ? approvedPublicationsEnglish
+          : approvedPublications;
   const categoryLabel = selectedCategoryLabel(category, locale);
   const filtered = catalog
     .filter(
@@ -148,11 +169,13 @@ export async function publications(
 export async function publication(slug: string, locale = 'pt-BR') {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
   const catalog =
-    locale === 'es-ES'
-      ? approvedPublicationsSpanish
-      : locale === 'en-US'
-        ? approvedPublicationsEnglish
-        : approvedPublications;
+    locale === 'zh-CN'
+      ? approvedPublicationsChinese
+      : locale === 'es-ES'
+        ? approvedPublicationsSpanish
+        : locale === 'en-US'
+          ? approvedPublicationsEnglish
+          : approvedPublications;
   return catalog.find((p) => p.slug === slug) || null;
 }
 
