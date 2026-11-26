@@ -2,10 +2,11 @@ import { InfoCard } from '../components/cards';
 import { officialStatements } from '../lib/backend';
 import { useResource } from '../lib/useResource';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 
 export default function OfficialStatements() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const { data } = useResource(officialStatements);
   const fallback = {
     key: 'institute.values',
@@ -21,10 +22,11 @@ export default function OfficialStatements() {
   const localizedValues = values
     ? {
         ...values,
-        title: english ? 'Values' : values.title,
-        content: english
-          ? 'Excellence\nLeadership\nInnovation\nStrategy\nTalent development\nEthics\nCollaboration'
-          : values.content,
+        title: copy(values.title, 'Values'),
+        content: copy(
+          values.content,
+          'Excellence\nLeadership\nInnovation\nStrategy\nTalent development\nEthics\nCollaboration',
+        ),
       }
     : values;
   const statements = blocks.filter((block) => block.key !== 'institute.values');
@@ -59,20 +61,21 @@ export default function OfficialStatements() {
           <div className="container values-layout">
             <div className="values-heading">
               <p className="eyebrow">
-                <span /> {english ? 'What guides our choices' : 'O que orienta nossas escolhas'}
+                <span /> {copy('O que orienta nossas escolhas', 'What guides our choices')}
               </p>
               <h2 id="values-title">
-                {english ? 'Values in motion.' : 'Valores que colocamos em movimento.'}
+                {copy('Valores que colocamos em movimento.', 'Values in motion.')}
               </h2>
               <p>
-                {english
-                  ? 'Principles connecting science, people, and impact throughout our journey.'
-                  : 'Princípios que conectam ciência, pessoas e impacto em cada passo da nossa jornada.'}
+                {copy(
+                  'Princípios que conectam ciência, pessoas e impacto em cada passo da nossa jornada.',
+                  'Principles connecting science, people, and impact throughout our journey.',
+                )}
               </p>
             </div>
             <ul
               className="values-keywords"
-              aria-label={english ? 'Instituto Foton values' : 'Valores do Instituto Foton'}
+              aria-label={copy('Valores do Instituto Foton', 'Instituto Foton values')}
             >
               {localizedValues.content
                 .split('\n')

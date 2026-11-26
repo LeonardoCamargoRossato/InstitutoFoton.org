@@ -22,7 +22,10 @@ export function Presentation() {
         title={copy('Conheça o Foton mais de perto.', 'Discover Foton up close.')}
       >
         <p>
-          {copy('Ciência, propósito e conexões. Conheça a identidade e as iniciativas do Foton.', 'Science, purpose, and connections. Discover Foton’s identity and initiatives.')}
+          {copy(
+            'Ciência, propósito e conexões. Conheça a identidade e as iniciativas do Foton.',
+            'Science, purpose, and connections. Discover Foton’s identity and initiatives.',
+          )}
         </p>
       </Intro>
       <section className="section section-gray">

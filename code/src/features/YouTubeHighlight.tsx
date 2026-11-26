@@ -36,7 +36,10 @@ export default function YouTubeHighlight() {
             <span>@institutofoton</span>
           </p>
           <p className="social-youtube-highlight__description">
-            {copy('Ciência, tecnologia e inovação em vídeo. Acompanhe conteúdos, encontros e iniciativas que conectam pessoas e conhecimento.', 'Science, technology, and innovation in video. Follow content, meetings, and initiatives that connect people and knowledge.')}
+            {copy(
+              'Ciência, tecnologia e inovação em vídeo. Acompanhe conteúdos, encontros e iniciativas que conectam pessoas e conhecimento.',
+              'Science, technology, and innovation in video. Follow content, meetings, and initiatives that connect people and knowledge.',
+            )}
           </p>
           <a
             className="social-profile-link social-profile-link--youtube"
@@ -60,9 +63,10 @@ export default function YouTubeHighlight() {
           href={YOUTUBE_CHANNEL}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={
-            copy('Abrir canal oficial do Instituto Foton no YouTube (abre em nova aba)', 'Open Instituto Foton’s official YouTube channel (opens in a new tab)')
-          }
+          aria-label={copy(
+            'Abrir canal oficial do Instituto Foton no YouTube (abre em nova aba)',
+            'Open Instituto Foton’s official YouTube channel (opens in a new tab)',
+          )}
         >
           <span className="social-youtube-highlight__cover-header" aria-hidden="true">
             <span>{copy('CANAL OFICIAL', 'OFFICIAL CHANNEL')}</span>

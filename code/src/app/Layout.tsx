@@ -63,7 +63,9 @@ const spanishTitles: Record<string, string> = {
   ...Object.fromEntries(
     Object.entries(titles).map(([path, title]) => [path, localizedCopy('es-ES')(title, title)]),
   ),
-  ...Object.fromEntries(researchLinesSpanish.map(({ slug, title }) => ['/pesquisa/' + slug, title])),
+  ...Object.fromEntries(
+    researchLinesSpanish.map(({ slug, title }) => ['/pesquisa/' + slug, title]),
+  ),
 };
 
 const englishDescriptions: Record<string, string> = {
@@ -111,13 +113,14 @@ export default function Layout() {
     document.title = pageTitle + ' — Instituto Foton';
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (description)
-      description.content = locale === 'es-ES'
-        ? 'Ciencia, personas y posibilidades. Conoce el Instituto Foton, sus áreas de investigación y formas de apoyar la ciencia.'
-        : isEnglish
-          ? englishDescriptions[location.pathname] || englishDescriptions['/']
-          : location.pathname === '/redes-sociais'
-            ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
-            : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
+      description.content =
+        locale === 'es-ES'
+          ? 'Ciencia, personas y posibilidades. Conoce el Instituto Foton, sus áreas de investigación y formas de apoyar la ciencia.'
+          : isEnglish
+            ? englishDescriptions[location.pathname] || englishDescriptions['/']
+            : location.pathname === '/redes-sociais'
+              ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+              : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');

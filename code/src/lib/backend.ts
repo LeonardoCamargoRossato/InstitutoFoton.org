@@ -94,7 +94,11 @@ function isAllCategory(category: string) {
 
 function selectedCategoryLabel(category: string, locale: string) {
   const labels =
-    locale === 'es-ES' ? categoryLabels.es : locale === 'en-US' ? categoryLabels.en : categoryLabels.pt;
+    locale === 'es-ES'
+      ? categoryLabels.es
+      : locale === 'en-US'
+        ? categoryLabels.en
+        : categoryLabels.pt;
   return labels[category as keyof typeof labels] ?? category;
 }
 

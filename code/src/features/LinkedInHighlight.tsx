@@ -18,18 +18,20 @@ export default function LinkedInHighlight() {
           data-lcr-card-id="6.B.3.C2"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={
-            copy('Ampliar imagem ilustrativa do LinkedIn em PNG', 'Enlarge the LinkedIn illustration in PNG')
-          }
+          aria-label={copy(
+            'Ampliar imagem ilustrativa do LinkedIn em PNG',
+            'Enlarge the LinkedIn illustration in PNG',
+          )}
         >
           <picture>
             <source srcSet={assetUrl(mockup.webp.path)} type="image/webp" />
             <img
               className="social-linkedin-highlight__tablet"
               src={assetUrl(mockup.png.path)}
-              alt={
-                copy('Uma única mão vinda da esquerda segura um tablet mostrando uma ilustração do perfil do Instituto Foton no LinkedIn', 'A single hand from the left holds a tablet showing an illustration of Instituto Foton’s LinkedIn profile')
-              }
+              alt={copy(
+                'Uma única mão vinda da esquerda segura um tablet mostrando uma ilustração do perfil do Instituto Foton no LinkedIn',
+                'A single hand from the left holds a tablet showing an illustration of Instituto Foton’s LinkedIn profile',
+              )}
               width={1448}
               height={1086}
               loading="lazy"
@@ -47,7 +49,10 @@ export default function LinkedInHighlight() {
           <span>Instituto Foton</span>
         </p>
         <p className="social-linkedin-highlight__description">
-          {copy('Conheça nossas iniciativas, pesquisas, eventos e oportunidades de colaboração com quem constrói o ecossistema de ciência e inovação.', 'Discover our initiatives, research, events, and collaboration opportunities with the people building the science and innovation ecosystem.')}
+          {copy(
+            'Conheça nossas iniciativas, pesquisas, eventos e oportunidades de colaboração com quem constrói o ecossistema de ciência e inovação.',
+            'Discover our initiatives, research, events, and collaboration opportunities with the people building the science and innovation ecosystem.',
+          )}
         </p>
         <a
           className="social-profile-link"

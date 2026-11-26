@@ -19,14 +19,20 @@ export default function InstagramHighlight() {
       <div className="social-instagram-highlight">
         <div className="social-instagram-highlight__content">
           <h2 id="social-instagram-title">
-            {copy('Acompanhe o Instituto Foton no Instagram', 'Follow Instituto Foton on Instagram')}
+            {copy(
+              'Acompanhe o Instituto Foton no Instagram',
+              'Follow Instituto Foton on Instagram',
+            )}
           </h2>
           <p className="social-instagram-highlight__handle">
             <InstagramBrandIcon size={22} />
             <span>@institutofoton</span>
           </p>
           <p className="social-instagram-highlight__description">
-            {copy('Um olhar mais próximo sobre a ciência que fazemos juntos. Acompanhe nossos encontros, pesquisas, eventos e histórias nas redes.', 'A closer look at the science we build together. Follow our meetings, research, events, and stories across social media.')}
+            {copy(
+              'Um olhar mais próximo sobre a ciência que fazemos juntos. Acompanhe nossos encontros, pesquisas, eventos e histórias nas redes.',
+              'A closer look at the science we build together. Follow our meetings, research, events, and stories across social media.',
+            )}
           </p>
           <a
             className="social-profile-link"
@@ -47,9 +53,10 @@ export default function InstagramHighlight() {
           <img
             className="social-instagram-highlight__phone"
             src={assetUrl(phoneSvg)}
-            alt={
-              copy('Imagem original de uma mão segurando um celular com tela preta', 'Original image of a hand holding a phone with a black screen')
-            }
+            alt={copy(
+              'Imagem original de uma mão segurando um celular com tela preta',
+              'Original image of a hand holding a phone with a black screen',
+            )}
             width="1080"
             height="1920"
             decoding="async"
