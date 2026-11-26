@@ -12,6 +12,7 @@ import {
   journeyTitle,
   journeyTitleEnglish,
   researchLines,
+  researchLinesChinese,
   researchLinesEnglish,
   researchLinesSpanish,
   researchTitle,
@@ -142,7 +143,13 @@ export function Research() {
   const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const lines =
-    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+    locale === 'zh-CN'
+      ? researchLinesChinese
+      : locale === 'es-ES'
+        ? researchLinesSpanish
+        : english
+          ? researchLinesEnglish
+          : researchLines;
   const pathwayItems = (english ? pathwayEnglish : pathway).map((item) => ({
     ...item,
     name: copy(item.name, item.name),
@@ -340,7 +347,13 @@ export function ResearchArea() {
   const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const lines =
-    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+    locale === 'zh-CN'
+      ? researchLinesChinese
+      : locale === 'es-ES'
+        ? researchLinesSpanish
+        : english
+          ? researchLinesEnglish
+          : researchLines;
   const selected = lines.find((line) => line.slug === slug);
   if (!selected) return <NotFound />;
   return (
@@ -388,7 +401,13 @@ export function Journey() {
   const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const lines =
-    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+    locale === 'zh-CN'
+      ? researchLinesChinese
+      : locale === 'es-ES'
+        ? researchLinesSpanish
+        : english
+          ? researchLinesEnglish
+          : researchLines;
   const pathwayItems = (english ? pathwayEnglish : pathway).map((item) => ({
     ...item,
     name: copy(item.name, item.name),

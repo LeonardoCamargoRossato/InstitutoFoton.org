@@ -60,16 +60,24 @@ const foundationCardsSpanish = createCards(
   spanish(foundationCaption03, foundationCaption03English),
 );
 
+const chinese = localizedCopy('zh-CN');
+const foundationCardsChinese = createCards(
+  titles.map((title) => chinese(title, title)),
+  chinese(foundationCaption03, foundationCaption03English),
+);
+
 export function FoundationTeaser() {
   const [open, setOpen] = useState(false);
   const { locale } = useLanguage();
   const copy = localizedCopy(locale);
   const cards =
-    locale === 'es-ES'
-      ? foundationCardsSpanish
-      : locale === 'en-US'
-        ? foundationCardsEnglish
-        : foundationCards;
+    locale === 'zh-CN'
+      ? foundationCardsChinese
+      : locale === 'es-ES'
+        ? foundationCardsSpanish
+        : locale === 'en-US'
+          ? foundationCardsEnglish
+          : foundationCards;
   const cover = cards[0];
   return (
     <section
@@ -146,11 +154,13 @@ export function FoundationGallery() {
   const { locale } = useLanguage();
   const copy = localizedCopy(locale);
   const cards =
-    locale === 'es-ES'
-      ? foundationCardsSpanish
-      : locale === 'en-US'
-        ? foundationCardsEnglish
-        : foundationCards;
+    locale === 'zh-CN'
+      ? foundationCardsChinese
+      : locale === 'es-ES'
+        ? foundationCardsSpanish
+        : locale === 'en-US'
+          ? foundationCardsEnglish
+          : foundationCards;
 
   return (
     <section className="foundation-gallery" aria-labelledby="foundation-gallery-heading">

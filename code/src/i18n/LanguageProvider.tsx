@@ -32,7 +32,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = locale;
   }, [locale]);
 
-  const t = locale === 'zh-CN' ? zhCN : locale === 'es-ES' ? esES : locale === 'en-US' ? enUS : ptBR;
+  const t =
+    locale === 'zh-CN' ? zhCN : locale === 'es-ES' ? esES : locale === 'en-US' ? enUS : ptBR;
   const value = useMemo(() => ({ locale, setLocale, t }), [locale, t]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
