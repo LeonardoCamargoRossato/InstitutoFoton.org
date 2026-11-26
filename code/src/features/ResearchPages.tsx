@@ -12,6 +12,7 @@ import {
   journeyTitle,
   journeyTitleEnglish,
   researchLines,
+  researchLinesChinese,
   researchLinesEnglish,
   researchLinesSpanish,
   researchTitle,
@@ -99,17 +100,17 @@ function PulsoVideo() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
   const media = english ? researchMediaEnglish : researchMedia;
+  const copy = localizedCopy(locale);
   return (
     <a
       className="pulso-player"
       href={pulso.watch}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={
-        english
-          ? 'Open the Pulse Stage video on YouTube (new tab)'
-          : 'Abrir o vídeo da Etapa Pulso no YouTube (nova aba)'
-      }
+      aria-label={copy(
+        'Abrir o vídeo da Etapa Pulso no YouTube (nova aba)',
+        'Open the Pulse Stage video on YouTube (new tab)',
+      )}
     >
       <img
         src={assetUrl(media.pulso.previewPath)}
@@ -129,6 +130,8 @@ function PulsoVideo() {
 function HaQuantumDate() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
+  if (locale === 'zh-CN') return <p className="research-date">2026 年 5 月 9 日至 6 月 11 日</p>;
+  if (locale === 'es-ES') return <p className="research-date">9 de mayo al 11 de junio de 2026</p>;
   return (
     <p className="research-date">
       <time dateTime="2026-05-09">{english ? 'May 9' : '9 de maio'}</time> {english ? 'to' : 'a'}{' '}
@@ -142,7 +145,13 @@ export function Research() {
   const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const lines =
-    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+    locale === 'zh-CN'
+      ? researchLinesChinese
+      : locale === 'es-ES'
+        ? researchLinesSpanish
+        : english
+          ? researchLinesEnglish
+          : researchLines;
   const pathwayItems = (english ? pathwayEnglish : pathway).map((item) => ({
     ...item,
     name: copy(item.name, item.name),
@@ -340,7 +349,13 @@ export function ResearchArea() {
   const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const lines =
-    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+    locale === 'zh-CN'
+      ? researchLinesChinese
+      : locale === 'es-ES'
+        ? researchLinesSpanish
+        : english
+          ? researchLinesEnglish
+          : researchLines;
   const selected = lines.find((line) => line.slug === slug);
   if (!selected) return <NotFound />;
   return (
@@ -388,7 +403,13 @@ export function Journey() {
   const english = locale === 'en-US';
   const copy = localizedCopy(locale);
   const lines =
-    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+    locale === 'zh-CN'
+      ? researchLinesChinese
+      : locale === 'es-ES'
+        ? researchLinesSpanish
+        : english
+          ? researchLinesEnglish
+          : researchLines;
   const pathwayItems = (english ? pathwayEnglish : pathway).map((item) => ({
     ...item,
     name: copy(item.name, item.name),

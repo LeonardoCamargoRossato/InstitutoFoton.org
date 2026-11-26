@@ -60,17 +60,9 @@ function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function Video({
-  src,
-  image,
-  title,
-  english = false,
-}: {
-  src: string;
-  image: string;
-  title: string;
-  english?: boolean;
-}) {
+function Video({ src, image, title }: { src: string; image: string; title: string }) {
+  const { locale } = useLanguage();
+  const copy = localizedCopy(locale);
   const [playing, setPlaying] = useState(false);
   const [posterOpen, setPosterOpen] = useState(false);
   const videoId = src.match(/embed\/([^?]+)/)?.[1];
@@ -94,7 +86,7 @@ function Video({
             className="manifesto-video-play"
             type="button"
             onClick={() => setPlaying(true)}
-            aria-label={`${english ? 'Play' : 'Reproduzir'} ${title}`}
+            aria-label={`${copy('Reproduzir', 'Play')} ${title}`}
           >
             <ProgressiveImage src={image} alt="" />
             <span className="media-play" aria-hidden="true">
@@ -106,8 +98,8 @@ function Video({
           <button
             type="button"
             className="manifesto-video-zoom"
-            aria-label={`${english ? 'Enlarge cover image' : 'Ampliar imagem de capa'}: ${title}`}
-            title={english ? 'Enlarge image' : 'Ampliar imagem'}
+            aria-label={`${copy('Ampliar imagem de capa', 'Enlarge cover image')}: ${title}`}
+            title={copy('Ampliar imagem', 'Enlarge image')}
             onClick={() => setPosterOpen(true)}
           >
             <Maximize2 size={20} aria-hidden="true" />
@@ -118,12 +110,12 @@ function Video({
         <ImageZoomDialog
           src={image}
           fallback={optimized(image)}
-          title={`${english ? 'Cover image' : 'Imagem de capa'}: ${title}`}
+          title={`${copy('Imagem de capa', 'Cover image')}: ${title}`}
           onClose={() => setPosterOpen(false)}
         />
       )}
       <a href={external} target="_blank" rel="noopener noreferrer">
-        {english ? 'Open video on YouTube' : 'Abrir vídeo no YouTube'}
+        {copy('Abrir vídeo no YouTube', 'Open video on YouTube')}
       </a>
     </div>
   );
@@ -169,16 +161,15 @@ export default function ManifestoMedia({
 }) {
   const { locale } = useLanguage();
   const [active, setActive] = useState<number | null>(null);
-  const english = locale === 'en-US';
   const copy = localizedCopy(locale);
-  const localizedVisitImages = english
-    ? visitImages.map((image, index) => ({
-        ...image,
-        title: `Technical visit ${String(index + 1).padStart(2, '0')}`,
-        caption:
-          'Record of Foton’s collaboration with researchers, institutions, and science and innovation environments.',
-      }))
-    : visitImages;
+  const localizedVisitImages = visitImages.map((image, index) => ({
+    ...image,
+    title: `${copy('Visita técnica', 'Technical visit')} ${String(index + 1).padStart(2, '0')}`,
+    caption: copy(
+      image.caption,
+      'Record of Foton’s collaboration with researchers, institutions, and science and innovation environments.',
+    ),
+  }));
 
   if (kind === 'importance')
     return (
@@ -189,17 +180,14 @@ export default function ManifestoMedia({
           'Por que o Manifesto Quântico Nacional é importante',
           'Why the National Quantum Manifesto matters',
         )}
-        english={english}
       />
     );
 
   if (kind === 'letter' && region && region in letterMedia) {
     const media = letterMedia[region as keyof typeof letterMedia];
-    const localizedRegion = english ? (regionEnglishNames[region] ?? region) : region;
+    const localizedRegion = copy(region, regionEnglishNames[region] ?? region);
     if (media.type === 'video')
-      return (
-        <Video src={media.src} image={media.image} title={localizedRegion} english={english} />
-      );
+      return <Video src={media.src} image={media.image} title={localizedRegion} />;
     const single = [
       {
         src: media.image,
@@ -253,11 +241,9 @@ export default function ManifestoMedia({
           previousLabel={copy('Visitas anteriores', 'Previous visits')}
           nextLabel={copy('Próximas visitas', 'Next visits')}
           imageLabel={(index, _count, image) =>
-            `${english ? 'Enlarge' : 'Ampliar'} ${image.title ?? (english ? `visit ${index + 1}` : `visita ${index + 1}`)}`
+            `${copy('Ampliar', 'Enlarge')} ${image.title ?? `${copy('visita', 'visit')} ${index + 1}`}`
           }
-          thumbnailLabel={(index) =>
-            `${english ? 'Select visit' : 'Selecionar visita'} ${index + 1}`
-          }
+          thumbnailLabel={(index) => `${copy('Selecionar visita', 'Select visit')} ${index + 1}`}
         />
       </div>
     );

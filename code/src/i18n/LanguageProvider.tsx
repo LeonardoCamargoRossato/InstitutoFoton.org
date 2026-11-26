@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY, type Locale } from './languageTypes';
 import { ENABLED_LANGUAGES, isLocale } from './languageRegistry';
-import { enUS, esES, ptBR, type TranslationCatalog } from './catalog';
+import { enUS, esES, ptBR, zhCN, type TranslationCatalog } from './catalog';
 
 type LanguageContextValue = {
   locale: Locale;
@@ -32,7 +32,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = locale;
   }, [locale]);
 
-  const t = locale === 'es-ES' ? esES : locale === 'en-US' ? enUS : ptBR;
+  const t =
+    locale === 'zh-CN' ? zhCN : locale === 'es-ES' ? esES : locale === 'en-US' ? enUS : ptBR;
   const value = useMemo(() => ({ locale, setLocale, t }), [locale, t]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

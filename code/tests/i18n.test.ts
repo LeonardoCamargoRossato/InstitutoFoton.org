@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY } from '../src/i18n/languageTypes';
 import { ENABLED_LANGUAGES, LANGUAGES, isLocale } from '../src/i18n/languageRegistry';
-import { enUS, esES, ptBR } from '../src/i18n/catalog';
+import { enUS, esES, ptBR, zhCN } from '../src/i18n/catalog';
 import { localizedCopy } from '../src/i18n/localizedCopy';
 import { publication, publications } from '../src/lib/backend';
 
 describe('Foton internationalization foundation', () => {
-  it('keeps the official language order and enables the three locales on the Spanish integration branch', () => {
+  it('keeps the official language order and enables the four public locales', () => {
     expect(LANGUAGES.map((language) => language.locale)).toEqual([
       'pt-BR',
       'en-US',
@@ -21,6 +21,7 @@ describe('Foton internationalization foundation', () => {
       DEFAULT_LOCALE,
       'en-US',
       'es-ES',
+      'zh-CN',
     ]);
   });
 
@@ -41,6 +42,14 @@ describe('Foton internationalization foundation', () => {
     const result = await publications(0, '', 'research', 'recent', 'es-ES');
     expect(result.items.length).toBeGreaterThan(0);
     expect(result.items.every((item) => item.category === 'Investigación')).toBe(true);
+  });
+
+  it('serves Chinese content and the Chinese shell catalog', async () => {
+    expect(Object.keys(zhCN.common)).toEqual(Object.keys(ptBR.common));
+    expect(localizedCopy('zh-CN')('Contato', 'Contact')).toBe('联系');
+    const result = await publications(0, '', 'research', 'recent', 'zh-CN');
+    expect(result.items.length).toBeGreaterThan(0);
+    expect(result.items.every((item) => item.category === '研究')).toBe(true);
   });
 
   it('validates locale values and persistence contract', () => {

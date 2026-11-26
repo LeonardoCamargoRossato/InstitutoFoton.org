@@ -10,6 +10,7 @@ import {
   journeyTitle,
   journeyTitleEnglish,
   researchLines,
+  researchLinesChinese,
   researchLinesEnglish,
   researchLinesSpanish,
   researchTitle,
@@ -68,6 +69,15 @@ const spanishTitles: Record<string, string> = {
   ),
 };
 
+const chineseTitles: Record<string, string> = {
+  ...Object.fromEntries(
+    Object.entries(titles).map(([path, title]) => [path, localizedCopy('zh-CN')(title, title)]),
+  ),
+  ...Object.fromEntries(
+    researchLinesChinese.map(({ slug, title }) => ['/pesquisa/' + slug, title]),
+  ),
+};
+
 const englishDescriptions: Record<string, string> = {
   '/': 'Quantum science, people, and possibilities. Discover Instituto Foton, its research areas, and ways to support science.',
   '/instituto':
@@ -108,19 +118,28 @@ export default function Layout() {
     ['/noticias', t.common.news],
   ] as const;
   useEffect(() => {
-    const localizedTitles = locale === 'es-ES' ? spanishTitles : isEnglish ? englishTitles : titles;
+    const localizedTitles =
+      locale === 'zh-CN'
+        ? chineseTitles
+        : locale === 'es-ES'
+          ? spanishTitles
+          : isEnglish
+            ? englishTitles
+            : titles;
     const pageTitle = localizedTitles[location.pathname] || 'Instituto Foton';
     document.title = pageTitle + ' — Instituto Foton';
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (description)
       description.content =
-        locale === 'es-ES'
-          ? 'Ciencia, personas y posibilidades. Conoce el Instituto Foton, sus áreas de investigación y formas de apoyar la ciencia.'
-          : isEnglish
-            ? englishDescriptions[location.pathname] || englishDescriptions['/']
-            : location.pathname === '/redes-sociais'
-              ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
-              : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
+        locale === 'zh-CN'
+          ? '量子科学、人才与机遇。了解 Foton 研究院的研究领域及支持科学的方式。'
+          : locale === 'es-ES'
+            ? 'Ciencia, personas y posibilidades. Conoce el Instituto Foton, sus áreas de investigación y formas de apoyar la ciencia.'
+            : isEnglish
+              ? englishDescriptions[location.pathname] || englishDescriptions['/']
+              : location.pathname === '/redes-sociais'
+                ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+                : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');

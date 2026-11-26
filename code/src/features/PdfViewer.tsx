@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 import {
   getDocument,
   GlobalWorkerOptions,
@@ -21,6 +22,7 @@ GlobalWorkerOptions.workerSrc = worker;
 export default function PdfViewer({ url, allowExport }: { url: string; allowExport: boolean }) {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const [pdf, setPdf] = useState<PDFDocumentProxy | null>(null);
   const [page, setPage] = useState(1);
   const [zoom, setZoom] = useState(1);
@@ -115,24 +117,26 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
       <div
         className="pdf-toolbar"
         role="group"
-        aria-label={english ? 'Presentation controls' : 'Controles da apresentação'}
+        aria-label={copy('Controles da apresentação', 'Presentation controls')}
       >
         <button
           className="icon-button"
-          aria-label={english ? 'Previous page' : 'Página anterior'}
+          aria-label={copy('Página anterior', 'Previous page')}
           disabled={!pdf || page <= 1}
           onClick={() => setPage((n) => n - 1)}
         >
           <ChevronLeft />
         </button>
         <span aria-live="polite">
-          {english
-            ? `Page ${page} of ${pdf?.numPages ?? '…'}`
-            : `Página ${page} de ${pdf?.numPages ?? '…'}`}
+          {locale === 'zh-CN'
+            ? `第 ${page} 页，共 ${pdf?.numPages ?? '…'} 页`
+            : english
+              ? `Page ${page} of ${pdf?.numPages ?? '…'}`
+              : `Página ${page} de ${pdf?.numPages ?? '…'}`}
         </span>
         <button
           className="icon-button"
-          aria-label={english ? 'Next page' : 'Próxima página'}
+          aria-label={copy('Próxima página', 'Next page')}
           disabled={!pdf || page >= pdf.numPages}
           onClick={() => setPage((n) => n + 1)}
         >
@@ -141,7 +145,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
         <span className="toolbar-divider" />
         <button
           className="icon-button"
-          aria-label={english ? 'Zoom out' : 'Diminuir zoom'}
+          aria-label={copy('Diminuir zoom', 'Zoom out')}
           disabled={zoom <= 0.5}
           onClick={() => setZoom((n) => Math.max(0.5, n - 0.25))}
         >
@@ -150,13 +154,13 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
         <button
           className="text-link"
           onClick={() => setZoom(1)}
-          aria-label={english ? 'Fit to width' : 'Ajustar à largura'}
+          aria-label={copy('Ajustar à largura', 'Fit to width')}
         >
           {Math.round(zoom * 100)}%
         </button>
         <button
           className="icon-button"
-          aria-label={english ? 'Zoom in' : 'Aumentar zoom'}
+          aria-label={copy('Aumentar zoom', 'Zoom in')}
           disabled={zoom >= 3}
           onClick={() => setZoom((n) => Math.min(3, n + 0.25))}
         >
@@ -164,7 +168,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
         </button>
         <button
           className="icon-button"
-          aria-label={english ? 'Fullscreen' : 'Tela cheia'}
+          aria-label={copy('Tela cheia', 'Fullscreen')}
           onClick={() => {
             if (document.fullscreenElement) void document.exitFullscreen();
             else
@@ -179,7 +183,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
           className="icon-button"
           href={url}
           download="foton-apresentacao-2026.pdf"
-          aria-label={english ? 'Download full PDF' : 'Baixar PDF integral'}
+          aria-label={copy('Baixar PDF integral', 'Download full PDF')}
         >
           <Download />
         </a>
@@ -187,7 +191,7 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
           <button
             className="icon-button"
             disabled={!rendered || rendering}
-            aria-label={english ? 'Save page as PNG' : 'Salvar página em PNG'}
+            aria-label={copy('Salvar página em PNG', 'Save page as PNG')}
             onClick={exportPage}
           >
             <ImageDown />
@@ -201,32 +205,33 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
       )}
       {rendering && !error && (
         <p role="status" className="status">
-          {english ? 'Loading page…' : 'Carregando página…'}
+          {copy('Carregando página…', 'Loading page…')}
         </p>
       )}
       <div
         className="pdf-canvas-scroll"
         tabIndex={0}
         role="region"
-        aria-label={
-          english
-            ? 'Presentation page; use the arrow keys to scroll'
-            : 'Página da apresentação, use as setas para rolar'
-        }
+        aria-label={copy(
+          'Página da apresentação, use as setas para rolar',
+          'Presentation page; use the arrow keys to scroll',
+        )}
       >
         <canvas
           ref={canvas}
           role="img"
           aria-label={
-            english
-              ? `Page ${page} of the Instituto Foton institutional presentation`
-              : `Página ${page} da apresentação institucional Foton`
+            locale === 'zh-CN'
+              ? `Foton 研究院机构介绍第 ${page} 页`
+              : english
+                ? `Page ${page} of the Instituto Foton institutional presentation`
+                : `Página ${page} da apresentação institucional Foton`
           }
         />
       </div>
       <p className="pdf-fallback">
         <a href={url} target="_blank" rel="noopener noreferrer">
-          {english ? 'Open PDF in a new tab' : 'Abrir PDF em nova aba'}
+          {copy('Abrir PDF em nova aba', 'Open PDF in a new tab')}
         </a>
       </p>
     </div>

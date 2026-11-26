@@ -37,7 +37,7 @@ const regionEnglishNames: Record<string, string> = {
 
 function BrazilConstellation() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const hub = journeyCities[3];
   return (
     <svg
@@ -76,7 +76,7 @@ function BrazilConstellation() {
       <g className="manifesto-map-regions">
         {regions.map((region) => (
           <text key={region.name} x={region.x} y={region.y}>
-            {english ? regionEnglishNames[region.name] : region.name}
+            {copy(region.name, regionEnglishNames[region.name])}
           </text>
         ))}
       </g>
@@ -97,7 +97,7 @@ function BrazilConstellation() {
       <g className="manifesto-map-caption">
         <circle cx="112" cy="567" r="3" fill="#a5e8ff" />
         <text x="124" y="571">
-          {english ? 'NATIONAL MOVEMENT CONNECTIONS' : 'CONEXÕES DO MOVIMENTO NACIONAL'}
+          {copy('CONEXÕES DO MOVIMENTO NACIONAL', 'NATIONAL MOVEMENT CONNECTIONS')}
         </text>
       </g>
     </svg>
@@ -123,8 +123,22 @@ export default function ManifestoHero() {
             {copy('Uma construção nacional', 'A national endeavor')}
           </span>
           <h1 id="manifesto-hero-title">
-            <span>{'Manifesto '}</span>
-            <strong>{copy('Quântico Nacional', 'National Quantum Manifesto')}</strong>
+            <span>
+              {locale === 'zh-CN'
+                ? '国家量子'
+                : locale === 'es-ES'
+                  ? 'Manifiesto '
+                  : locale === 'en-US'
+                    ? 'National '
+                    : 'Manifesto '}
+            </span>
+            <strong>
+              {locale === 'zh-CN'
+                ? '宣言'
+                : locale === 'en-US'
+                  ? 'Quantum Manifesto'
+                  : copy('Quântico Nacional', 'National Quantum Manifesto')}
+            </strong>
           </h1>
           <p>
             {copy(

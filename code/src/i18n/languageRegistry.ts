@@ -27,7 +27,7 @@ export const LANGUAGES: readonly LanguageDefinition[] = [
     label: 'Simplified Chinese',
     nativeLabel: '简体中文',
     flagAsset: 'CN.svg',
-    enabled: false,
+    enabled: true,
   },
   {
     locale: 'it-IT',

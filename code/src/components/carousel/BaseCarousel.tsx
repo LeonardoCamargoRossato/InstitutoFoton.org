@@ -5,6 +5,7 @@ import { CarouselControls } from './CarouselControls';
 import { CarouselThumbnails } from './CarouselThumbnails';
 import { CarouselViewer } from './CarouselViewer';
 import { useLanguage } from '../../i18n';
+import { localizedCopy } from '../../i18n/localizedCopy';
 import type { BaseCarouselProps } from './carousel.types';
 import './carousel.styles.css';
 
@@ -22,9 +23,9 @@ export function BaseCarousel({
   onChange,
 }: BaseCarouselProps) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const previousLabelText = previousLabel ?? (english ? 'Previous image' : 'Imagem anterior');
-  const nextLabelText = nextLabel ?? (english ? 'Next image' : 'Próxima imagem');
+  const copy = localizedCopy(locale);
+  const previousLabelText = previousLabel ?? copy('Imagem anterior', 'Previous image');
+  const nextLabelText = nextLabel ?? copy('Próxima imagem', 'Next image');
   const items = useMemo(() => pairCarouselItems(listaWebP, listaPNG), [listaWebP, listaPNG]);
   const [selected, setSelected] = useState(0);
   const [direction, setDirection] = useState<'next' | 'previous'>('next');
@@ -88,7 +89,7 @@ export function BaseCarousel({
 
   const stageLabel =
     imageLabel?.(active, total, item.preview) ??
-    `${english ? 'Enlarge image' : 'Ampliar imagem'} ${active + 1} ${english ? 'of' : 'de'} ${total}: ${item.preview.title ?? item.preview.alt}`;
+    `${copy('Ampliar imagem', 'Enlarge image')} ${active + 1} ${copy('de', 'of')} ${total}: ${item.preview.title ?? item.preview.alt}`;
 
   return (
     <section
@@ -99,7 +100,7 @@ export function BaseCarousel({
         (classNames?.root ?? '')
       }
       role="region"
-      aria-roledescription={english ? 'carousel' : 'carrossel'}
+      aria-roledescription={copy('carrossel', 'carousel')}
       aria-label={label}
       data-presentation={estiloGrafico.imagem?.apresentacao ?? 'peek'}
       data-ratio={estiloGrafico.imagem?.proporcao ?? 'original'}
