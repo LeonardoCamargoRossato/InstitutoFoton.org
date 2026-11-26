@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, LayoutGrid } from 'lucide-react';
 import { useLanguage } from '../../i18n';
+import { localizedCopy } from '../../i18n/localizedCopy';
 
 type Props = {
   active: number;
@@ -33,14 +34,10 @@ export function CarouselControls({
   positionClassName,
 }: Props) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const toggleLabel = thumbnailsOpen
-    ? english
-      ? 'Hide thumbnails'
-      : 'Ocultar miniaturas'
-    : english
-      ? 'Show thumbnails'
-      : 'Mostrar miniaturas';
+    ? copy('Ocultar miniaturas', 'Hide thumbnails')
+    : copy('Mostrar miniaturas', 'Show thumbnails');
   return (
     <div className={'base-carousel-controls ' + (className ?? '')}>
       <div className="base-carousel-nav">

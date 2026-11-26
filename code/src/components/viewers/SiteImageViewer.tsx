@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { ImageZoomDialog } from './ImageZoomDialog';
 import { useLanguage } from '../../i18n';
+import { localizedCopy } from '../../i18n/localizedCopy';
 
 type Selected = { src: string; fallback: string; title: string };
 export default function SiteImageViewer() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
   const [image, setImage] = useState<Selected | null>(null);
   useEffect(() => {
+    const copy = localizedCopy(locale);
     function resolve(target: EventTarget | null): Selected | null {
       if (!(target instanceof HTMLElement)) return null;
       const el =
@@ -49,7 +50,7 @@ export default function SiteImageViewer() {
       return {
         src,
         fallback: preview,
-        title: el.alt || (english ? 'Instituto Foton image' : 'Imagem do Instituto Foton'),
+        title: el.alt || copy('Imagem do Instituto Foton', 'Instituto Foton image'),
       };
     }
     function click(event: MouseEvent) {
@@ -72,7 +73,7 @@ export default function SiteImageViewer() {
       document.removeEventListener('click', click, true);
       document.removeEventListener('keydown', key, true);
     };
-  }, [english]);
+  }, [locale]);
   return (
     image && (
       <ImageZoomDialog
