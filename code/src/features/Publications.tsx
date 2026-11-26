@@ -80,9 +80,12 @@ function ArticleBody({ item, media }: { item: Publication; media: typeof newsMed
   const { locale } = useLanguage();
   const english = locale === 'en-US';
   const isLeonti = item.slug === 'uniso-quantum-day-entrega-projeto-leonti';
-  const heading = english
-    ? '### A project built with different skills'
-    : '### Uma construção com diferentes competências';
+  const heading =
+    locale === 'es-ES'
+      ? '### Una construcción con diferentes competencias'
+      : english
+        ? '### A project built with different skills'
+        : '### Uma construção com diferentes competências';
   const splitAt = isLeonti ? item.body.indexOf(heading) : -1;
   const introduction = splitAt < 0 ? item.body : item.body.slice(0, splitAt);
   const continuation = splitAt < 0 ? '' : item.body.slice(splitAt);
