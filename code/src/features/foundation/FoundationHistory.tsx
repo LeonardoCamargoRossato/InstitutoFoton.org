@@ -5,6 +5,7 @@ import { ImageZoomDialog } from '../../components/viewers';
 import { BaseCarousel, carouselPresets } from '../../components/carousel';
 import { assetUrl } from '../../lib/siteAssets';
 import { useLanguage } from '../../i18n';
+import { localizedCopy } from '../../i18n/localizedCopy';
 import './FoundationHistory.css';
 
 export const foundationRoute = '/noticias/fundacao-instituto-foton';
@@ -53,13 +54,22 @@ const createCards = (cardTitles: readonly string[], caption: string) =>
 
 export const foundationCards = createCards(titles, foundationCaption03);
 const foundationCardsEnglish = createCards(titlesEnglish, foundationCaption03English);
+const spanish = localizedCopy('es-ES');
+const foundationCardsSpanish = createCards(
+  titles.map((title) => spanish(title, title)),
+  spanish(foundationCaption03, foundationCaption03English),
+);
 
 export function FoundationTeaser() {
   const [open, setOpen] = useState(false);
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
-  const cards = english ? foundationCardsEnglish : foundationCards;
+  const copy = localizedCopy(locale);
+  const cards =
+    locale === 'es-ES'
+      ? foundationCardsSpanish
+      : locale === 'en-US'
+        ? foundationCardsEnglish
+        : foundationCards;
   const cover = cards[0];
   return (
     <section
@@ -134,9 +144,13 @@ export function FoundationTeaser() {
 
 export function FoundationGallery() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
-  const cards = english ? foundationCardsEnglish : foundationCards;
+  const copy = localizedCopy(locale);
+  const cards =
+    locale === 'es-ES'
+      ? foundationCardsSpanish
+      : locale === 'en-US'
+        ? foundationCardsEnglish
+        : foundationCards;
 
   return (
     <section className="foundation-gallery" aria-labelledby="foundation-gallery-heading">

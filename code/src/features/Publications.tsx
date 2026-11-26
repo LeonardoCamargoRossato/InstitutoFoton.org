@@ -16,11 +16,11 @@ import newsMedia from '../content/news-media.json';
 import newsMediaEnglish from '../content/news-media.en.json';
 import './NewsMedia.css';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 
 export function PublicationCard({ item }: { item: Publication }) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const body = (
     <>
       <div
@@ -80,9 +80,12 @@ function ArticleBody({ item, media }: { item: Publication; media: typeof newsMed
   const { locale } = useLanguage();
   const english = locale === 'en-US';
   const isLeonti = item.slug === 'uniso-quantum-day-entrega-projeto-leonti';
-  const heading = english
-    ? '### A project built with different skills'
-    : '### Uma construção com diferentes competências';
+  const heading =
+    locale === 'es-ES'
+      ? '### Una construcción con diferentes competencias'
+      : english
+        ? '### A project built with different skills'
+        : '### Uma construção com diferentes competências';
   const splitAt = isLeonti ? item.body.indexOf(heading) : -1;
   const introduction = splitAt < 0 ? item.body : item.body.slice(0, splitAt);
   const continuation = splitAt < 0 ? '' : item.body.slice(splitAt);
@@ -116,8 +119,7 @@ function ArticleBody({ item, media }: { item: Publication; media: typeof newsMed
 
 export function News() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('');
   const [debounced, setDebounced] = useState('');
@@ -266,7 +268,7 @@ export function News() {
 export function Article() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const { slug = '' } = useParams();
   const loader = useCallback(() => publication(slug, locale), [slug, locale]);
   const media = english ? newsMediaEnglish : newsMedia;

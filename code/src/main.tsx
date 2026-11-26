@@ -42,10 +42,10 @@ function LegacyJourneyRedirect() {
 }
 
 function RouteLoading() {
-  const { locale } = useLanguage();
+  const { t } = useLanguage();
   return (
     <p className="container status" role="status">
-      {locale === 'en-US' ? 'Loading page…' : 'Carregando a página…'}
+      {t.common.loading}
     </p>
   );
 }

@@ -18,9 +18,9 @@ export const LANGUAGES: readonly LanguageDefinition[] = [
   {
     locale: 'es-ES',
     label: 'Spanish (Spain)',
-    nativeLabel: 'Español',
+    nativeLabel: 'Español (España)',
     flagAsset: 'ES.svg',
-    enabled: false,
+    enabled: true,
   },
   {
     locale: 'zh-CN',

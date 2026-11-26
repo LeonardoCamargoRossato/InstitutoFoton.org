@@ -1,6 +1,7 @@
 // Static public catalog served exclusively from approved local content.
 import publicData from '../content/publications.json';
 import publicDataEnglish from '../content/publications.en.json';
+import publicDataSpanish from '../content/publications.es.json';
 import { institutionalStatements } from '../content/institutional';
 import { publicDocuments } from '../content/public-documents';
 import { assetUrl } from './siteAssets';
@@ -48,6 +49,12 @@ const approvedPublicationsEnglish = approvedPublications.map((item) => {
   return translation ? { ...item, ...translation } : item;
 });
 
+const approvedSpanishTranslations = publicDataSpanish as PublicationTranslation[];
+const approvedPublicationsSpanish = approvedPublications.map((item) => {
+  const translation = approvedSpanishTranslations.find(({ slug }) => slug === item.slug);
+  return translation ? { ...item, ...translation } : item;
+});
+
 const categoryLabels = {
   pt: {
     all: 'Todas',
@@ -58,6 +65,16 @@ const categoryLabels = {
     community: 'Comunidade',
     events: 'Eventos',
     education: 'Educação',
+  },
+  es: {
+    all: 'Todas',
+    blog: 'Blog',
+    press: 'En los medios',
+    manifesto: 'Manifiesto',
+    research: 'Investigación',
+    community: 'Comunidad',
+    events: 'Eventos',
+    education: 'Educación',
   },
   en: {
     all: 'All',
@@ -76,7 +93,12 @@ function isAllCategory(category: string) {
 }
 
 function selectedCategoryLabel(category: string, locale: string) {
-  const labels = locale === 'en-US' ? categoryLabels.en : categoryLabels.pt;
+  const labels =
+    locale === 'es-ES'
+      ? categoryLabels.es
+      : locale === 'en-US'
+        ? categoryLabels.en
+        : categoryLabels.pt;
   return labels[category as keyof typeof labels] ?? category;
 }
 
@@ -92,7 +114,12 @@ export async function publications(
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase();
-  const catalog = locale === 'en-US' ? approvedPublicationsEnglish : approvedPublications;
+  const catalog =
+    locale === 'es-ES'
+      ? approvedPublicationsSpanish
+      : locale === 'en-US'
+        ? approvedPublicationsEnglish
+        : approvedPublications;
   const categoryLabel = selectedCategoryLabel(category, locale);
   const filtered = catalog
     .filter(
@@ -120,7 +147,12 @@ export async function publications(
 
 export async function publication(slug: string, locale = 'pt-BR') {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
-  const catalog = locale === 'en-US' ? approvedPublicationsEnglish : approvedPublications;
+  const catalog =
+    locale === 'es-ES'
+      ? approvedPublicationsSpanish
+      : locale === 'en-US'
+        ? approvedPublicationsEnglish
+        : approvedPublications;
   return catalog.find((p) => p.slug === slug) || null;
 }
 

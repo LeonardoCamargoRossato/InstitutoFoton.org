@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY, type Locale } from './languageTypes';
 import { ENABLED_LANGUAGES, isLocale } from './languageRegistry';
-import { enUS, ptBR, type TranslationCatalog } from './catalog';
+import { enUS, esES, ptBR, type TranslationCatalog } from './catalog';
 
 type LanguageContextValue = {
   locale: Locale;
@@ -14,7 +14,9 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 function readStoredLocale(): Locale {
   if (typeof window === 'undefined') return DEFAULT_LOCALE;
   const stored = window.localStorage.getItem(LOCALE_STORAGE_KEY);
-  return isLocale(stored) ? stored : DEFAULT_LOCALE;
+  return isLocale(stored) && ENABLED_LANGUAGES.some((language) => language.locale === stored)
+    ? stored
+    : DEFAULT_LOCALE;
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -30,7 +32,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = locale;
   }, [locale]);
 
-  const t = locale === 'en-US' ? enUS : ptBR;
+  const t = locale === 'es-ES' ? esES : locale === 'en-US' ? enUS : ptBR;
   const value = useMemo(() => ({ locale, setLocale, t }), [locale, t]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

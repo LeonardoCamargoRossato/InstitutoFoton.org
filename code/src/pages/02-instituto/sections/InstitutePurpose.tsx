@@ -1,6 +1,7 @@
 import { Compass, Globe2, Target } from 'lucide-react';
 import { InfoCard, cardPresets } from '../../../components/cards';
 import { useLanguage } from '../../../i18n';
+import { localizedCopy } from '../../../i18n/localizedCopy';
 import './InstitutePurpose.css';
 
 const pillars = [
@@ -44,7 +45,7 @@ const pillars = [
 
 export default function InstitutePurpose() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   return (
     <section
       id="por-que-existimos"
@@ -54,9 +55,9 @@ export default function InstitutePurpose() {
     >
       <div className="container">
         <div className="institute-purpose-heading">
-          <p className="institute-purpose-eyebrow">{english ? 'Our essence' : 'Nossa essência'}</p>
+          <p className="institute-purpose-eyebrow">{copy('Nossa essência', 'Our essence')}</p>
           <h2 id="institute-purpose-title">
-            {english ? 'Why Foton exists.' : 'Por que o Foton existe.'}
+            {copy('Por que o Foton existe.', 'Why Foton exists.')}
           </h2>
         </div>
         <div className="institute-purpose-grid">
@@ -86,9 +87,9 @@ export default function InstitutePurpose() {
                     {number}
                   </span>
                 </header>
-                <h3>{english ? titleEnglish : title}</h3>
-                <p className="institute-purpose-text">{english ? textEnglish : text}</p>
-                <p className="institute-purpose-subtitle">{english ? subtitleEnglish : subtitle}</p>
+                <h3>{copy(title, titleEnglish)}</h3>
+                <p className="institute-purpose-text">{copy(text, textEnglish)}</p>
+                <p className="institute-purpose-subtitle">{copy(subtitle, subtitleEnglish)}</p>
               </InfoCard>
             ),
           )}

@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 import { ArrowDown, ArrowRight, ArrowUpRight, Play } from 'lucide-react';
 import { Action, External, Heading, Intro, TextLink } from '../components/ui';
 import researchMedia from '../content/research-media.json';
@@ -12,6 +13,7 @@ import {
   journeyTitleEnglish,
   researchLines,
   researchLinesEnglish,
+  researchLinesSpanish,
   researchTitle,
   researchTitleEnglish,
 } from './content';
@@ -138,16 +140,25 @@ function HaQuantumDate() {
 export function Research() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
-  const lines = english ? researchLinesEnglish : researchLines;
-  const pathwayItems = english ? pathwayEnglish : pathway;
-  const pulsoInfo = english ? pulsoEnglish : pulso;
-  const hq = english ? haQuantumEnglish : haQuantum;
+  const copy = localizedCopy(locale);
+  const lines =
+    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+  const pathwayItems = (english ? pathwayEnglish : pathway).map((item) => ({
+    ...item,
+    name: copy(item.name, item.name),
+    summary: copy(item.summary, item.summary),
+  }));
+  const pulsoInfo = { ...pulso, title: copy(pulso.title, pulsoEnglish.title) };
+  const hq = {
+    ...haQuantum,
+    summary: copy(haQuantum.summary, haQuantumEnglish.summary),
+    partnership: copy(haQuantum.partnership, haQuantumEnglish.partnership),
+  };
   return (
     <div className="research-experience">
       <Intro
         eyebrow="Instituto Foton"
-        title={english ? researchTitleEnglish : researchTitle}
+        title={copy(researchTitle, researchTitleEnglish)}
         id="pesquisa-inicio"
         sectionCode="4.A.1"
       >
@@ -157,7 +168,7 @@ export function Research() {
             'Explore Foton’s quantum technology research areas and the initiatives bringing researchers, students, and professionals closer together.',
           )}
         </p>
-        <nav className="research-jump-links" aria-label={english ? 'On this page' : 'Nesta página'}>
+        <nav className="research-jump-links" aria-label={copy('Nesta página', 'On this page')}>
           <a href="#areas-de-pesquisa">
             {copy('Áreas de pesquisa', 'Research areas')} <ArrowDown size={15} aria-hidden="true" />
           </a>
@@ -210,7 +221,7 @@ export function Research() {
       >
         <div className="container split">
           <div className="body-copy">
-            <Heading title={english ? journeyTitleEnglish : journeyTitle}>
+            <Heading title={copy(journeyTitle, journeyTitleEnglish)}>
               {copy(
                 'Conectando ciência, pessoas e inovação.',
                 'Connecting science, people, and innovation.',
@@ -304,7 +315,7 @@ export function Research() {
       <section className="section research-haquantum" id="haquantum" data-lcr-section-id="4.A.6">
         <div className="container">
           <div className="split research-haquantum-intro">
-            <Heading title={english ? haQuantumTitleEnglish : haQuantumTitle} />
+            <Heading title={copy(haQuantumTitle, haQuantumTitleEnglish)} />
             <div className="body-copy">
               <HaQuantumDate />
               <p>{hq.summary}</p>
@@ -327,14 +338,15 @@ export function ResearchArea() {
   const { slug } = useParams();
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
-  const lines = english ? researchLinesEnglish : researchLines;
+  const copy = localizedCopy(locale);
+  const lines =
+    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
   const selected = lines.find((line) => line.slug === slug);
   if (!selected) return <NotFound />;
   return (
     <>
       <Intro
-        eyebrow={(english ? 'Research · Area ' : 'Pesquisa · Área ') + selected.label}
+        eyebrow={copy('Pesquisa · Área ', 'Research · Area ') + selected.label}
         title={selected.title}
       >
         <p>{selected.summary}</p>
@@ -374,14 +386,19 @@ export function ResearchArea() {
 export function Journey() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
-  const lines = english ? researchLinesEnglish : researchLines;
-  const pathwayItems = english ? pathwayEnglish : pathway;
+  const copy = localizedCopy(locale);
+  const lines =
+    locale === 'es-ES' ? researchLinesSpanish : english ? researchLinesEnglish : researchLines;
+  const pathwayItems = (english ? pathwayEnglish : pathway).map((item) => ({
+    ...item,
+    name: copy(item.name, item.name),
+    summary: copy(item.summary, item.summary),
+  }));
   return (
     <div className="research-experience">
       <Intro
         eyebrow={copy('Pesquisa e formação', 'Research and education')}
-        title={english ? journeyTitleEnglish : journeyTitle}
+        title={copy(journeyTitle, journeyTitleEnglish)}
         id="jornada-inicio"
         sectionCode="4.B.1"
       >
@@ -514,14 +531,17 @@ export function Journey() {
 
 export function HaQuantum() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
-  const hq = english ? haQuantumEnglish : haQuantum;
+  const copy = localizedCopy(locale);
+  const hq = {
+    ...haQuantum,
+    summary: copy(haQuantum.summary, haQuantumEnglish.summary),
+    partnership: copy(haQuantum.partnership, haQuantumEnglish.partnership),
+  };
   return (
     <div className="research-experience">
       <Intro
         eyebrow={copy('Eventos do Instituto Foton', 'Instituto Foton events')}
-        title={english ? haQuantumTitleEnglish : haQuantumTitle}
+        title={copy(haQuantumTitle, haQuantumTitleEnglish)}
         id="haquantum-inicio"
         sectionCode="4.C.1"
       >

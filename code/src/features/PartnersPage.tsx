@@ -1,11 +1,11 @@
 import { Intro } from '../components/ui';
 import PartnerEcosystem from './PartnerEcosystem';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 
 export default function PartnersPage() {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   return (
     <>
       <Intro

@@ -11,10 +11,12 @@ import {
   journeyTitleEnglish,
   researchLines,
   researchLinesEnglish,
+  researchLinesSpanish,
   researchTitle,
   researchTitleEnglish,
 } from '../features/content';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 import { LanguageSelector } from '../components/ui/LanguageSelector';
 
 const titles: Record<string, string> = {
@@ -57,6 +59,15 @@ const englishTitles: Record<string, string> = {
   '/termos': 'Terms of use',
 };
 
+const spanishTitles: Record<string, string> = {
+  ...Object.fromEntries(
+    Object.entries(titles).map(([path, title]) => [path, localizedCopy('es-ES')(title, title)]),
+  ),
+  ...Object.fromEntries(
+    researchLinesSpanish.map(({ slug, title }) => ['/pesquisa/' + slug, title]),
+  ),
+};
+
 const englishDescriptions: Record<string, string> = {
   '/': 'Quantum science, people, and possibilities. Discover Instituto Foton, its research areas, and ways to support science.',
   '/instituto':
@@ -87,8 +98,9 @@ export default function Layout() {
   const menuOpen = menuAt === location.pathname;
   const { locale, t } = useLanguage();
   const isEnglish = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const navigation = [
-    ['/', locale === 'en-US' ? 'Home' : 'Início'],
+    ['/', copy('Início', 'Home')],
     ['/instituto', t.common.institute],
     ['/parceiros', t.common.partners],
     ['/pesquisa', t.common.research],
@@ -96,17 +108,19 @@ export default function Layout() {
     ['/noticias', t.common.news],
   ] as const;
   useEffect(() => {
-    const pageTitle = isEnglish
-      ? englishTitles[location.pathname] || 'Instituto Foton'
-      : titles[location.pathname] || 'Instituto Foton';
+    const localizedTitles = locale === 'es-ES' ? spanishTitles : isEnglish ? englishTitles : titles;
+    const pageTitle = localizedTitles[location.pathname] || 'Instituto Foton';
     document.title = pageTitle + ' — Instituto Foton';
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (description)
-      description.content = isEnglish
-        ? englishDescriptions[location.pathname] || englishDescriptions['/']
-        : location.pathname === '/redes-sociais'
-          ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
-          : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
+      description.content =
+        locale === 'es-ES'
+          ? 'Ciencia, personas y posibilidades. Conoce el Instituto Foton, sus áreas de investigación y formas de apoyar la ciencia.'
+          : isEnglish
+            ? englishDescriptions[location.pathname] || englishDescriptions['/']
+            : location.pathname === '/redes-sociais'
+              ? 'Acompanhe o Instituto Foton no Instagram e no LinkedIn. Conheça publicações oficiais sobre ciência, pesquisa, inovação e eventos.'
+              : 'Ciência, pessoas e possibilidades. Conheça o Instituto Foton, suas áreas de pesquisa e caminhos para apoiar a ciência brasileira.';
     document.querySelector('meta[name="robots"][data-dynamic]')?.remove();
     if (/^\/(admin|entrar|auth)(\/|$)/.test(location.pathname)) {
       const meta = document.createElement('meta');
@@ -129,7 +143,7 @@ export default function Layout() {
         document.getElementById(location.hash.slice(1))?.scrollIntoView(),
       );
     } else window.scrollTo({ top: 0 });
-  }, [location.pathname, location.hash, isEnglish]);
+  }, [location.pathname, location.hash, isEnglish, locale]);
   useEffect(() => {
     // A página de parceiros deve renderizar a grade imediatamente, sem transição 3D.
     if (location.pathname === '/parceiros') return;
@@ -340,9 +354,7 @@ export default function Layout() {
             <div>
               <h2>{t.common.explore}</h2>
               <Link to="/instituto">{t.common.institute}</Link>
-              <Link to="/pesquisa">
-                {isEnglish ? 'Research and Innovative Scientist Journey' : researchTitle}
-              </Link>
+              <Link to="/pesquisa">{copy(researchTitle, researchTitleEnglish)}</Link>
               <Link to="/parceiros">{t.common.partners}</Link>
               <Link to="/manifesto">Manifesto</Link>
             </div>

@@ -5,6 +5,7 @@ import { BaseCarousel, carouselPresets } from '../components/carousel';
 
 import { imageAsset, assetUrl } from '../lib/siteAssets';
 import { useLanguage } from '../i18n';
+import { localizedCopy } from '../i18n/localizedCopy';
 
 const manifestoImage = (id: string) => assetUrl(imageAsset(id).pngPath);
 
@@ -169,7 +170,7 @@ export default function ManifestoMedia({
   const { locale } = useLanguage();
   const [active, setActive] = useState<number | null>(null);
   const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   const localizedVisitImages = english
     ? visitImages.map((image, index) => ({
         ...image,
