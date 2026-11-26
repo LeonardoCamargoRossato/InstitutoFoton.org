@@ -15,7 +15,7 @@ export function dateLabel(value: string | null, locale = 'pt-BR'): string {
   const date = new Date(value);
   return Number.isNaN(date.valueOf())
     ? ''
-    : new Intl.DateTimeFormat(locale === 'en-US' ? 'en-US' : 'pt-BR', {
+    : new Intl.DateTimeFormat(locale, {
         dateStyle: 'long',
         timeZone: 'UTC',
       }).format(date);
