@@ -354,9 +354,7 @@ export default function Layout() {
             <div>
               <h2>{t.common.explore}</h2>
               <Link to="/instituto">{t.common.institute}</Link>
-              <Link to="/pesquisa">
-                {copy(researchTitle, researchTitleEnglish)}
-              </Link>
+              <Link to="/pesquisa">{copy(researchTitle, researchTitleEnglish)}</Link>
               <Link to="/parceiros">{t.common.partners}</Link>
               <Link to="/manifesto">Manifesto</Link>
             </div>

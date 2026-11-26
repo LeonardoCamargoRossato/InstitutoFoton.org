@@ -32,9 +32,7 @@ export function Presentation() {
         <div className="container">
           <Suspense
             fallback={
-              <p role="status">
-                {copy('Preparando o visualizador…', 'Preparing the viewer…')}
-              </p>
+              <p role="status">{copy('Preparando o visualizador…', 'Preparing the viewer…')}</p>
             }
           >
             <PdfViewer key={url} url={url} allowExport={doc?.allow_page_export ?? true} />

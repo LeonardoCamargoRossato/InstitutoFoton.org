@@ -63,10 +63,7 @@ export default function LinkedInHighlight() {
         >
           {copy('Acompanhar no LinkedIn', 'Follow on LinkedIn')}{' '}
           <ArrowUpRight size={18} aria-hidden="true" />
-          <span className="sr-only">
-            {' '}
-            {copy('(abre em nova aba)', '(opens in a new tab)')}
-          </span>
+          <span className="sr-only"> {copy('(abre em nova aba)', '(opens in a new tab)')}</span>
         </a>
       </div>
     </div>

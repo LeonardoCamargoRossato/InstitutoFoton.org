@@ -56,7 +56,9 @@ export default function InstitutePurpose() {
       <div className="container">
         <div className="institute-purpose-heading">
           <p className="institute-purpose-eyebrow">{copy('Nossa essência', 'Our essence')}</p>
-          <h2 id="institute-purpose-title">{copy('Por que o Foton existe.', 'Why Foton exists.')}</h2>
+          <h2 id="institute-purpose-title">
+            {copy('Por que o Foton existe.', 'Why Foton exists.')}
+          </h2>
         </div>
         <div className="institute-purpose-grid">
           {pillars.map(

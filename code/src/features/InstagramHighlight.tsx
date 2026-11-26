@@ -43,10 +43,7 @@ export default function InstagramHighlight() {
           >
             {copy('Seguir no Instagram', 'Follow on Instagram')}{' '}
             <ArrowUpRight size={18} aria-hidden="true" />
-            <span className="sr-only">
-              {' '}
-              {copy('(abre em nova aba)', '(opens in a new tab)')}
-            </span>
+            <span className="sr-only"> {copy('(abre em nova aba)', '(opens in a new tab)')}</span>
           </a>
         </div>
         <div className="social-instagram-highlight__visual">
