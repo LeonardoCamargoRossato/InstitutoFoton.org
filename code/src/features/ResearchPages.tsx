@@ -100,6 +100,7 @@ function PulsoVideo() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
   const media = english ? researchMediaEnglish : researchMedia;
+  const copy = localizedCopy(locale);
   return (
     <a
       className="pulso-player"
@@ -107,9 +108,7 @@ function PulsoVideo() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={
-        english
-          ? 'Open the Pulse Stage video on YouTube (new tab)'
-          : 'Abrir o vídeo da Etapa Pulso no YouTube (nova aba)'
+        copy('Abrir o vídeo da Etapa Pulso no YouTube (nova aba)', 'Open the Pulse Stage video on YouTube (new tab)')
       }
     >
       <img
@@ -130,6 +129,8 @@ function PulsoVideo() {
 function HaQuantumDate() {
   const { locale } = useLanguage();
   const english = locale === 'en-US';
+  if (locale === 'zh-CN') return <p className="research-date">2026 年 5 月 9 日至 6 月 11 日</p>;
+  if (locale === 'es-ES') return <p className="research-date">9 de mayo al 11 de junio de 2026</p>;
   return (
     <p className="research-date">
       <time dateTime="2026-05-09">{english ? 'May 9' : '9 de maio'}</time> {english ? 'to' : 'a'}{' '}

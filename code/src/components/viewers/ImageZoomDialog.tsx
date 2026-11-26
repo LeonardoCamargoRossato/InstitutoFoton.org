@@ -8,6 +8,7 @@ import {
   type WheelEvent,
 } from 'react';
 import { useLanguage } from '../../i18n';
+import { localizedCopy } from '../../i18n/localizedCopy';
 import { createPortal } from 'react-dom';
 import {
   ChevronLeft,
@@ -50,7 +51,7 @@ export function ImageZoomDialog({
   downloadName,
 }: Props) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
+  const copy = localizedCopy(locale);
   const isCarousel = variant === 'carousel';
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
   const [errorSrc, setErrorSrc] = useState<string | null>(null);
@@ -306,8 +307,8 @@ export function ImageZoomDialog({
               type="button"
               onClick={() => setScale((value) => value + (isCarousel ? 0.25 : 0.5))}
               disabled={zoom >= 6}
-              aria-label={english ? 'Enlarge image' : 'Ampliar imagem'}
-              title={english ? 'Enlarge image' : 'Ampliar imagem'}
+              aria-label={copy('Ampliar imagem', 'Enlarge image')}
+              title={copy('Ampliar imagem', 'Enlarge image')}
             >
               <Plus size={20} />
             </button>
@@ -316,8 +317,8 @@ export function ImageZoomDialog({
                 className="foton-zoom-percent"
                 type="text"
                 inputMode="decimal"
-                aria-label={english ? 'Zoom percentage' : 'Percentual do zoom'}
-                title={english ? 'Enter zoom percentage' : 'Digite o percentual de zoom'}
+                aria-label={copy('Percentual do zoom', 'Zoom percentage')}
+                title={copy('Digite o percentual de zoom', 'Enter zoom percentage')}
                 value={zoomDraft}
                 onChange={(event) => setZoomDraft(event.target.value)}
                 onBlur={commitPercent}
@@ -338,8 +339,8 @@ export function ImageZoomDialog({
               type="button"
               onClick={() => setScale((value) => value - (isCarousel ? 0.25 : 0.5))}
               disabled={zoom <= (isCarousel ? 0.25 : 1)}
-              aria-label={english ? 'Zoom out' : 'Reduzir imagem'}
-              title={english ? 'Zoom out' : 'Reduzir imagem'}
+              aria-label={copy('Reduzir imagem', 'Zoom out')}
+              title={copy('Reduzir imagem', 'Zoom out')}
             >
               <Minus size={20} />
             </button>
@@ -348,8 +349,8 @@ export function ImageZoomDialog({
                 <a
                   href={src}
                   download={downloadName ?? src.split('/').pop() ?? 'fotografia.png'}
-                  aria-label={english ? 'Download original PNG' : 'Baixar PNG original'}
-                  title={english ? 'Download original PNG' : 'Baixar PNG original'}
+                  aria-label={copy('Baixar PNG original', 'Download original PNG')}
+                  title={copy('Baixar PNG original', 'Download original PNG')}
                 >
                   <Download size={20} />
                 </a>
@@ -358,21 +359,13 @@ export function ImageZoomDialog({
                     type="button"
                     aria-label={
                       fullscreen
-                        ? english
-                          ? 'Exit fullscreen'
-                          : 'Reduzir para visualização intermediária'
-                        : english
-                          ? 'Enter fullscreen'
-                          : 'Expandir para tela cheia'
+                        ? copy('Reduzir para visualização intermediária', 'Exit fullscreen')
+                        : copy('Expandir para tela cheia', 'Enter fullscreen')
                     }
                     title={
                       fullscreen
-                        ? english
-                          ? 'Exit fullscreen'
-                          : 'Reduzir para visualização intermediária'
-                        : english
-                          ? 'Enter fullscreen'
-                          : 'Expandir para tela cheia'
+                        ? copy('Reduzir para visualização intermediária', 'Exit fullscreen')
+                        : copy('Expandir para tela cheia', 'Enter fullscreen')
                     }
                     onClick={() => {
                       if (fullscreen) void reduce();
@@ -388,7 +381,7 @@ export function ImageZoomDialog({
               <button
                 type="button"
                 onClick={() => setScale(1)}
-                aria-label={english ? 'Fit image to screen' : 'Ajustar imagem à tela'}
+                aria-label={copy('Ajustar imagem à tela', 'Fit image to screen')}
               >
                 <Maximize size={20} />
               </button>
@@ -397,8 +390,8 @@ export function ImageZoomDialog({
               ref={closeRef}
               type="button"
               onClick={() => void closeAll()}
-              aria-label={english ? 'Close gallery' : 'Fechar galeria'}
-              title={english ? 'Close gallery' : 'Fechar galeria'}
+              aria-label={copy('Fechar galeria', 'Close gallery')}
+              title={copy('Fechar galeria', 'Close gallery')}
             >
               <X size={22} />
             </button>
@@ -409,7 +402,7 @@ export function ImageZoomDialog({
             <button
               className="foton-zoom-arrow previous"
               onClick={onPrevious}
-              aria-label={english ? 'Previous image' : 'Imagem anterior'}
+              aria-label={copy('Imagem anterior', 'Previous image')}
             >
               <ChevronLeft />
             </button>
@@ -435,21 +428,19 @@ export function ImageZoomDialog({
             <button
               className="foton-zoom-arrow next"
               onClick={onNext}
-              aria-label={english ? 'Next image' : 'Próxima imagem'}
+              aria-label={copy('Próxima imagem', 'Next image')}
             >
               <ChevronRight />
             </button>
           )}
           {showFullscreenToast && fullscreen && (
             <span className="foton-fullscreen-toast" role="status">
-              {english ? 'Fullscreen' : 'Tela cheia'}
+              {copy('Tela cheia', 'Fullscreen')}
             </span>
           )}
         </div>
         <p className="foton-zoom-help">
-          {english
-            ? 'Mouse wheel: zoom · Drag to pan · Double-click: enlarge · Esc: close'
-            : 'Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar'}
+          {copy('Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar', 'Mouse wheel: zoom · Drag to pan · Double-click: enlarge · Esc: close')}
         </p>
       </div>
     </div>,

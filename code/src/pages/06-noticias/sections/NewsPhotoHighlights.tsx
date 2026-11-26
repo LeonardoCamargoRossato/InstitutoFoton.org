@@ -4,6 +4,7 @@ import { ImageCard } from '../../../components/cards';
 import type { NewsCarouselImage } from './NewsCarousel';
 import { assetUrl } from '../../../lib/siteAssets';
 import { useLanguage } from '../../../i18n';
+import { localizedCopy } from '../../../i18n/localizedCopy';
 import '../../../features/NewsMedia.css';
 
 type Props = {
@@ -13,8 +14,7 @@ type Props = {
 export function NewsPhotoHighlights({ images }: Props) {
   const [active, setActive] = useState<number | null>(null);
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
   if (images.length === 0) return null;
   const current = active === null ? null : images[active];
 

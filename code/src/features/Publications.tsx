@@ -14,6 +14,7 @@ import { FoundationGallery } from './foundation';
 import { assetUrl } from '../lib/siteAssets';
 import newsMedia from '../content/news-media.json';
 import newsMediaEnglish from '../content/news-media.en.json';
+import newsMediaChinese from '../content/news-media.zh.json';
 import './NewsMedia.css';
 import { useLanguage } from '../i18n';
 import { localizedCopy } from '../i18n/localizedCopy';
@@ -81,11 +82,13 @@ function ArticleBody({ item, media }: { item: Publication; media: typeof newsMed
   const english = locale === 'en-US';
   const isLeonti = item.slug === 'uniso-quantum-day-entrega-projeto-leonti';
   const heading =
-    locale === 'es-ES'
-      ? '### Una construcción con diferentes competencias'
-      : english
-        ? '### A project built with different skills'
-        : '### Uma construção com diferentes competências';
+    locale === 'zh-CN'
+      ? '### 汇聚不同专业能力'
+      : locale === 'es-ES'
+        ? '### Una construcción con diferentes competencias'
+        : english
+          ? '### A project built with different skills'
+          : '### Uma construção com diferentes competências';
   const splitAt = isLeonti ? item.body.indexOf(heading) : -1;
   const introduction = splitAt < 0 ? item.body : item.body.slice(0, splitAt);
   const continuation = splitAt < 0 ? '' : item.body.slice(splitAt);
@@ -271,7 +274,7 @@ export function Article() {
   const copy = localizedCopy(locale);
   const { slug = '' } = useParams();
   const loader = useCallback(() => publication(slug, locale), [slug, locale]);
-  const media = english ? newsMediaEnglish : newsMedia;
+  const media = locale === 'zh-CN' ? newsMediaChinese : english ? newsMediaEnglish : newsMedia;
   const resource = useResource(loader);
   const [copied, setCopied] = useState(false);
   const item = resource.data;
@@ -385,7 +388,7 @@ export function Article() {
                             loading="lazy"
                             tabIndex={0}
                             role="button"
-                            aria-label={`${english ? 'Enlarge' : 'Ampliar'}: ${media.alt}`}
+                            aria-label={`${copy('Ampliar', 'Enlarge')}: ${media.alt}`}
                           />
                           <figcaption>{media.credit}</figcaption>
                         </figure>

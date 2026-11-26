@@ -1,6 +1,7 @@
 import { BaseCarousel, carouselPresets } from '../../../components/carousel';
 import { assetUrl } from '../../../lib/siteAssets';
 import { useLanguage } from '../../../i18n';
+import { localizedCopy } from '../../../i18n/localizedCopy';
 import '../../../features/NewsMedia.css';
 
 export type NewsCarouselImage = {
@@ -21,13 +22,12 @@ type Props = {
 
 export function NewsCarousel({ title, label, images }: Props) {
   const { locale } = useLanguage();
-  const english = locale === 'en-US';
-  const copy = (pt: string, en: string) => (english ? en : pt);
+  const copy = localizedCopy(locale);
 
   return (
     <BaseCarousel
       titulo={title}
-      label={copy(`Carrossel de fotos do ${label}`, `Photo carousel for ${label}`)}
+      label={`${copy('Carrossel de fotos do', 'Photo carousel for')} ${label}`}
       listaWebP={images.map((image) => ({
         id: image.name,
         src: assetUrl(image.preview),
