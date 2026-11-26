@@ -123,8 +123,22 @@ export default function ManifestoHero() {
             {copy('Uma construção nacional', 'A national endeavor')}
           </span>
           <h1 id="manifesto-hero-title">
-            <span>{locale === 'zh-CN' ? '国家量子' : locale === 'es-ES' ? 'Manifiesto ' : locale === 'en-US' ? 'National ' : 'Manifesto '}</span>
-            <strong>{locale === 'zh-CN' ? '宣言' : locale === 'en-US' ? 'Quantum Manifesto' : copy('Quântico Nacional', 'National Quantum Manifesto')}</strong>
+            <span>
+              {locale === 'zh-CN'
+                ? '国家量子'
+                : locale === 'es-ES'
+                  ? 'Manifiesto '
+                  : locale === 'en-US'
+                    ? 'National '
+                    : 'Manifesto '}
+            </span>
+            <strong>
+              {locale === 'zh-CN'
+                ? '宣言'
+                : locale === 'en-US'
+                  ? 'Quantum Manifesto'
+                  : copy('Quântico Nacional', 'National Quantum Manifesto')}
+            </strong>
           </h1>
           <p>
             {copy(

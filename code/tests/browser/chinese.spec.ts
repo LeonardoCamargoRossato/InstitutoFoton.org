@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test('compact picker enables Chinese and preserves the language across routes', async ({ page }) => {
+test('compact picker enables Chinese and preserves the language across routes', async ({
+  page,
+}) => {
   await page.goto('./');
   await page.locator('.language-control').click();
   await expect(page.locator('.language-menu button')).toHaveCount(4);

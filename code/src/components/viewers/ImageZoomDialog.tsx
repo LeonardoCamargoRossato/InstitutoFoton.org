@@ -440,7 +440,10 @@ export function ImageZoomDialog({
           )}
         </div>
         <p className="foton-zoom-help">
-          {copy('Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar', 'Mouse wheel: zoom · Drag to pan · Double-click: enlarge · Esc: close')}
+          {copy(
+            'Roda do mouse: zoom · Arraste para mover · Duplo clique: ampliar · Esc: voltar',
+            'Mouse wheel: zoom · Drag to pan · Double-click: enlarge · Esc: close',
+          )}
         </p>
       </div>
     </div>,

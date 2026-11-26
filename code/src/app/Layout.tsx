@@ -119,7 +119,13 @@ export default function Layout() {
   ] as const;
   useEffect(() => {
     const localizedTitles =
-      locale === 'zh-CN' ? chineseTitles : locale === 'es-ES' ? spanishTitles : isEnglish ? englishTitles : titles;
+      locale === 'zh-CN'
+        ? chineseTitles
+        : locale === 'es-ES'
+          ? spanishTitles
+          : isEnglish
+            ? englishTitles
+            : titles;
     const pageTitle = localizedTitles[location.pathname] || 'Instituto Foton';
     document.title = pageTitle + ' — Instituto Foton';
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');

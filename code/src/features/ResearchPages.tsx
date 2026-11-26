@@ -107,9 +107,10 @@ function PulsoVideo() {
       href={pulso.watch}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={
-        copy('Abrir o vídeo da Etapa Pulso no YouTube (nova aba)', 'Open the Pulse Stage video on YouTube (new tab)')
-      }
+      aria-label={copy(
+        'Abrir o vídeo da Etapa Pulso no YouTube (nova aba)',
+        'Open the Pulse Stage video on YouTube (new tab)',
+      )}
     >
       <img
         src={assetUrl(media.pulso.previewPath)}

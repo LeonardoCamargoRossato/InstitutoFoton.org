@@ -212,9 +212,10 @@ export default function PdfViewer({ url, allowExport }: { url: string; allowExpo
         className="pdf-canvas-scroll"
         tabIndex={0}
         role="region"
-        aria-label={
-          copy('Página da apresentação, use as setas para rolar', 'Presentation page; use the arrow keys to scroll')
-        }
+        aria-label={copy(
+          'Página da apresentação, use as setas para rolar',
+          'Presentation page; use the arrow keys to scroll',
+        )}
       >
         <canvas
           ref={canvas}

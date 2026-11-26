@@ -60,15 +60,7 @@ function ProgressiveImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function Video({
-  src,
-  image,
-  title,
-}: {
-  src: string;
-  image: string;
-  title: string;
-}) {
+function Video({ src, image, title }: { src: string; image: string; title: string }) {
   const { locale } = useLanguage();
   const copy = localizedCopy(locale);
   const [playing, setPlaying] = useState(false);
@@ -169,11 +161,14 @@ export default function ManifestoMedia({
 }) {
   const { locale } = useLanguage();
   const [active, setActive] = useState<number | null>(null);
-    const copy = localizedCopy(locale);
+  const copy = localizedCopy(locale);
   const localizedVisitImages = visitImages.map((image, index) => ({
     ...image,
     title: `${copy('Visita técnica', 'Technical visit')} ${String(index + 1).padStart(2, '0')}`,
-    caption: copy(image.caption, 'Record of Foton’s collaboration with researchers, institutions, and science and innovation environments.'),
+    caption: copy(
+      image.caption,
+      'Record of Foton’s collaboration with researchers, institutions, and science and innovation environments.',
+    ),
   }));
 
   if (kind === 'importance')
@@ -192,9 +187,7 @@ export default function ManifestoMedia({
     const media = letterMedia[region as keyof typeof letterMedia];
     const localizedRegion = copy(region, regionEnglishNames[region] ?? region);
     if (media.type === 'video')
-      return (
-        <Video src={media.src} image={media.image} title={localizedRegion} />
-      );
+      return <Video src={media.src} image={media.image} title={localizedRegion} />;
     const single = [
       {
         src: media.image,
@@ -248,11 +241,9 @@ export default function ManifestoMedia({
           previousLabel={copy('Visitas anteriores', 'Previous visits')}
           nextLabel={copy('Próximas visitas', 'Next visits')}
           imageLabel={(index, _count, image) =>
-            `${copy('Ampliar', 'Enlarge')} ${image.title ?? (`${copy('visita', 'visit')} ${index + 1}`)}`
+            `${copy('Ampliar', 'Enlarge')} ${image.title ?? `${copy('visita', 'visit')} ${index + 1}`}`
           }
-          thumbnailLabel={(index) =>
-            `${copy('Selecionar visita', 'Select visit')} ${index + 1}`
-          }
+          thumbnailLabel={(index) => `${copy('Selecionar visita', 'Select visit')} ${index + 1}`}
         />
       </div>
     );
